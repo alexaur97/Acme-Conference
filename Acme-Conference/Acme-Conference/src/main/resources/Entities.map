@@ -1,3 +1,22 @@
 #./src/main/resources/Entities.map
-#Wed Jul 03 19:11:14 CEST 2019
-userAccount1=2
+#Wed Jul 10 14:21:11 CEST 2019
+reviewer3=37
+reviewer2=36
+reviewer1=35
+author3=34
+author2=33
+author1=32
+userAccount10=30
+sponsor3=40
+userAccount9=29
+sponsor2=39
+admin=31
+userAccount8=28
+sponsor1=38
+userAccount7=27
+userAccount6=26
+userAccount5=25
+userAccount4=24
+userAccount3=23
+userAccount2=22
+userAccount1=21

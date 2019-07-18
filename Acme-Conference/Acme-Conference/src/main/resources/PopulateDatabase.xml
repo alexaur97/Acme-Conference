@@ -1,35 +1,350 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 
- * PopulateDatabase.xml
- *
- * Copyright (C) 2018 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- -->
+<!-- * PopulateDatabase.xml * * Copyright (C) 2018 Universidad de Sevilla 
+	* * The use of this project is hereby constrained to the conditions of the 
+	* TDG Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
-	
+
 	<!-- User accounts -->
 
 	<bean id="userAccount1" class="security.UserAccount">
 		<property name="username" value="admin" />
-		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="password"
+			value="21232f297a57a5a743894a0e4a801fc3" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
+					<property name="authority" value="ADMINISTRATOR" />
 				</bean>
 			</list>
 		</property>
 	</bean>
+
+	<bean id="userAccount2" class="security.UserAccount">
+		<property name="username" value="author1" />
+		<property name="password"
+			value="b312ba4ffd5245fa2a1ab819ec0d0347" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="AUTHOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount3" class="security.UserAccount">
+		<property name="username" value="author2" />
+		<property name="password"
+			value="9bd97baef2b853ec00cc3cffd269f679" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="AUTHOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="author3" />
+		<property name="password"
+			value="c59a474d5ade296a15ebc40d6c4e8e11" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="AUTHOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="reviewer1" />
+		<property name="password"
+			value="6ce19528a40dde9521d97cf7ba264eca" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="REVIEWER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount6" class="security.UserAccount">
+		<property name="username" value="reviewer2" />
+		<property name="password"
+			value="2693b57f0f59df94caacefb811e99851" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="REVIEWER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount7" class="security.UserAccount">
+		<property name="username" value="reviewer3" />
+		<property name="password"
+			value="315d31e7c8f3a136610aafa220d689be" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="REVIEWER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount8" class="security.UserAccount">
+		<property name="username" value="sponsor1" />
+		<property name="password"
+			value="42c63ad66d4dc07ed17753772bef96d6" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount9" class="security.UserAccount">
+		<property name="username" value="sponsor2" />
+		<property name="password"
+			value="3dc67f80a03324e01b1640f45d107485" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount10" class="security.UserAccount">
+		<property name="username" value="sponsor3" />
+		<property name="password"
+			value="857a54956061fdc1b88d7722cafe6519" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Other domain beans come here -->
 	
-	<!-- Other domain beans come here -->	
+	<!-- Actors -->
+
+	<bean id="admin" class="domain.Administrator">
+		<property name="address"
+			value="1600 Pennsylvania Ave NW, Washington, DC 20500, USA" />
+		<property name="email" value="admin@" />
+		<property name="middleName" value="F" />
+		<property name="name" value="John" />
+		<property name="phone" value="654321098" />
+		<property name="surname" value="Kennedy" />
+		<property name="photo"
+			value="https://upload.wikimedia.org/wikipedia/commons/5/5e/John_F._Kennedy%2C_White_House_photo_portrait%2C_looking_up.jpg" />
+		<property name="userAccount" ref="userAccount1" />
+	</bean>
+
+	<bean id="author1" class="domain.Author">
+		<property name="email" value="author1@gmail.com" />
+		<property name="name" value="Robin" />
+		<property name="phone" value="654321098" />
+		<property name="surname" value="Van Persie" />
+		<property name="photo"
+			value="https://as01.epimg.net/en/imagenes/2019/05/12/football/1557681938_307363_noticia_normal.jpg" />
+		<property name="userAccount" ref="userAccount2" />
+	</bean>
+
+	<bean id="author2" class="domain.Author">
+		<property name="email" value="author2@gmail.com" />
+		<property name="name" value="Andrei" />
+		<property name="phone" value="654321098" />
+		<property name="surname" value="Kirilenko" />
+		<property name="photo"
+			value="https://si.wsj.net/public/resources/images/BN-FU755_nynets_P_20141201171421.jpg" />
+		<property name="userAccount" ref="userAccount3" />
+	</bean>
+
+	<bean id="author3" class="domain.Author">
+		<property name="email" value="author3@gmail.com" />
+		<property name="name" value="Marco" />
+		<property name="phone" value="654321098" />
+		<property name="surname" value="Melandri" />
+		<property name="photo"
+			value="https://www.gpone.com/sites/default/files/styles/article_big_breakpoints_theme_bootstrap_screen-lg-min_1x/public/images/2018/article/foto/11/SBK//melandri-viso.jpg?itok=X7Fq3qBL" />
+		<property name="userAccount" ref="userAccount4" />
+	</bean>
+
+	<bean id="reviewer1" class="domain.Reviewer">
+		<property name="email" value="reviewer1@gmail.com" />
+		<property name="name" value="Anna" />
+		<property name="phone" value="654321098" />
+		<property name="surname" value="Kournikova" />
+		<property name="photo"
+			value="https://storage.googleapis.com/mamamia-pwa.appspot.com/images/annakournikova-2019.jpg.1200x1200.jpg" />
+		<property name="userAccount" ref="userAccount5" />
+		<property name="keyWords">
+			<list>
+				<value>key1</value>
+				<value>key2</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="reviewer2" class="domain.Reviewer">
+		<property name="email" value="reviewer2@gmail.com" />
+		<property name="name" value="Pyotr" />
+		<property name="phone" value="654321098" />
+		<property name="middleName" value="Ilyich" />
+		<property name="surname" value="Tchaikovsky" />
+		<property name="photo"
+			value="https://assets.classicfm.com/2012/24/tchaikovsky-1339754299-list-handheld-0.jpg" />
+		<property name="userAccount" ref="userAccount6" />
+		<property name="keyWords">
+			<list>
+				<value>key1</value>
+				<value>key2</value>
+			</list>
+		</property>
+	</bean>
 	
+	<bean id="reviewer3" class="domain.Reviewer">
+		<property name="email" value="reviewer3@gmail.com" />
+		<property name="name" value="Uma" />
+		<property name="phone" value="654321098" />
+		<property name="surname" value="Thurman" />
+		<property name="photo"
+			value="https://cdn-media.festival-cannes.com/media_image/0001/51/thumb_50800_media_image_926x584.jpg" />
+		<property name="userAccount" ref="userAccount7" />
+		<property name="keyWords">
+			<list>
+				<value>key1</value>
+				<value>key2</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="sponsor1" class="domain.Sponsor">
+		<property name="email" value="sponsor1@gmail.com" />
+		<property name="name" value="Carolina" />
+		<property name="phone" value="654321098" />
+		<property name="surname" value="Herrera" />
+		<property name="photo"
+			value="https://ichef.bbci.co.uk/news/660/cpsprodpb/D72D/production/_107358055_gettyimages-1097920348.jpg" />
+		<property name="userAccount" ref="userAccount8" />
+	</bean>
+	
+	<bean id="sponsor2" class="domain.Sponsor">
+		<property name="email" value="sponsor2@gmail.com" />
+		<property name="name" value="Antonio" />
+		<property name="phone" value="654321098" />
+		<property name="surname" value="Banderas" />
+		<property name="photo"
+			value="https://i2.wp.com/www.uselessdaily.com/wp-content/uploads/2017/01/antonio-banderas.jpg?fit=1920%2C1200" />
+		<property name="userAccount" ref="userAccount9" />
+	</bean>
+	
+	<bean id="sponsor3" class="domain.Sponsor">
+		<property name="email" value="sponsor3@gmail.com" />
+		<property name="name" value="Christian" />
+		<property name="phone" value="654321098" />
+		<property name="surname" value="Dior" />
+		<property name="photo"
+			value="https://pmcwwd.files.wordpress.com/2017/07/christian_dior_france93.jpg" />
+		<property name="userAccount" ref="userAccount10" />
+	</bean>
+	
+	<!-- Messages -->
+	
+	<bean id="message1" class="domain.Message">
+		<property name="body" value="Draco dormiens nunquam titillandus" />
+		<property name="moment" value="10/10/2018"/>
+		<property name="recipient" ref="author1" />
+		<property name="sender" ref="admin" />
+		<property name="subject" value="Superbia in Proelia" />
+		<property name="topic" value="The Best Topic"/>
+	</bean>
+
+	<bean id="message2" class="domain.Message">
+		<property name="body" value="Draco dormiens nunquam titillandus" />
+		<property name="moment" value="10/10/2018"/>
+		<property name="recipient" ref="author1" />
+		<property name="sender" ref="reviewer2" />
+		<property name="subject" value="Second subject" />
+		<property name="topic" value="The Best Topic"/>
+	</bean>	
+	
+	<bean id="message3" class="domain.Message">
+		<property name="body" value="Draco dormiens nunquam titillandus" />
+		<property name="moment" value="10/10/2018"/>
+		<property name="recipient" ref="author1" />
+		<property name="sender" ref="reviewer3" />
+		<property name="subject" value="Third subject" />
+		<property name="topic" value="The Best Topic"/>
+	</bean>
+
+	<bean id="message4" class="domain.Message">
+		<property name="body" value="Draco dormiens nunquam titillandus" />
+		<property name="moment" value="10/10/2018"/>
+		<property name="recipient" ref="author1" />
+		<property name="sender" ref="author2" />
+		<property name="subject" value="Fourth subject" />
+		<property name="topic" value="Other Topic"/>
+	</bean>
+	
+	<bean id="message5" class="domain.Message">
+		<property name="body" value="Draco dormiens nunquam titillandus" />
+		<property name="moment" value="10/10/2018"/>
+		<property name="recipient" ref="author1" />
+		<property name="sender" ref="author3" />
+		<property name="subject" value="Fifth subject" />
+		<property name="topic" value="Other Topic"/>
+	</bean>
+	
+	<bean id="message6" class="domain.Message">
+		<property name="body" value="Draco dormiens nunquam titillandus" />
+		<property name="moment" value="10/10/2018"/>
+		<property name="recipient" ref="author1" />
+		<property name="sender" ref="reviewer1" />
+		<property name="subject" value="Sixth subject" />
+		<property name="topic" value="Other Topic"/>
+	</bean>
+	
+	<!-- Conferences -->
+	
+	<bean id="conference1" class="domain.Conference">
+		<property name="acronym" value="BAE" />
+		<property name="administrator" ref="admin"/>
+		<property name="cameraReady" value="12/30/2018 15:30" />
+		<property name="category" ref="category1" />
+		<property name="endDate" value="12/30/2018 20:00" />
+		<property name="fee" value="3.50"/>
+		<property name="notification" value="12/29/2018 20:00" />
+		<property name="startDate" value="12/30/2018 18:30" />
+		<property name="submission" value="12/30/2018 17:30" />
+		<property name="summary" value="Summary, Restary, Multiplicary y Dividiry" />
+		<property name="title" value="British Aerospace"/>
+		<property name="venue" value="Oh, look at this venue" />
+	</bean>
+	
+	<!-- Categories -->
+
+	<bean id="category1" class="domain.Category">
+		<property name="title" value="CONFERENCE" />
+	</bean>
+
 </beans>

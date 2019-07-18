@@ -32,4 +32,20 @@
 	
 	<!-- Other domain beans come here -->	
 	
+	<bean id="admin" class="domain.Administrator">
+		<property name="address" value="c/ Marcelo Spínola nº1" />
+		<property name="email" value="admin@" />
+		<property name="middleName" value="F" />
+		<property name="name" value="John" />
+		<property name="phone" value="654321098" />
+		<property name="surname" value="Kennedy" />
+		<property name="photo"
+			value="https://upload.wikimedia.org/wikipedia/commons/5/5e/John_F._Kennedy%2C_White_House_photo_portrait%2C_looking_up.jpg" />
+		<property name="userAccount" ref="userAccount1" />
+	</bean>
+	
+	<bean id="category1" class="domain.Category">
+		<property name="title" value="CONFERENCE" />
+	</bean>
+	
 </beans>

@@ -18,7 +18,7 @@ public class Sponsorship extends DomainEntity{
 	private String targetUrl;
 	private CreditCard creditCard;
 	
-	private ConferenceSponsor conferenceSponsor;
+	private Sponsor sponsor;
 	private Conference conference;
 	
 	@NotBlank
@@ -53,12 +53,12 @@ public class Sponsorship extends DomainEntity{
 	
 	@NotNull
 	@ManyToOne(optional=false)
-	public ConferenceSponsor getConferenceSponsor() {
-		return conferenceSponsor;
+	public Sponsor getConferenceSponsor() {
+		return sponsor;
 	}
 	
-	public void setConferenceSponsor(ConferenceSponsor conferenceSponsor) {
-		this.conferenceSponsor = conferenceSponsor;
+	public void setConferenceSponsor(Sponsor conferenceSponsor) {
+		this.sponsor = conferenceSponsor;
 	}
 	
 	@NotNull

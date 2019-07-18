@@ -24,8 +24,7 @@ public class Category extends DomainEntity {
 		this.title = title;
 	}
 	
-	@NotNull
-	@OneToOne(optional=false)
+	@OneToOne
 	public Category getParent() {
 		return parent;
 	}
