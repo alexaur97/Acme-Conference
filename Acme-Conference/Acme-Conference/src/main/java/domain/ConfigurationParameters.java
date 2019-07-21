@@ -21,8 +21,8 @@ public class ConfigurationParameters extends DomainEntity {
 	private String messageEs;
 	private String countryCode;
 	private Collection<String> creditCardMakes;
-	private Collection<String> topics;
-	private Collection<String> topicsEs;
+	private Collection<String> voidWords;
+	private Collection<String> voidWordsEs;
 	
 	@NotBlank
 	public String getSystemName() {
@@ -80,24 +80,24 @@ public class ConfigurationParameters extends DomainEntity {
 		this.creditCardMakes = creditCardMakes;
 	}
 
-	@ElementCollection
 	@NotEmpty
-	public Collection<String> getTopics() {
-		return topics;
-	}
-	
-	public void setTopics(Collection<String> topics) {
-		this.topics = topics;
-	}
-	
 	@ElementCollection
-	@NotEmpty
-	public Collection<String> getTopicsEs() {
-		return topicsEs;
+	public Collection<String> getVoidWords() {
+		return voidWords;
 	}
-	
-	public void setTopicsEs(Collection<String> topicsEs) {
-		this.topicsEs = topicsEs;
+
+	public void setVoidWords(Collection<String> voidWords) {
+		this.voidWords = voidWords;
+	}
+
+	@NotEmpty
+	@ElementCollection
+	public Collection<String> getVoidWordsEs() {
+		return voidWordsEs;
+	}
+
+	public void setVoidWordsEs(Collection<String> voidWordsEs) {
+		this.voidWordsEs = voidWordsEs;
 	}
 	
 }

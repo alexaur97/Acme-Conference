@@ -14,18 +14,18 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
 <div>
-	<a href="#"><img src="images/logo.png" alt="Acme-Conference Co., Inc." /></a>
+	<a href="#"><img src="${banner}" alt="Acme Rookies Co., Inc."
+		style="margin-bottom: 0.5em;" /></a>
 </div>
 
 <div>
 	<ul id="jMenu">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
-		<security:authorize access="hasRole('ADMIN')">
+		<security:authorize access="hasRole('ADMINISTRATOR')">
 			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="administrator/action-1.do"><spring:message code="master.page.administrator.action.1" /></a></li>
-					<li><a href="administrator/action-2.do"><spring:message code="master.page.administrator.action.2" /></a></li>					
+					<li><a href="configuration/administrator/setup.do"><spring:message code="master.page.administrator.config" /></a></li>					
 				</ul>
 			</li>
 		</security:authorize>
@@ -46,12 +46,17 @@
 		
 		<security:authorize access="isAuthenticated()">
 			<li>
-				<a class="fNiv"> 
+				<a href="actor/show.do" class="fNiv"> 
 					<spring:message code="master.page.profile" /> 
 			        (<security:authentication property="principal.username" />)
 				</a>
 				<ul>
 					<li class="arrow"></li>
+					
+					
+						<li><a href="actor/edit.do"><spring:message
+									code="master.page.editProfile" /></a></li>
+					
 					<li><a href="profile/action-1.do"><spring:message code="master.page.profile.action.1" /></a></li>
 					<li><a href="profile/action-2.do"><spring:message code="master.page.profile.action.2" /></a></li>
 					<li><a href="profile/action-3.do"><spring:message code="master.page.profile.action.3" /></a></li>					

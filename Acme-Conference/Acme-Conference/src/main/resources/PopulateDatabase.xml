@@ -142,8 +142,106 @@
 		</property>
 	</bean>
 
+	<bean id="configurationParameters"
+		class="domain.ConfigurationParameters">
+		<property name="banner"
+			value="https://i.ibb.co/GVpZCtM/acme-conference.png" />
+		<property name="countryCode" value="+34" />
+		<property name="creditCardMakes">
+			<list>
+				<value>VISA</value>
+				<value>MASTER</value>
+				<value>DINNERS</value>
+				<value>AMEX</value>
+			</list>
+		</property>
+		<property name="message"
+			value="Welcome to Acme Conference! Your scientific event manager" />
+		<property name="messageEs"
+			value="¡Bienvenidos a Acme Conference! Su gestor de eventos científicos" />
+		<property name="systemName" value="Acme Conference" />
+		<property name="voidWords">
+			<list>
+				<value>a</value>
+				<value>after</value>
+				<value>all</value>
+				<value>also</value>
+				<value>am</value>
+				<value>an</value>
+				<value>and</value>
+				<value>are</value>
+				<value>be</value>
+				<value>because</value>
+				<value>but</value>
+				<value>can</value>
+				<value>cannot</value>
+				<value>do</value>
+				<value>else</value>
+				<value>every</value>
+				<value>for</value>
+				<value>get</value>
+				<value>have</value>
+				<value>has</value>
+				<value>i</value>
+				<value>is</value>
+				<value>it</value>
+				<value>just</value>
+				<value>let</value>
+				<value>most</value>
+				<value>not</value>
+				<value>of</value>
+				<value>rather</value>
+				<value>some</value>
+				<value>the</value>
+				<value>to</value>
+				<value>us</value>
+				<value>what</value>
+				<value>you</value>
+			</list>
+		</property>
+		<property name="voidWordsEs">
+			<list>
+				<value>a</value> 
+				<value>después</value>
+				<value>todo</value>
+				<value>también</value>
+				<value>soy</value>
+				<value>un</value>
+				<value>una</value>
+				<value>y</value>
+				<value>está </value>
+				<value>ser </value>
+				<value>porque</value>
+				<value>pero</value>
+				<value>puede</value>
+				<value>no puede</value>
+				<value>con</value>
+				<value>otra</value>
+				<value>cada</value>
+				<value>para</value>
+				<value>get</value>
+				<value>ha</value>
+				<value>yo</value>
+				<value>es</value>
+				<value>eso</value>
+				<value>just</value>
+				<value>let</value>
+				<value>más</value>
+				<value>no</value>
+				<value>of</value>
+				<value>reflejo</value>
+				<value>algunos</value>
+				<value>el</value>
+				<value>ella</value>
+				<value>nosotros</value>
+				<value>qué</value>
+				<value>usted</value>
+			</list>
+		</property>
+	</bean>
+
 	<!-- Other domain beans come here -->
-	
+
 	<!-- Actors -->
 
 	<bean id="admin" class="domain.Administrator">
@@ -221,7 +319,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="reviewer3" class="domain.Reviewer">
 		<property name="email" value="reviewer3@gmail.com" />
 		<property name="name" value="Uma" />
@@ -237,7 +335,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="sponsor1" class="domain.Sponsor">
 		<property name="email" value="sponsor1@gmail.com" />
 		<property name="name" value="Carolina" />
@@ -247,7 +345,7 @@
 			value="https://ichef.bbci.co.uk/news/660/cpsprodpb/D72D/production/_107358055_gettyimages-1097920348.jpg" />
 		<property name="userAccount" ref="userAccount8" />
 	</bean>
-	
+
 	<bean id="sponsor2" class="domain.Sponsor">
 		<property name="email" value="sponsor2@gmail.com" />
 		<property name="name" value="Antonio" />
@@ -257,7 +355,7 @@
 			value="https://i2.wp.com/www.uselessdaily.com/wp-content/uploads/2017/01/antonio-banderas.jpg?fit=1920%2C1200" />
 		<property name="userAccount" ref="userAccount9" />
 	</bean>
-	
+
 	<bean id="sponsor3" class="domain.Sponsor">
 		<property name="email" value="sponsor3@gmail.com" />
 		<property name="name" value="Christian" />
@@ -267,84 +365,93 @@
 			value="https://pmcwwd.files.wordpress.com/2017/07/christian_dior_france93.jpg" />
 		<property name="userAccount" ref="userAccount10" />
 	</bean>
-	
+
 	<!-- Messages -->
-	
+
 	<bean id="message1" class="domain.Message">
-		<property name="body" value="Draco dormiens nunquam titillandus" />
-		<property name="moment" value="10/10/2018"/>
+		<property name="body"
+			value="Draco dormiens nunquam titillandus" />
+		<property name="moment" value="10/10/2018" />
 		<property name="recipient" ref="author1" />
 		<property name="sender" ref="admin" />
 		<property name="subject" value="Superbia in Proelia" />
-		<property name="topic" value="The Best Topic"/>
+		<property name="topic" value="The Best Topic" />
 	</bean>
 
 	<bean id="message2" class="domain.Message">
-		<property name="body" value="Draco dormiens nunquam titillandus" />
-		<property name="moment" value="10/10/2018"/>
+		<property name="body"
+			value="Draco dormiens nunquam titillandus" />
+		<property name="moment" value="10/10/2018" />
 		<property name="recipient" ref="author1" />
 		<property name="sender" ref="reviewer2" />
 		<property name="subject" value="Second subject" />
-		<property name="topic" value="The Best Topic"/>
-	</bean>	
-	
+		<property name="topic" value="The Best Topic" />
+	</bean>
+
 	<bean id="message3" class="domain.Message">
-		<property name="body" value="Draco dormiens nunquam titillandus" />
-		<property name="moment" value="10/10/2018"/>
+		<property name="body"
+			value="Draco dormiens nunquam titillandus" />
+		<property name="moment" value="10/10/2018" />
 		<property name="recipient" ref="author1" />
 		<property name="sender" ref="reviewer3" />
 		<property name="subject" value="Third subject" />
-		<property name="topic" value="The Best Topic"/>
+		<property name="topic" value="The Best Topic" />
 	</bean>
 
 	<bean id="message4" class="domain.Message">
-		<property name="body" value="Draco dormiens nunquam titillandus" />
-		<property name="moment" value="10/10/2018"/>
+		<property name="body"
+			value="Draco dormiens nunquam titillandus" />
+		<property name="moment" value="10/10/2018" />
 		<property name="recipient" ref="author1" />
 		<property name="sender" ref="author2" />
 		<property name="subject" value="Fourth subject" />
-		<property name="topic" value="Other Topic"/>
+		<property name="topic" value="Other Topic" />
 	</bean>
-	
+
 	<bean id="message5" class="domain.Message">
-		<property name="body" value="Draco dormiens nunquam titillandus" />
-		<property name="moment" value="10/10/2018"/>
+		<property name="body"
+			value="Draco dormiens nunquam titillandus" />
+		<property name="moment" value="10/10/2018" />
 		<property name="recipient" ref="author1" />
 		<property name="sender" ref="author3" />
 		<property name="subject" value="Fifth subject" />
-		<property name="topic" value="Other Topic"/>
+		<property name="topic" value="Other Topic" />
 	</bean>
-	
+
 	<bean id="message6" class="domain.Message">
-		<property name="body" value="Draco dormiens nunquam titillandus" />
-		<property name="moment" value="10/10/2018"/>
+		<property name="body"
+			value="Draco dormiens nunquam titillandus" />
+		<property name="moment" value="10/10/2018" />
 		<property name="recipient" ref="author1" />
 		<property name="sender" ref="reviewer1" />
 		<property name="subject" value="Sixth subject" />
-		<property name="topic" value="Other Topic"/>
+		<property name="topic" value="Other Topic" />
 	</bean>
-	
+
 	<!-- Conferences -->
-	
+
 	<bean id="conference1" class="domain.Conference">
 		<property name="acronym" value="BAE" />
-		<property name="administrator" ref="admin"/>
-		<property name="cameraReady" value="12/30/2018 15:30" />
+		<property name="administrator" ref="admin" />
+		<property name="cameraReady" value="12/30/2020 15:30" />
 		<property name="category" ref="category1" />
-		<property name="endDate" value="12/30/2018 20:00" />
-		<property name="fee" value="3.50"/>
-		<property name="notification" value="12/29/2018 20:00" />
-		<property name="startDate" value="12/30/2018 18:30" />
-		<property name="submission" value="12/30/2018 17:30" />
-		<property name="summary" value="Summary, Restary, Multiplicary y Dividiry" />
-		<property name="title" value="British Aerospace"/>
+		<property name="endDate" value="12/30/2020 20:00" />
+		<property name="fee" value="3.50" />
+		<property name="notification" value="12/29/2020 20:00" />
+		<property name="startDate" value="12/30/2020 18:30" />
+		<property name="submission" value="12/30/2020 17:30" />
+		<property name="summary"
+			value="Summary, Restary, Multiplicary y Dividiry" />
+		<property name="title" value="British Aerospace" />
 		<property name="venue" value="Oh, look at this venue" />
 	</bean>
-	
+
 	<!-- Categories -->
+
 
 	<bean id="category1" class="domain.Category">
 		<property name="title" value="CONFERENCE" />
 	</bean>
+
 
 </beans>
