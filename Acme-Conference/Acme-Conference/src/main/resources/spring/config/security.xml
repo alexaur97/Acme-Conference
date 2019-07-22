@@ -24,6 +24,9 @@
 	<security:http auto-config="true" use-expressions="true">
 		<security:intercept-url pattern="/"
 			access="permitAll" />
+		
+		<security:intercept-url pattern="/conference/search.do"
+			access="permitAll" />
 
 		<security:intercept-url pattern="/favicon.ico"
 			access="permitAll" />
@@ -44,6 +47,17 @@
 
 		<security:intercept-url
 			pattern="/welcome/index.do" access="permitAll" />
+			
+		<security:intercept-url pattern="/message/list.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/show.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/delete.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/create.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/edit.do"
+			access="isAuthenticated()" />
 
 		<security:intercept-url
 			pattern="/actor/edit.do"
@@ -65,6 +79,10 @@
 
 		<security:logout logout-success-url="/"
 			invalidate-session="true" />
+			
+		
+		
+		
 	</security:http>
 
 </beans>

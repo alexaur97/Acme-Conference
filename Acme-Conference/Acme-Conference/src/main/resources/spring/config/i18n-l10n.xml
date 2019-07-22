@@ -27,6 +27,8 @@
 		
 		<value>/views/configurationParameters/messages</value>
 		<value>/views/actor/messages</value>
+		<value>/views/conference/messages</value>
+		<value>/views/message/messages</value>
 	</util:list>
 
 </beans>

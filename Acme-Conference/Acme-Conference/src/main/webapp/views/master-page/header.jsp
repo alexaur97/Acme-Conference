@@ -30,6 +30,9 @@
 			</li>
 		</security:authorize>
 		
+		<li><a class="fNiv" href="conference/search.do"><spring:message
+					code="master.page.searchConference" /></a></li>
+		
 		<security:authorize access="hasRole('CUSTOMER')">
 			<li><a class="fNiv"><spring:message	code="master.page.customer" /></a>
 				<ul>
@@ -57,9 +60,8 @@
 						<li><a href="actor/edit.do"><spring:message
 									code="master.page.editProfile" /></a></li>
 					
-					<li><a href="profile/action-1.do"><spring:message code="master.page.profile.action.1" /></a></li>
-					<li><a href="profile/action-2.do"><spring:message code="master.page.profile.action.2" /></a></li>
-					<li><a href="profile/action-3.do"><spring:message code="master.page.profile.action.3" /></a></li>					
+					<li><a href="message/list.do"><spring:message
+								code="master.page.message" /> </a></li>					
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>

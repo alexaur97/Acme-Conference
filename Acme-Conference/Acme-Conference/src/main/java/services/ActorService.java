@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -7,23 +8,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import domain.Actor;
-import domain.ConfigurationParameters;
-import forms.ActorEditForm;
 import repositories.ActorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Actor;
+import domain.ConfigurationParameters;
+import forms.ActorEditForm;
 
 @Service
 @Transactional
 public class ActorService {
 
 	@Autowired
-	private ActorRepository actorRepository;
-	
+	private ActorRepository					actorRepository;
+
 	@Autowired
-	private ConfigurationParametersService configurationParametersService;
+	private ConfigurationParametersService	configurationParametersService;
+
 
 	public Boolean auth(final Actor a, final String auth) {
 		final UserAccount userAccount = a.getUserAccount();
@@ -50,7 +52,7 @@ public class ActorService {
 		result = this.actorRepository.findByUserAccount(userAccount.getId());
 		return result;
 	}
-	
+
 	public Boolean authEdit(final Actor a, final String auth) {
 		final UserAccount userAccount = a.getUserAccount();
 		final Collection<Authority> allAuths = userAccount.getAuthorities();
@@ -59,7 +61,7 @@ public class ActorService {
 		final Boolean res = allAuths.contains(au);
 		return res;
 	}
-	
+
 	public ActorEditForm toForm(final Actor actor) {
 		final ActorEditForm result = new ActorEditForm();
 		result.setName(actor.getName());
@@ -79,6 +81,13 @@ public class ActorService {
 			phoneNumber = cc + " " + phoneNumber;
 		}
 		return phoneNumber;
+	}
+
+	public Collection<Actor> findAll() {
+		Collection<Actor> result;
+		result = this.actorRepository.findAll();
+		Assert.notNull(result);
+		return result;
 	}
 
 }

@@ -371,61 +371,81 @@
 	<bean id="message1" class="domain.Message">
 		<property name="body"
 			value="Draco dormiens nunquam titillandus" />
-		<property name="moment" value="10/10/2018" />
+		<property name="moment" value="08/08/2018 00:54" />
 		<property name="recipient" ref="author1" />
-		<property name="sender" ref="admin" />
+		<property name="sender" ref="sponsor1" />
 		<property name="subject" value="Superbia in Proelia" />
-		<property name="topic" value="The Best Topic" />
+		<property name="copy" value="true" />
+		<property name="owner" ref="author1" />
+		<property name="spam" value="false" />
+		<property name="deleted" value="false" />
+		<property name="tags" value="" />
 	</bean>
 
 	<bean id="message2" class="domain.Message">
-		<property name="body"
+			<property name="body"
 			value="Draco dormiens nunquam titillandus" />
-		<property name="moment" value="10/10/2018" />
+		<property name="moment" value="08/08/2018 00:54" />
 		<property name="recipient" ref="author1" />
-		<property name="sender" ref="reviewer2" />
-		<property name="subject" value="Second subject" />
-		<property name="topic" value="The Best Topic" />
+		<property name="sender" ref="sponsor1" />
+		<property name="subject" value="Superbia in Proelia" />
+		<property name="copy" value="false" />
+		<property name="owner" ref="author1" />
+		<property name="spam" value="false" />
+		<property name="deleted" value="false" />
+		<property name="tags" value="" />
 	</bean>
 
 	<bean id="message3" class="domain.Message">
-		<property name="body"
-			value="Draco dormiens nunquam titillandus" />
-		<property name="moment" value="10/10/2018" />
-		<property name="recipient" ref="author1" />
-		<property name="sender" ref="reviewer3" />
-		<property name="subject" value="Third subject" />
-		<property name="topic" value="The Best Topic" />
+		<property name="subject" value="Message 2" />
+		<property name="body" value="This is message 2" />
+		<property name="moment" value="01/04/2018 05:58" />
+		<property name="spam" value="false" />
+		<property name="deleted" value="false" />
+		<property name="tags" value="" />
+		<property name="recipient" ref="sponsor2" />
+		<property name="sender" ref="author2" />
+		<property name="owner" ref="sponsor2" />
+		<property name="copy" value="true" />
 	</bean>
 
 	<bean id="message4" class="domain.Message">
-		<property name="body"
-			value="Draco dormiens nunquam titillandus" />
-		<property name="moment" value="10/10/2018" />
-		<property name="recipient" ref="author1" />
+		<property name="subject" value="Message 2" />
+		<property name="body" value="This is message 2" />
+		<property name="moment" value="01/04/2018 05:58" />
+		<property name="spam" value="false" />
+		<property name="deleted" value="false" />
+		<property name="tags" value="" />
+		<property name="recipient" ref="sponsor2" />
 		<property name="sender" ref="author2" />
-		<property name="subject" value="Fourth subject" />
-		<property name="topic" value="Other Topic" />
+		<property name="owner" ref="author2" />
+		<property name="copy" value="false" />
 	</bean>
 
 	<bean id="message5" class="domain.Message">
-		<property name="body"
-			value="Draco dormiens nunquam titillandus" />
-		<property name="moment" value="10/10/2018" />
-		<property name="recipient" ref="author1" />
+		<property name="subject" value="Message 3" />
+		<property name="body" value="This is message 3" />
+		<property name="moment" value="02/02/2019 11:14" />
+		<property name="spam" value="false" />
+		<property name="deleted" value="false" />
+		<property name="tags" value="" />
+		<property name="recipient" ref="sponsor3" />
 		<property name="sender" ref="author3" />
-		<property name="subject" value="Fifth subject" />
-		<property name="topic" value="Other Topic" />
+		<property name="owner" ref="sponsor3" />
+		<property name="copy" value="true" />
 	</bean>
 
 	<bean id="message6" class="domain.Message">
-		<property name="body"
-			value="Draco dormiens nunquam titillandus" />
-		<property name="moment" value="10/10/2018" />
-		<property name="recipient" ref="author1" />
-		<property name="sender" ref="reviewer1" />
-		<property name="subject" value="Sixth subject" />
-		<property name="topic" value="Other Topic" />
+		<property name="subject" value="Message 3" />
+		<property name="body" value="This is message 3" />
+		<property name="moment" value="02/02/2019 11:14" />
+		<property name="spam" value="false" />
+		<property name="deleted" value="false" />
+		<property name="tags" value="" />
+		<property name="recipient" ref="sponsor3" />
+		<property name="sender" ref="author2" />
+		<property name="owner" ref="author2" />
+		<property name="copy" value="false" />
 	</bean>
 
 	<!-- Conferences -->
@@ -451,6 +471,36 @@
 
 	<bean id="category1" class="domain.Category">
 		<property name="title" value="CONFERENCE" />
+	</bean>
+	
+	<!-- Spamwords -->
+
+	<bean id="spamWord1" class="domain.SpamWord">
+		<property name="word" value="sex" />
+	</bean>
+	<bean id="spamWord2" class="domain.SpamWord">
+		<property name="word" value="viagra" />
+	</bean>
+	<bean id="spamWord3" class="domain.SpamWord">
+		<property name="word" value="cialis" />
+	</bean>
+	<bean id="spamWord4" class="domain.SpamWord">
+		<property name="word" value="one million" />
+	</bean>
+	<bean id="spamWord5" class="domain.SpamWord">
+		<property name="word" value="you've been selected" />
+	</bean>
+	<bean id="spamWord6" class="domain.SpamWord">
+		<property name="word" value="Nigeria" />
+	</bean>
+	<bean id="spamWord7" class="domain.SpamWord">
+		<property name="word" value="sexo" />
+	</bean>
+	<bean id="spamWord8" class="domain.SpamWord">
+		<property name="word" value="un millon" />
+	</bean>
+	<bean id="spamWord9" class="domain.SpamWord">
+		<property name="word" value="has sido elegido" />
 	</bean>
 
 
