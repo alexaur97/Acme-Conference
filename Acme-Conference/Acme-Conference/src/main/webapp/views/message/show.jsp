@@ -21,15 +21,15 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
-<spring:message code="message.subject"/>: <jstl:out value="${msg.subject}"></jstl:out>
+<spring:message code="message.topic"/>: <jstl:out value="${msg.topic}"></jstl:out>
 <br/>
 <spring:message code="message.body"/>: <jstl:out value="${msg.body}"></jstl:out>
 <br/>
 <spring:message code="message.date"/>: <jstl:out value="${msg.moment}"></jstl:out>
 <br/>
-<spring:message code="message.recipient"/>: <jstl:out value="${msg.recipient.name} ${msg.recipient.surnames}"></jstl:out>
+<spring:message code="message.recipient"/>: <jstl:out value="${msg.recipient.name} ${msg.recipient.surname}"></jstl:out>
 <br/>
-<spring:message code="message.sender"/>: <jstl:out value="${msg.sender.name} ${msg.sender.surnames}"></jstl:out>
+<spring:message code="message.sender"/>: <jstl:out value="${msg.sender.name} ${msg.sender.surname}"></jstl:out>
 
 <br/>
 <jstl:if test="${b eq true}">

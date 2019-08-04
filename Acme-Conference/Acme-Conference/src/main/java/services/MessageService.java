@@ -94,6 +94,24 @@ public class MessageService {
 		return result;
 	}
 
+	public Collection<Message> findRecivesByTopic(final int id) {
+		final Collection<Message> result = this.messageRepository.findRecivesByTopic(id);
+		Assert.notNull(result);
+		return result;
+	}
+
+	public Collection<Message> findRecivesBySender(final int id) {
+		final Collection<Message> result = this.messageRepository.findRecivesBySender(id);
+		Assert.notNull(result);
+		return result;
+	}
+
+	public Collection<Message> findRecivesByRecipient(final int id) {
+		final Collection<Message> result = this.messageRepository.findRecivesByRecipient(id);
+		Assert.notNull(result);
+		return result;
+	}
+
 	public Collection<Message> findSend(final int id) {
 		Collection<Message> result;
 		Assert.notNull(id);
@@ -102,10 +120,61 @@ public class MessageService {
 		return result;
 	}
 
+	public Collection<Message> findSendByRecipient(final int id) {
+		Collection<Message> result;
+		Assert.notNull(id);
+		result = this.messageRepository.findSendByRecipient(id);
+		Assert.notNull(result);
+		return result;
+	}
+
+	public Collection<Message> findSendBySender(final int id) {
+		Collection<Message> result;
+		Assert.notNull(id);
+		result = this.messageRepository.findSendBySender(id);
+		Assert.notNull(result);
+		return result;
+	}
+
+	public Collection<Message> findSendByTopic(final int id) {
+		Collection<Message> result;
+		Assert.notNull(id);
+		result = this.messageRepository.findSendByTopic(id);
+		Assert.notNull(result);
+		return result;
+	}
+
 	public Collection<Message> findSpam(final int id) {
 		Collection<Message> result;
 		Assert.notNull(id);
 		result = this.messageRepository.findSpam(id);
+		Assert.notNull(result);
+		return result;
+
+	}
+
+	public Collection<Message> findSpamByTopic(final int id) {
+		Collection<Message> result;
+		Assert.notNull(id);
+		result = this.messageRepository.findSpamByTopic(id);
+		Assert.notNull(result);
+		return result;
+
+	}
+
+	public Collection<Message> findSpamBySender(final int id) {
+		Collection<Message> result;
+		Assert.notNull(id);
+		result = this.messageRepository.findSpamBySender(id);
+		Assert.notNull(result);
+		return result;
+
+	}
+
+	public Collection<Message> findSpamByRecipient(final int id) {
+		Collection<Message> result;
+		Assert.notNull(id);
+		result = this.messageRepository.findSpamByRecipient(id);
 		Assert.notNull(result);
 		return result;
 
@@ -133,6 +202,30 @@ public class MessageService {
 		Collection<Message> result;
 		Assert.notNull(id);
 		result = this.messageRepository.findDeleted(id);
+		Assert.notNull(result);
+		return result;
+	}
+
+	public Collection<Message> findDeletedByTopic(final int id) {
+		Collection<Message> result;
+		Assert.notNull(id);
+		result = this.messageRepository.findDeletedByTopic(id);
+		Assert.notNull(result);
+		return result;
+	}
+
+	public Collection<Message> findDeletedBySender(final int id) {
+		Collection<Message> result;
+		Assert.notNull(id);
+		result = this.messageRepository.findDeletedBySender(id);
+		Assert.notNull(result);
+		return result;
+	}
+
+	public Collection<Message> findDeletedByRecipient(final int id) {
+		Collection<Message> result;
+		Assert.notNull(id);
+		result = this.messageRepository.findDeletedByRecipient(id);
 		Assert.notNull(result);
 		return result;
 	}
@@ -212,7 +305,7 @@ public class MessageService {
 		List<String> lista = new ArrayList<>();
 		lista = Arrays.asList(mensaje);
 
-		final String[] titulo = message.getSubject().trim().split(" ");
+		final String[] titulo = message.getTopic().trim().split(" ");
 		List<String> list = new ArrayList<>();
 		list = Arrays.asList(titulo);
 		Boolean isSpam = false;

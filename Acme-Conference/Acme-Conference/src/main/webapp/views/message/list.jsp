@@ -26,12 +26,16 @@
 
 <td><acme:cancel url="/message/create.do" code="message.create" /></td>
 
+<h5>
+	<spring:message code="message.listThem" /> <td><acme:cancel url="/message/list.do" code="message.Date" /></td> <td><acme:cancel url="/message/listByTopic.do" code="message.byTopic" /></td> <td><acme:cancel url="/message/listBySender.do" code="message.sender" /></td> <td><acme:cancel url="/message/listByRecipient.do" code="message.recipient" /></td>
+</h5>
+
 <h4>
 	<spring:message code="message.received" />
 </h4>
 <table>
 	<tr>
-		<th><spring:message code="message.subject" /></th>
+		<th><spring:message code="message.topic" /></th>
 		<th><spring:message code="message.date" /></th>
 		<th><spring:message code="message.sender" /></th>
 		<th><spring:message code="message.showMessage" /></th>
@@ -40,7 +44,7 @@
 
 	<jstl:forEach items="${messagesRecived}" var="x">
 		<tr>
-			<td><jstl:out value="${x.subject}" /></td>
+			<td><jstl:out value="${x.topic}" /></td>
 			<td><jstl:out value="${x.moment}" /></td>
 			<jstl:choose>
 				<jstl:when test="${not empty x.sender}">
@@ -64,7 +68,7 @@
 </h4>
 <table>
 	<tr>
-		<th><spring:message code="message.subject" /></th>
+		<th><spring:message code="message.topic" /></th>
 		<th><spring:message code="message.date" /></th>
 		<th><spring:message code="message.recipient" /></th>
 		<th><spring:message code="message.showMessage" /></th>
@@ -72,7 +76,7 @@
 	</tr>
 	<jstl:forEach items="${messagesSend}" var="x">
 		<tr>
-			<td><jstl:out value="${x.subject}" /></td>
+			<td><jstl:out value="${x.topic}" /></td>
 			<td><jstl:out value="${x.moment}" /></td>
 			<td><jstl:out
 					value="${x.recipient.name} ${x.recipient.surname}" /></td>
@@ -90,7 +94,7 @@
 </h4>
 <table>
 	<tr>
-		<th><spring:message code="message.subject" /></th>
+		<th><spring:message code="message.topic" /></th>
 		<th><spring:message code="message.date" /></th>
 		<th><spring:message code="message.sender" /></th>
 		<th><spring:message code="message.showMessage" /></th>
@@ -98,7 +102,7 @@
 	</tr>
 	<jstl:forEach items="${messagesSpam}" var="x">
 		<tr>
-			<td><jstl:out value="${x.subject}" /></td>
+			<td><jstl:out value="${x.topic}" /></td>
 			<td><jstl:out value="${x.moment}" /></td>
 			<td><jstl:out value="${x.sender.name} ${x.sender.surname}" /></td>
 			<td><acme:cancel url="/message/show.do?messageId=${x.id}"
@@ -115,7 +119,7 @@
 </h4>
 <table>
 	<tr>
-		<th><spring:message code="message.subject" /></th>
+		<th><spring:message code="message.topic" /></th>
 		<th><spring:message code="message.date" /></th>
 		<th><spring:message code="message.sender" /></th>
 		<th><spring:message code="message.recipient" /></th>
@@ -124,7 +128,7 @@
 	</tr>
 	<jstl:forEach items="${messagesDeleted}" var="x">
 		<tr>
-			<td><jstl:out value="${x.subject}" /></td>
+			<td><jstl:out value="${x.topic}" /></td>
 			<td><jstl:out value="${x.moment}" /></td>
 			<td><jstl:out value="${x.sender.name} ${x.sender.surname}" /></td>
 			<td><jstl:out

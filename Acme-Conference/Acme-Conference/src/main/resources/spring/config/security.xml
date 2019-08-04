@@ -50,6 +50,16 @@
 			
 		<security:intercept-url pattern="/message/list.do"
 			access="isAuthenticated()" />
+			
+		<security:intercept-url pattern="/message/listByTopic.do"
+			access="isAuthenticated()" />
+			
+		<security:intercept-url pattern="/message/listBySender.do"
+			access="isAuthenticated()" />
+			
+		<security:intercept-url pattern="/message/listByRecipient.do"
+			access="isAuthenticated()" />
+			
 		<security:intercept-url pattern="/message/show.do"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/message/delete.do"
