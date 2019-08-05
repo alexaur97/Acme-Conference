@@ -457,15 +457,30 @@
 		<property name="category" ref="category1" />
 		<property name="endDate" value="12/30/2020 20:00" />
 		<property name="fee" value="3.50" />
-		<property name="notification" value="12/29/2020 20:00" />
+		<property name="notification" value="08/2/2019 20:00" />
 		<property name="startDate" value="12/30/2020 18:30" />
-		<property name="submission" value="12/30/2020 17:30" />
+		<property name="submission" value="08/04/2019 17:30" />
 		<property name="summary"
 			value="Summary, Restary, Multiplicary y Dividiry" />
 		<property name="title" value="British Aerospace" />
 		<property name="venue" value="Oh, look at this venue" />
 	</bean>
 
+	<bean id="conference2" class="domain.Conference">
+		<property name="acronym" value="BAE" />
+		<property name="administrator" ref="admin" />
+		<property name="cameraReady" value="08/07/2019 15:30" />
+		<property name="category" ref="category1" />
+		<property name="endDate" value="12/30/2020 20:00" />
+		<property name="fee" value="3.50" />
+		<property name="notification" value="08/07/2019 20:00" />
+		<property name="startDate" value="12/30/2020 18:30" />
+		<property name="submission" value="07/30/2019 17:30" />
+		<property name="summary"
+			value="Summary, Restary, Multiplicary y Dividiry" />
+		<property name="title" value="British Aerospace" />
+		<property name="venue" value="Oh, look at this venue" />
+	</bean>
 	<!-- Categories -->
 
 

@@ -1,7 +1,9 @@
 
 package services;
 
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +55,46 @@ public class ConferenceService {
 	//Other Methods--------------------
 	public Collection<Conference> searchConference(final String keyword) {
 		return this.conferenceRepository.searchConferencesKeyWord(keyword);
+	}
+
+	public Collection<Conference> findSubmissionLastFiveDays() {
+		final Date actualDate = new Date();
+		final Calendar calendar = Calendar.getInstance();
+		calendar.setTime(actualDate); // Configuramos la fecha que se recibe
+		calendar.add(Calendar.DAY_OF_YEAR, -5);
+		final Date lastDate = calendar.getTime();
+
+		return this.conferenceRepository.findSubmissionLastFiveDays(lastDate, actualDate);
+	}
+
+	public Collection<Conference> findNotificationLessFiveDays() {
+		final Date actualDate = new Date();
+		final Calendar calendar = Calendar.getInstance();
+		calendar.setTime(actualDate); // Configuramos la fecha que se recibe
+		calendar.add(Calendar.DAY_OF_YEAR, 5);
+		final Date nextDate = calendar.getTime();
+
+		return this.conferenceRepository.findNotificationLessFiveDays(actualDate, nextDate);
+	}
+
+	public Collection<Conference> findCameraReadyLessFiveDays() {
+		final Date actualDate = new Date();
+		final Calendar calendar = Calendar.getInstance();
+		calendar.setTime(actualDate); // Configuramos la fecha que se recibe
+		calendar.add(Calendar.DAY_OF_YEAR, 5);
+		final Date nextDate = calendar.getTime();
+
+		return this.conferenceRepository.findCameraReadyLessFiveDays(actualDate, nextDate);
+	}
+
+	public Collection<Conference> findStartDateLessFiveDays() {
+		final Date actualDate = new Date();
+		final Calendar calendar = Calendar.getInstance();
+		calendar.setTime(actualDate); // Configuramos la fecha que se recibe
+		calendar.add(Calendar.DAY_OF_YEAR, 5);
+		final Date nextDate = calendar.getTime();
+
+		return this.conferenceRepository.findStartDateLessFiveDays(actualDate, nextDate);
 	}
 
 }
