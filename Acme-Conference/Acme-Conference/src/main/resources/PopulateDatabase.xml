@@ -374,7 +374,7 @@
 		<property name="moment" value="08/08/2018 00:54" />
 		<property name="recipient" ref="author1" />
 		<property name="sender" ref="sponsor1" />
-		<property name="subject" value="Superbia in Proelia" />
+		<property name="topic" value="Superbia in Proelia" />
 		<property name="copy" value="true" />
 		<property name="owner" ref="author1" />
 		<property name="spam" value="false" />
@@ -388,7 +388,7 @@
 		<property name="moment" value="08/08/2018 00:54" />
 		<property name="recipient" ref="author1" />
 		<property name="sender" ref="sponsor1" />
-		<property name="subject" value="Superbia in Proelia" />
+		<property name="topic" value="Superbia in Proelia" />
 		<property name="copy" value="false" />
 		<property name="owner" ref="author1" />
 		<property name="spam" value="false" />
@@ -397,7 +397,7 @@
 	</bean>
 
 	<bean id="message3" class="domain.Message">
-		<property name="subject" value="Message 2" />
+		<property name="topic" value="Message 2" />
 		<property name="body" value="This is message 2" />
 		<property name="moment" value="01/04/2018 05:58" />
 		<property name="spam" value="false" />
@@ -410,7 +410,7 @@
 	</bean>
 
 	<bean id="message4" class="domain.Message">
-		<property name="subject" value="Message 2" />
+		<property name="topic" value="Message 2" />
 		<property name="body" value="This is message 2" />
 		<property name="moment" value="01/04/2018 05:58" />
 		<property name="spam" value="false" />
@@ -423,7 +423,7 @@
 	</bean>
 
 	<bean id="message5" class="domain.Message">
-		<property name="subject" value="Message 3" />
+		<property name="topic" value="Message 3" />
 		<property name="body" value="This is message 3" />
 		<property name="moment" value="02/02/2019 11:14" />
 		<property name="spam" value="false" />
@@ -436,7 +436,7 @@
 	</bean>
 
 	<bean id="message6" class="domain.Message">
-		<property name="subject" value="Message 3" />
+		<property name="topic" value="Message 3" />
 		<property name="body" value="This is message 3" />
 		<property name="moment" value="02/02/2019 11:14" />
 		<property name="spam" value="false" />

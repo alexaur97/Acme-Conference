@@ -54,6 +54,70 @@ public class MessageController extends AbstractController {
 		}
 		return result;
 	}
+
+	@RequestMapping(value = "/listByTopic", method = RequestMethod.GET)
+	public ModelAndView listByTopic() {
+		ModelAndView result;
+		try {
+			final int id = this.actorService.findByPrincipal().getId();
+			final Collection<Message> messagesRecived = this.messageService.findRecivesByTopic(id);
+			final Collection<Message> messagesSend = this.messageService.findSendByTopic(id);
+			final Collection<Message> messagesSpam = this.messageService.findSpamByTopic(id);
+			final Collection<Message> messagesDeleted = this.messageService.findDeletedByTopic(id);
+			result = new ModelAndView("message/list");
+			result.addObject("messagesRecived", messagesRecived);
+			result.addObject("messagesSend", messagesSend);
+			result.addObject("messagesSpam", messagesSpam);
+			result.addObject("messagesDeleted", messagesDeleted);
+
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "/listBySender", method = RequestMethod.GET)
+	public ModelAndView listBySender() {
+		ModelAndView result;
+		try {
+			final int id = this.actorService.findByPrincipal().getId();
+			final Collection<Message> messagesRecived = this.messageService.findRecivesBySender(id);
+			final Collection<Message> messagesSend = this.messageService.findSendBySender(id);
+			final Collection<Message> messagesSpam = this.messageService.findSpamBySender(id);
+			final Collection<Message> messagesDeleted = this.messageService.findDeletedBySender(id);
+			result = new ModelAndView("message/list");
+			result.addObject("messagesRecived", messagesRecived);
+			result.addObject("messagesSend", messagesSend);
+			result.addObject("messagesSpam", messagesSpam);
+			result.addObject("messagesDeleted", messagesDeleted);
+
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "/listByRecipient", method = RequestMethod.GET)
+	public ModelAndView listByRecipient() {
+		ModelAndView result;
+		try {
+			final int id = this.actorService.findByPrincipal().getId();
+			final Collection<Message> messagesRecived = this.messageService.findRecivesByRecipient(id);
+			final Collection<Message> messagesSend = this.messageService.findSendByRecipient(id);
+			final Collection<Message> messagesSpam = this.messageService.findSpamByRecipient(id);
+			final Collection<Message> messagesDeleted = this.messageService.findDeletedByRecipient(id);
+			result = new ModelAndView("message/list");
+			result.addObject("messagesRecived", messagesRecived);
+			result.addObject("messagesSend", messagesSend);
+			result.addObject("messagesSpam", messagesSpam);
+			result.addObject("messagesDeleted", messagesDeleted);
+
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+		return result;
+	}
+
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	public ModelAndView show(@RequestParam final int messageId) {
 		ModelAndView result;
@@ -172,7 +236,7 @@ public class MessageController extends AbstractController {
 				copy.setOwner(msg.getRecipient());
 				copy.setRecipient(msg.getRecipient());
 				copy.setSender(msg.getSender());
-				copy.setSubject(msg.getSubject());
+				copy.setTopic(msg.getTopic());
 				copy.setCopy(true);
 				this.messageService.isSpam(msg);
 				copy.setSpam(msg.getSpam());

@@ -28,7 +28,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 })
 public class Message extends DomainEntity {
 
-	private String				subject;
+	private String				topic;
 	private String				body;
 	public Date					moment;
 	private Collection<String>	tags;
@@ -52,11 +52,11 @@ public class Message extends DomainEntity {
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public String getSubject() {
-		return this.subject;
+	public String getTopic() {
+		return this.topic;
 	}
-	public void setSubject(final String subject) {
-		this.subject = subject;
+	public void setTopic(final String topic) {
+		this.topic = topic;
 	}
 
 	@NotBlank

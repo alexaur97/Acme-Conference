@@ -35,7 +35,7 @@
 
 						<form:hidden path="id"/>
 						<form:hidden path="version"/>	
-						<acme:textbox code="message.subject" path="subject" />
+						<acme:textbox code="message.topic" path="topic" />
 						<acme:textarea code="message.body" path="body" />
 						<acme:textbox code="message.tags" path="tags" />
 						<acme:select items="${actors}" itemLabel="email" code="message.recipient" path="recipient"/>
