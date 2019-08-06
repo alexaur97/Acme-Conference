@@ -467,7 +467,7 @@
 	</bean>
 
 	<bean id="conference2" class="domain.Conference">
-		<property name="acronym" value="BAE" />
+		<property name="acronym" value="GF" />
 		<property name="administrator" ref="admin" />
 		<property name="cameraReady" value="08/07/2019 15:30" />
 		<property name="category" ref="category1" />
@@ -478,7 +478,71 @@
 		<property name="submission" value="07/30/2019 17:30" />
 		<property name="summary"
 			value="Summary, Restary, Multiplicary y Dividiry" />
-		<property name="title" value="British Aerospace" />
+		<property name="title" value="Global Freightways" />
+		<property name="venue" value="Oh, look at this venue" />
+	</bean>
+	
+	<bean id="conference3" class="domain.Conference">
+		<property name="acronym" value="TBC" />
+		<property name="administrator" ref="admin" />
+		<property name="cameraReady" value="08/08/2019 15:30" />
+		<property name="category" ref="category1" />
+		<property name="endDate" value="12/31/2020 20:00" />
+		<property name="fee" value="3.50" />
+		<property name="notification" value="08/10/2019 20:00" />
+		<property name="startDate" value="12/31/2020 18:30" />
+		<property name="submission" value="08/11/2019 17:30" />
+		<property name="summary"
+			value="Summary, Restary, Multiplicary y Dividiry" />
+		<property name="title" value="The best conference" />
+		<property name="venue" value="Oh, look at this venue" />
+	</bean>
+	
+	<bean id="conference4" class="domain.Conference">
+		<property name="acronym" value="PG19" />
+		<property name="administrator" ref="admin" />
+		<property name="cameraReady" value="08/07/2019 15:30" />
+		<property name="category" ref="category1" />
+		<property name="endDate" value="12/30/2020 20:00" />
+		<property name="fee" value="3.50" />
+		<property name="notification" value="07/07/2019 20:00" />
+		<property name="startDate" value="12/30/2020 18:30" />
+		<property name="submission" value="07/30/2019 17:30" />
+		<property name="summary"
+			value="Summary, Restary, Multiplicary y Dividiry" />
+		<property name="title" value="Premios Goya 2019" />
+		<property name="venue" value="Oh, look at this venue" />
+	</bean>
+	
+	<bean id="conference5" class="domain.Conference">
+		<property name="acronym" value="TFG" />
+		<property name="administrator" ref="admin" />
+		<property name="cameraReady" value="08/08/2019 15:30" />
+		<property name="category" ref="category1" />
+		<property name="endDate" value="12/30/2020 20:00" />
+		<property name="fee" value="3.50" />
+		<property name="notification" value="07/08/2019 20:00" />
+		<property name="startDate" value="12/30/2020 18:30" />
+		<property name="submission" value="07/30/2019 17:30" />
+		<property name="summary"
+			value="Summary, Restary, Multiplicary y Dividiry" />
+		<property name="title" value="Trabajo de fin de grado" />
+		<property name="venue" value="Oh, look at this venue" />
+	</bean>
+	
+	<bean id="conference6" class="domain.Conference">
+		<property name="acronym" value="MSB" />
+		<property name="administrator" ref="admin" />
+		<property name="cameraReady" value="08/07/2019 15:30" />
+		<property name="category" ref="category1" />
+		<property name="endDate" value="12/30/2020 20:00" />
+		<property name="fee" value="3.50" />
+		<property name="notification" value="08/07/2019 20:00" />
+		<property name="startDate" value="12/30/2020 18:30" />
+		<property name="submission" value="07/30/2019 17:30" />
+		<property name="summary"
+			value="Summary, Restary, Multiplicary y Dividiry" />
+		<property name="title" value="Me sube la bilirrubina" />
 		<property name="venue" value="Oh, look at this venue" />
 	</bean>
 	<!-- Categories -->
