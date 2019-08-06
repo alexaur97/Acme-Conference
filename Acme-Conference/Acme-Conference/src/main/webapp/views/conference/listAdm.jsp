@@ -58,7 +58,7 @@
 <display:table pagesize="5" name="conferencesCameraReady" id="conference"
 	requestURI="${requestURI}" class="displaytag table">
 	<display:column titleKey="conference.title"  property="title" />
-	<display:column titleKey="conference.cameraReady"  property="notification" />
+	<display:column titleKey="conference.cameraReady"  property="cameraReady" />
 	<display:column titleKey="conference.show">
 		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conference.id}" code="conference.show" />
 	</display:column>
@@ -69,7 +69,7 @@
 <br>
 <spring:message code="conference.titleStartDate"/>
 <br>
-<display:table pagesize="5" name="conferencesCameraReady" id="conference"
+<display:table pagesize="5" name="conferencesStartDate" id="conference"
 	requestURI="${requestURI}" class="displaytag table">
 	<display:column titleKey="conference.title"  property="title" />
 	<display:column titleKey="conference.startDate"  property="startDate" />
