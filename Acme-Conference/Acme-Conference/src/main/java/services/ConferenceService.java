@@ -1,7 +1,10 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +56,18 @@ public class ConferenceService {
 	//Other Methods--------------------
 	public Collection<Conference> searchConference(final String keyword) {
 		return this.conferenceRepository.searchConferencesKeyWord(keyword);
+	}
+
+	public Collection<Conference> findConference() {
+		final Collection<Conference> res = new ArrayList<>();
+		final Collection<Conference> conferencias = this.conferenceRepository.findAll();
+		final List<Conference> c = new ArrayList<>(conferencias);
+		final Date actual = new Date();
+		for (int i = 0; i < c.size(); i++)
+			if (c.get(i).getStartDate().after(actual))
+				res.add(c.get(i));
+		return res;
+
 	}
 
 }

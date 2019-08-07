@@ -1,3 +1,4 @@
+
 package domain;
 
 import javax.persistence.Access;
@@ -17,81 +18,81 @@ import security.UserAccount;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Actor extends DomainEntity{
-	
-	private String name;
-	private String middleName;
-	private String surname;
-	private String photo;
-	private String email;
-	private String phone;
-	private String address;
-	
-	private UserAccount userAccount;
-	
+public class Actor extends DomainEntity {
+
+	private String		name;
+	private String		middleName;
+	private String		surname;
+	private String		photo;
+	private String		email;
+	private String		phone;
+	private String		address;
+
+	private UserAccount	userAccount;
+
+
 	@NotBlank
 	public String getName() {
-		return name;
+		return this.name;
 	}
-	
-	public void setName(String name) {
+
+	public void setName(final String name) {
 		this.name = name;
 	}
-	
-	
+
 	public String getMiddleName() {
-		return middleName;
+		return this.middleName;
 	}
-	
-	public void setMiddleName(String middleName) {
+
+	public void setMiddleName(final String middleName) {
 		this.middleName = middleName;
 	}
-	
+
 	@NotBlank
 	public String getSurname() {
-		return surname;
+		return this.surname;
 	}
-	
-	public void setSurname(String surname) {
+
+	public void setSurname(final String surname) {
 		this.surname = surname;
 	}
-	
+
 	@URL
 	public String getPhoto() {
-		return photo;
+		return this.photo;
 	}
-	
-	public void setPhoto(String photo) {
+
+	public void setPhoto(final String photo) {
 		this.photo = photo;
 	}
-	
+
 	@NotBlank
 	@Column(unique = true)
 	@Pattern(regexp = "([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)*|[a-zA-Z0-9]+[ a-zA-Z0-9]*\\<([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)*\\>")
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
-	
-	public void setEmail(String email) {
+
+	public void setEmail(final String email) {
 		this.email = email;
 	}
-	
+
 	public String getPhone() {
-		return phone;
+		return this.phone;
 	}
-	
-	public void setPhone(String phone) {
+
+	public void setPhone(final String phone) {
 		this.phone = phone;
 	}
-	
+
 	public String getAddress() {
-		return address;
+		return this.address;
 	}
-	
-	public void setAddress(String address) {
+
+	public void setAddress(final String address) {
 		this.address = address;
 	}
-	
+
 	@NotNull
 	@Valid
 	@OneToOne(cascade = CascadeType.ALL, optional = false)
@@ -102,5 +103,5 @@ public class Actor extends DomainEntity{
 	public void setUserAccount(final UserAccount userAccount) {
 		this.userAccount = userAccount;
 	}
-	
+
 }

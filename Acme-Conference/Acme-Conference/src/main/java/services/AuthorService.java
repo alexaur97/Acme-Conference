@@ -1,3 +1,4 @@
+
 package services;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -5,24 +6,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import domain.Author;
-import forms.ActorEditForm;
 import repositories.AuthorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Author;
+import forms.ActorEditForm;
 
 @Service
 @Transactional
 public class AuthorService {
-	
-	@Autowired
-	private AuthorRepository authorRepository;
-	
-	@Autowired
-	private ActorService actorService;
 
-	public Author reconstructEdit(ActorEditForm actorEditForm) {
+	@Autowired
+	private AuthorRepository	authorRepository;
+
+	@Autowired
+	private ActorService		actorService;
+
+
+	public Author reconstructEdit(final ActorEditForm actorEditForm) {
 		final Author result;
 		result = this.findByPrincipal();
 		result.setName(actorEditForm.getName());
@@ -36,7 +38,7 @@ public class AuthorService {
 		return result;
 	}
 
-	private Author findByPrincipal() {
+	public Author findByPrincipal() {
 		final UserAccount user = LoginService.getPrincipal();
 		Assert.notNull(user);
 
@@ -46,18 +48,17 @@ public class AuthorService {
 		return author;
 	}
 
-	private Author findByUserId(int id) {
+	public Author findByUserId(final int id) {
 		final Author author = this.authorRepository.findByUserId(id);
 		return author;
 	}
 
-	public Author save(Author author) {
+	public Author save(final Author author) {
 		Assert.notNull(author);
 
 		final Author result = this.authorRepository.save(author);
 		return result;
-		
+
 	}
-	
 
 }
