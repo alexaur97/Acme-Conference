@@ -28,6 +28,8 @@
 					<li><a href="configuration/administrator/setup.do"><spring:message code="master.page.administrator.config" /></a></li>					
 				</ul>
 			</li>
+			<li><a class="fNiv" href="conference/administrator/list.do"><spring:message
+					code="master.page.listConference" /></a></li>
 		</security:authorize>
 		
 		<li><a class="fNiv" href="conference/search.do"><spring:message

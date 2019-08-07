@@ -13,6 +13,16 @@
 		<put-attribute name="title" value="Conferencias buscadas" />
 		<put-attribute name="body" value="/views/conference/search.jsp" />
 	</definition>
+	
+	<definition name="conference/listAdm" extends="master.page">
+		<put-attribute name="title" value="Lista Conferencias" />
+		<put-attribute name="body" value="/views/conference/listAdm.jsp" />
+	</definition>
+	
+	<definition name="conference/show" extends="master.page">
+		<put-attribute name="title" value="Mostrar Conferencia" />
+		<put-attribute name="body" value="/views/conference/show.jsp" />
+	</definition>
 
 </tiles-definitions>
 	
