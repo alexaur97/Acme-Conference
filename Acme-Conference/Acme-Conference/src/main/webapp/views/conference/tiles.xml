@@ -19,6 +19,11 @@
 		<put-attribute name="title" value="List Conferences" />
 		<put-attribute name="body" value="/views/conference/listAdm.jsp" />
 	</definition>
+	
+	<definition name="conference/list" extends="master.page">
+		<put-attribute name="title" value="List Conferences" />
+		<put-attribute name="body" value="/views/conference/list.jsp" />
+	</definition>
 
 	<definition name="conference/show" extends="master.page">
 		<put-attribute name="title" value="Show Conferences" />

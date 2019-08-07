@@ -1,7 +1,6 @@
 
 package forms;
 
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -16,14 +15,23 @@ import domain.Conference;
 
 public class RegistrationForm {
 
+	private Conference	conference;
 	private String		holderName;
 	private String		brandName;
 	private String		number;
 	private Integer		expirationMonth;
 	private Integer		expirationYear;
 	private Integer		cvv;
-	private Conference	conference;
 
+
+	@NotNull
+	public Conference getConference() {
+		return this.conference;
+	}
+
+	public void setConference(final Conference conference) {
+		this.conference = conference;
+	}
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
@@ -84,16 +92,6 @@ public class RegistrationForm {
 
 	public void setCvv(final Integer cvv) {
 		this.cvv = cvv;
-	}
-
-	@NotNull
-	@ManyToOne(optional = false)
-	public Conference getConference() {
-		return this.conference;
-	}
-
-	public void setConference(final Conference conference) {
-		this.conference = conference;
 	}
 
 }

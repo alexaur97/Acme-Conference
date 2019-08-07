@@ -42,7 +42,7 @@ public class RegistrationAuthorController extends AbstractController {
 		try {
 			this.authorService.findByPrincipal();
 			final RegistrationForm registrationForm = new RegistrationForm();
-			final Collection<Conference> conferencias = this.conferenceService.findConference();
+			final Collection<Conference> conferencias = this.conferenceService.findAll();
 			result = new ModelAndView("registration/create");
 			result.addObject("registrationForm", registrationForm);
 			result.addObject("conferencias", conferencias);
@@ -56,17 +56,18 @@ public class RegistrationAuthorController extends AbstractController {
 	public ModelAndView save(@Valid final RegistrationForm registrationForm, final BindingResult binding) {
 		ModelAndView result;
 		if (binding.hasErrors()) {
-			final Collection<Conference> conferencias = this.conferenceService.findConference();
+			final Collection<Conference> conferencias = this.conferenceService.findAll();
 			result = new ModelAndView("registration/create");
 			result.addObject("registrationForm", registrationForm);
 			result.addObject("conferencias", conferencias);
 		} else
 			try {
-				final Registration r = this.registrationService.constructByForm(registrationForm);
-				final Registration saved = this.registrationService.save(r);
+				final Registration regis = this.registrationService.constructByForm(registrationForm);
+				final Registration saved = this.registrationService.save(regis);
 				result = new ModelAndView("redirect:/security/login.do");
 			} catch (final Throwable oops) {
 				result = new ModelAndView("redirect:/#");
+
 			}
 		return result;
 	}

@@ -60,22 +60,22 @@ public class RegistrationService {
 
 		result = new Registration();
 
-		final CreditCard creditCard = new CreditCard();
-		result.setCreditCard(creditCard);
-
 		return result;
 	}
 
 	public Registration save(final Registration registration) {
+		this.authorService.findByPrincipal();
 		Assert.notNull(registration);
 
 		return this.registrationRepository.save(registration);
 	}
 
 	public Registration constructByForm(final RegistrationForm registrationForm) {
-		final Registration result = this.create();
-
+		final Registration result = new Registration();
 		final Author a = this.authorService.findByPrincipal();
+		result.setAuthor(a);
+
+		result.setConference(registrationForm.getConference());
 
 		final CreditCard creditCard = result.getCreditCard();
 		creditCard.setBrandName(registrationForm.getBrandName());
@@ -87,7 +87,6 @@ public class RegistrationService {
 		final Boolean b = Utils.creditCardIsExpired(creditCard);
 		Assert.isTrue(!b);
 		result.setCreditCard(creditCard);
-		result.setAuthor(a);
 
 		return result;
 

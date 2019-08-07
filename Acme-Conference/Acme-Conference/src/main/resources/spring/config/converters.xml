@@ -27,12 +27,16 @@
 		<bean class="converters.AuthorToStringConverter" />
 		<bean class="converters.ReviewerToStringConverter" />
 		<bean class="converters.SponsorToStringConverter" />
+		<bean class="converters.ConferenceToStringConverter" />
+		<bean class="converters.RegistrationToStringConverter" />
 		
 		<bean class="converters.StringToActorConverter" />
 		<bean class="converters.StringToAdministratorConverter" />
 		<bean class="converters.StringToAuthorConverter" />
 		<bean class="converters.StringToActorConverter" />
 		<bean class="converters.StringToSponsorConverter" />
+		<bean class="converters.StringToConferenceConverter" />
+		<bean class="converters.StringToRegistrationConverter" />
 		
 	</util:list>
 	

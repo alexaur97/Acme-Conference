@@ -29,10 +29,9 @@
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<fieldset class="col-md-6 col-md-offset-3">
 			
-			<form:form action="registration/author/create.do" modelAttribute="registrationForm" class="form-horizontal" method="post">
-				
-					<div class="form-group ">
-					
+			<form:form action="registration/author/create.do" 
+			modelAttribute="registrationForm" class="form-horizontal" method="post">
+									
 					
 							<spring:message code="registration.creditCard" />
 							<acme:textbox code="registration.holderName" path="holderName" />
@@ -44,14 +43,10 @@
 							<br />
 	
 							<spring:message code="registration.conferencias" />:
-							<br>
-							<jstl:forEach items="${conferencias}" var="x">
-									<spring:message code="registration.conferencia" />: <jstl:out value="${x.title}"> </jstl:out>,
-							<br>
-							</jstl:forEach>
+							<acme:select items="${conferencias}" itemLabel="title" code="registration.conferencia" path="conference"/>
 							<acme:submit name="save" code="registration.save" />
 
-					</div>
+					
 				</form:form>
 			</fieldset>
 

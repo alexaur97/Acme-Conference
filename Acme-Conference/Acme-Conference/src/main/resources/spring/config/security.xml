@@ -68,6 +68,9 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/message/edit.do"
 			access="isAuthenticated()" />
+			
+		<security:intercept-url pattern="/conference/list.do"
+			access="isAuthenticated()" />
 
 		<security:intercept-url
 			pattern="/actor/edit.do"

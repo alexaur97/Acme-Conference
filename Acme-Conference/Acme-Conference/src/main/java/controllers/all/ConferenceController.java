@@ -22,6 +22,24 @@ public class ConferenceController extends AbstractController {
 	private ConferenceService	conferenceService;
 
 
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView result;
+		try {
+
+			final Collection<Conference> conferences = this.conferenceService.findAll();
+
+			result = new ModelAndView("conference/list");
+			result.addObject("requestURI", "conference/list.do");
+			result.addObject("conferences", conferences);
+
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
+	}
+
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView searchForm() {
 		ModelAndView result;

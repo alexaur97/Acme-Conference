@@ -2,12 +2,10 @@
 package services;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,6 +68,8 @@ public class ConferenceService {
 			if (c.get(i).getStartDate().after(actual))
 				res.add(c.get(i));
 		return res;
+
+	}
 
 	public Collection<Conference> findSubmissionLastFiveDays() {
 		final Date actualDate = new Date();
