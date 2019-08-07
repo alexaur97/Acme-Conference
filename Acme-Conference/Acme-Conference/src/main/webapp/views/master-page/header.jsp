@@ -47,6 +47,12 @@
 			</li>
 		</security:authorize>
 		
+			<security:authorize access="hasRole('AUTHOR')">
+	
+			<li><a class="fNiv" href="registration/author/list.do"><spring:message
+					code="master.page.listRegistration" /></a></li>
+		</security:authorize>
+		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		</security:authorize>

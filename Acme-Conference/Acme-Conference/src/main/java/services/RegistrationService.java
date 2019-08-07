@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import miscellaneous.Utils;
@@ -68,6 +69,12 @@ public class RegistrationService {
 		Assert.notNull(registration);
 
 		return this.registrationRepository.save(registration);
+	}
+
+	public Collection<Registration> findRegistrationByAuthor(final int id) {
+		Collection<Registration> res = new ArrayList<>();
+		res = this.registrationRepository.findRegistrationByAuthor(id);
+		return res;
 	}
 
 	public Registration constructByForm(final RegistrationForm registrationForm) {

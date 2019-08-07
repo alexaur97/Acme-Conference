@@ -92,6 +92,12 @@
 
 		<security:intercept-url pattern="/registration/author/create.do"
 			access="hasRole('AUTHOR')" />
+			
+		<security:intercept-url pattern="/registration/author/list.do"
+			access="hasRole('AUTHOR')" />
+			
+		<security:intercept-url pattern="/registration/author/show.do"
+			access="hasRole('AUTHOR')" />
 
 		<security:form-login
 			login-page="/security/login.do" password-parameter="password"
