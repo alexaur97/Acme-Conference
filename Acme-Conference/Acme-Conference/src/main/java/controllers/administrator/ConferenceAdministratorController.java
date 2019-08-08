@@ -38,7 +38,7 @@ public class ConferenceAdministratorController extends AbstractController {
 			final Collection<Conference> conferencesStartDate = this.conferenceService.findStartDateLessFiveDays();
 
 			result = new ModelAndView("conference/listAdm");
-			result.addObject("requestURI", "conference/administrator/list.do");
+			result.addObject("requestURI", "/conference/administrator/list.do");
 			result.addObject("conferencesSubmission", conferencesSubmission);
 			result.addObject("conferencesNotification", conferencesNotification);
 			result.addObject("conferencesCameraReady", conferencesCameraReady);
