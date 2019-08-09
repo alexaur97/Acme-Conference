@@ -67,5 +67,22 @@ public class ConferenceAdministratorController extends AbstractController {
 
 		return result;
 	}
+	
+	@RequestMapping(value = "/decision", method = RequestMethod.GET)
+	public ModelAndView decisionProcedure(@RequestParam final int conferenceId) {
+		ModelAndView result;
+		try {
+			this.administratorService.findByPrincipal();
+			final Conference conference = this.conferenceService.findOne(conferenceId);
+			this.conferenceService.decisionProcedure(conference);
+			result = new ModelAndView("conference/show");
+			result.addObject("requestURI", "conference/administrator/show.do");
+			result.addObject("conference", conference);
 
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
+	}
 }

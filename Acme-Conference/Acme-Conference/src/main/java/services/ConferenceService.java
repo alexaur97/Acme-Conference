@@ -14,29 +14,39 @@ import org.springframework.validation.Validator;
 
 import repositories.ConferenceRepository;
 import domain.Conference;
+import domain.Report;
+import domain.Submission;
 
 @Service
 @Transactional
 public class ConferenceService {
 
-	//Managed repository -------------------
+	// Managed repository -------------------
 	@Autowired
-	private ConferenceRepository			conferenceRepository;
+	private ConferenceRepository conferenceRepository;
 
-	//Supporting Services ------------------
+	// Supporting Services ------------------
 	@Autowired
-	private ConfigurationParametersService	configParamsService;
+	private ConfigurationParametersService configParamsService;
 
 	@Autowired
-	private Validator						validator;
+	private AdministratorService administratorService;
+	
+	@Autowired
+	private SubmissionService submissionService;
+	
+	@Autowired
+	private ReportService reportService;
 
+	@Autowired
+	private Validator validator;
 
-	//COnstructors -------------------------
+	// COnstructors -------------------------
 	public ConferenceService() {
 		super();
 	}
 
-	//Simple CRUD methods--------------------
+	// Simple CRUD methods--------------------
 
 	public Collection<Conference> findAll() {
 		Collection<Conference> result;
@@ -54,7 +64,7 @@ public class ConferenceService {
 		return result;
 	}
 
-	//Other Methods--------------------
+	// Other Methods--------------------
 	public Collection<Conference> searchConference(final String keyword) {
 		return this.conferenceRepository.searchConferencesKeyWord(keyword);
 	}
@@ -109,6 +119,14 @@ public class ConferenceService {
 		final Date nextDate = calendar.getTime();
 
 		return this.conferenceRepository.findStartDateLessFiveDays(actualDate, nextDate);
+	}
+
+	public void decisionProcedure(Conference conference) {
+		this.administratorService.findByPrincipal();
+		Collection<Submission> submissionsByConference = this.submissionService.findSubmissionsByConference(conference);
+		for(Submission s : submissionsByConference) {
+			Collection<Report> acceptedReportsBySubmission = this.reportService.findAcceptedReportsBySubmission(s);
+		}
 	}
 
 }
