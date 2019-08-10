@@ -16,7 +16,7 @@ public interface ConferenceRepository extends JpaRepository<Conference, Integer>
 	@Query("select c from Conference c where ((c.title like %?1%)or (c.summary like %?1%)or (c.venue like %?1%))")
 	Collection<Conference> searchConferencesKeyWord(String keyword);
 
-	@Query("select c from Conference c where ((c.submission >= ?1) and (c.submission <= ?2)) ")
+	@Query("select c from Conference c where ((c.submissionDeadline >= ?1) and (c.submissionDeadline <= ?2)) ")
 	Collection<Conference> findSubmissionLastFiveDays(Date lastDate, Date actualDate);
 
 	@Query("select c from Conference c where ((c.notification >= ?1) and (c.notification <= ?2)) ")

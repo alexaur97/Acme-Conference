@@ -18,7 +18,7 @@ public class Conference extends DomainEntity {
 	private String title;
 	private String acronym;
 	private String venue;
-	private Date submission;
+	private Date submissionDeadline;
 	private Date notification;
 	private Date cameraReady;
 	private Date startDate;
@@ -58,12 +58,12 @@ public class Conference extends DomainEntity {
 	}
 	
 	@NotNull
-	public Date getSubmission() {
-		return submission;
+	public Date getSubmissionDeadline() {
+		return submissionDeadline;
 	}
 	
-	public void setSubmission(Date submission) {
-		this.submission = submission;
+	public void setSubmissionDeadline(Date submissionDeadline) {
+		this.submissionDeadline = submissionDeadline;
 	}
 	
 	@NotNull

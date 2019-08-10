@@ -459,7 +459,7 @@
 		<property name="fee" value="3.50" />
 		<property name="notification" value="08/2/2019 20:00" />
 		<property name="startDate" value="12/30/2020 18:30" />
-		<property name="submission" value="08/04/2019 17:30" />
+		<property name="submissionDeadline" value="08/04/2019 17:30" />
 		<property name="summary"
 			value="Summary, Restary, Multiplicary y Dividiry" />
 		<property name="title" value="British Aerospace" />
@@ -467,7 +467,7 @@
 	</bean>
 
 	<bean id="conference2" class="domain.Conference">
-		<property name="acronym" value="GF" />
+		<property name="acronym" value="GF" /> 
 		<property name="administrator" ref="admin" />
 		<property name="cameraReady" value="08/07/2019 15:30" />
 		<property name="category" ref="category1" />
@@ -475,7 +475,7 @@
 		<property name="fee" value="3.50" />
 		<property name="notification" value="08/07/2019 20:00" />
 		<property name="startDate" value="12/30/2020 18:30" />
-		<property name="submission" value="07/30/2019 17:30" />
+		<property name="submissionDeadline" value="07/30/2019 17:30" />
 		<property name="summary"
 			value="Summary, Restary, Multiplicary y Dividiry" />
 		<property name="title" value="Global Freightways" />
@@ -491,7 +491,7 @@
 		<property name="fee" value="3.50" />
 		<property name="notification" value="08/10/2019 20:00" />
 		<property name="startDate" value="12/31/2020 18:30" />
-		<property name="submission" value="08/11/2019 17:30" />
+		<property name="submissionDeadline" value="08/11/2019 17:30" />
 		<property name="summary"
 			value="Summary, Restary, Multiplicary y Dividiry" />
 		<property name="title" value="The best conference" />
@@ -507,7 +507,7 @@
 		<property name="fee" value="3.50" />
 		<property name="notification" value="07/07/2019 20:00" />
 		<property name="startDate" value="12/30/2020 18:30" />
-		<property name="submission" value="07/30/2019 17:30" />
+		<property name="submissionDeadline" value="07/30/2019 17:30" />
 		<property name="summary"
 			value="Summary, Restary, Multiplicary y Dividiry" />
 		<property name="title" value="Premios Goya 2019" />
@@ -523,7 +523,7 @@
 		<property name="fee" value="3.50" />
 		<property name="notification" value="07/08/2019 20:00" />
 		<property name="startDate" value="12/30/2020 18:30" />
-		<property name="submission" value="07/30/2019 17:30" />
+		<property name="submissionDeadline" value="07/30/2019 17:30" />
 		<property name="summary"
 			value="Summary, Restary, Multiplicary y Dividiry" />
 		<property name="title" value="Trabajo de fin de grado" />
@@ -539,7 +539,7 @@
 		<property name="fee" value="3.50" />
 		<property name="notification" value="08/07/2019 20:00" />
 		<property name="startDate" value="12/30/2020 18:30" />
-		<property name="submission" value="07/30/2019 17:30" />
+		<property name="submissionDeadline" value="07/30/2019 17:30" />
 		<property name="summary"
 			value="Summary, Restary, Multiplicary y Dividiry" />
 		<property name="title" value="Me sube la bilirrubina" />
@@ -607,6 +607,47 @@
 		<property name="word" value="has sido elegido" />
 	</bean>
 
+	<!-- Papers -->
+	
+	<bean id="paper1" class="domain.Paper">
+		<property name="title" value="Paper number 1" />
+		<property name="authorAlias" value="author1" />
+		<property name="summary" value="First paper" />
+		<property name="document" value="This is the first paper" />
+		<property name="author" ref="author1"/>
+	</bean>
+	
+	<bean id="paper2" class="domain.Paper">
+		<property name="title" value="Paper number 2" />
+		<property name="authorAlias" value="author1" />
+		<property name="summary" value="Second paper" />
+		<property name="document" value="This is the second paper" />
+		<property name="author" ref="author1"/>
+	</bean>
+	
+	<!-- Submissions -->
+	
+	<bean id="submission1" class="domain.Submission">
+		<property name="author" ref="author1"/>
+		<property name="conference" ref="conference1"/>
+		<property name="ticker" value="RXV-6Y7U" />
+		<property name="moment" value="12/30/2020 17:00" />
+		<property name="paper" ref="paper1" />
+		<property name="cameraReady" ref="paper2" />
+		<property name="status" value="UNDER-REVIEW"/>
+	</bean>
+	
+	<!-- Reports -->
+	
+	<bean id="report1" class="domain.Report">
+		<property name="reviewer" ref="reviewer1"/>
+		<property name="submission" ref="submission1"/>
+		<property name="originality" value="8" />
+		<property name="quality" value="9" />
+		<property name="readability" value="8" />
+		<property name="decision" value="ACCEPT" />
+		<property name="comments" value="Very good"/>
+	</bean>
 
 
 </beans>

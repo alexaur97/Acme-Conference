@@ -27,7 +27,7 @@
 
 <spring:message code="conference.titleSubmission"/> 
 <br>
-<display:table pagesize="5" name="conferencesSubmission" id="conference"
+<display:table pagesize="5" name="conferencesSubmission" id="conferenceSubmission"
 	requestURI="${requestURI}" class="displaytag table">
 	<display:column titleKey="conference.title"  property="title" />
 	<display:column titleKey="conference.submission"  property="submission" />
@@ -50,7 +50,7 @@
 
 <spring:message code="conference.titleNotification"/>
 <br>
-<display:table pagesize="5" name="conferencesNotification" id="conference"
+<display:table pagesize="5" name="conferencesNotification" id="conferenceNotification"
 	requestURI="${requestURI}" class="displaytag table">
 	<display:column titleKey="conference.title"  property="title" />
 	<display:column titleKey="conference.notification"  property="notification" />
@@ -73,7 +73,7 @@
 <br>
 <spring:message code="conference.titleCameraReady"/>
 <br>
-<display:table pagesize="5" name="conferencesCameraReady" id="conference"
+<display:table pagesize="5" name="conferencesCameraReady" id="conferenceCameraReady"
 	requestURI="${requestURI}" class="displaytag table">
 	<display:column titleKey="conference.title"  property="title" />
 	<display:column titleKey="conference.cameraReady"  property="cameraReady" />
@@ -96,7 +96,7 @@
 <br>
 <spring:message code="conference.titleStartDate"/>
 <br>
-<display:table pagesize="5" name="conferencesStartDate" id="conference"
+<display:table pagesize="5" name="conferencesStartDate" id="conferenceStartDate"
 	requestURI="${requestURI}" class="displaytag table">
 	<display:column titleKey="conference.title"  property="title" />
 	<display:column titleKey="conference.startDate"  property="startDate" />

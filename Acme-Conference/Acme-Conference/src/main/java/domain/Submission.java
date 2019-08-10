@@ -17,12 +17,23 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Submission extends DomainEntity {
 	
 	private Author author;
+	private Conference conference;
 	
 	private String ticker;
 	private Date moment;
-	private Paper submissionPaper;
+	private Paper paper;
 	private Paper cameraReady;
 	private String status;
+	
+	@NotNull
+	@ManyToOne(optional=false)
+	public Conference getConference() {
+		return conference;
+	}
+
+	public void setConference(Conference conference) {
+		this.conference = conference;
+	}
 
 	@NotNull
 	@ManyToOne(optional=false)
@@ -52,13 +63,14 @@ public class Submission extends DomainEntity {
 		this.moment = moment;
 	}
 	
+	@NotNull
 	@OneToOne(optional=false)
-	public Paper getSubmissionPaper() {
-		return submissionPaper;
+	public Paper getPaper() {
+		return paper;
 	}
 	
-	public void setSubmissionPaper(Paper submissionPaper) {
-		this.submissionPaper = submissionPaper;
+	public void setPaper(Paper paper) {
+		this.paper = paper;
 	}
 	
 	@OneToOne
