@@ -131,6 +131,9 @@
 		
 		<security:intercept-url pattern="/section/administrator/**"
 			access="hasRole('ADMINISTRATOR')" />
+			
+		<security:intercept-url pattern="/topic/administrator/**"
+			access="hasRole('ADMINISTRATOR')" />
 
 		<security:form-login
 			login-page="/security/login.do" password-parameter="password"

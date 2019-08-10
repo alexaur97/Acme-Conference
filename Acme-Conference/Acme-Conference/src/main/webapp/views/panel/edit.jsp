@@ -42,7 +42,7 @@
 						<acme:select items="${conferences}" itemLabel="title" code="panel.conferences" path="conference"/>
 					
 						<acme:submit name="save" code="msg.save" />						
-						<acme:cancel url="/conference/administrator/list.do"
+						<acme:cancel url="/conference/list.do"
 							code="msg.cancel" />
 							
 						 <jstl:if test="${panel.id!=0}">

@@ -30,7 +30,7 @@
 <display:table pagesize="5" name="conferences" id="conference"
 	requestURI="${requestURI}" class="displaytag table">
 	<display:column titleKey="conference.title"  property="title" />
-	<display:column titleKey="conference.submission"  property="submission" />
+	<display:column titleKey="conference.submission"  property="submissionDeadline" />
 	<display:column titleKey="conference.startDate"  property="startDate" />
 	<display:column titleKey="conference.endDate"  property="endDate" />
 	<security:authorize access="hasRole('ADMINISTRATOR')">

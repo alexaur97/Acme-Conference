@@ -26,27 +26,20 @@
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<fieldset class="col-md-6 col-md-offset-3">
 
-				<form:form action="tutorial/administrator/edit.do"
-					modelAttribute="tutorial" class="form-horizontal" method="post">
+				<form:form action="topic/administrator/edit.do"
+					modelAttribute="topic" class="form-horizontal" method="post">
 					<div class="form-group ">
 
 						<form:hidden path="id"/>
 						<form:hidden path="version"/>	
-						<acme:textbox code="tutorial.title" path="title" />
-						<acme:textbox code="tutorial.speakers" path="speakers" />
-						<acme:textbox code="tutorial.duration" path="duration" />
-						<acme:textbox code="tutorial.startMoment" path="startMoment" />
-						<acme:textbox code="tutorial.room" path="room" />
-						<acme:textbox code="tutorial.summary" path="summary" />
-						<acme:textbox code="tutorial.attachments" path="attachments" />
-	
-						<acme:select items="${conferences}" itemLabel="title" code="tutorial.conferences" path="conference"/>
+						<acme:textbox code="topic.name" path="name" />
+						<acme:textbox code="topic.nameEs" path="nameEs" />
 					
 						<acme:submit name="save" code="msg.save" />						
-						<acme:cancel url="/conference/list.do"
+						<acme:cancel url="/topic/administrator/list.do"
 							code="msg.cancel" />
 							
-						 <jstl:if test="${tutorial.id!=0}">
+						 <jstl:if test="${topic.id!=0}">
 							<acme:submit name="delete" code="msg.delete" />
 						</jstl:if> 
 				

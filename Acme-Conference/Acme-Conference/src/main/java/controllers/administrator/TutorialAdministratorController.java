@@ -117,7 +117,7 @@ public class TutorialAdministratorController extends AbstractController {
 				Assert.isTrue(tutorialF.getConference().getStartDate().before(tutorialF.getStartMoment()));
 				Assert.isTrue(tutorialF.getStartMoment().before(tutorialF.getConference().getEndDate()));
 				this.tutorialService.save(tutorialF);
-				result = new ModelAndView("redirect:/conference/administrator/list.do");
+				result = new ModelAndView("redirect:/conference/list.do");
 
 			} catch (final Throwable oops) {
 				final Collection<Conference> conferences = this.conferenceService.findConference();
@@ -146,7 +146,7 @@ public class TutorialAdministratorController extends AbstractController {
 			for (final Section s : sections)
 				this.sectionService.delete(s);
 			this.tutorialService.delete(res);
-			result = new ModelAndView("redirect:/conference/administrator/list.do");
+			result = new ModelAndView("redirect:/conference/list.do");
 		} catch (final Throwable oops) {
 			final Collection<Conference> conferences = this.conferenceService.findConference();
 			result = new ModelAndView("tutorial/edit");

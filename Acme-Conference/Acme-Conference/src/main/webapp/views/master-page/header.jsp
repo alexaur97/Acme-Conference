@@ -32,6 +32,7 @@
 			</li>
 			<li><a class="fNiv" href="conference/administrator/list.do"><spring:message
 					code="master.page.listConference" /></a></li>
+
 		</security:authorize>
 		
 		<li><a class="fNiv" href="conference/search.do"><spring:message
@@ -46,6 +47,13 @@
 				</ul>
 			</li>
 		</security:authorize>
+		
+		<security:authorize access="hasRole('ADMINISTRATOR')">
+	
+			<li><a class="fNiv" href="topic/administrator/list.do"><spring:message
+					code="master.page.listTopic" /></a></li>
+		</security:authorize>
+		
 		
 			<security:authorize access="hasRole('AUTHOR')">
 	

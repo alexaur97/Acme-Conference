@@ -112,7 +112,7 @@ public class PresentationAdministratorController extends AbstractController {
 				Assert.isTrue(presentationF.getConference().getStartDate().before(presentationF.getStartMoment()));
 				Assert.isTrue(presentationF.getStartMoment().before(presentationF.getConference().getEndDate()));
 				this.presentationService.save(presentationF);
-				result = new ModelAndView("redirect:/conference/administrator/list.do");
+				result = new ModelAndView("redirect:/conference/list.do");
 
 			} catch (final Throwable oops) {
 				final Collection<Conference> conferences = this.conferenceService.findConference();
@@ -138,7 +138,7 @@ public class PresentationAdministratorController extends AbstractController {
 		try {
 			this.administratorService.findByPrincipal();
 			this.presentationService.delete(res);
-			result = new ModelAndView("redirect:/conference/administrator/list.do");
+			result = new ModelAndView("redirect:/conference/list.do");
 		} catch (final Throwable oops) {
 			final Collection<Conference> conferences = this.conferenceService.findConference();
 			result = new ModelAndView("presentation/edit");

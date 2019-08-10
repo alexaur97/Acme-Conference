@@ -577,6 +577,28 @@
 		
 	</bean>
 	
+	<!-- Topics -->
+	<bean id="topic1" class="domain.Topic">
+		<property name="name" value="INQUIRY" />
+		<property name="nameEs" value="INVESTIGACION" />
+	</bean>
+	<bean id="topic2" class="domain.Topic">
+		<property name="name" value="REBUTTAL" />
+		<property name="nameEs" value="REFUTACION" />
+	</bean>
+	<bean id="topic3" class="domain.Topic">
+		<property name="name" value="REGISTRATION" />
+		<property name="nameEs" value="REGISTRO" />
+	</bean>
+	<bean id="topic4" class="domain.Topic">
+		<property name="name" value="TOPICS" />
+		<property name="nameEs" value="TOPICOS" />
+	</bean>
+	<bean id="topic5" class="domain.Topic">
+		<property name="name" value="OTHER" />
+		<property name="nameEs" value="OTROS" />
+	</bean>
+	
 	<!-- Spamwords -->
 
 	<bean id="spamWord1" class="domain.SpamWord">

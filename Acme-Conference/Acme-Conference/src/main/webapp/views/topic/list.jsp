@@ -25,16 +25,17 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<acme:display code="conference.title" path="${conference.title}" />
-<acme:display code="conference.acronym" path="${conference.acronym}" />
-<acme:display code="conference.venue" path="${conference.venue}" />
-<acme:display code="conference.submission" path="${conference.submissionDeadline}" />
-<acme:display code="conference.notification" path="${conference.notification}" />
-<acme:display code="conference.cameraReady" path="${conference.cameraReady}" />
-<acme:display code="conference.startDate" path="${conference.startDate}" />
-<acme:display code="conference.endDate" path="${conference.endDate}" />
-<acme:display code="conference.summary" path="${conference.summary}" />
-<acme:display code="conference.fee" path="${conference.fee}" />
-<acme:display code="conference.category" path="${conference.category.title}" />
+<spring:message code="topic.list"/> 
+<br>
+<display:table pagesize="5" name="topics" id="topic"
+	requestURI="${requestURI}" class="displaytag table">
+	<display:column titleKey="topic.name"  property="name" />
+	<display:column titleKey="topic.nameEs"  property="nameEs" />
+	<display:column titleKey="topic.edit">
+		<acme:cancel url="/topic/administrator/edit.do?topicId=${topic.id}" code="topic.edit" />
+	</display:column>
+</display:table>
+
+<acme:cancel url="/topic/administrator/create.do" code="topic.create" />
 
 

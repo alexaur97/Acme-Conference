@@ -112,7 +112,7 @@ public class PanelAdministratorController extends AbstractController {
 				Assert.isTrue(panelF.getConference().getStartDate().before(panelF.getStartMoment()));
 				Assert.isTrue(panelF.getStartMoment().before(panelF.getConference().getEndDate()));
 				this.panelService.save(panelF);
-				result = new ModelAndView("redirect:/conference/administrator/list.do");
+				result = new ModelAndView("redirect:/conference/list.do");
 
 			} catch (final Throwable oops) {
 				final Collection<Conference> conferences = this.conferenceService.findConference();
@@ -138,7 +138,7 @@ public class PanelAdministratorController extends AbstractController {
 		try {
 			this.administratorService.findByPrincipal();
 			this.panelService.delete(res);
-			result = new ModelAndView("redirect:/conference/administrator/list.do");
+			result = new ModelAndView("redirect:/conference/list.do");
 		} catch (final Throwable oops) {
 			final Collection<Conference> conferences = this.conferenceService.findConference();
 			result = new ModelAndView("panel/edit");

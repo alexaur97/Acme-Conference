@@ -30,18 +30,9 @@
 <display:table pagesize="5" name="conferencesSubmission" id="conferenceSubmission"
 	requestURI="${requestURI}" class="displaytag table">
 	<display:column titleKey="conference.title"  property="title" />
-	<display:column titleKey="conference.submission"  property="submission" />
+	<display:column titleKey="conference.submission"  property="submissionDeadline" />
 	<display:column titleKey="conference.show">
 		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conference.id}" code="conference.show" />
-	</display:column>
-	<display:column titleKey="conference.panel">
-		<acme:cancel url="/panel/administrator/list.do?conferenceId=${conference.id}" code="conference.panel" />
-	</display:column>
-	<display:column titleKey="conference.presentation">
-		<acme:cancel url="/presentation/administrator/list.do?conferenceId=${conference.id}" code="conference.presentation" />
-	</display:column>
-	<display:column titleKey="conference.tutorial">
-		<acme:cancel url="/tutorial/administrator/list.do?conferenceId=${conference.id}" code="conference.tutorial" />
 	</display:column>
 </display:table>
 
@@ -57,15 +48,6 @@
 	<display:column titleKey="conference.show">
 		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conference.id}" code="conference.show" />
 	</display:column>
-		<display:column titleKey="conference.panel">
-		<acme:cancel url="/panel/administrator/list.do?conferenceId=${conference.id}" code="conference.panel" />
-	</display:column>
-	<display:column titleKey="conference.presentation">
-		<acme:cancel url="/presentation/administrator/list.do?conferenceId=${conference.id}" code="conference.presentation" />
-	</display:column>
-		<display:column titleKey="conference.tutorial">
-		<acme:cancel url="/tutorial/administrator/list.do?conferenceId=${conference.id}" code="conference.tutorial" />
-	</display:column>
 </display:table>
 
 
@@ -79,15 +61,6 @@
 	<display:column titleKey="conference.cameraReady"  property="cameraReady" />
 	<display:column titleKey="conference.show">
 		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conference.id}" code="conference.show" />
-	</display:column>
-		<display:column titleKey="conference.panel">
-		<acme:cancel url="/panel/administrator/list.do?conferenceId=${conference.id}" code="conference.panel" />
-	</display:column>
-	<display:column titleKey="conference.presentation">
-		<acme:cancel url="/presentation/administrator/list.do?conferenceId=${conference.id}" code="conference.presentation" />
-	</display:column>
-		<display:column titleKey="conference.tutorial">
-		<acme:cancel url="/tutorial/administrator/list.do?conferenceId=${conference.id}" code="conference.tutorial" />
 	</display:column>
 
 </display:table>
@@ -103,20 +76,8 @@
 	<display:column titleKey="conference.show">
 		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conference.id}" code="conference.show" />
 	</display:column>
-	<display:column titleKey="conference.panel">
-		<acme:cancel url="/panel/administrator/list.do?conferenceId=${conference.id}" code="conference.panel" />
-	</display:column>
-	<display:column titleKey="conference.presentation">
-		<acme:cancel url="/presentation/administrator/list.do?conferenceId=${conference.id}" code="conference.presentation" />
-	</display:column>
-		<display:column titleKey="conference.tutorial">
-		<acme:cancel url="/tutorial/administrator/list.do?conferenceId=${conference.id}" code="conference.tutorial" />
-	</display:column>
 
 </display:table>
 
 <br>
 <br>
-<acme:cancel url="/panel/administrator/create.do" code="conference.create.panel" />
-<acme:cancel url="/presentation/administrator/create.do" code="conference.create.presentation" />
-<acme:cancel url="/tutorial/administrator/create.do" code="conference.create.tutorial" />
