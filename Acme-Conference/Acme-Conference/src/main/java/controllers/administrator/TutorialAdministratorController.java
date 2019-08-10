@@ -142,6 +142,9 @@ public class TutorialAdministratorController extends AbstractController {
 
 		try {
 			this.administratorService.findByPrincipal();
+			final Collection<Section> sections = this.sectionService.findByTutorial(tutorial.getId());
+			for (final Section s : sections)
+				this.sectionService.delete(s);
 			this.tutorialService.delete(res);
 			result = new ModelAndView("redirect:/conference/administrator/list.do");
 		} catch (final Throwable oops) {
