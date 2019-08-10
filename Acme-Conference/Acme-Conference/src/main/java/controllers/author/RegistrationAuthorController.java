@@ -40,6 +40,7 @@ public class RegistrationAuthorController extends AbstractController {
 		ModelAndView result;
 		try {
 
+			this.authorService.findByPrincipal();
 			final int id = this.authorService.findByPrincipal().getId();
 			final Collection<Registration> registrations = this.registrationService.findRegistrationByAuthor(id);
 

@@ -27,7 +27,8 @@ public class ConferenceController extends AbstractController {
 		ModelAndView result;
 		try {
 
-			final Collection<Conference> conferences = this.conferenceService.findAll();
+			//Solo aparecen las conferencias que no han pasado
+			final Collection<Conference> conferences = this.conferenceService.findConference();
 
 			result = new ModelAndView("conference/list");
 			result.addObject("requestURI", "conference/list.do");

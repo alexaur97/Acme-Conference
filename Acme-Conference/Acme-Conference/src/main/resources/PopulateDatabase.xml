@@ -552,6 +552,31 @@
 		<property name="title" value="CONFERENCE" />
 	</bean>
 	
+	<!-- Activities -->
+	
+	<bean id="panel1" class="domain.Panel">
+		
+		<property name="conference" ref="conference1" />	
+		<property name="title" value="panel 1" />
+		<property name="speakers">
+			<list>
+				<value>speaker1</value> 
+				<value>speaker2</value> 
+			</list>
+		</property>
+		<property name="duration" value="15" />
+		<property name="startMoment" value="2020/10/10 10:30" />
+		<property name="room" value="23" />
+		<property name="summary" value="big data" />
+		<property name="attachments">
+			<list>
+				<value>attachment1</value> 
+				<value>attachment1</value> 
+			</list>
+		</property>
+		
+	</bean>
+	
 	<!-- Spamwords -->
 
 	<bean id="spamWord1" class="domain.SpamWord">
@@ -581,6 +606,7 @@
 	<bean id="spamWord9" class="domain.SpamWord">
 		<property name="word" value="has sido elegido" />
 	</bean>
+
 
 
 </beans>

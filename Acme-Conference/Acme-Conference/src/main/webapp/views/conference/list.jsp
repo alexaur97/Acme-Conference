@@ -25,7 +25,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<spring:message code="conference.titleSubmission"/> 
+<spring:message code="conference.futureConference"/> 
 <br>
 <display:table pagesize="5" name="conferences" id="conference"
 	requestURI="${requestURI}" class="displaytag table">
@@ -33,6 +33,17 @@
 	<display:column titleKey="conference.submission"  property="submission" />
 	<display:column titleKey="conference.startDate"  property="startDate" />
 	<display:column titleKey="conference.endDate"  property="endDate" />
+	<security:authorize access="hasRole('ADMINISTRATOR')">
+	<display:column titleKey="conference.panel">
+		<acme:cancel url="/panel/administrator/list.do?conferenceId=${conference.id}" code="conference.panel" />
+	</display:column>
+	<display:column titleKey="conference.presentation">
+		<acme:cancel url="/presentation/administrator/list.do?conferenceId=${conference.id}" code="conference.presentation" />
+	</display:column>
+	<display:column titleKey="conference.tutorial">
+		<acme:cancel url="/tutorial/administrator/list.do?conferenceId=${conference.id}" code="conference.tutorial" />
+	</display:column>
+	</security:authorize>
 	
 </display:table>
 
@@ -41,4 +52,9 @@
 					code="conference.registration" />
 </security:authorize>
 
+<security:authorize access="hasRole('ADMINISTRATOR')">
+<acme:cancel url="/panel/administrator/create.do" code="conference.create.panel" />
+<acme:cancel url="/presentation/administrator/create.do" code="conference.create.presentation" />
+<acme:cancel url="/tutorial/administrator/create.do" code="conference.create.tutorial" />
+</security:authorize>
 

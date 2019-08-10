@@ -81,6 +81,30 @@
 		<security:intercept-url
 			pattern="/configuration/administrator/setup.do"
 			access="hasRole('ADMINISTRATOR')" />
+		
+		<security:intercept-url
+			pattern="/presentation/administrator/delete.do"
+			access="hasRole('ADMINISTRATOR')" />
+			
+		<security:intercept-url
+			pattern="/presentation/administrator/list.do"
+			access="hasRole('ADMINISTRATOR')" />
+			
+		<security:intercept-url
+			pattern="/presentation/administrator/create.do"
+			access="hasRole('ADMINISTRATOR')" />
+		
+		<security:intercept-url
+			pattern="/presentation/administrator/edit.do"
+			access="hasRole('ADMINISTRATOR')" />
+				
+		<security:intercept-url
+			pattern="/panel/administrator/create.do"
+			access="hasRole('ADMINISTRATOR')" />
+		
+		<security:intercept-url
+			pattern="/panel/administrator/edit.do"
+			access="hasRole('ADMINISTRATOR')" />
 			
 		<security:intercept-url
 			pattern="/conference/administrator/show.do"
@@ -98,6 +122,15 @@
 			
 		<security:intercept-url pattern="/registration/author/show.do"
 			access="hasRole('AUTHOR')" />
+			
+		<security:intercept-url pattern="/panel/administrator/list.do"
+			access="hasRole('ADMINISTRATOR')" />
+			
+		<security:intercept-url pattern="/tutorial/administrator/**"
+			access="hasRole('ADMINISTRATOR')" />
+		
+		<security:intercept-url pattern="/section/administrator/**"
+			access="hasRole('ADMINISTRATOR')" />
 
 		<security:form-login
 			login-page="/security/login.do" password-parameter="password"

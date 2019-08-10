@@ -1,3 +1,4 @@
+
 package domain;
 
 import javax.persistence.Access;
@@ -6,6 +7,6 @@ import javax.persistence.Entity;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Tutorial extends Activity{	
-	
+public class Tutorial extends Activity {
+
 }
