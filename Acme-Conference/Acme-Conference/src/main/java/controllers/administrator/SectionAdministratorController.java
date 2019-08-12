@@ -1,8 +1,11 @@
 
 package controllers.administrator;
 
+import miscellaneous.Utils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,6 +38,7 @@ public class SectionAdministratorController extends AbstractController {
 		ModelAndView result;
 		try {
 			final Tutorial tutorial = this.tutorialService.findOne(tutorialId);
+			Assert.notNull(tutorial);
 			this.administratorService.findByPrincipal();
 			final Section section = this.sectionService.create();
 			result = new ModelAndView("section/edit");
@@ -55,6 +59,7 @@ public class SectionAdministratorController extends AbstractController {
 		try {
 			this.administratorService.findByPrincipal();
 			final Section section = this.sectionService.findOne(sectionId);
+			Assert.notNull(section);
 			result = new ModelAndView("section/edit");
 			result.addObject("section", section);
 
@@ -69,26 +74,36 @@ public class SectionAdministratorController extends AbstractController {
 	public ModelAndView save(@RequestParam final int tutorialId, final Section section, final BindingResult binding) {
 
 		ModelAndView result;
+		try {
+			final Tutorial tutorial = this.tutorialService.findOne(tutorialId);
+			Assert.notNull(tutorial);
+			this.administratorService.findByPrincipal();
+			final Section sectionF = this.sectionService.reconstruct(tutorial, section, binding);
+			final Boolean a = Utils.validateURL(sectionF.getPictures());
+			if (binding.hasErrors()) {
+				result = new ModelAndView("section/edit");
+				result.addObject("section", section);
 
-		final Tutorial tutorial = this.tutorialService.findOne(tutorialId);
-		this.administratorService.findByPrincipal();
-		final Section sectionF = this.sectionService.reconstruct(tutorial, section, binding);
-		if (binding.hasErrors()) {
-			result = new ModelAndView("section/edit");
-			result.addObject("section", section);
+			} else
+				try {
+					Assert.isTrue(a);
+					this.sectionService.save(sectionF);
+					result = new ModelAndView("redirect:/conference/list.do");
 
-		} else
-			try {
-				this.sectionService.save(sectionF);
-				result = new ModelAndView("redirect:/conference/administrator/list.do");
-
-			} catch (final Throwable oops) {
-				result = new ModelAndView("redirect:/#");
-			}
+				} catch (final Throwable oops) {
+					if (a.equals(false)) {
+						result = new ModelAndView("section/edit");
+						result.addObject("section", section);
+						result.addObject("message", "section.picture.error");
+					} else
+						result = new ModelAndView("redirect:/#");
+				}
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/#");
+		}
 		return result;
 
 	}
-
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Section section, final BindingResult binding) {
 		ModelAndView result;
@@ -97,7 +112,7 @@ public class SectionAdministratorController extends AbstractController {
 		try {
 			this.administratorService.findByPrincipal();
 			this.sectionService.delete(res);
-			result = new ModelAndView("redirect:/conference/administrator/list.do");
+			result = new ModelAndView("redirect:/conference/list.do");
 		} catch (final Throwable oops) {
 			result = new ModelAndView("section/edit");
 			result.addObject("section", section);

@@ -23,28 +23,39 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
-<form:form action="conference/search.do" modelAttribute="conference" class="form-horizontal" method="post">
-					<br>
-					<acme:textbox code="conference.keyword" path="title" />
-						<acme:submit name="save" code="conference.search" />
-					</form:form>
 
-<display:table pagesize="5" name="conferences" id="conference"
+
+<spring:message code="category.list"/> 
+<br>
+<display:table pagesize="5" name="categories" id="category"
 	requestURI="${requestURI}" class="displaytag table">
-	<display:column titleKey="conference.title"  property="title" />
-	<display:column titleKey="conference.acronym" property="acronym" />
-	<display:column titleKey="conference.venue" property="venue" />
-	<display:column titleKey="conference.submission" property="submissionDeadline" />
-	<display:column titleKey="conference.cameraReady" property="cameraReady" />
-	<display:column titleKey="conference.startDate" property="startDate" />
-	<display:column titleKey="conference.endDate" property="endDate" />
-	<display:column titleKey="conference.summary" property="summary" />
-	<display:column titleKey="conference.fee" property="fee" />
-	
-	
-	
-	
-		
+	<jstl:choose>
+	<jstl:when test="${lang eq 'en'}">
+	<display:column titleKey="category.name"  property="name" />
+	 </jstl:when>
+    <jstl:otherwise>
+	<display:column titleKey="category.nameEs"  property="nameEs" />
+	 </jstl:otherwise>
+	</jstl:choose>
+	<display:column titleKey="category.root"  property="root" />
+	<jstl:choose>
+	<jstl:when test="${lang eq 'en'}">
+	<display:column titleKey="category.parent"  property="parent.name" />
+	</jstl:when>
+    <jstl:otherwise>
+    <display:column titleKey="category.parent"  property="parent.nameEs" />
+     </jstl:otherwise>
+	</jstl:choose>
+	<display:column titleKey="category.edit">
+		<acme:cancel url="/category/administrator/edit.do?categoryId=${category.id}" code="category.edit" />
+	</display:column>
+
+
 	
 </display:table>
+
+<acme:cancel url="/category/administrator/create.do" code="category.create" />
+
+
+
 

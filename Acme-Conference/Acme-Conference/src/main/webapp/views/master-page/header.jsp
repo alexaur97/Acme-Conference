@@ -28,6 +28,8 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="configuration/administrator/setup.do"><spring:message code="master.page.administrator.config" /></a></li>					
+					<li><a href="stats/administrator/display.do"><spring:message
+								code="master.page.administrator.stats" /></a></li>
 				</ul>
 			</li>
 			<li><a class="fNiv" href="conference/administrator/list.do"><spring:message
@@ -52,6 +54,12 @@
 	
 			<li><a class="fNiv" href="topic/administrator/list.do"><spring:message
 					code="master.page.listTopic" /></a></li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('ADMINISTRATOR')">
+	
+			<li><a class="fNiv" href="category/administrator/list.do"><spring:message
+					code="master.page.listCategory" /></a></li>
 		</security:authorize>
 		
 		

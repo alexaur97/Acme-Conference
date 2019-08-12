@@ -1,3 +1,4 @@
+
 package domain;
 
 import javax.persistence.Access;
@@ -11,28 +12,47 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Access(AccessType.PROPERTY)
 public class Category extends DomainEntity {
-	
-	private String title;
-	private Category parent;
-	
+
+	private String		name;
+	private String		nameEs;
+	private Category	parent;
+	private Boolean		root;
+
+
+	@NotNull
+	public Boolean getRoot() {
+		return this.root;
+	}
+
+	public void setRoot(final Boolean root) {
+		this.root = root;
+	}
+
 	@NotBlank
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return this.name;
 	}
-	
-	public void setTitle(String title) {
-		this.title = title;
+
+	public void setName(final String name) {
+		this.name = name;
 	}
-	
+
+	@NotBlank
+	public String getNameEs() {
+		return this.nameEs;
+	}
+
+	public void setNameEs(final String nameEs) {
+		this.nameEs = nameEs;
+	}
+
 	@OneToOne
 	public Category getParent() {
-		return parent;
+		return this.parent;
 	}
-	
-	public void setParent(Category parent) {
+
+	public void setParent(final Category parent) {
 		this.parent = parent;
 	}
-	
-	
-	
+
 }

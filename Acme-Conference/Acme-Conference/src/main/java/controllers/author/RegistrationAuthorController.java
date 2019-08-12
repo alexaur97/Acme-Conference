@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.AuthorService;
 import services.ConferenceService;
+import services.CreditCardService;
 import services.RegistrationService;
 import controllers.AbstractController;
 import domain.Conference;
@@ -33,6 +34,9 @@ public class RegistrationAuthorController extends AbstractController {
 
 	@Autowired
 	private ConferenceService	conferenceService;
+
+	@Autowired
+	private CreditCardService	creditCardService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -102,8 +106,9 @@ public class RegistrationAuthorController extends AbstractController {
 		} else
 			try {
 				final Registration regis = this.registrationService.constructByForm(registrationForm);
-				final Registration saved = this.registrationService.save(regis);
-				result = new ModelAndView("redirect:/security/login.do");
+				this.creditCardService.save(regis.getCreditCard());
+				this.registrationService.save(regis);
+				result = new ModelAndView("redirect:/registration/author/list.do");
 			} catch (final Throwable oops) {
 				result = new ModelAndView("redirect:/#");
 

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import org.springframework.validation.Validator;
 
 import repositories.RegistrationRepository;
 import domain.Author;
@@ -28,9 +27,6 @@ public class RegistrationService {
 
 	@Autowired
 	private AuthorService			authorService;
-
-	@Autowired
-	private Validator				validator;
 
 
 	//COnstructors -------------------------
@@ -84,12 +80,12 @@ public class RegistrationService {
 
 		result.setConference(registrationForm.getConference());
 
-		final CreditCard creditCard = result.getCreditCard();
+		final CreditCard creditCard = new CreditCard();
+		creditCard.setHolderName(registrationForm.getHolderName());
 		creditCard.setBrandName(registrationForm.getBrandName());
 		creditCard.setCvv(registrationForm.getCvv());
 		creditCard.setExpirationMonth(registrationForm.getExpirationMonth());
 		creditCard.setExpirationYear(registrationForm.getExpirationYear());
-		creditCard.setHolderName(registrationForm.getHolderName());
 		creditCard.setNumber(registrationForm.getNumber());
 		final Boolean b = Utils.creditCardIsExpired(creditCard);
 		Assert.isTrue(!b);

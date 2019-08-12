@@ -48,4 +48,179 @@
 		<property name="title" value="CONFERENCE" />
 	</bean>
 	
+	<!-- Topics -->
+	<bean id="topic1" class="domain.Topic">
+		<property name="name" value="INQUIRY" />
+		<property name="nameEs" value="INVESTIGACION" />
+	</bean>
+	<bean id="topic2" class="domain.Topic">
+		<property name="name" value="REBUTTAL" />
+		<property name="nameEs" value="REFUTACION" />
+	</bean>
+	<bean id="topic3" class="domain.Topic">
+		<property name="name" value="REGISTRATION" />
+		<property name="nameEs" value="REGISTRO" />
+	</bean>
+	<bean id="topic4" class="domain.Topic">
+		<property name="name" value="TOPICS" />
+		<property name="nameEs" value="TOPICOS" />
+	</bean>
+	<bean id="topic5" class="domain.Topic">
+		<property name="name" value="OTHER" />
+		<property name="nameEs" value="OTROS" />
+	</bean>
+	
+		<!-- Categories -->
+
+
+	<bean id="category1" class="domain.Category">
+		<property name="name" value="CONFERENCE" />
+		<property name="nameEs" value="CONFERENCIA" />
+		<property name="root" value="true" />
+	</bean>
+	
+	<bean id="category2" class="domain.Category">
+		<property name="name" value="Computer Science" />
+		<property name="nameEs" value="Informatica" />
+		<property name="parent" ref="category1" />
+		<property name="root" value="false" />
+		
+	</bean>
+	
+	<bean id="category3" class="domain.Category">
+		<property name="name" value="Artificial Intelligence" />
+		<property name="nameEs" value="Inteligencia Artificial" />
+		<property name="parent" ref="category2" />
+		<property name="root" value="false" />
+		
+	</bean>
+	
+	<bean id="category4" class="domain.Category">
+		<property name="name" value="Deep Learning" />
+		<property name="nameEs" value="Aprendizaje profundo" />
+			<property name="parent" ref="category3" />
+			<property name="root" value="false" />
+		
+	</bean>
+	
+	<bean id="category5" class="domain.Category">
+		<property name="name" value="Instance-Based learning" />
+		<property name="nameEs" value="Aprendizaje basado en instancia" />
+			<property name="parent" ref="category3" />
+			<property name="root" value="false" />
+		
+	</bean>
+	
+	<bean id="category6" class="domain.Category">
+		<property name="name" value="Regression " />
+		<property name="nameEs" value="Regression" />
+			<property name="parent" ref="category3" />
+			<property name="root" value="false" />
+		
+	</bean>
+	
+	<bean id="category7" class="domain.Category">
+		<property name="name" value="Software Engineering " />
+		<property name="nameEs" value="Ingenieria de Software" />
+			<property name="parent" ref="category1" />
+			<property name="root" value="false" />
+		
+	</bean>
+	
+	<bean id="category8" class="domain.Category">
+		<property name="name" value="Big Data" />
+		<property name="nameEs" value="Big Data" />
+			<property name="parent" ref="category7" />
+			<property name="root" value="false" />
+		
+	</bean>
+	
+	<bean id="category9" class="domain.Category">
+		<property name="name" value="Big Processing " />
+		<property name="nameEs" value="Big Processing" />
+			<property name="parent" ref="category7" />
+			<property name="root" value="false" />
+		
+	</bean>
+	
+	<bean id="category10" class="domain.Category">
+		<property name="name" value="Methods " />
+		<property name="nameEs" value="Metodos" />
+			<property name="parent" ref="category7" />
+			<property name="root" value="false" />
+		
+	</bean>
+	
+	<bean id="category11" class="domain.Category">
+		<property name="name" value="Tools " />
+		<property name="nameEs" value="Herramientas" />
+			<property name="parent" ref="category7" />
+			<property name="root" value="false" />
+		
+	</bean>
+
+	<bean id="category12" class="domain.Category">
+		<property name="name" value="Phisics " />
+		<property name="nameEs" value="Fisicas" />
+			<property name="parent" ref="category1" />
+			<property name="root" value="false" />
+		
+	</bean>
+	
+	<bean id="category13" class="domain.Category">
+		<property name="name" value="Cinematic " />
+		<property name="nameEs" value="Cinematica" />
+			<property name="parent" ref="category12" />
+			<property name="root" value="false" />
+		
+	</bean>
+	
+	<bean id="category14" class="domain.Category">
+		<property name="name" value="Electricity " />
+		<property name="nameEs" value="Electricidad" />
+			<property name="parent" ref="category12" />
+			<property name="root" value="false" />
+		
+	</bean>
+	
+	<bean id="category15" class="domain.Category">
+		<property name="name" value="Electronics " />
+		<property name="nameEs" value="Electronica" />
+			<property name="parent" ref="category12" />
+			<property name="root" value="false" />
+		
+	</bean>
+	
+	<bean id="category16" class="domain.Category">
+		<property name="name" value="Biology " />
+		<property name="nameEs" value="Biologia" />
+			<property name="parent" ref="category1" />
+			<property name="root" value="false" />
+		
+	</bean>
+	
+	<bean id="category17" class="domain.Category">
+		<property name="name" value="Animals " />
+		<property name="nameEs" value="Animales" />
+			<property name="parent" ref="category16" />
+			<property name="root" value="false" />
+		
+	</bean>
+	
+	<bean id="category18" class="domain.Category">
+		<property name="name" value="Plants " />
+		<property name="nameEs" value="Plantas" />
+			<property name="parent" ref="category16" />
+			<property name="root" value="false" />
+		
+	</bean>
+	
+	<bean id="category19" class="domain.Category">
+		<property name="name" value="Funghis " />
+		<property name="nameEs" value="Hongos" />
+			<property name="parent" ref="category16" />
+			<property name="root" value="false" />
+		
+	</bean>
+
 </beans>

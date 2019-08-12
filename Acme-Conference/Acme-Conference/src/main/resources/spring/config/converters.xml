@@ -30,6 +30,8 @@
 		<bean class="converters.ConferenceToStringConverter" />
 		<bean class="converters.RegistrationToStringConverter" />
 		<bean class="converters.PanelToStringConverter" />
+		<bean class="converters.CategoryToStringConverter" />
+	
 		
 		<bean class="converters.StringToActorConverter" />
 		<bean class="converters.StringToAdministratorConverter" />
@@ -39,6 +41,8 @@
 		<bean class="converters.StringToConferenceConverter" />
 		<bean class="converters.StringToRegistrationConverter" />
 		<bean class="converters.StringToPanelConverter" />
+		<bean class="converters.StringToCategoryConverter" />
+		
 		
 	</util:list>
 	

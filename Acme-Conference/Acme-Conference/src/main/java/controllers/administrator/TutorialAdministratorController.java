@@ -88,6 +88,7 @@ public class TutorialAdministratorController extends AbstractController {
 			this.administratorService.findByPrincipal();
 			final Collection<Conference> conferences = this.conferenceService.findConference();
 			final Tutorial tutorial = this.tutorialService.findOne(tutorialId);
+			Assert.notNull(tutorial);
 			result = new ModelAndView("tutorial/edit");
 			result.addObject("tutorial", tutorial);
 			result.addObject("conferences", conferences);

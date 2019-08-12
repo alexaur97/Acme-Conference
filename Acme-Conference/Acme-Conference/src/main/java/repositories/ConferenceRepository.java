@@ -28,4 +28,10 @@ public interface ConferenceRepository extends JpaRepository<Conference, Integer>
 	@Query("select c from Conference c where ((c.startDate >= ?1) and (c.startDate <= ?2)) ")
 	Collection<Conference> findStartDateLessFiveDays(Date actualDate, Date nextDate);
 
+	@Query("select c from Conference c where c.category.id=?1")
+	Collection<Conference> findByCateogry(int id);
+
+	@Query("select avg(1.0*(select count(c) from Conference c where c.category.id = a.id)),min(1.0*(select count(c) from Conference c where c.category.id = a.id)),max(1.0*(select count(c) from Conference c where c.category.id = a.id)),stddev(1.0*(select count(c) from Conference c where c.category.id = a.id)) from Category a ")
+	Collection<Double> statsConferencesPerCategory();
+
 }

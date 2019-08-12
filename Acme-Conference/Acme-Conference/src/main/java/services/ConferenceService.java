@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.springframework.validation.Validator;
 
 import repositories.ConferenceRepository;
@@ -23,23 +24,24 @@ public class ConferenceService {
 
 	// Managed repository -------------------
 	@Autowired
-	private ConferenceRepository conferenceRepository;
+	private ConferenceRepository			conferenceRepository;
 
 	// Supporting Services ------------------
 	@Autowired
-	private ConfigurationParametersService configParamsService;
+	private ConfigurationParametersService	configParamsService;
 
 	@Autowired
-	private AdministratorService administratorService;
-	
-	@Autowired
-	private SubmissionService submissionService;
-	
-	@Autowired
-	private ReportService reportService;
+	private AdministratorService			administratorService;
 
 	@Autowired
-	private Validator validator;
+	private SubmissionService				submissionService;
+
+	@Autowired
+	private ReportService					reportService;
+
+	@Autowired
+	private Validator						validator;
+
 
 	// COnstructors -------------------------
 	public ConferenceService() {
@@ -47,6 +49,12 @@ public class ConferenceService {
 	}
 
 	// Simple CRUD methods--------------------
+
+	public void save(final Conference conference) {
+		Assert.notNull(conference);
+
+		this.conferenceRepository.save(conference);
+	}
 
 	public Collection<Conference> findAll() {
 		Collection<Conference> result;
@@ -91,6 +99,12 @@ public class ConferenceService {
 		return this.conferenceRepository.findSubmissionLastFiveDays(lastDate, actualDate);
 	}
 
+	public Collection<Conference> findByCategory(final int categoryId) {
+		Collection<Conference> res = new ArrayList<>();
+		res = this.conferenceRepository.findByCateogry(categoryId);
+		return res;
+	}
+
 	public Collection<Conference> findNotificationLessFiveDays() {
 		final Date actualDate = new Date();
 		final Calendar calendar = Calendar.getInstance();
@@ -121,12 +135,17 @@ public class ConferenceService {
 		return this.conferenceRepository.findStartDateLessFiveDays(actualDate, nextDate);
 	}
 
-	public void decisionProcedure(Conference conference) {
+	public void decisionProcedure(final Conference conference) {
 		this.administratorService.findByPrincipal();
-		Collection<Submission> submissionsByConference = this.submissionService.findSubmissionsByConference(conference);
-		for(Submission s : submissionsByConference) {
-			Collection<Report> acceptedReportsBySubmission = this.reportService.findAcceptedReportsBySubmission(s);
-		}
+		final Collection<Submission> submissionsByConference = this.submissionService.findSubmissionsByConference(conference);
+		for(final Submission s : submissionsByConference) {
+			final Collection<Report> acceptedReportsBySubmission = this.reportService.findAcceptedReportsBySubmission(s);
 	}
-
+	}
+	
+	public Collection<Double> statsConferencePerCategory(){
+		final Collection<Double> result = this.conferenceRepository.statsConferencesPerCategory();
+		Assert.notNull(result);
+		return result;
+	}
 }

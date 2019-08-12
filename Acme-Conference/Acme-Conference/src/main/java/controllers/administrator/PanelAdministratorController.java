@@ -83,6 +83,7 @@ public class PanelAdministratorController extends AbstractController {
 			this.administratorService.findByPrincipal();
 			final Collection<Conference> conferences = this.conferenceService.findConference();
 			final Panel panel = this.panelService.findOne(panelId);
+			Assert.notNull(panel);
 			result = new ModelAndView("panel/edit");
 			result.addObject("panel", panel);
 			result.addObject("conferences", conferences);
