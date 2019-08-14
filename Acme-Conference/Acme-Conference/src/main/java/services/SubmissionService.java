@@ -21,4 +21,18 @@ public class SubmissionService {
 		return this.submissionRepository.findSubmissionsByConference(conference.getId());
 	}
 
+	public Submission save(Submission submission) {
+		Submission result = this.submissionRepository.save(submission);
+		return result;
+		
+	}
+
+	public Collection<Submission> findAcceptedSubmissionsByConference(Conference conference) {
+		return this.submissionRepository.findAcceptedSubmissionsByConference(conference.getId());
+	}
+	
+	public Collection<Submission> findRejectedSubmissionsByConference(Conference conference) {
+		return this.submissionRepository.findRejectedSubmissionsByConference(conference.getId());
+	}
+
 }

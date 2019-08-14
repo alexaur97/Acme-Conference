@@ -10,21 +10,23 @@ import org.springframework.stereotype.Component;
 import domain.Actor;
 import domain.Reviewer;
 import domain.Sponsor;
+import domain.Submission;
 import repositories.ActorRepository;
 import repositories.ReviewerRepository;
 import repositories.SponsorRepository;
+import repositories.SubmissionRepository;
 
 @Component
 @Transactional
-public class StringToSponsorConverter implements Converter<String, Sponsor> {
+public class StringToSubmissionConverter implements Converter<String, Submission> {
 
 	@Autowired
-	SponsorRepository	sponsorRepository;
+	SubmissionRepository	submissionRepository;
 
 
 	@Override
-	public Sponsor convert(final String text) {
-		Sponsor result;
+	public Submission convert(final String text) {
+		Submission result;
 		int id;
 
 		try {
@@ -32,7 +34,7 @@ public class StringToSponsorConverter implements Converter<String, Sponsor> {
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.sponsorRepository.findOne(id);
+				result = this.submissionRepository.findOne(id);
 			}
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);

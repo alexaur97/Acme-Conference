@@ -29,6 +29,8 @@
 		<bean class="converters.SponsorToStringConverter" />
 		<bean class="converters.ConferenceToStringConverter" />
 		<bean class="converters.RegistrationToStringConverter" />
+		<bean class="converters.ReportToStringConverter" />
+		<bean class="converters.SubmissionToStringConverter" />
 		
 		<bean class="converters.StringToActorConverter" />
 		<bean class="converters.StringToAdministratorConverter" />
@@ -37,6 +39,8 @@
 		<bean class="converters.StringToSponsorConverter" />
 		<bean class="converters.StringToConferenceConverter" />
 		<bean class="converters.StringToRegistrationConverter" />
+		<bean class="converters.StringToReportConverter" />
+		<bean class="converters.StringToSubmissionConverter" />
 		
 	</util:list>
 	

@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.springframework.validation.Validator;
 
 import repositories.ConferenceRepository;
@@ -123,9 +124,20 @@ public class ConferenceService {
 
 	public void decisionProcedure(Conference conference) {
 		this.administratorService.findByPrincipal();
+		final Date currentDate = new Date();
+		Assert.isTrue(conference.getSubmissionDeadline().before(currentDate));
 		Collection<Submission> submissionsByConference = this.submissionService.findSubmissionsByConference(conference);
 		for(Submission s : submissionsByConference) {
-			Collection<Report> acceptedReportsBySubmission = this.reportService.findAcceptedReportsBySubmission(s);
+			Submission retrieved = s;
+			Collection<Report> acceptReportsBySubmission = this.reportService.findAcceptReportsBySubmission(s);
+			Collection<Report> rejectReportsBySubmission = this.reportService.findRejectReportsBySubmission(s);
+			Integer decision = acceptReportsBySubmission.size()-rejectReportsBySubmission.size();
+			if(decision>=0) { // Simplemente con este condicional se cumplen todas las condiciones del requisito 14.4
+				retrieved.setStatus("ACCEPTED");
+			}else {
+				retrieved.setStatus("REJECTED");
+			}
+			this.submissionService.save(retrieved);
 		}
 	}
 

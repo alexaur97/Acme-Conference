@@ -21,8 +21,12 @@ public class ReportService {
 		return this.reportRepository.findReportsBySubmission(s.getId());
 	}
 
-	public Collection<Report> findAcceptedReportsBySubmission(Submission s) {
-		return this.reportRepository.findAcceptedReportsBySubmission(s.getId());
+	public Collection<Report> findAcceptReportsBySubmission(Submission s) {
+		return this.reportRepository.findAcceptReportsBySubmission(s.getId());
+	}
+
+	public Collection<Report> findRejectReportsBySubmission(Submission s) {
+		return this.reportRepository.findRejectReportsBySubmission(s.getId());
 	}
 
 }

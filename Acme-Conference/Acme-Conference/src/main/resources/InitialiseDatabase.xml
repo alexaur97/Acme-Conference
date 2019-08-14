@@ -44,8 +44,111 @@
 		<property name="userAccount" ref="userAccount1" />
 	</bean>
 	
+	<!-- Categories -->
+	
 	<bean id="category1" class="domain.Category">
 		<property name="title" value="CONFERENCE" />
 	</bean>
+	
+	<!-- Configuration -->
+	
+	<bean id="configurationParameters"
+		class="domain.ConfigurationParameters">
+		<property name="banner"
+			value="https://i.ibb.co/GVpZCtM/acme-conference.png" />
+		<property name="countryCode" value="+34" />
+		<property name="creditCardMakes">
+			<list>
+				<value>VISA</value>
+				<value>MASTER</value>
+				<value>DINNERS</value>
+				<value>AMEX</value>
+			</list>
+		</property>
+		<property name="message"
+			value="Welcome to Acme Conference! Your scientific event manager" />
+		<property name="messageEs"
+			value="¡Bienvenidos a Acme Conference! Su gestor de eventos científicos" />
+		<property name="systemName" value="Acme Conference" />
+		<property name="voidWords">
+			<list>
+				<value>a</value>
+				<value>after</value>
+				<value>all</value>
+				<value>also</value>
+				<value>am</value>
+				<value>an</value>
+				<value>and</value>
+				<value>are</value>
+				<value>be</value>
+				<value>because</value>
+				<value>but</value>
+				<value>can</value>
+				<value>cannot</value>
+				<value>do</value>
+				<value>else</value>
+				<value>every</value>
+				<value>for</value>
+				<value>get</value>
+				<value>have</value>
+				<value>has</value>
+				<value>i</value>
+				<value>is</value>
+				<value>it</value>
+				<value>just</value>
+				<value>let</value>
+				<value>most</value>
+				<value>not</value>
+				<value>of</value>
+				<value>rather</value>
+				<value>some</value>
+				<value>the</value>
+				<value>to</value>
+				<value>us</value>
+				<value>what</value>
+				<value>you</value>
+			</list>
+		</property>
+		<property name="voidWordsEs">
+			<list>
+				<value>a</value> 
+				<value>después</value>
+				<value>todo</value>
+				<value>también</value>
+				<value>soy</value>
+				<value>un</value>
+				<value>una</value>
+				<value>y</value>
+				<value>está </value>
+				<value>ser </value>
+				<value>porque</value>
+				<value>pero</value>
+				<value>puede</value>
+				<value>no puede</value>
+				<value>con</value>
+				<value>otra</value>
+				<value>cada</value>
+				<value>para</value>
+				<value>get</value>
+				<value>ha</value>
+				<value>yo</value>
+				<value>es</value>
+				<value>eso</value>
+				<value>just</value>
+				<value>let</value>
+				<value>más</value>
+				<value>no</value>
+				<value>of</value>
+				<value>reflejo</value>
+				<value>algunos</value>
+				<value>el</value>
+				<value>ella</value>
+				<value>nosotros</value>
+				<value>qué</value>
+				<value>usted</value>
+			</list>
+		</property>
+	</bean>
+	
 	
 </beans>

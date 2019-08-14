@@ -12,8 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.AdministratorService;
 import services.ConferenceService;
+import services.SubmissionService;
 import controllers.AbstractController;
 import domain.Conference;
+import domain.Submission;
 
 @Controller
 @RequestMapping("conference/administrator")
@@ -25,6 +27,8 @@ public class ConferenceAdministratorController extends AbstractController {
 	@Autowired
 	private ConferenceService		conferenceService;
 
+	@Autowired
+	private SubmissionService		submissionService;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
@@ -58,9 +62,20 @@ public class ConferenceAdministratorController extends AbstractController {
 			this.administratorService.findByPrincipal();
 			final Conference conference = this.conferenceService.findOne(conferenceId);
 			result = new ModelAndView("conference/show");
+			
+			Collection<Submission> acceptedSubmissions = this.submissionService.findAcceptedSubmissionsByConference(conference);
+			Collection<Submission> rejectedSubmissions = this.submissionService.findRejectedSubmissionsByConference(conference);
+			
+			Boolean bool = acceptedSubmissions.size() + rejectedSubmissions.size() > 0;
+			
 			result.addObject("requestURI", "conference/administrator/show.do");
 			result.addObject("conference", conference);
-
+			result.addObject("acceptedSubmissions", acceptedSubmissions);
+			result.addObject("rejectedSubmissions", rejectedSubmissions);
+			result.addObject("bool", bool);
+			
+			
+			
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -75,9 +90,7 @@ public class ConferenceAdministratorController extends AbstractController {
 			this.administratorService.findByPrincipal();
 			final Conference conference = this.conferenceService.findOne(conferenceId);
 			this.conferenceService.decisionProcedure(conference);
-			result = new ModelAndView("conference/show");
-			result.addObject("requestURI", "conference/administrator/show.do");
-			result.addObject("conference", conference);
+			result = new ModelAndView("redirect:/conference/administrator/show.do?conferenceId="+conferenceId);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
