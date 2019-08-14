@@ -64,7 +64,7 @@ public class Submission extends DomainEntity {
 	}
 	
 	@NotNull
-	@OneToOne(optional=false)
+	@ManyToOne(optional=false)
 	public Paper getPaper() {
 		return paper;
 	}
@@ -73,7 +73,7 @@ public class Submission extends DomainEntity {
 		this.paper = paper;
 	}
 	
-	@OneToOne
+	@ManyToOne
 	public Paper getCameraReady() {
 		return cameraReady;
 	}
@@ -83,7 +83,7 @@ public class Submission extends DomainEntity {
 	}
 	
 	@NotBlank
-	@Pattern(regexp="^(UNDER-REVIEW|REJETED|ACCEPTED)$")
+	@Pattern(regexp="^(UNDER-REVIEW|REJECTED|ACCEPTED)$")
 	public String getStatus() {
 		return status;
 	}

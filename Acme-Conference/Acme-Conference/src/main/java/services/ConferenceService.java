@@ -137,12 +137,23 @@ public class ConferenceService {
 
 	public void decisionProcedure(final Conference conference) {
 		this.administratorService.findByPrincipal();
-		final Collection<Submission> submissionsByConference = this.submissionService.findSubmissionsByConference(conference);
-		for(final Submission s : submissionsByConference) {
-			final Collection<Report> acceptedReportsBySubmission = this.reportService.findAcceptedReportsBySubmission(s);
+		final Date currentDate = new Date();
+		Assert.isTrue(conference.getSubmissionDeadline().before(currentDate));
+		Collection<Submission> submissionsByConference = this.submissionService.findSubmissionsByConference(conference);
+		for(Submission s : submissionsByConference) {
+			Submission retrieved = s;
+			Collection<Report> acceptReportsBySubmission = this.reportService.findAcceptReportsBySubmission(s);
+			Collection<Report> rejectReportsBySubmission = this.reportService.findRejectReportsBySubmission(s);
+			Integer decision = acceptReportsBySubmission.size()-rejectReportsBySubmission.size();
+			if(decision>=0) { // Simplemente con este condicional se cumplen todas las condiciones del requisito 14.4
+				retrieved.setStatus("ACCEPTED");
+			}else {
+				retrieved.setStatus("REJECTED");
+			}
+			this.submissionService.save(retrieved);
+		}
 	}
-	}
-	
+
 	public Collection<Double> statsConferencePerCategory(){
 		final Collection<Double> result = this.conferenceRepository.statsConferencesPerCategory();
 		Assert.notNull(result);

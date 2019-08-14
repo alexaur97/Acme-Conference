@@ -31,10 +31,30 @@
 <acme:display code="conference.submission" path="${conference.submissionDeadline}" />
 <acme:display code="conference.notification" path="${conference.notification}" />
 <acme:display code="conference.cameraReady" path="${conference.cameraReady}" />
+<acme:display code="conference.submission"
+	path="${conference.submission}" />
+<acme:display code="conference.notification"
+	path="${conference.notification}" />
+<acme:display code="conference.cameraReady"
+	path="${conference.cameraReady}" />
 <acme:display code="conference.startDate" path="${conference.startDate}" />
 <acme:display code="conference.endDate" path="${conference.endDate}" />
 <acme:display code="conference.summary" path="${conference.summary}" />
 <acme:display code="conference.fee" path="${conference.fee}" />
-<acme:display code="conference.category" path="${conference.category.title}" />
+<acme:display code="conference.category"
+	path="${conference.category.title}" />
 
-
+<security:authorize access="hasRole('ADMINISTRATOR')">
+	<acme:button url="/conference/administrator/list.do"
+		code="conference.back" />
+	<jstl:choose>
+		<jstl:when test="${bool eq true}">
+		</jstl:when>
+		<jstl:otherwise>
+		<p><spring:message code="conference.decision" /></p>
+			<acme:button
+				url="/conference/administrator/decision.do?conferenceId=${conference.id}"
+				code="conference.run" />
+		</jstl:otherwise>
+	</jstl:choose>
+</security:authorize>

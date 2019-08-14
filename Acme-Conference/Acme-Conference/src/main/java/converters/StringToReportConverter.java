@@ -8,23 +8,25 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import domain.Actor;
+import domain.Report;
 import domain.Reviewer;
 import domain.Sponsor;
 import repositories.ActorRepository;
+import repositories.ReportRepository;
 import repositories.ReviewerRepository;
 import repositories.SponsorRepository;
 
 @Component
 @Transactional
-public class StringToSponsorConverter implements Converter<String, Sponsor> {
+public class StringToReportConverter implements Converter<String, Report> {
 
 	@Autowired
-	SponsorRepository	sponsorRepository;
+	ReportRepository	reportRepository;
 
 
 	@Override
-	public Sponsor convert(final String text) {
-		Sponsor result;
+	public Report convert(final String text) {
+		Report result;
 		int id;
 
 		try {
@@ -32,7 +34,7 @@ public class StringToSponsorConverter implements Converter<String, Sponsor> {
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.sponsorRepository.findOne(id);
+				result = this.reportRepository.findOne(id);
 			}
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);

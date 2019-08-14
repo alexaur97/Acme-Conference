@@ -31,7 +31,8 @@
 		<bean class="converters.RegistrationToStringConverter" />
 		<bean class="converters.PanelToStringConverter" />
 		<bean class="converters.CategoryToStringConverter" />
-	
+		<bean class="converters.ReportToStringConverter" />
+		<bean class="converters.SubmissionToStringConverter" />
 		
 		<bean class="converters.StringToActorConverter" />
 		<bean class="converters.StringToAdministratorConverter" />
@@ -42,8 +43,9 @@
 		<bean class="converters.StringToRegistrationConverter" />
 		<bean class="converters.StringToPanelConverter" />
 		<bean class="converters.StringToCategoryConverter" />
-		
-		
+		<bean class="converters.StringToReportConverter" />
+		<bean class="converters.StringToSubmissionConverter" />
+
 	</util:list>
 	
 </beans>

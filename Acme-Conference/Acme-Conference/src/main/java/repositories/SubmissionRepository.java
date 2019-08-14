@@ -15,4 +15,9 @@ public interface SubmissionRepository extends JpaRepository<Submission, Integer>
 	@Query("select s from Submission s where s.conference.id = ?1")
 	Collection<Submission> findSubmissionsByConference(int id);
 
+	@Query("select s from Submission s where s.conference.id = ?1 and s.status='ACCEPTED'")
+	Collection<Submission> findAcceptedSubmissionsByConference(int id);
+
+	@Query("select s from Submission s where s.conference.id = ?1 and s.status='REJECTED'")
+	Collection<Submission> findRejectedSubmissionsByConference(int id);
 }
