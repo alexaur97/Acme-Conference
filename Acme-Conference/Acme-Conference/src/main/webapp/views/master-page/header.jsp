@@ -34,7 +34,10 @@
 			</li>
 			<li><a class="fNiv" href="conference/administrator/list.do"><spring:message
 					code="master.page.listConference" /></a></li>
-
+		</security:authorize>
+		
+		<security:authorize access="isAuthenticated()">
+			<li><a class="fNiv" href="conference/list.do"><spring:message code="master.page.conferences" /></a></li>
 		</security:authorize>
 		
 		<li><a class="fNiv" href="conference/search.do"><spring:message
@@ -71,10 +74,6 @@
 		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
-		</security:authorize>
-		
-		<security:authorize access="isAuthenticated()">
-			<li><a class="fNiv" href="conference/list.do"><spring:message code="master.page.conferences" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">

@@ -140,6 +140,7 @@ public class ConferenceService {
 		final Date currentDate = new Date();
 		Assert.isTrue(conference.getSubmissionDeadline().before(currentDate));
 		Collection<Submission> submissionsByConference = this.submissionService.findSubmissionsByConference(conference);
+		Assert.isTrue(!submissionsByConference.isEmpty());
 		for(Submission s : submissionsByConference) {
 			Submission retrieved = s;
 			Collection<Report> acceptReportsBySubmission = this.reportService.findAcceptReportsBySubmission(s);

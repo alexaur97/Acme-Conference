@@ -2,6 +2,7 @@
 package controllers.administrator;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,6 +63,11 @@ public class ConferenceAdministratorController extends AbstractController {
 			this.administratorService.findByPrincipal();
 			final Conference conference = this.conferenceService.findOne(conferenceId);
 			result = new ModelAndView("conference/show");
+			
+			Collection<Submission> allSubmissions = this.submissionService.findSubmissionsByConference(conference);
+			final Date date = new Date();
+			Boolean submissions = !allSubmissions.isEmpty() && conference.getSubmissionDeadline().before(date);
+			result.addObject("submissions", submissions);
 			
 			Collection<Submission> acceptedSubmissions = this.submissionService.findAcceptedSubmissionsByConference(conference);
 			Collection<Submission> rejectedSubmissions = this.submissionService.findRejectedSubmissionsByConference(conference);

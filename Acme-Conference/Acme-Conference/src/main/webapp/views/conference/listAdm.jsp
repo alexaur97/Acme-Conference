@@ -32,7 +32,7 @@
 	<display:column titleKey="conference.title"  property="title" />
 	<display:column titleKey="conference.submission"  property="submissionDeadline" />
 	<display:column titleKey="conference.show">
-		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conference.id}" code="conference.show" />
+		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conferenceSubmission.id}" code="conference.show" />
 	</display:column>
 </display:table>
 
@@ -46,7 +46,7 @@
 	<display:column titleKey="conference.title"  property="title" />
 	<display:column titleKey="conference.notification"  property="notification" />
 	<display:column titleKey="conference.show">
-		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conference.id}" code="conference.show" />
+		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conferenceNotification.id}" code="conference.show" />
 	</display:column>
 </display:table>
 
@@ -60,7 +60,7 @@
 	<display:column titleKey="conference.title"  property="title" />
 	<display:column titleKey="conference.cameraReady"  property="cameraReady" />
 	<display:column titleKey="conference.show">
-		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conference.id}" code="conference.show" />
+		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conferenceCameraReady.id}" code="conference.show" />
 	</display:column>
 
 </display:table>
@@ -74,7 +74,7 @@
 	<display:column titleKey="conference.title"  property="title" />
 	<display:column titleKey="conference.startDate"  property="startDate" />
 	<display:column titleKey="conference.show">
-		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conference.id}" code="conference.show" />
+		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conferenceStartDate.id}" code="conference.show" />
 	</display:column>
 
 </display:table>

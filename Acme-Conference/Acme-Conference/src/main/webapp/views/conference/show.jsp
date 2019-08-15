@@ -28,11 +28,14 @@
 <acme:display code="conference.title" path="${conference.title}" />
 <acme:display code="conference.acronym" path="${conference.acronym}" />
 <acme:display code="conference.venue" path="${conference.venue}" />
-<acme:display code="conference.submission" path="${conference.submissionDeadline}" />
-<acme:display code="conference.notification" path="${conference.notification}" />
-<acme:display code="conference.cameraReady" path="${conference.cameraReady}" />
 <acme:display code="conference.submission"
-	path="${conference.submission}" />
+	path="${conference.submissionDeadline}" />
+<acme:display code="conference.notification"
+	path="${conference.notification}" />
+<acme:display code="conference.cameraReady"
+	path="${conference.cameraReady}" />
+<acme:display code="conference.submission"
+	path="${conference.submissionDeadline}" />
 <acme:display code="conference.notification"
 	path="${conference.notification}" />
 <acme:display code="conference.cameraReady"
@@ -41,20 +44,44 @@
 <acme:display code="conference.endDate" path="${conference.endDate}" />
 <acme:display code="conference.summary" path="${conference.summary}" />
 <acme:display code="conference.fee" path="${conference.fee}" />
-<acme:display code="conference.category"
-	path="${conference.category.title}" />
 
-<security:authorize access="hasRole('ADMINISTRATOR')">
-	<acme:button url="/conference/administrator/list.do"
-		code="conference.back" />
+<jstl:if test="${submissions eq true}">
 	<jstl:choose>
 		<jstl:when test="${bool eq true}">
+
+			<h4><spring:message code="conference.acceptedSubmissions" /></h4>
+
+			<display:table pagesize="5" name="acceptedSubmissions"
+				id="acceptedSubmission" requestURI="${requestURI}"
+				class="displaytag table">
+				<display:column titleKey="conference.author" property="author.userAccount.username" />
+				<display:column titleKey="conference.paper" property="paper.title" />
+				<display:column titleKey="conference.ticker" property="ticker" />
+				<display:column titleKey="conference.moment" property="moment" />
+			</display:table>
+	
+			<h4><spring:message code="conference.rejectedSubmissions" /></h4>
+
+			<display:table pagesize="5" name="rejectedSubmissions"
+				id="rejectedSubmission" requestURI="${requestURI}"
+				class="displaytag table">
+				<display:column titleKey="conference.author" property="author.userAccount.username" />
+				<display:column titleKey="conference.paper" property="paper.title" />
+				<display:column titleKey="conference.ticker" property="ticker" />
+				<display:column titleKey="conference.moment" property="moment" />
+			</display:table>
 		</jstl:when>
 		<jstl:otherwise>
-		<p><spring:message code="conference.decision" /></p>
-			<acme:button
-				url="/conference/administrator/decision.do?conferenceId=${conference.id}"
-				code="conference.run" />
+		<security:authorize access="hasRole('ADMINISTRATOR')">
+		<br/>
+			<fieldset>
+			<legend><spring:message code="conference.decision" /></legend>
+				<acme:button
+					url="/conference/administrator/decision.do?conferenceId=${conference.id}"
+					code="conference.run" />
+			</fieldset>
+		<br/>
+		</security:authorize>
 		</jstl:otherwise>
 	</jstl:choose>
-</security:authorize>
+</jstl:if>
