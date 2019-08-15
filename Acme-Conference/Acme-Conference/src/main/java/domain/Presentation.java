@@ -9,14 +9,14 @@ import javax.validation.constraints.NotNull;
 @Access(AccessType.PROPERTY)
 public class Presentation extends Activity {
 	
-	private Integer cameraReadyVersion;
+	private Double cameraReadyVersion;
 
 	@NotNull
-	public Integer getCameraReadyVersion() {
+	public Double getCameraReadyVersion() {
 		return cameraReadyVersion;
 	}
 
-	public void setCameraReadyVersion(Integer cameraReadyVersion) {
+	public void setCameraReadyVersion(Double cameraReadyVersion) {
 		this.cameraReadyVersion = cameraReadyVersion;
 	}
 	
