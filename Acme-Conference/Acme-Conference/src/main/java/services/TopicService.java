@@ -18,13 +18,12 @@ import domain.Topic;
 public class TopicService {
 
 	@Autowired
-	private TopicRepository	topicRepository;
+	private TopicRepository topicRepository;
 
 	@Autowired
-	private Validator		validator;
+	private Validator validator;
 
-
-	//COnstructors -------------------------
+	// COnstructors -------------------------
 	public TopicService() {
 		super();
 	}
@@ -53,10 +52,10 @@ public class TopicService {
 		return result;
 	}
 
-	public void save(final Topic topic) {
+	public Topic save(final Topic topic) {
 		Assert.notNull(topic);
 
-		this.topicRepository.save(topic);
+		return this.topicRepository.save(topic);
 	}
 
 	public void delete(final Topic topic) {
@@ -67,5 +66,9 @@ public class TopicService {
 		final Topic res = topic;
 		this.validator.validate(res, binding);
 		return res;
+	}
+
+	public Topic findOtherTopic() {
+		return this.topicRepository.findOtherTopic();
 	}
 }

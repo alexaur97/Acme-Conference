@@ -14,9 +14,13 @@ import org.springframework.util.Assert;
 import org.springframework.validation.Validator;
 
 import repositories.ConferenceRepository;
+import domain.Administrator;
+import domain.Author;
 import domain.Conference;
+import domain.Message;
 import domain.Report;
 import domain.Submission;
+import domain.Topic;
 
 @Service
 @Transactional
@@ -24,24 +28,26 @@ public class ConferenceService {
 
 	// Managed repository -------------------
 	@Autowired
-	private ConferenceRepository			conferenceRepository;
+	private ConferenceRepository conferenceRepository;
 
 	// Supporting Services ------------------
 	@Autowired
-	private ConfigurationParametersService	configParamsService;
+	private TopicService topicService;
 
 	@Autowired
-	private AdministratorService			administratorService;
+	private AdministratorService administratorService;
 
 	@Autowired
-	private SubmissionService				submissionService;
+	private SubmissionService submissionService;
 
 	@Autowired
-	private ReportService					reportService;
+	private ReportService reportService;
 
 	@Autowired
-	private Validator						validator;
+	private MessageService messageService;
 
+	@Autowired
+	private Validator validator;
 
 	// COnstructors -------------------------
 	public ConferenceService() {
@@ -136,26 +142,78 @@ public class ConferenceService {
 	}
 
 	public void decisionProcedure(final Conference conference) {
-		this.administratorService.findByPrincipal();
+		Administrator admin = this.administratorService.findByPrincipal();
 		final Date currentDate = new Date();
 		Assert.isTrue(conference.getSubmissionDeadline().before(currentDate));
 		Collection<Submission> submissionsByConference = this.submissionService.findSubmissionsByConference(conference);
 		Assert.isTrue(!submissionsByConference.isEmpty());
-		for(Submission s : submissionsByConference) {
+		for (Submission s : submissionsByConference) {
 			Submission retrieved = s;
 			Collection<Report> acceptReportsBySubmission = this.reportService.findAcceptReportsBySubmission(s);
 			Collection<Report> rejectReportsBySubmission = this.reportService.findRejectReportsBySubmission(s);
-			Integer decision = acceptReportsBySubmission.size()-rejectReportsBySubmission.size();
-			if(decision>=0) { // Simplemente con este condicional se cumplen todas las condiciones del requisito 14.4
+			Integer decision = acceptReportsBySubmission.size() - rejectReportsBySubmission.size();
+			Message adm = this.messageService.create();
+			Message notification = this.messageService.create();
+			if (decision >= 0) { // Simplemente con este condicional se cumplen todas las condiciones del
+									// requisito 14.4
 				retrieved.setStatus("ACCEPTED");
-			}else {
+				adm.setSubject("Accepted submission");
+				adm.setBody("Your submission to the conference " + s.getConference().getTitle()
+						+ " has been accepted.\nSu presentación a la conferencia " + s.getConference().getTitle()
+						+ " ha sido aceptada.\n\nTicker: " + s.getTicker());
+				notification.setSubject("Accepted submission");
+				notification.setBody("Your submission to the conference " + s.getConference().getTitle()
+						+ " has been accepted.\nSu presentación a la conferencia " + s.getConference().getTitle()
+						+ " ha sido aceptada.\n\nTicker: " + s.getTicker());
+			} else {
 				retrieved.setStatus("REJECTED");
+				adm.setSubject("Rejected submission");
+				adm.setBody("Your submission to the conference " + s.getConference().getTitle()
+						+ " has been rejected.\nSu presentación a la conferencia " + s.getConference().getTitle()
+						+ " ha sido rechazada.\n\nTicker: " + s.getTicker());
+				notification.setSubject("Rejected submission");
+				notification.setBody("Your submission to the conference " + s.getConference().getTitle()
+						+ " has been rejected.\nSu presentación a la conferencia " + s.getConference().getTitle()
+						+ " ha sido rechazada.\n\nTicker: " + s.getTicker());
+			}
+
+			adm.setCopy(false);
+			adm.setDeleted(false);
+			adm.setMoment(currentDate);
+			notification.setCopy(true);
+			notification.setDeleted(false);
+			notification.setMoment(currentDate);
+
+			Author author = retrieved.getAuthor();
+
+			adm.setOwner(admin);
+			adm.setRecipient(author);
+			adm.setSender(admin);
+			adm.setSpam(false);
+			notification.setOwner(author);
+			notification.setRecipient(author);
+			notification.setSender(admin);
+			notification.setSpam(false);
+
+			Topic topic = this.topicService.findOtherTopic();
+			if (topic != null) {
+				adm.setTopic(topic);
+				notification.setTopic(topic);
+			} else {
+				Topic t = new Topic();
+				t.setName("OTHER");
+				t.setNameEs("OTROS");
+				Topic saved = this.topicService.save(t);
+				adm.setTopic(saved);
+				notification.setTopic(saved);
 			}
 			this.submissionService.save(retrieved);
+			this.messageService.save(adm);
+			this.messageService.save(notification);
 		}
 	}
 
-	public Collection<Double> statsConferencePerCategory(){
+	public Collection<Double> statsConferencePerCategory() {
 		final Collection<Double> result = this.conferenceRepository.statsConferencesPerCategory();
 		Assert.notNull(result);
 		return result;

@@ -305,7 +305,7 @@ public class MessageService {
 		List<String> lista = new ArrayList<>();
 		lista = Arrays.asList(mensaje);
 
-		final String[] titulo = message.getTopic().trim().split(" ");
+		final String[] titulo = message.getSubject().trim().split(" ");
 		List<String> list = new ArrayList<>();
 		list = Arrays.asList(titulo);
 		Boolean isSpam = false;

@@ -1,6 +1,8 @@
 
 package domain;
 
+import static org.junit.Assert.assertFalse;
+
 import java.util.Collection;
 import java.util.Date;
 
@@ -10,6 +12,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,22 +26,30 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(indexes = {
-	@Index(columnList = "spam, deleted, recipient, sender, owner, copy")
-})
+@Table(indexes = { @Index(columnList = "spam, deleted, recipient, sender, owner, copy") })
 public class Message extends DomainEntity {
 
-	private String				topic;
-	private String				body;
-	public Date					moment;
-	private Collection<String>	tags;
-	public Boolean				spam;
-	public Boolean				deleted;
-	public Actor				recipient;
-	public Actor				sender;
-	public Actor				owner;
-	public Boolean				copy;
+	private Topic topic;
+	private String subject;
+	private String body;
+	public Date moment;
+	private Collection<String> tags;
+	public Boolean spam;
+	public Boolean deleted;
+	public Actor recipient;
+	public Actor sender;
+	public Actor owner;
+	public Boolean copy;
 
+	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
 
 	@NotNull
 	@ManyToOne(optional = false)
@@ -50,12 +61,13 @@ public class Message extends DomainEntity {
 		this.owner = owner;
 	}
 
-	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public String getTopic() {
+	@NotNull
+	@ManyToOne(optional=false)
+	public Topic getTopic() {
 		return this.topic;
 	}
-	public void setTopic(final String topic) {
+
+	public void setTopic(final Topic topic) {
 		this.topic = topic;
 	}
 
@@ -64,6 +76,7 @@ public class Message extends DomainEntity {
 	public String getBody() {
 		return this.body;
 	}
+
 	public void setBody(final String body) {
 		this.body = body;
 	}
@@ -74,6 +87,7 @@ public class Message extends DomainEntity {
 	public Date getMoment() {
 		return this.moment;
 	}
+
 	public void setMoment(final Date moment) {
 		this.moment = moment;
 	}
@@ -82,6 +96,7 @@ public class Message extends DomainEntity {
 	public Collection<String> getTags() {
 		return this.tags;
 	}
+
 	public void setTags(final Collection<String> tags) {
 		this.tags = tags;
 	}
@@ -90,6 +105,7 @@ public class Message extends DomainEntity {
 	public Boolean getSpam() {
 		return this.spam;
 	}
+
 	public void setSpam(final Boolean spam) {
 		this.spam = spam;
 	}
@@ -98,6 +114,7 @@ public class Message extends DomainEntity {
 	public Boolean getCopy() {
 		return this.copy;
 	}
+
 	public void setCopy(final Boolean copy) {
 		this.copy = copy;
 	}
@@ -106,6 +123,7 @@ public class Message extends DomainEntity {
 	public Boolean getDeleted() {
 		return this.deleted;
 	}
+
 	public void setDeleted(final Boolean deleted) {
 		this.deleted = deleted;
 	}
@@ -115,6 +133,7 @@ public class Message extends DomainEntity {
 	public Actor getRecipient() {
 		return this.recipient;
 	}
+
 	public void setRecipient(final Actor recipient) {
 		this.recipient = recipient;
 	}
@@ -123,6 +142,7 @@ public class Message extends DomainEntity {
 	public Actor getSender() {
 		return this.sender;
 	}
+
 	public void setSender(final Actor sender) {
 		this.sender = sender;
 	}
