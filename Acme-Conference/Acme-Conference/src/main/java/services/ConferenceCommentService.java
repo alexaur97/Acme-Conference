@@ -48,10 +48,10 @@ public class ConferenceCommentService {
 		return result;
 	}
 
-	public void save(final ConferenceComment conferenceComment) {
+	public ConferenceComment save(final ConferenceComment conferenceComment) {
 		Assert.notNull(conferenceComment);
 
-		this.conferenceCommentRepository.save(conferenceComment);
+		return this.conferenceCommentRepository.save(conferenceComment);
 	}
 
 	public void delete(final ConferenceComment conferenceComment) {

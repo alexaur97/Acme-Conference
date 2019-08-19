@@ -38,6 +38,10 @@
 		<value>/views/category/messages</value>
 		<value>/views/stats/messages</value>
 		
+		<value>/views/conferenceComment/messages</value>
+		<value>/views/presentationComment/messages</value>
+		<value>/views/panelComment/messages</value>
+		<value>/views/tutorialComment/messages</value>
 	</util:list>
 
 </beans>

@@ -8,18 +8,18 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class ActivityComment extends Comment {
+public class PanelComment extends Comment {
 
-	private Activity activity;
+	private Panel panel;
 
 	@NotNull
 	@ManyToOne(optional=false)
-	public Activity getActivity() {
-		return activity;
+	public Panel getPanel() {
+		return panel;
 	}
 
-	public void setActivity(Activity activity) {
-		this.activity = activity;
+	public void setPanel(Panel panel) {
+		this.panel = panel;
 	}
 	
 	

@@ -39,8 +39,7 @@ public class MessageService {
 
 	@Autowired
 	private Validator						validator;
-	@Autowired
-	private ConfigurationParametersService	configurationParametersService;
+	
 
 
 	//Supporting Services ------------------

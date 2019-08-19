@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.ActivityCommentService;
+import services.PresentationCommentService;
 import services.ConferenceCommentService;
 import services.ConferenceService;
 import controllers.AbstractController;
@@ -25,7 +25,7 @@ public class StatsAdministratorController extends AbstractController {
 	ConferenceCommentService	conferenceCommentService;
 
 	@Autowired
-	ActivityCommentService		activityCommentService;
+	PresentationCommentService		presentationCommentService;
 
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
@@ -36,11 +36,11 @@ public class StatsAdministratorController extends AbstractController {
 		try {
 			final Collection<Double> conferencesPerCategory = this.conferenceService.statsConferencePerCategory();
 			final Collection<Double> conferenceCommentsPerConference = this.conferenceCommentService.statsCommentsPerConference();
-			final Collection<Double> activityCommentsPerActivity = this.activityCommentService.statsCommentsPerActivity();
+			final Collection<Double> commentsPerPresentation = this.presentationCommentService.statsCommentsPerPresentation();
 
 			result.addObject("conferencesPerCategory", conferencesPerCategory);
 			result.addObject("conferenceCommentsPerConference", conferenceCommentsPerConference);
-			result.addObject("activityCommentsPerActivity", activityCommentsPerActivity);
+			result.addObject("commentsPerPresentation", commentsPerPresentation);
 
 			result.addObject("requestURI", "/stats/administrator/display.do");
 		} catch (final Exception e) {

@@ -36,6 +36,14 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/styles/**"
 			access="permitAll" />
+		<security:intercept-url pattern="/conference/comment/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/panel/comment/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/tutorial/comment/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/presentation/comment/**"
+			access="permitAll" />
 
 		<security:intercept-url
 			pattern="/views/misc/index.jsp" access="permitAll" />
