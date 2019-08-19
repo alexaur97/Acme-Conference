@@ -65,21 +65,62 @@
 <br />
 
 <h3>
-<spring:message code="stats.activityComments.activity" /> :
+<spring:message code="stats.presentationComments.presentation" /> :
 </h3>
-<spring:message code="stats.activityComments.activity.average" />
+<spring:message code="stats.presentationComments.presentation.average" />
 :
-<jstl:out value="${activityCommentsPerActivity[0][0]}" />
+<jstl:out value="${commentsPerPresentation[0][0]}" />
 <br />
-<spring:message code="stats.activityComments.activity.min" />
+<spring:message code="stats.presentationComments.presentation.min" />
 :
-<jstl:out value="${activityCommentsPerActivity[0][1]}" />
+<jstl:out value="${commentsPerPresentation[0][1]}" />
 <br />
-<spring:message code="stats.activityComments.activity.max" />
+<spring:message code="stats.presentationComments.presentation.max" />
 :
-<jstl:out value="${activityCommentsPerActivity[0][2]}" />
+<jstl:out value="${commentsPerPresentation[0][2]}" />
 <br />
-<spring:message code="stats.activityComments.activity.stddev" />
+<spring:message code="stats.presentationComments.presentation.stddev" />
 :
-<jstl:out value="${activityCommentsPerActivity[0][3]}" />
+<jstl:out value="${commentsPerPresentation[0][3]}" />
+<br />
+
+
+<h3>
+<spring:message code="stats.panelComments.panel" /> :
+</h3>
+<spring:message code="stats.panelComments.panel.average" />
+:
+<jstl:out value="${commentsPerPanel[0][0]}" />
+<br />
+<spring:message code="stats.panelComments.panel.min" />
+:
+<jstl:out value="${commentsPerPanel[0][1]}" />
+<br />
+<spring:message code="stats.panelComments.panel.max" />
+:
+<jstl:out value="${commentsPerPanel[0][2]}" />
+<br />
+<spring:message code="stats.panelComments.panel.stddev" />
+:
+<jstl:out value="${commentsPerPanel[0][3]}" />
+<br />
+
+<h3>
+<spring:message code="stats.tutorialComments.tutorial" /> :
+</h3>
+<spring:message code="stats.tutorialComments.tutorial.average" />
+:
+<jstl:out value="${commentsPerTutorial[0][0]}" />
+<br />
+<spring:message code="stats.tutorialComments.tutorial.min" />
+:
+<jstl:out value="${commentsPerTutorial[0][1]}" />
+<br />
+<spring:message code="stats.tutorialComments.tutorial.max" />
+:
+<jstl:out value="${commentsPerTutorial[0][2]}" />
+<br />
+<spring:message code="stats.tutorialComments.tutorial.stddev" />
+:
+<jstl:out value="${commentsPerTutorial[0][3]}" />
 <br />
