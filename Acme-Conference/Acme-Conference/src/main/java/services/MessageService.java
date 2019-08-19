@@ -16,7 +16,6 @@ import org.springframework.validation.Validator;
 
 import repositories.MessageRepository;
 import domain.Actor;
-import domain.Administrator;
 import domain.Message;
 import domain.SpamWord;
 
@@ -26,20 +25,19 @@ public class MessageService {
 
 	//Managed repository -------------------
 	@Autowired
-	private MessageRepository				messageRepository;
+	private MessageRepository		messageRepository;
 
 	@Autowired
-	private AdministratorService			administratorService;
+	private AdministratorService	administratorService;
 
 	@Autowired
-	private ActorService					actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private SpamWordService					spamWordService;
+	private SpamWordService			spamWordService;
 
 	@Autowired
-	private Validator						validator;
-	
+	private Validator				validator;
 
 
 	//Supporting Services ------------------
@@ -77,7 +75,6 @@ public class MessageService {
 
 	public void save(final Message message) {
 		Assert.notNull(message);
-
 		this.messageRepository.save(message);
 	}
 
@@ -248,37 +245,6 @@ public class MessageService {
 		System.out.println(binding);
 		this.validator.validate(res, binding);
 		return res;
-	}
-
-	public Message reconstructAdmnistrator(final Message msg, final BindingResult binding) {
-		final Message res = msg;
-		final Administrator admin = this.administratorService.findByPrincipal();
-		res.setDeleted(false);
-		final Date moment = new Date();
-		res.setMoment(moment);
-		res.setSender(admin);
-		final Collection<String> tags = new ArrayList<>();
-		tags.add("SYSTEM");
-		res.setTags(tags);
-		this.isSpam(res);
-		res.setRecipient(admin);
-		res.setOwner(admin);
-		res.setCopy(false);
-		this.validator.validate(res, binding);
-
-		return res;
-	}
-	public Message reconstructAdmnistrator2(final Message msg, final Actor actor, final BindingResult binding) {
-		msg.setRecipient(actor);
-		msg.setOwner(msg.getSender());
-		msg.setCopy(false);
-		return msg;
-	}
-	public Message reconstructAdmnistrator2Copy(final Message msg, final Actor actor, final BindingResult binding) {
-		msg.setRecipient(actor);
-		msg.setOwner(actor);
-		msg.setCopy(true);
-		return msg;
 	}
 
 	public List<String> spamwords(final Collection<SpamWord> sw) {

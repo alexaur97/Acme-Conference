@@ -1,8 +1,6 @@
 
 package domain;
 
-import static org.junit.Assert.assertFalse;
-
 import java.util.Collection;
 import java.util.Date;
 
@@ -12,7 +10,6 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,28 +23,31 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(indexes = { @Index(columnList = "spam, deleted, recipient, sender, owner, copy") })
+@Table(indexes = {
+	@Index(columnList = "spam, deleted, recipient, sender, owner, copy")
+})
 public class Message extends DomainEntity {
 
-	private Topic topic;
-	private String subject;
-	private String body;
-	public Date moment;
-	private Collection<String> tags;
-	public Boolean spam;
-	public Boolean deleted;
-	public Actor recipient;
-	public Actor sender;
-	public Actor owner;
-	public Boolean copy;
+	private Topic				topic;
+	private String				subject;
+	private String				body;
+	public Date					moment;
+	private Collection<String>	tags;
+	public Boolean				spam;
+	public Boolean				deleted;
+	public Actor				recipient;
+	public Actor				sender;
+	public Actor				owner;
+	public Boolean				copy;
+
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSubject() {
-		return subject;
+		return this.subject;
 	}
 
-	public void setSubject(String subject) {
+	public void setSubject(final String subject) {
 		this.subject = subject;
 	}
 
@@ -62,7 +62,7 @@ public class Message extends DomainEntity {
 	}
 
 	@NotNull
-	@ManyToOne(optional=false)
+	@ManyToOne(optional = false)
 	public Topic getTopic() {
 		return this.topic;
 	}
