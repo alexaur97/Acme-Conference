@@ -30,9 +30,14 @@ public class ConferenceController extends AbstractController {
 			//Solo aparecen las conferencias que no han pasado
 			final Collection<Conference> conferences = this.conferenceService.findConference();
 
+			final Collection<Conference> pastConferences = this.conferenceService.findPastConference();
+			final Collection<Conference> runningConferences = this.conferenceService.findRunningConference();
+
 			result = new ModelAndView("conference/list");
 			result.addObject("requestURI", "conference/list.do");
 			result.addObject("conferences", conferences);
+			result.addObject("pastConferences", pastConferences);
+			result.addObject("runningConferences", runningConferences);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");

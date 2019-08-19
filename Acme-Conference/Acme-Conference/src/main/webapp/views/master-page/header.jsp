@@ -37,7 +37,9 @@
 		<security:authorize access="isAuthenticated()">
 			<li><a class="fNiv" href="conference/list.do"><spring:message code="master.page.conferences" /></a></li>
 		</security:authorize>
-		
+		<security:authorize access="isAnonymous()">
+			<li><a class="fNiv" href="conference/list.do"><spring:message code="master.page.conferences" /></a></li>
+		</security:authorize>
 		<security:authorize access="hasRole('ADMINISTRATOR')">
 			<li><a class="fNiv" href="conference/administrator/list.do"><spring:message
 					code="master.page.listConference" /></a></li>
