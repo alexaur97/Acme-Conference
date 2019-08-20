@@ -1,3 +1,4 @@
+
 package services;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -5,25 +6,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import domain.Author;
-import domain.Sponsor;
-import forms.ActorEditForm;
 import repositories.SponsorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Sponsor;
+import forms.ActorEditForm;
 
 @Service
 @Transactional
 public class SponsorService {
-	
-	@Autowired
-	private SponsorRepository sponsorRepository;
-	
-	@Autowired
-	private ActorService actorService;
 
-	public Sponsor reconstructEdit(ActorEditForm actorEditForm) {
+	@Autowired
+	private SponsorRepository	sponsorRepository;
+
+	@Autowired
+	private ActorService		actorService;
+
+
+	public Sponsor reconstructEdit(final ActorEditForm actorEditForm) {
 		final Sponsor result;
 		result = this.findByPrincipal();
 		result.setName(actorEditForm.getName());
@@ -37,7 +38,7 @@ public class SponsorService {
 		return result;
 	}
 
-	private Sponsor findByPrincipal() {
+	public Sponsor findByPrincipal() {
 		final UserAccount user = LoginService.getPrincipal();
 		Assert.notNull(user);
 
@@ -47,19 +48,17 @@ public class SponsorService {
 		return sponsor;
 	}
 
-	private Sponsor findByUserId(int id) {
+	private Sponsor findByUserId(final int id) {
 		final Sponsor sponsor = this.sponsorRepository.findByUserId(id);
 		return sponsor;
 	}
 
-	public Sponsor save(Sponsor sponsor) {
+	public Sponsor save(final Sponsor sponsor) {
 		Assert.notNull(sponsor);
 
 		final Sponsor result = this.sponsorRepository.save(sponsor);
 		return result;
-		
+
 	}
-	
-	
 
 }

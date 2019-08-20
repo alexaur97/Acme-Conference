@@ -58,7 +58,7 @@ public class TutorialCommentService {
 		this.tutorialCommentRepository.delete(tutorialComment);
 	}
 
-	public Collection<Double> statsCommentsPertutorial() {
+	public Collection<Double> statsCommentsPerTutorial() {
 		final Collection<Double> result = this.tutorialCommentRepository.statsCommentsPerTutorial();
 		Assert.notNull(result);
 		return result;

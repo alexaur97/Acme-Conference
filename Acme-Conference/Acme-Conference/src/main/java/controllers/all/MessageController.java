@@ -17,9 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import services.ConfigurationParametersService;
 import services.MessageService;
+import services.TopicService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Message;
+import domain.Topic;
 
 @Controller
 @RequestMapping("/message")
@@ -30,8 +32,12 @@ public class MessageController extends AbstractController {
 
 	@Autowired
 	private ActorService					actorService;
+
 	@Autowired
 	private ConfigurationParametersService	configurationParametersService;
+
+	@Autowired
+	private TopicService					topicService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -211,9 +217,11 @@ public class MessageController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Message msg, final String messageCode) {
 		final ModelAndView res;
 		final Collection<Actor> actors = this.actorService.findAll();
+		final Collection<Topic> topics = this.topicService.findAll();
 		res = new ModelAndView("message/edit");
 		res.addObject("msg", msg);
 		res.addObject("actors", actors);
+		res.addObject("topics", topics);
 		return res;
 	}
 
@@ -236,6 +244,7 @@ public class MessageController extends AbstractController {
 				copy.setOwner(msg.getRecipient());
 				copy.setRecipient(msg.getRecipient());
 				copy.setSender(msg.getSender());
+				copy.setSubject(msg.getSubject());
 				copy.setTopic(msg.getTopic());
 				copy.setCopy(true);
 				this.messageService.isSpam(msg);

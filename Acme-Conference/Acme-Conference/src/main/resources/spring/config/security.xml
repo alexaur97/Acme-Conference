@@ -157,6 +157,9 @@
 		<security:logout logout-success-url="/"
 			invalidate-session="true" />
 			
+		<security:intercept-url pattern="sponsorship/sponsor/list.do"
+			access="hasRole('SPONSOR')" />
+			
 		
 		
 		
