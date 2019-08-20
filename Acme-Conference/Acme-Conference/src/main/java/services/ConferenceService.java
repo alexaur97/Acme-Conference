@@ -28,26 +28,27 @@ public class ConferenceService {
 
 	// Managed repository -------------------
 	@Autowired
-	private ConferenceRepository conferenceRepository;
+	private ConferenceRepository	conferenceRepository;
 
 	// Supporting Services ------------------
 	@Autowired
-	private TopicService topicService;
+	private TopicService			topicService;
 
 	@Autowired
-	private AdministratorService administratorService;
+	private AdministratorService	administratorService;
 
 	@Autowired
-	private SubmissionService submissionService;
+	private SubmissionService		submissionService;
 
 	@Autowired
-	private ReportService reportService;
+	private ReportService			reportService;
 
 	@Autowired
-	private MessageService messageService;
+	private MessageService			messageService;
 
 	@Autowired
-	private Validator validator;
+	private Validator				validator;
+
 
 	// COnstructors -------------------------
 	public ConferenceService() {
@@ -142,39 +143,31 @@ public class ConferenceService {
 	}
 
 	public void decisionProcedure(final Conference conference) {
-		Administrator admin = this.administratorService.findByPrincipal();
+		final Administrator admin = this.administratorService.findByPrincipal();
 		final Date currentDate = new Date();
 		Assert.isTrue(conference.getSubmissionDeadline().before(currentDate));
-		Collection<Submission> submissionsByConference = this.submissionService.findSubmissionsByConference(conference);
+		final Collection<Submission> submissionsByConference = this.submissionService.findSubmissionsByConference(conference);
 		Assert.isTrue(!submissionsByConference.isEmpty());
-		for (Submission s : submissionsByConference) {
-			Submission retrieved = s;
-			Collection<Report> acceptReportsBySubmission = this.reportService.findAcceptReportsBySubmission(s);
-			Collection<Report> rejectReportsBySubmission = this.reportService.findRejectReportsBySubmission(s);
-			Integer decision = acceptReportsBySubmission.size() - rejectReportsBySubmission.size();
-			Message adm = this.messageService.create();
-			Message notification = this.messageService.create();
+		for (final Submission s : submissionsByConference) {
+			final Submission retrieved = s;
+			final Collection<Report> acceptReportsBySubmission = this.reportService.findAcceptReportsBySubmission(s);
+			final Collection<Report> rejectReportsBySubmission = this.reportService.findRejectReportsBySubmission(s);
+			final Integer decision = acceptReportsBySubmission.size() - rejectReportsBySubmission.size();
+			final Message adm = this.messageService.create();
+			final Message notification = this.messageService.create();
 			if (decision >= 0) { // Simplemente con este condicional se cumplen todas las condiciones del
 									// requisito 14.4
 				retrieved.setStatus("ACCEPTED");
 				adm.setSubject("Accepted submission");
-				adm.setBody("Your submission to the conference " + s.getConference().getTitle()
-						+ " has been accepted.\nSu presentación a la conferencia " + s.getConference().getTitle()
-						+ " ha sido aceptada.\n\nTicker: " + s.getTicker());
+				adm.setBody("Your submission to the conference " + s.getConference().getTitle() + " has been accepted.\nSu presentación a la conferencia " + s.getConference().getTitle() + " ha sido aceptada.\n\nTicker: " + s.getTicker());
 				notification.setSubject("Accepted submission");
-				notification.setBody("Your submission to the conference " + s.getConference().getTitle()
-						+ " has been accepted.\nSu presentación a la conferencia " + s.getConference().getTitle()
-						+ " ha sido aceptada.\n\nTicker: " + s.getTicker());
+				notification.setBody("Your submission to the conference " + s.getConference().getTitle() + " has been accepted.\nSu presentación a la conferencia " + s.getConference().getTitle() + " ha sido aceptada.\n\nTicker: " + s.getTicker());
 			} else {
 				retrieved.setStatus("REJECTED");
 				adm.setSubject("Rejected submission");
-				adm.setBody("Your submission to the conference " + s.getConference().getTitle()
-						+ " has been rejected.\nSu presentación a la conferencia " + s.getConference().getTitle()
-						+ " ha sido rechazada.\n\nTicker: " + s.getTicker());
+				adm.setBody("Your submission to the conference " + s.getConference().getTitle() + " has been rejected.\nSu presentación a la conferencia " + s.getConference().getTitle() + " ha sido rechazada.\n\nTicker: " + s.getTicker());
 				notification.setSubject("Rejected submission");
-				notification.setBody("Your submission to the conference " + s.getConference().getTitle()
-						+ " has been rejected.\nSu presentación a la conferencia " + s.getConference().getTitle()
-						+ " ha sido rechazada.\n\nTicker: " + s.getTicker());
+				notification.setBody("Your submission to the conference " + s.getConference().getTitle() + " has been rejected.\nSu presentación a la conferencia " + s.getConference().getTitle() + " ha sido rechazada.\n\nTicker: " + s.getTicker());
 			}
 
 			adm.setCopy(false);
@@ -184,7 +177,7 @@ public class ConferenceService {
 			notification.setDeleted(false);
 			notification.setMoment(currentDate);
 
-			Author author = retrieved.getAuthor();
+			final Author author = retrieved.getAuthor();
 
 			adm.setOwner(admin);
 			adm.setRecipient(author);
@@ -195,15 +188,15 @@ public class ConferenceService {
 			notification.setSender(admin);
 			notification.setSpam(false);
 
-			Topic topic = this.topicService.findOtherTopic();
+			final Topic topic = this.topicService.findOtherTopic();
 			if (topic != null) {
 				adm.setTopic(topic);
 				notification.setTopic(topic);
 			} else {
-				Topic t = new Topic();
+				final Topic t = new Topic();
 				t.setName("OTHER");
 				t.setNameEs("OTROS");
-				Topic saved = this.topicService.save(t);
+				final Topic saved = this.topicService.save(t);
 				adm.setTopic(saved);
 				notification.setTopic(saved);
 			}
@@ -215,6 +208,12 @@ public class ConferenceService {
 
 	public Collection<Double> statsConferencePerCategory() {
 		final Collection<Double> result = this.conferenceRepository.statsConferencesPerCategory();
+		Assert.notNull(result);
+		return result;
+	}
+
+	public Collection<Double> statsConferencesFee() {
+		final Collection<Double> result = this.conferenceRepository.statsConferencesFee();
 		Assert.notNull(result);
 		return result;
 	}
