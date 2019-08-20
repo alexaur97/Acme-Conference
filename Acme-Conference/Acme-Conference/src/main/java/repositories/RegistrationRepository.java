@@ -14,4 +14,7 @@ public interface RegistrationRepository extends JpaRepository<Registration, Inte
 
 	@Query("select r from Registration r where r.author.id=?1")
 	Collection<Registration> findRegistrationByAuthor(int id);
+
+	@Query("select avg(1.0*(select count(r) from Registration r where r.conference.id = c.id)),min(1.0*(select count(r) from Registration r where r.conference.id = c.id)),max(1.0*(select count(r) from Registration r where r.conference.id = c.id)),stddev(1.0*(select count(r) from Registration r where r.conference.id = c.id)) from Conference c ")
+	Collection<Double> statsRegistrationsPerConference();
 }

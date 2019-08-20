@@ -124,3 +124,63 @@
 :
 <jstl:out value="${commentsPerTutorial[0][3]}" />
 <br />
+
+<h3>
+<spring:message code="stats.conferenceSubmissions.conference" /> :
+</h3>
+<spring:message code="stats.conferenceSubmissions.conference.average" />
+:
+<jstl:out value="${submissionsPerConference[0][0]}" />
+<br />
+<spring:message code="stats.conferenceSubmissions.conference.min" />
+:
+<jstl:out value="${submissionsPerConference[0][1]}" />
+<br />
+<spring:message code="stats.conferenceSubmissions.conference.max" />
+:
+<jstl:out value="${submissionsPerConference[0][2]}" />
+<br />
+<spring:message code="stats.conferenceSubmissions.conference.stddev" />
+:
+<jstl:out value="${submissionsPerConference[0][3]}" />
+<br />
+
+<h3>
+<spring:message code="stats.conferenceRegistrations.conference" /> :
+</h3>
+<spring:message code="stats.conferenceRegistrations.conference.average" />
+:
+<jstl:out value="${registrationsPerConference[0][0]}" />
+<br />
+<spring:message code="stats.conferenceRegistrations.conference.min" />
+:
+<jstl:out value="${registrationsPerConference[0][1]}" />
+<br />
+<spring:message code="stats.conferenceRegistrations.conference.max" />
+:
+<jstl:out value="${registrationsPerConference[0][2]}" />
+<br />
+<spring:message code="stats.conferenceRegistrations.conference.stddev" />
+:
+<jstl:out value="${registrationsPerConference[0][3]}" />
+<br />
+
+<h3>
+<spring:message code="stats.conferenceFee.conference" /> :
+</h3>
+<spring:message code="stats.conferenceFee.conference.average" />
+:
+<jstl:out value="${conferencesFee[0][0]}" />
+<br />
+<spring:message code="stats.conferenceFee.conference.min" />
+:
+<jstl:out value="${conferencesFee[0][1]}" />
+<br />
+<spring:message code="stats.conferenceFee.conference.max" />
+:
+<jstl:out value="${conferencesFee[0][2]}" />
+<br />
+<spring:message code="stats.conferenceFee.conference.stddev" />
+:
+<jstl:out value="${conferencesFee[0][3]}" />
+<br />

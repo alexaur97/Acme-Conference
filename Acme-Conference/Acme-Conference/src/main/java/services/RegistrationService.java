@@ -96,4 +96,10 @@ public class RegistrationService {
 	}
 	//Other Methods--------------------
 
+	public Collection<Double> statsRegistrationsPerConference() {
+		final Collection<Double> result = this.registrationRepository.statsRegistrationsPerConference();
+		Assert.notNull(result);
+		return result;
+	}
+
 }

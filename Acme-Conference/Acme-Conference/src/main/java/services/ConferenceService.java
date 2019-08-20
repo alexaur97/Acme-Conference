@@ -222,4 +222,10 @@ public class ConferenceService {
 		Assert.notNull(result);
 		return result;
 	}
+
+	public Collection<Double> statsConferencesFee() {
+		final Collection<Double> result = this.conferenceRepository.statsConferencesFee();
+		Assert.notNull(result);
+		return result;
+	}
 }
