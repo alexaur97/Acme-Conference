@@ -96,6 +96,17 @@ public class ConferenceService {
 
 	}
 
+	public Collection<Conference> findPastConference() {
+		final Collection<Conference> conferencias = this.conferenceRepository.findPastConference(new Date());
+		return conferencias;
+
+	}
+	public Collection<Conference> findRunningConference() {
+		final Collection<Conference> conferencias = this.conferenceRepository.findRunningConference(new Date());
+		return conferencias;
+
+	}
+
 	public Collection<Conference> findSubmissionLastFiveDays() {
 		final Date actualDate = new Date();
 		final Calendar calendar = Calendar.getInstance();

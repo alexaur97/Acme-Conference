@@ -73,3 +73,30 @@
 		code="conference.create.tutorial" />
 </security:authorize>
 
+<security:authorize access="isAnonymous()">
+<spring:message code="conference.runningConference" />
+<br>
+<display:table pagesize="5" name="runningConferences" id="runningConference"
+	requestURI="${requestURI}" class="displaytag table">
+	<display:column titleKey="conference.title" property="title" />
+	<display:column titleKey="conference.submission"
+		property="submissionDeadline" />
+	<display:column titleKey="conference.startDate" property="startDate" />
+	<display:column titleKey="conference.endDate" property="endDate" />
+	
+
+</display:table>
+<br/>
+<spring:message code="conference.pastConference" />
+<br>
+<display:table pagesize="5" name="pastConferences" id="pastConference"
+	requestURI="${requestURI}" class="displaytag table">
+	<display:column titleKey="conference.title" property="title" />
+	<display:column titleKey="conference.submission"
+		property="submissionDeadline" />
+	<display:column titleKey="conference.startDate" property="startDate" />
+	<display:column titleKey="conference.endDate" property="endDate" />
+	
+
+</display:table>
+</security:authorize>
