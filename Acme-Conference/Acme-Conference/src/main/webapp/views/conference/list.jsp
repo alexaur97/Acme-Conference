@@ -71,9 +71,10 @@
 		code="conference.create.presentation" />
 	<acme:cancel url="/tutorial/administrator/create.do"
 		code="conference.create.tutorial" />
+		<br/>
+		<br/>
 </security:authorize>
 
-<security:authorize access="isAnonymous()">
 <spring:message code="conference.runningConference" />
 <br/>
 <display:table pagesize="5" name="runningConferences" id="runningConference"
@@ -99,4 +100,3 @@
 	
 
 </display:table>
-</security:authorize>

@@ -34,14 +34,13 @@ public interface ConferenceRepository extends JpaRepository<Conference, Integer>
 	@Query("select avg(1.0*(select count(c) from Conference c where c.category.id = a.id)),min(1.0*(select count(c) from Conference c where c.category.id = a.id)),max(1.0*(select count(c) from Conference c where c.category.id = a.id)),stddev(1.0*(select count(c) from Conference c where c.category.id = a.id)) from Category a ")
 	Collection<Double> statsConferencesPerCategory();
 
-<<<<<<< HEAD
 	@Query("select avg(1.0*(c.fee)),min(1.0*(c.fee)),max(1.0*(c.fee)),stddev(c.fee) from Conference c ")
 	Collection<Double> statsConferencesFee();
-=======
+
 	@Query("select c from Conference c where c.endDate < ?1 ")
 	Collection<Conference> findPastConference(Date actualDate);
+
 	@Query("select c from Conference c where c.startDate < ?1 and c.endDate > ?1")
 	Collection<Conference> findRunningConference(Date actualDate);
->>>>>>> 63d33b91e446c9f33c76526dae0e26ed935d9149
 
 }
