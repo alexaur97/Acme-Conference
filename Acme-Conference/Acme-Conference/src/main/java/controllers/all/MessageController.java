@@ -3,8 +3,10 @@ package controllers.all;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -54,6 +56,11 @@ public class MessageController extends AbstractController {
 			result.addObject("messagesSend", messagesSend);
 			result.addObject("messagesSpam", messagesSpam);
 			result.addObject("messagesDeleted", messagesDeleted);
+			
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
+			
+			result.addObject("lang",lang);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -76,6 +83,11 @@ public class MessageController extends AbstractController {
 			result.addObject("messagesSpam", messagesSpam);
 			result.addObject("messagesDeleted", messagesDeleted);
 
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
+			
+			result.addObject("lang",lang);
+			
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -96,6 +108,11 @@ public class MessageController extends AbstractController {
 			result.addObject("messagesSend", messagesSend);
 			result.addObject("messagesSpam", messagesSpam);
 			result.addObject("messagesDeleted", messagesDeleted);
+			
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
+			
+			result.addObject("lang",lang);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -117,6 +134,11 @@ public class MessageController extends AbstractController {
 			result.addObject("messagesSend", messagesSend);
 			result.addObject("messagesSpam", messagesSpam);
 			result.addObject("messagesDeleted", messagesDeleted);
+			
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
+			
+			result.addObject("lang",lang);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -149,6 +171,12 @@ public class MessageController extends AbstractController {
 			result = new ModelAndView("message/show");
 			result.addObject("msg", msg);
 			result.addObject("b", b);
+			
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
+			
+			result.addObject("lang",lang);
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -183,6 +211,11 @@ public class MessageController extends AbstractController {
 			result.addObject("messagesSend", messagesSend);
 			result.addObject("messagesSpam", messagesSpam);
 			result.addObject("messagesDeleted", messagesDeleted);
+			
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
+			
+			result.addObject("lang",lang);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -203,6 +236,11 @@ public class MessageController extends AbstractController {
 			result = new ModelAndView("message/list");
 			result.addObject("msg", msg);
 			result = this.createEditModelAndView(msg);
+			
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
+			
+			result.addObject("lang",lang);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
 
@@ -252,6 +290,11 @@ public class MessageController extends AbstractController {
 				copy.setTags(msg.getTags());
 				this.messageService.save(copy);
 				res = new ModelAndView("redirect:/message/list.do");
+				
+				final Locale l = LocaleContextHolder.getLocale();
+				final String lang = l.getLanguage();
+				
+				res.addObject("lang",lang);
 
 			} catch (final Throwable oops) {
 				res = this.createEditModelAndView(msg, "msg.commit.error");

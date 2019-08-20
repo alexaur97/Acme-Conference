@@ -26,7 +26,7 @@
 
 
 <spring:message code="conference.futureConference" />
-<br>
+<br/>
 <display:table pagesize="5" name="conferences" id="conference"
 	requestURI="${requestURI}" class="displaytag table">
 	<display:column titleKey="conference.title" property="title" />
@@ -58,7 +58,7 @@
 	</security:authorize>
 
 </display:table>
-
+<br/>
 <security:authorize access="hasRole('AUTHOR')">
 	<acme:cancel url="/registration/author/create.do"
 		code="conference.registration" />
@@ -75,7 +75,7 @@
 
 <security:authorize access="isAnonymous()">
 <spring:message code="conference.runningConference" />
-<br>
+<br/>
 <display:table pagesize="5" name="runningConferences" id="runningConference"
 	requestURI="${requestURI}" class="displaytag table">
 	<display:column titleKey="conference.title" property="title" />
@@ -88,7 +88,7 @@
 </display:table>
 <br/>
 <spring:message code="conference.pastConference" />
-<br>
+<br/>
 <display:table pagesize="5" name="pastConferences" id="pastConference"
 	requestURI="${requestURI}" class="displaytag table">
 	<display:column titleKey="conference.title" property="title" />
