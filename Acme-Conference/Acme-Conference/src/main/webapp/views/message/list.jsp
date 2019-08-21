@@ -53,7 +53,13 @@
 	<jstl:forEach items="${messagesRecived}" var="x">
 		<tr>
 			<td><jstl:out value="${x.subject}" /></td>
-			<td><jstl:out value="${x.topic.name}" /></td>
+
+			<td><jstl:if test="${lang eq 'en'}">
+					<jstl:out value="${x.topic.name}" />
+				</jstl:if> <jstl:if test="${lang eq 'es'}">
+					<jstl:out value="${x.topic.nameEs}" />
+				</jstl:if></td>
+
 			<td><jstl:out value="${x.moment}" /></td>
 			<jstl:choose>
 				<jstl:when test="${not empty x.sender}">
@@ -87,7 +93,11 @@
 	<jstl:forEach items="${messagesSend}" var="x">
 		<tr>
 			<td><jstl:out value="${x.subject}" /></td>
-			<td><jstl:out value="${x.topic.name}" /></td>
+			<td><jstl:if test="${lang eq 'en'}">
+					<jstl:out value="${x.topic.name}" />
+				</jstl:if> <jstl:if test="${lang eq 'es'}">
+					<jstl:out value="${x.topic.nameEs}" />
+				</jstl:if></td>
 			<td><jstl:out value="${x.moment}" /></td>
 			<td><jstl:out value="${x.recipient.name} ${x.recipient.surname}" /></td>
 			<td><acme:cancel url="/message/show.do?messageId=${x.id}"
@@ -114,7 +124,11 @@
 	<jstl:forEach items="${messagesSpam}" var="x">
 		<tr>
 			<td><jstl:out value="${x.subject}" /></td>
-			<td><jstl:out value="${x.topic.name}" /></td>
+			<td><jstl:if test="${lang eq 'en'}">
+					<jstl:out value="${x.topic.name}" />
+				</jstl:if> <jstl:if test="${lang eq 'es'}">
+					<jstl:out value="${x.topic.nameEs}" />
+				</jstl:if></td>
 			<td><jstl:out value="${x.moment}" /></td>
 			<td><jstl:out value="${x.sender.name} ${x.sender.surname}" /></td>
 			<td><acme:cancel url="/message/show.do?messageId=${x.id}"
@@ -142,7 +156,11 @@
 	<jstl:forEach items="${messagesDeleted}" var="x">
 		<tr>
 			<td><jstl:out value="${x.subject}" /></td>
-			<td><jstl:out value="${x.topic-name}" /></td>
+			<td><jstl:if test="${lang eq 'en'}">
+					<jstl:out value="${x.topic.name}" />
+				</jstl:if> <jstl:if test="${lang eq 'es'}">
+					<jstl:out value="${x.topic.nameEs}" />
+				</jstl:if></td>
 			<td><jstl:out value="${x.moment}" /></td>
 			<td><jstl:out value="${x.sender.name} ${x.sender.surname}" /></td>
 			<td><jstl:out value="${x.recipient.name} ${x.recipient.surname}" /></td>

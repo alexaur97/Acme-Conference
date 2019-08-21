@@ -21,7 +21,8 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
-<spring:message code="message.topic"/>: <jstl:out value="${msg.topic}"></jstl:out>
+<jstl:if test="${lang eq 'en'}"><spring:message code="message.topic"/>: <jstl:out value="${msg.topic.name}"></jstl:out></jstl:if>
+<jstl:if test="${lang eq 'es'}"><spring:message code="message.topic"/>: <jstl:out value="${msg.topic.nameEs}"></jstl:out></jstl:if>
 <br/>
 <spring:message code="message.body"/>: <jstl:out value="${msg.body}"></jstl:out>
 <br/>

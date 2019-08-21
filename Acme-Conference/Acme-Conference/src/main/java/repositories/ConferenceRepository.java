@@ -39,6 +39,7 @@ public interface ConferenceRepository extends JpaRepository<Conference, Integer>
 
 	@Query("select c from Conference c where c.endDate < ?1 ")
 	Collection<Conference> findPastConference(Date actualDate);
+
 	@Query("select c from Conference c where c.startDate < ?1 and c.endDate > ?1")
 	Collection<Conference> findRunningConference(Date actualDate);
 
