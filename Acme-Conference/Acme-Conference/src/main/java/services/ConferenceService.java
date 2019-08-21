@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.ConferenceRepository;
@@ -59,6 +60,9 @@ public class ConferenceService {
 
 	public void save(final Conference conference) {
 		Assert.notNull(conference);
+
+		if (conference.getId() == 0)
+			Assert.isTrue(conference.getMode().equals("DRAFT"));
 
 		this.conferenceRepository.save(conference);
 	}
@@ -227,5 +231,20 @@ public class ConferenceService {
 		final Collection<Double> result = this.conferenceRepository.statsConferencesFee();
 		Assert.notNull(result);
 		return result;
+	}
+
+	public Conference create() {
+		final Conference res = new Conference();
+		return res;
+	}
+
+	public Conference reconstruct(final Conference conference, final BindingResult binding) {
+		final Conference res = conference;
+		final Administrator adm = this.administratorService.findByPrincipal();
+		res.setAdministrator(adm);
+
+		this.validator.validate(res, binding);
+
+		return res;
 	}
 }

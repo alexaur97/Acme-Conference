@@ -6,6 +6,9 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +33,7 @@ public class ConferenceAdministratorController extends AbstractController {
 
 	@Autowired
 	private SubmissionService		submissionService;
+
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
@@ -63,25 +67,23 @@ public class ConferenceAdministratorController extends AbstractController {
 			this.administratorService.findByPrincipal();
 			final Conference conference = this.conferenceService.findOne(conferenceId);
 			result = new ModelAndView("conference/show");
-			
-			Collection<Submission> allSubmissions = this.submissionService.findSubmissionsByConference(conference);
+
+			final Collection<Submission> allSubmissions = this.submissionService.findSubmissionsByConference(conference);
 			final Date date = new Date();
-			Boolean submissions = !allSubmissions.isEmpty() && conference.getSubmissionDeadline().before(date);
+			final Boolean submissions = !allSubmissions.isEmpty() && conference.getSubmissionDeadline().before(date);
 			result.addObject("submissions", submissions);
-			
-			Collection<Submission> acceptedSubmissions = this.submissionService.findAcceptedSubmissionsByConference(conference);
-			Collection<Submission> rejectedSubmissions = this.submissionService.findRejectedSubmissionsByConference(conference);
-			
-			Boolean bool = acceptedSubmissions.size() + rejectedSubmissions.size() > 0;
-			
+
+			final Collection<Submission> acceptedSubmissions = this.submissionService.findAcceptedSubmissionsByConference(conference);
+			final Collection<Submission> rejectedSubmissions = this.submissionService.findRejectedSubmissionsByConference(conference);
+
+			final Boolean bool = acceptedSubmissions.size() + rejectedSubmissions.size() > 0;
+
 			result.addObject("requestURI", "conference/administrator/show.do");
 			result.addObject("conference", conference);
 			result.addObject("acceptedSubmissions", acceptedSubmissions);
 			result.addObject("rejectedSubmissions", rejectedSubmissions);
 			result.addObject("bool", bool);
-			
-			
-			
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -97,12 +99,70 @@ public class ConferenceAdministratorController extends AbstractController {
 			final Conference conference = this.conferenceService.findOne(conferenceId);
 			this.conferenceService.decisionProcedure(conference);
 
-			result = new ModelAndView("redirect:/conference/administrator/show.do?conferenceId="+conferenceId);
+			result = new ModelAndView("redirect:/conference/administrator/show.do?conferenceId=" + conferenceId);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
 
 		return result;
+	}
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+
+		try {
+			final Conference conference = this.conferenceService.create();
+
+			result = this.createEditModelAndView(conference);
+
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/#");
+
+		}
+
+		return result;
+	}
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@ModelAttribute("conference") Conference conference, final BindingResult binding) {
+		ModelAndView res;
+		try {
+			if (conference.getId() == 0)
+				Assert.isTrue(conference.getMode().equals("DRAFT"), "conference.draftError");
+			conference = this.conferenceService.reconstruct(conference, binding);
+
+			if (binding.hasErrors())
+				res = this.createEditModelAndView(conference);
+			else
+				try {
+
+					this.conferenceService.save(conference);
+					res = new ModelAndView("redirect:/conference/administrator/list.do");
+
+				} catch (final Throwable oops) {
+
+					res = this.createEditModelAndView(conference, "conference.commit.error");
+
+				}
+		} catch (final Throwable oops) {
+
+			res = this.createEditModelAndView(conference, "conference.commit.error");
+
+		}
+		return res;
+	}
+
+	protected ModelAndView createEditModelAndView(final Conference conference) {
+		return this.createEditModelAndView(conference, null);
+	}
+	protected ModelAndView createEditModelAndView(final Conference conference, final String messageCode) {
+		this.administratorService.findByPrincipal();
+		final ModelAndView res;
+		res = new ModelAndView("conference/edit");
+		res.addObject("conference", conference);
+		res.addObject("message", messageCode);
+
+		return res;
 	}
 }

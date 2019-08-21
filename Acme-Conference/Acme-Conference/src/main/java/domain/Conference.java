@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Date;
@@ -8,138 +9,152 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
 @Entity
 @Access(AccessType.PROPERTY)
 public class Conference extends DomainEntity {
 
-	private String title;
-	private String acronym;
-	private String venue;
-	private Date submissionDeadline;
-	private Date notification;
-	private Date cameraReady;
-	private Date startDate;
-	private Date endDate;
-	private String summary;
-	private Double fee;
-	
-	private Administrator administrator;
-	private Category category;
+	private String			title;
+	private String			acronym;
+	private String			venue;
+	private Date			submissionDeadline;
+	private Date			notification;
+	private Date			cameraReady;
+	private Date			startDate;
+	private Date			endDate;
+	private String			summary;
+	private Double			fee;
+	private String			mode;
+
+	private Administrator	administrator;
+	private Category		category;
+
+
+	@NotBlank
+	@Pattern(regexp = "^DRAFT|FINAL$")
+	@SafeHtml(whitelistType = WhiteListType.NONE)
+	public String getMode() {
+		return this.mode;
+	}
+
+	public void setMode(final String mode) {
+		this.mode = mode;
+	}
 
 	@NotBlank
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
-	
-	public void setTitle(String title) {
+
+	public void setTitle(final String title) {
 		this.title = title;
 	}
-	
+
 	@NotBlank
 	public String getAcronym() {
-		return acronym;
+		return this.acronym;
 	}
-	
-	public void setAcronym(String acronym) {
+
+	public void setAcronym(final String acronym) {
 		this.acronym = acronym;
 	}
-	
+
 	@NotBlank
 	public String getVenue() {
-		return venue;
+		return this.venue;
 	}
-	
-	
-	public void setVenue(String venue) {
+
+	public void setVenue(final String venue) {
 		this.venue = venue;
 	}
-	
+
 	@NotNull
 	public Date getSubmissionDeadline() {
-		return submissionDeadline;
+		return this.submissionDeadline;
 	}
-	
-	public void setSubmissionDeadline(Date submissionDeadline) {
+
+	public void setSubmissionDeadline(final Date submissionDeadline) {
 		this.submissionDeadline = submissionDeadline;
 	}
-	
+
 	@NotNull
 	public Date getNotification() {
-		return notification;
+		return this.notification;
 	}
-	
-	public void setNotification(Date notification) {
+
+	public void setNotification(final Date notification) {
 		this.notification = notification;
 	}
-	
+
 	@NotNull
 	public Date getCameraReady() {
-		return cameraReady;
+		return this.cameraReady;
 	}
-	
-	public void setCameraReady(Date cameraReady) {
+
+	public void setCameraReady(final Date cameraReady) {
 		this.cameraReady = cameraReady;
 	}
-	
+
 	@NotNull
 	public Date getStartDate() {
-		return startDate;
+		return this.startDate;
 	}
-	
-	public void setStartDate(Date startDate) {
+
+	public void setStartDate(final Date startDate) {
 		this.startDate = startDate;
 	}
-	
+
 	@NotNull
 	@Future
 	public Date getEndDate() {
-		return endDate;
+		return this.endDate;
 	}
-	
-	public void setEndDate(Date endDate) {
+
+	public void setEndDate(final Date endDate) {
 		this.endDate = endDate;
 	}
-	
+
 	@NotBlank
 	public String getSummary() {
-		return summary;
+		return this.summary;
 	}
-	
-	public void setSummary(String summary) {
+
+	public void setSummary(final String summary) {
 		this.summary = summary;
 	}
-	
+
 	@NotNull
 	public Double getFee() {
-		return fee;
+		return this.fee;
 	}
-	
-	public void setFee(Double fee) {
+
+	public void setFee(final Double fee) {
 		this.fee = fee;
 	}
 
 	@NotNull
-	@ManyToOne(optional=false)
+	@ManyToOne(optional = false)
 	public Administrator getAdministrator() {
-		return administrator;
+		return this.administrator;
 	}
 
-	public void setAdministrator(Administrator administrator) {
+	public void setAdministrator(final Administrator administrator) {
 		this.administrator = administrator;
 	}
-	
+
 	@NotNull
-	@ManyToOne(optional=false)
+	@ManyToOne(optional = false)
 	public Category getCategory() {
-		return category;
+		return this.category;
 	}
 
-	public void setCategory(Category category) {
+	public void setCategory(final Category category) {
 		this.category = category;
 	}
-	
-	
+
 }
