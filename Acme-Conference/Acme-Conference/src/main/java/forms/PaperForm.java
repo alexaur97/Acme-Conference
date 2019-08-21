@@ -1,5 +1,5 @@
 
-package domain;
+package forms;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -9,9 +9,12 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import domain.Author;
+import domain.DomainEntity;
+
 @Entity
 @Access(AccessType.PROPERTY)
-public class Paper extends DomainEntity {
+public class PaperForm extends DomainEntity {
 
 	private Author	author;
 
@@ -20,6 +23,16 @@ public class Paper extends DomainEntity {
 	private String	summary;
 	private String	document;
 
+	private Integer	SubmissionId;
+
+
+	public Integer getSubmissionId() {
+		return this.SubmissionId;
+	}
+
+	public void setSubmissionId(final Integer submissionId) {
+		this.SubmissionId = submissionId;
+	}
 
 	@NotNull
 	@ManyToOne(optional = false)
