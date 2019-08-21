@@ -43,6 +43,8 @@
 		<value>/views/presentationComment/messages</value>
 		<value>/views/panelComment/messages</value>
 		<value>/views/tutorialComment/messages</value>
+		<value>/views/activity/messages</value>
+		<value>/views/submission/messages</value>
 	</util:list>
 
 </beans>

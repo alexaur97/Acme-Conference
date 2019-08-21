@@ -18,6 +18,8 @@ import repositories.MessageRepository;
 import domain.Actor;
 import domain.Message;
 import domain.SpamWord;
+import forms.BroadcastConferenceForm;
+import forms.BroadcastUsersForm;
 
 @Service
 @Transactional
@@ -299,6 +301,51 @@ public class MessageService {
 					break;
 				} else
 					message.setSpam(false);
+	}
+
+	public Message recontructForBroadcast(final BroadcastUsersForm broadcastUsersForm, final Actor actor) {
+		Assert.notNull(actor);
+		Assert.notNull(broadcastUsersForm);
+		final Message result = new Message();
+		result.setCopy(false);
+		result.setDeleted(false);
+		result.setMoment(new Date());
+		result.setOwner(actor);
+		result.setRecipient(actor);
+		result.setSender(this.actorService.findByPrincipal());
+		result.setSpam(false);
+		result.setSubject(broadcastUsersForm.getSubject());
+		result.setBody(broadcastUsersForm.getBody());
+		result.setTags(broadcastUsersForm.getTags());
+		result.setTopic(broadcastUsersForm.getTopic());
+		Assert.notNull(result);
+		return result;
+	}
+
+	public Message createMessageCopy(final Message message) {
+		final Message result = message;
+		result.setCopy(true);
+		result.setOwner(this.actorService.findByPrincipal());
+		return result;
+	}
+
+	public Message recontructForBroadcastToConference(final BroadcastConferenceForm broadcastConferenceForm, final Actor actor) {
+		Assert.notNull(actor);
+		Assert.notNull(broadcastConferenceForm);
+		final Message result = new Message();
+		result.setCopy(false);
+		result.setDeleted(false);
+		result.setMoment(new Date());
+		result.setOwner(actor);
+		result.setRecipient(actor);
+		result.setSender(this.actorService.findByPrincipal());
+		result.setSpam(false);
+		result.setSubject(broadcastConferenceForm.getSubject());
+		result.setBody(broadcastConferenceForm.getBody());
+		result.setTags(broadcastConferenceForm.getTags());
+		result.setTopic(broadcastConferenceForm.getTopic());
+		Assert.notNull(result);
+		return result;
 	}
 
 }

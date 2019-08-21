@@ -42,6 +42,8 @@
 		<value>/views/panelComment/tiles.xml</value>
 		<value>/views/presentationComment/tiles.xml</value>
 		<value>/views/tutorialComment/tiles.xml</value>
+		<value>/views/activity/tiles.xml</value>
+		<value>/views/submission/tiles.xml</value>
 	</util:list>
 
 </beans>

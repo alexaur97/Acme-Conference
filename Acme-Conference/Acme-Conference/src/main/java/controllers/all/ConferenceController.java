@@ -2,17 +2,21 @@
 package controllers.all;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ConferenceService;
+import services.SubmissionService;
 import controllers.AbstractController;
 import domain.Conference;
+import domain.Submission;
 
 @Controller
 @RequestMapping("/conference")
@@ -20,6 +24,8 @@ public class ConferenceController extends AbstractController {
 
 	@Autowired
 	private ConferenceService	conferenceService;
+	@Autowired
+	private SubmissionService	submissionService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -72,5 +78,33 @@ public class ConferenceController extends AbstractController {
 		}
 		return result;
 	}
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int conferenceId) {
+		ModelAndView result;
+		try {
+			final Conference conference = this.conferenceService.findOne(conferenceId);
+			result = new ModelAndView("conference/show");
 
+			final Collection<Submission> allSubmissions = this.submissionService.findSubmissionsByConference(conference);
+			final Date date = new Date();
+			final Boolean submissions = !allSubmissions.isEmpty() && conference.getSubmissionDeadline().before(date);
+			result.addObject("submissions", submissions);
+
+			final Collection<Submission> acceptedSubmissions = this.submissionService.findAcceptedSubmissionsByConference(conference);
+			final Collection<Submission> rejectedSubmissions = this.submissionService.findRejectedSubmissionsByConference(conference);
+
+			final Boolean bool = acceptedSubmissions.size() + rejectedSubmissions.size() > 0;
+
+			result.addObject("requestURI", "conference/show.do");
+			result.addObject("conference", conference);
+			result.addObject("acceptedSubmissions", acceptedSubmissions);
+			result.addObject("rejectedSubmissions", rejectedSubmissions);
+			result.addObject("bool", bool);
+
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
+	}
 }

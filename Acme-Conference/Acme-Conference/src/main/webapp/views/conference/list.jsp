@@ -26,7 +26,7 @@
 
 
 <spring:message code="conference.futureConference" />
-<br/>
+<br />
 <display:table pagesize="5" name="conferences" id="conference"
 	requestURI="${requestURI}" class="displaytag table">
 	<display:column titleKey="conference.title" property="title" />
@@ -56,9 +56,18 @@
 				code="conference.show" />
 		</display:column>
 	</security:authorize>
-
+	<display:column titleKey="conference.comments">
+		<acme:cancel
+			url="/conference/comment/listByConference.do?conferenceId=${conference.id}"
+			code="conference.comments" />
+	</display:column>
+	<display:column titleKey="conference.activities">
+		<acme:cancel
+			url="/conference/activity/listByConference.do?conferenceId=${conference.id}"
+			code="conference.activities" />
+	</display:column>
 </display:table>
-<br/>
+<br />
 <security:authorize access="hasRole('AUTHOR')">
 	<acme:cancel url="/registration/author/create.do"
 		code="conference.registration" />
@@ -71,25 +80,35 @@
 		code="conference.create.presentation" />
 	<acme:cancel url="/tutorial/administrator/create.do"
 		code="conference.create.tutorial" />
-		<br/>
-		<br/>
+	<br />
+	<br />
 </security:authorize>
 
 <spring:message code="conference.runningConference" />
-<br/>
-<display:table pagesize="5" name="runningConferences" id="runningConference"
-	requestURI="${requestURI}" class="displaytag table">
+<br />
+<display:table pagesize="5" name="runningConferences"
+	id="runningConference" requestURI="${requestURI}"
+	class="displaytag table">
 	<display:column titleKey="conference.title" property="title" />
 	<display:column titleKey="conference.submission"
 		property="submissionDeadline" />
 	<display:column titleKey="conference.startDate" property="startDate" />
 	<display:column titleKey="conference.endDate" property="endDate" />
-	
+	<display:column titleKey="conference.comments">
+		<acme:cancel
+			url="/conference/comment/listByConference.do?conferenceId=${conference.id}"
+			code="conference.comments" />
+	</display:column>
+	<display:column titleKey="conference.activities">
+		<acme:cancel
+			url="/conference/activity/listByConference.do?conferenceId=${conference.id}"
+			code="conference.activities" />
+	</display:column>
 
 </display:table>
-<br/>
+<br />
 <spring:message code="conference.pastConference" />
-<br/>
+<br />
 <display:table pagesize="5" name="pastConferences" id="pastConference"
 	requestURI="${requestURI}" class="displaytag table">
 	<display:column titleKey="conference.title" property="title" />
@@ -97,6 +116,14 @@
 		property="submissionDeadline" />
 	<display:column titleKey="conference.startDate" property="startDate" />
 	<display:column titleKey="conference.endDate" property="endDate" />
-	
-
+	<display:column titleKey="conference.comments">
+		<acme:cancel
+			url="/conference/comment/listByConference.do?conferenceId=${conference.id}"
+			code="conference.comments" />
+	</display:column>
+	<display:column titleKey="conference.activities">
+		<acme:cancel
+			url="/conference/activity/listByConference.do?conferenceId=${conference.id}"
+			code="conference.activities" />
+	</display:column>
 </display:table>

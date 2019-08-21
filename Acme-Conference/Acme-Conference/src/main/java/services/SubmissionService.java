@@ -1,7 +1,9 @@
 
 package services;
 
+import java.security.SecureRandom;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import repositories.SubmissionRepository;
 import domain.Conference;
 import domain.Paper;
 import domain.Submission;
+import forms.MakeSubmissionForm;
 import forms.PaperForm;
 
 @Service
@@ -24,6 +27,8 @@ public class SubmissionService {
 	private AuthorService			authorService;
 	@Autowired
 	private PaperService			paperService;
+	@Autowired
+	private ActorService			actorService;
 
 
 	public Collection<Submission> findSubmissionsByConference(final Conference conference) {
@@ -63,6 +68,72 @@ public class SubmissionService {
 		final Submission submission = this.findOne(paperForm.getSubmissionId());
 		submission.setCameraReady(paperF);
 		return submission;
+	}
+
+	public Collection<Submission> findMySubmissions() {
+		return this.submissionRepository.findMySubmissions(this.actorService.findByPrincipal().getId());
+	}
+
+	public Submission reconstructSubmission(final MakeSubmissionForm form) {
+		final Submission submission = new Submission();
+		submission.setAuthor(this.authorService.findOne(this.actorService.findByPrincipal().getId()));
+		submission.setConference(form.getConference());
+		submission.setTicker(this.generateTicker());
+		submission.setMoment(new Date());
+		submission.setStatus("UNDER-REVIEW");
+
+		final Paper auxPaper = new Paper();
+		auxPaper.setAuthor(this.authorService.findOne(this.actorService.findByPrincipal().getId()));
+		auxPaper.setAuthorAlias(form.getAuthorAlias());
+		auxPaper.setDocument(form.getDocument());
+		auxPaper.setSummary(form.getSummary());
+		auxPaper.setTitle(form.getTitle());
+		submission.setPaper(this.paperService.save(auxPaper));
+
+		return submission;
+	}
+
+	public String generateTicker() {
+		String result = "";
+		String middleNameInitial;
+
+		final String nameInitial = String.valueOf(this.actorService.findByPrincipal().getName().charAt(0));
+		if (this.actorService.findByPrincipal().getMiddleName() != null)
+			middleNameInitial = String.valueOf(this.actorService.findByPrincipal().getMiddleName().charAt(0));
+		else
+			middleNameInitial = "X";
+		final String surnameInitial = String.valueOf(this.actorService.findByPrincipal().getSurname().charAt(0));
+
+		final String randomCode = this.generateRandomString(4);
+
+		result += nameInitial + middleNameInitial + surnameInitial + "-" + randomCode;
+
+		return result;
+	}
+
+	public String generateRandomString(final int length) {
+		final String CHAR_LOWER = "abcdefghijklmnopqrstuvwxyz";
+		final String CHAR_UPPER = CHAR_LOWER.toUpperCase();
+		final String NUMBER = "0123456789";
+		final String DATA_FOR_RANDOM_STRING = CHAR_UPPER + NUMBER;
+		final SecureRandom random = new SecureRandom();
+
+		if (length < 1)
+			throw new IllegalArgumentException();
+
+		final StringBuilder sb = new StringBuilder(length);
+		for (int i = 0; i < length; i++) {
+
+			// 0-62 (exclusive), random returns 0-61
+			final int rndCharAt = random.nextInt(DATA_FOR_RANDOM_STRING.length());
+			final char rndChar = DATA_FOR_RANDOM_STRING.charAt(rndCharAt);
+
+			sb.append(rndChar);
+
+		}
+
+		return sb.toString();
 
 	}
+
 }

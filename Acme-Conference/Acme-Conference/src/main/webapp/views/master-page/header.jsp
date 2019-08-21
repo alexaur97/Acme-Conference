@@ -80,10 +80,20 @@
 
 			<li><a class="fNiv" href="registration/author/list.do"><spring:message
 					code="master.page.listRegistration" /></a></li>
+			<li><a class="fNiv" href="submission/author/list.do"><spring:message
+					code="master.page.submissions" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
+			<li><a class="fNiv"><spring:message	code="master.page.register" /></a>
+			<ul>
+					<li class="arrow"></li>	
+					<li><a href="actor/registerSponsor.do"><spring:message code="master.page.register.sponsor" /></a></li>
+					<li><a href="actor/registerAuthor.do"><spring:message code="master.page.register.author" /></a></li>
+					<li><a href="actor/registerReviewer.do"><spring:message code="master.page.register.reviewer" /></a></li>
+				</ul>
+			</li>
 		</security:authorize>
 
 		<security:authorize access="isAuthenticated()">

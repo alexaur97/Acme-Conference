@@ -25,4 +25,24 @@
 		<put-attribute name="body" value="/views/message/edit.jsp" />
 	</definition>
 	
+	<definition name="message/broadcastAll" extends="master.page">
+		<put-attribute name="title" value="Difundir a todos" />
+		<put-attribute name="body" value="/views/message/broadcastusers.jsp" />
+	</definition>
+	
+	<definition name="message/broadcastAuthor" extends="master.page">
+		<put-attribute name="title" value="Difundir a autores" />
+		<put-attribute name="body" value="/views/message/broadcastusers.jsp" />
+	</definition>
+	
+	<definition name="message/broadcastAttendee" extends="master.page">
+		<put-attribute name="title" value="Difundir a usuarios registrados en una conferencia" />
+		<put-attribute name="body" value="/views/message/broadcastconferences.jsp" />
+	</definition>
+	
+	<definition name="message/broadcastSubmitters" extends="master.page">
+		<put-attribute name="title" value="Difundir a usuarios que han colaborado en una conferencia" />
+		<put-attribute name="body" value="/views/message/broadcastconferences.jsp" />
+	</definition>
+	
 </tiles-definitions>

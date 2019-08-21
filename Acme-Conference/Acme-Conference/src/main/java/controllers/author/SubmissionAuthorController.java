@@ -1,6 +1,8 @@
 
 package controllers.author;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.AuthorService;
+import services.ConferenceService;
+import services.PaperService;
 import services.SubmissionService;
 import controllers.AbstractController;
+import domain.Conference;
 import domain.Submission;
+import forms.MakeSubmissionForm;
 import forms.PaperForm;
 
 @Controller
@@ -26,7 +33,89 @@ public class SubmissionAuthorController extends AbstractController {
 	private SubmissionService	submissionService;
 	@Autowired
 	private AuthorService		authorService;
+	@Autowired
+	private ActorService		actorService;
+	@Autowired
+	private ConferenceService	conferenceService;
+	@Autowired
+	private PaperService		paperService;
 
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView result;
+		try {
+			final Collection<Submission> submissions = this.submissionService.findMySubmissions();
+			result = new ModelAndView("submission/list");
+			result.addObject("requestURI", "submission/author/list.do");
+			result.addObject("submissions", submissions);
+
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int submissionId) {
+		ModelAndView result;
+		try {
+			final Submission submission = this.submissionService.findOne(submissionId);
+			Assert.isTrue(this.actorService.findByPrincipal().getId() == submission.getAuthor().getId());
+			Assert.notNull(submission);
+			result = new ModelAndView("submission/show");
+			result.addObject("requestURI", "submission/show.do");
+			result.addObject("submission", submission);
+
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView res;
+		try {
+			final MakeSubmissionForm makeSubmissionForm = new MakeSubmissionForm();
+			final Collection<Conference> conferences = this.conferenceService.findOpenConferences();
+			res = new ModelAndView("submission/edit");
+			res.addObject("makeSubmissionForm", makeSubmissionForm);
+			res.addObject("conferences", conferences);
+
+		} catch (final Throwable oops) {
+			res = new ModelAndView("redirect:/#");
+		}
+
+		return res;
+	}
+
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	public ModelAndView save(@Valid final MakeSubmissionForm makeSubmissionForm, final BindingResult binding) {
+		ModelAndView res;
+		if (binding.hasErrors()) {
+			final Collection<Conference> conferences = this.conferenceService.findOpenConferences();
+			res = new ModelAndView("submission/edit");
+			res.addObject("conferences", conferences);
+			res.addObject("makeSubmissionForm", makeSubmissionForm);
+		} else
+			try {
+				res = new ModelAndView("submission/edit");
+				final Submission s = this.submissionService.reconstructSubmission(makeSubmissionForm);
+				this.submissionService.save(s);
+
+				res = new ModelAndView("redirect:/submission/author/list.do");
+			} catch (final Throwable oops) {
+				final Collection<Conference> conferences = this.conferenceService.findOpenConferences();
+				res = new ModelAndView("submission/edit");
+				res.addObject("conferences", conferences);
+				res.addObject("makeSubmissionForm", makeSubmissionForm);
+			}
+
+		return res;
+	}
 
 	@RequestMapping(value = "/upload", method = RequestMethod.GET)
 	public ModelAndView accept(@RequestParam final int submissionId) {

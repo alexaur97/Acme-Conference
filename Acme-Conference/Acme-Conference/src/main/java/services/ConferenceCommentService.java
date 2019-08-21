@@ -64,4 +64,9 @@ public class ConferenceCommentService {
 		return result;
 	}
 
+	public Collection<ConferenceComment> listCommentsByConference(final int conferenceId) {
+		Collection<ConferenceComment> result;
+		result = this.conferenceCommentRepository.listCommentsByConference(conferenceId);
+		return result;
+	}
 }

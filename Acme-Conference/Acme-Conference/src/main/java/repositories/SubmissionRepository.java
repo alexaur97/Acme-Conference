@@ -23,4 +23,7 @@ public interface SubmissionRepository extends JpaRepository<Submission, Integer>
 
 	@Query("select avg(1.0*(select count(s) from Submission s where s.conference.id = c.id)),min(1.0*(select count(s) from Submission s where s.conference.id = c.id)),max(1.0*(select count(s) from Submission s where s.conference.id = c.id)),stddev(1.0*(select count(s) from Submission s where s.conference.id = c.id)) from Conference c ")
 	Collection<Double> statsSubmissionsPerConference();
+
+	@Query("select s from Submission s where s.author.id = ?1")
+	Collection<Submission> findMySubmissions(int authorId);
 }

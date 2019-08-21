@@ -64,4 +64,9 @@ public class PresentationCommentService {
 		return result;
 	}
 
+	public Collection<PresentationComment> listCommentByPresentation(final int presentationId) {
+		final Collection<PresentationComment> result = this.presentationCommentRepository.listCommentPresentation(presentationId);
+		return result;
+	}
+
 }

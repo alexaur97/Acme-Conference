@@ -64,4 +64,8 @@ public class TutorialCommentService {
 		return result;
 	}
 
+	public Collection<TutorialComment> listCommentByTutorial(final int tutorialId) {
+		final Collection<TutorialComment> result = this.tutorialCommentRepository.listCommentsByTutorial(tutorialId);
+		return result;
+	}
 }

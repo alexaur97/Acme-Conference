@@ -1,84 +1,86 @@
+
 package controllers.all;
 
+import java.util.Collection;
 import java.util.Date;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.validation.Validator;
 
+import services.ConferenceCommentService;
+import services.ConferenceService;
 import controllers.AbstractController;
 import domain.Conference;
 import domain.ConferenceComment;
-import services.ConferenceCommentService;
-import services.ConferenceService;
 
 @Controller
 @RequestMapping("/conference/comment")
 public class ConferenceCommentController extends AbstractController {
 
 	@Autowired
-	private ConferenceCommentService conferenceCommentService;
+	private ConferenceCommentService	conferenceCommentService;
 
 	@Autowired
-	private ConferenceService conferenceService;
-	
+	private ConferenceService			conferenceService;
+
 	@Autowired
-	private Validator validator;
+	private Validator					validator;
+
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam int conferenceId) {
+	public ModelAndView create(@RequestParam final int conferenceId) {
 		ModelAndView result;
 		try {
-			ConferenceComment conferenceComment = this.conferenceCommentService.create();
+			final ConferenceComment conferenceComment = this.conferenceCommentService.create();
 			result = new ModelAndView("conferenceComment/create");
 			result.addObject("conferenceComment", conferenceComment);
 			result.addObject("conferenceId", conferenceId);
-		} catch (Throwable oops) {
+		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
 		}
 		return result;
 	}
 
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView show(@RequestParam int commentId) {
+	public ModelAndView show(@RequestParam final int commentId) {
 		ModelAndView result;
 		try {
-			ConferenceComment conferenceComment = this.conferenceCommentService.findOne(commentId);
+			final ConferenceComment conferenceComment = this.conferenceCommentService.findOne(commentId);
 			result = new ModelAndView("conferenceComment/show");
 			result.addObject("conferenceComment", conferenceComment);
-		} catch (Throwable oops) {
+		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
 		}
 		return result;
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView create(@RequestParam int conferenceId,@ModelAttribute("conferenceComment") ConferenceComment conferenceComment, BindingResult binding) {
+	public ModelAndView create(@RequestParam final int conferenceId, @ModelAttribute("conferenceComment") final ConferenceComment conferenceComment, final BindingResult binding) {
 		ModelAndView result;
-		
-		Conference conference = this.conferenceService.findOne(conferenceId);
+
+		final Conference conference = this.conferenceService.findOne(conferenceId);
 		conferenceComment.setConference(conference);
-		Date date = new Date();
+		final Date date = new Date();
 		conferenceComment.setMoment(date);
-		
+
 		this.validator.validate(conferenceComment, binding);
-		
+
 		if (binding.hasErrors()) {
 			result = new ModelAndView("conferenceComment/create");
 			result.addObject("conferenceComment", conferenceComment);
 			result.addObject("conferenceId", conferenceId);
 		} else
 			try {
-				ConferenceComment saved = this.conferenceCommentService.save(conferenceComment);
+				final ConferenceComment saved = this.conferenceCommentService.save(conferenceComment);
 				result = new ModelAndView("redirect:/conference/comment/show.do?commentId=" + saved.getId());
-			} catch (Throwable oops) {
+			} catch (final Throwable oops) {
 				result = new ModelAndView("conferenceComment/create");
 				result.addObject("conferenceComment", conferenceComment);
 				result.addObject("message", "conferenceComment.commit.error");
@@ -86,6 +88,22 @@ public class ConferenceCommentController extends AbstractController {
 			}
 		return result;
 
+	}
+
+	@RequestMapping(value = "/listByConference", method = RequestMethod.GET)
+	public ModelAndView listByConference(@RequestParam final int conferenceId) {
+		ModelAndView result;
+		try {
+			final Collection<ConferenceComment> comments = this.conferenceCommentService.listCommentsByConference(conferenceId);
+			result = new ModelAndView("conferenceComment/list");
+			result.addObject("requestURI", "conferenceComment/listByConference.do");
+			result.addObject("comments", comments);
+
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
 	}
 
 }

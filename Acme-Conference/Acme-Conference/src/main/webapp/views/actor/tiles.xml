@@ -26,4 +26,18 @@
 		<put-attribute name="body" value="/views/actor/show.jsp" />
 	</definition>
 	
+	<definition name="actor/registerSponsor" extends="master.page">	
+		<put-attribute name="title" value="Register as sponsor" />
+		<put-attribute name="body" value="/views/actor/registerSponsor.jsp" />
+	</definition>
+	
+	<definition name="actor/registerAuthor" extends="master.page">	
+		<put-attribute name="title" value="Register as author" />
+		<put-attribute name="body" value="/views/actor/registerAuthor.jsp" />
+	</definition>
+	
+	<definition name="actor/registerReviewer" extends="master.page">	
+		<put-attribute name="title" value="Register as reviewer" />
+		<put-attribute name="body" value="/views/actor/registerReviewer.jsp" />
+	</definition>	
 </tiles-definitions>

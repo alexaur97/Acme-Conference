@@ -64,4 +64,8 @@ public class PanelCommentService {
 		return result;
 	}
 
+	public Collection<PanelComment> listCommentByPanel(final int panelId) {
+		final Collection<PanelComment> result = this.panelCommentRepository.listCommentsByPanel(panelId);
+		return result;
+	}
 }

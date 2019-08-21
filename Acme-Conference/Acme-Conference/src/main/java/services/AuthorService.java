@@ -1,7 +1,10 @@
 
 package services;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -12,6 +15,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Author;
 import forms.ActorEditForm;
+import forms.RegisterSponsorAndAuthorForm;
 
 @Service
 @Transactional
@@ -23,6 +27,33 @@ public class AuthorService {
 	@Autowired
 	private ActorService		actorService;
 
+
+	public Author reconstruct(final RegisterSponsorAndAuthorForm registerForm) {
+		final Author res = new Author();
+
+		Assert.isTrue(registerForm.getPassword().equals(registerForm.getRepeatPassword()), "register.password.error");
+		final UserAccount userAccount = new UserAccount();
+		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		final String pass = encoder.encodePassword(registerForm.getPassword(), null);
+		final Authority authority = new Authority();
+		authority.setAuthority(Authority.AUTHOR);
+		userAccount.addAuthority(authority);
+		userAccount.setUsername(registerForm.getUsername());
+		userAccount.setPassword(pass);
+
+		res.setUserAccount(userAccount);
+		res.setAddress(registerForm.getAddress());
+		res.setPhoto(registerForm.getPhoto());
+		res.setEmail(registerForm.getEmail());
+		res.setName(registerForm.getName());
+		res.setPhone(registerForm.getPhone());
+		res.setMiddleName(registerForm.getMiddleName());
+		res.setSurname(registerForm.getSurname());
+
+		Assert.isTrue(registerForm.getTerms() == true, "assertCheck");
+
+		return res;
+	}
 
 	public Author reconstructEdit(final ActorEditForm actorEditForm) {
 		final Author result;
@@ -53,12 +84,32 @@ public class AuthorService {
 		return author;
 	}
 
+	public Collection<Author> findAll() {
+		final Collection<Author> authors = this.authorRepository.findAll();
+		return authors;
+	}
+
+	public Author findOne(final int authorId) {
+		final Author author = this.authorRepository.findOne(authorId);
+		return author;
+	}
+
 	public Author save(final Author author) {
 		Assert.notNull(author);
 
 		final Author result = this.authorRepository.save(author);
 		return result;
 
+	}
+
+	public Collection<Author> getAuthorsRegisterInConference(final int conferenceId) {
+		final Collection<Author> result = this.authorRepository.getAuthorsRegisterInConference(conferenceId);
+		return result;
+	}
+
+	public Collection<Author> getAuthorsSubmittedToConference(final int conferenceId) {
+		final Collection<Author> result = this.authorRepository.getAuthorsSubmittedToConference(conferenceId);
+		return result;
 	}
 
 }

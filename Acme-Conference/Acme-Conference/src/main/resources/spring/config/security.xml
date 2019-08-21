@@ -130,6 +130,15 @@
 			
 		<security:intercept-url pattern="/registration/author/show.do"
 			access="hasRole('AUTHOR')" />
+		
+		<security:intercept-url pattern="/submission/author/list.do"
+			access="hasRole('AUTHOR')" />
+	
+		<security:intercept-url pattern="/submission/author/show.do"
+			access="hasRole('AUTHOR')" />
+			
+		<security:intercept-url pattern="/submission/author/edit.do"
+			access="hasRole('AUTHOR')" />
 			
 		<security:intercept-url pattern="/panel/administrator/list.do"
 			access="hasRole('ADMINISTRATOR')" />

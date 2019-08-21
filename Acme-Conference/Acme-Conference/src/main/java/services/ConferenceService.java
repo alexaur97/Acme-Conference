@@ -228,4 +228,10 @@ public class ConferenceService {
 		Assert.notNull(result);
 		return result;
 	}
+
+	public Collection<Conference> findOpenConferences() {
+		final Collection<Conference> result = this.conferenceRepository.findOpenConferences(new Date());
+		Assert.notNull(result);
+		return result;
+	}
 }
