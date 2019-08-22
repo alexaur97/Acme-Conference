@@ -14,6 +14,7 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -73,6 +74,7 @@ public class Conference extends DomainEntity {
 		this.venue = venue;
 	}
 
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	@NotNull
 	public Date getSubmissionDeadline() {
 		return this.submissionDeadline;
@@ -82,6 +84,7 @@ public class Conference extends DomainEntity {
 		this.submissionDeadline = submissionDeadline;
 	}
 
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	@NotNull
 	public Date getNotification() {
 		return this.notification;
@@ -91,6 +94,7 @@ public class Conference extends DomainEntity {
 		this.notification = notification;
 	}
 
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	@NotNull
 	public Date getCameraReady() {
 		return this.cameraReady;
@@ -100,6 +104,7 @@ public class Conference extends DomainEntity {
 		this.cameraReady = cameraReady;
 	}
 
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	@NotNull
 	public Date getStartDate() {
 		return this.startDate;
@@ -109,6 +114,7 @@ public class Conference extends DomainEntity {
 		this.startDate = startDate;
 	}
 
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	@NotNull
 	@Future
 	public Date getEndDate() {

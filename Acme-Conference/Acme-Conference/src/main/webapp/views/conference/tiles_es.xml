@@ -28,6 +28,11 @@
 		<put-attribute name="title" value="Mostrar Conferencia" />
 		<put-attribute name="body" value="/views/conference/show.jsp" />
 	</definition>
+	
+	<definition name="conference/edit" extends="master.page">
+		<put-attribute name="title" value="Editar Conferencia" />
+		<put-attribute name="body" value="/views/conference/edit.jsp" />
+	</definition>
 
 </tiles-definitions>
 	

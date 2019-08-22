@@ -32,23 +32,30 @@
 
 						<form:hidden path="id"/>
 						<form:hidden path="version"/>	
-						<acme:textbox code="presentation.title" path="title" />
-						<acme:textbox code="presentation.speakers" path="speakers" />
-						<acme:textbox code="presentation.duration" path="duration" />
-						<acme:textbox code="presentation.startMoment" path="startMoment" />
-						<acme:textbox code="presentation.room" path="room" />
-						<acme:textbox code="presentation.summary" path="summary" />
-						<acme:textbox code="presentation.attachments" path="attachments" />
-						<acme:textbox code="presentation.cameraReadyVersion" path="cameraReadyVersion" />
-						<acme:select items="${conferences}" itemLabel="title" code="presentation.conferences" path="conference"/>
+						<acme:textbox code="conference.title" path="title" />
+						<acme:textbox code="conference.acronym" path="acronym" />
+						<acme:textbox code="conference.venue" path="venue" />
+						<acme:textbox placeholder="dd-MM-yyyy" code="conference.submission" path="submissionDeadline" />
+						<acme:textbox placeholder="dd-mm-yyyy" code="conference.notification" path="notification" />
+						<acme:textbox placeholder="dd-mm-yyyy" code="conference.cameraReady" path="cameraReady" />
+						<acme:textbox placeholder="dd-mm-yyyy" code="conference.startDate" path="startDate" />
+						<acme:textbox placeholder="dd-mm-yyyy" code="conference.endDate" path="endDate" />
+						<acme:textarea code="conference.summary" path="summary" />
+						<acme:textbox code="conference.fee" path="fee" />
+						
+						<spring:message code="conference.mode"/>
+						<form:select path="mode">
+							<form:option value="DRAFT"/>
+							<form:option value="FINAL" />
+						</form:select>
+						
+						<acme:select items="${categories}" itemLabel="name" code="conference.category" path="category"/>
 					
-						<acme:submit name="save" code="msg.save" />						
-						<acme:cancel url="/conference/list.do"
-							code="msg.cancel" />
+						<acme:submit name="save" code="conference.save" />						
+						<acme:cancel url="/conference/administrator/list.do"
+							code="conference.cancel" />
 							
-						 <jstl:if test="${presentation.id!=0}">
-							<acme:submit name="delete" code="msg.delete" />
-						</jstl:if> 
+						
 				
 					</div>
 				</form:form>

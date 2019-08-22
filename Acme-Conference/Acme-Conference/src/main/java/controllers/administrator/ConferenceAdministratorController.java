@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.AdministratorService;
+import services.CategoryService;
 import services.ConferenceService;
 import services.SubmissionService;
 import controllers.AbstractController;
+import domain.Category;
 import domain.Conference;
 import domain.Submission;
 
@@ -33,6 +35,9 @@ public class ConferenceAdministratorController extends AbstractController {
 
 	@Autowired
 	private SubmissionService		submissionService;
+
+	@Autowired
+	private CategoryService			categoryService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -159,8 +164,11 @@ public class ConferenceAdministratorController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Conference conference, final String messageCode) {
 		this.administratorService.findByPrincipal();
 		final ModelAndView res;
+
+		final Collection<Category> categories = this.categoryService.findAll();
 		res = new ModelAndView("conference/edit");
 		res.addObject("conference", conference);
+		res.addObject("categories", categories);
 		res.addObject("message", messageCode);
 
 		return res;
