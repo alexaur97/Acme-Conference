@@ -20,7 +20,7 @@ public class CreditCard extends DomainEntity {
 	private String number;
 	private Integer expirationMonth;
 	private Integer expirationYear;
-	private Integer cvv;
+	private String cvv;
 	
 	@NotBlank
 	public String getHolderName() {
@@ -71,14 +71,14 @@ public class CreditCard extends DomainEntity {
 		this.expirationYear = expirationYear;
 	}
 	
-	@NotNull
-	@Range(min=0, max=999)
+	@NotBlank
 	@Length(min=3, max=3)
-	public Integer getCvv() {
+	@Pattern(regexp = "^\\d+$")
+	public String getCvv() {
 		return cvv;
 	}
 	
-	public void setCvv(Integer cvv) {
+	public void setCvv(String cvv) {
 		this.cvv = cvv;
 	}
 

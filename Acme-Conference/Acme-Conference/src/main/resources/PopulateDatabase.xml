@@ -616,13 +616,13 @@
 	<bean id="conference1" class="domain.Conference">
 		<property name="acronym" value="BAE" />
 		<property name="administrator" ref="admin" />
-		<property name="cameraReady" value="12/30/2020 15:30" />
+		<property name="cameraReady" value="12/30/2019 15:30" />
 		<property name="category" ref="category1" />
 		<property name="endDate" value="12/30/2020 20:00" />
 		<property name="fee" value="3.50" />
 		<property name="notification" value="08/2/2019 20:00" />
 		<property name="startDate" value="12/30/2020 18:30" />
-		<property name="submissionDeadline" value="08/04/2019 17:30" />
+		<property name="submissionDeadline" value="08/1/2019 17:30" />
 		<property name="summary"
 			value="Summary, Restary, Multiplicary y Dividiry" />
 		<property name="title" value="British Aerospace" />
@@ -632,7 +632,7 @@
 	<bean id="conference2" class="domain.Conference">
 		<property name="acronym" value="GF" />
 		<property name="administrator" ref="admin" />
-		<property name="cameraReady" value="08/07/2019 15:30" />
+		<property name="cameraReady" value="08/08/2019 15:30" />
 		<property name="category" ref="category1" />
 		<property name="endDate" value="12/30/2020 20:00" />
 		<property name="fee" value="3.50" />
@@ -648,13 +648,13 @@
 	<bean id="conference3" class="domain.Conference">
 		<property name="acronym" value="TBC" />
 		<property name="administrator" ref="admin" />
-		<property name="cameraReady" value="08/08/2019 15:30" />
+		<property name="cameraReady" value="11/30/2019 21:30" />
 		<property name="category" ref="category1" />
 		<property name="endDate" value="12/31/2020 20:00" />
 		<property name="fee" value="3.50" />
-		<property name="notification" value="08/10/2019 20:00" />
+		<property name="notification" value="11/30/2019 20:00" />
 		<property name="startDate" value="12/31/2020 18:30" />
-		<property name="submissionDeadline" value="08/11/2019 17:30" />
+		<property name="submissionDeadline" value="11/30/2019 17:30" />
 		<property name="summary"
 			value="Summary, Restary, Multiplicary y Dividiry" />
 		<property name="title" value="The best conference" />
@@ -664,13 +664,13 @@
 	<bean id="conference4" class="domain.Conference">
 		<property name="acronym" value="PG19" />
 		<property name="administrator" ref="admin" />
-		<property name="cameraReady" value="08/07/2019 15:30" />
+		<property name="cameraReady" value="11/30/2019 21:30" />
 		<property name="category" ref="category1" />
 		<property name="endDate" value="12/30/2020 20:00" />
 		<property name="fee" value="3.50" />
-		<property name="notification" value="07/07/2019 20:00" />
+		<property name="notification" value="11/30/2019 20:00" />
 		<property name="startDate" value="12/30/2020 18:30" />
-		<property name="submissionDeadline" value="07/30/2019 17:30" />
+		<property name="submissionDeadline" value="11/30/2019 17:30" />
 		<property name="summary"
 			value="Summary, Restary, Multiplicary y Dividiry" />
 		<property name="title" value="Premios Goya 2019" />
@@ -684,7 +684,7 @@
 		<property name="category" ref="category1" />
 		<property name="endDate" value="12/30/2020 20:00" />
 		<property name="fee" value="3.50" />
-		<property name="notification" value="07/08/2019 20:00" />
+		<property name="notification" value="07/30/2019 20:00" />
 		<property name="startDate" value="12/30/2020 18:30" />
 		<property name="submissionDeadline" value="07/30/2019 17:30" />
 		<property name="summary"
@@ -696,7 +696,7 @@
 	<bean id="conference6" class="domain.Conference">
 		<property name="acronym" value="MSB" />
 		<property name="administrator" ref="admin" />
-		<property name="cameraReady" value="08/07/2019 15:30" />
+		<property name="cameraReady" value="08/07/2019 21:30" />
 		<property name="category" ref="category1" />
 		<property name="endDate" value="12/30/2020 20:00" />
 		<property name="fee" value="3.50" />
@@ -712,20 +712,20 @@
 	<bean id="conference7" class="domain.Conference">
 		<property name="acronym" value="OLS" />
 		<property name="administrator" ref="admin" />
-		<property name="cameraReady" value="20/08/2019 15:30" />
+		<property name="cameraReady" value="08/08/2019 15:30" />
 		<property name="category" ref="category9" />
-		<property name="endDate" value="20/08/2019 20:00" />
+		<property name="endDate" value="08/20/2020 20:00" />
 		<property name="fee" value="3.50" />
-		<property name="notification" value="08/2/2019 20:00" />
-		<property name="startDate" value="20/08/2019 18:30" />
+		<property name="notification" value="08/06/2019 20:00" />
+		<property name="startDate" value="08/20/2019 18:30" />
 		<property name="submissionDeadline" value="08/04/2019 17:30" />
 		<property name="summary"
 			value="Summary, Restary, Multiplicary y Dividiry" />
 		<property name="title" value="Test Category-Conference" />
 		<property name="venue" value="Oh, look at this venue" />
 	</bean>
+	
 	<!-- Categories -->
-
 
 	<bean id="category1" class="domain.Category">
 		<property name="name" value="CONFERENCE" />
@@ -1545,6 +1545,28 @@
 		<property name="decision" value="BORDER-LINE" />
 		<property name="comments" value="IDK" />
 	</bean>
+	
+	<!-- Registration -->
 
+
+	<bean id="registration1" class="domain.Registration">
+		<property name="author" ref="author1" />
+		<property name="conference" ref="conference2" />
+		<property name="creditCard" ref="creditCard1" />
+	</bean>
+	
+	<!-- CreditCards -->
+	
+	<bean id="creditCard1" class="domain.CreditCard">
+		<property name="brandName" value="VISA" />
+		<property name="cvv" value="000" />
+		<property name="expirationMonth" value="4" />
+		<property name="expirationYear" value="44" />
+		<property name="holderName" value="author1" />
+		<property name="number" value="4783643650759824" />
+	</bean>
+	
+	<!-- ConferenceComments -->
+	
 
 </beans>

@@ -34,6 +34,11 @@
 		property="submissionDeadline" />
 	<display:column titleKey="conference.startDate" property="startDate" />
 	<display:column titleKey="conference.endDate" property="endDate" />
+	<display:column titleKey="conference.show">
+			<acme:cancel
+				url="/conference/show.do?conferenceId=${conference.id}"
+				code="conference.show" />
+		</display:column>
 	<security:authorize access="hasRole('ADMINISTRATOR')">
 		<display:column titleKey="conference.panel">
 			<acme:cancel
@@ -49,11 +54,6 @@
 			<acme:cancel
 				url="/tutorial/administrator/list.do?conferenceId=${conference.id}"
 				code="conference.tutorial" />
-		</display:column>
-		<display:column titleKey="conference.show">
-			<acme:cancel
-				url="/conference/administrator/show.do?conferenceId=${conference.id}"
-				code="conference.show" />
 		</display:column>
 	</security:authorize>
 	<display:column titleKey="conference.comments">
@@ -94,14 +94,19 @@
 		property="submissionDeadline" />
 	<display:column titleKey="conference.startDate" property="startDate" />
 	<display:column titleKey="conference.endDate" property="endDate" />
+	<display:column titleKey="conference.show">
+			<acme:cancel
+				url="/conference/show.do?conferenceId=${runningConference.id}"
+				code="conference.show" />
+		</display:column>
 	<display:column titleKey="conference.comments">
 		<acme:cancel
-			url="/conference/comment/listByConference.do?conferenceId=${conference.id}"
+			url="/conference/comment/listByConference.do?conferenceId=${runningConference.id}"
 			code="conference.comments" />
 	</display:column>
 	<display:column titleKey="conference.activities">
 		<acme:cancel
-			url="/conference/activity/listByConference.do?conferenceId=${conference.id}"
+			url="/conference/activity/listByConference.do?conferenceId=${runningConference.id}"
 			code="conference.activities" />
 	</display:column>
 
@@ -116,14 +121,19 @@
 		property="submissionDeadline" />
 	<display:column titleKey="conference.startDate" property="startDate" />
 	<display:column titleKey="conference.endDate" property="endDate" />
+	<display:column titleKey="conference.show">
+			<acme:cancel
+				url="/conference/show.do?conferenceId=${pastConference.id}"
+				code="conference.show" />
+		</display:column>
 	<display:column titleKey="conference.comments">
 		<acme:cancel
-			url="/conference/comment/listByConference.do?conferenceId=${conference.id}"
+			url="/conference/comment/listByConference.do?conferenceId=${pastConference.id}"
 			code="conference.comments" />
 	</display:column>
 	<display:column titleKey="conference.activities">
 		<acme:cancel
-			url="/conference/activity/listByConference.do?conferenceId=${conference.id}"
+			url="/conference/activity/listByConference.do?conferenceId=${pastConference.id}"
 			code="conference.activities" />
 	</display:column>
 </display:table>

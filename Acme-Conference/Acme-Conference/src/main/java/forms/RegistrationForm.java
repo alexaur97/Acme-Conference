@@ -6,6 +6,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.SafeHtml;
@@ -21,7 +22,7 @@ public class RegistrationForm {
 	private String		number;
 	private Integer		expirationMonth;
 	private Integer		expirationYear;
-	private Integer		cvv;
+	private String		cvv;
 
 
 	@NotNull
@@ -84,13 +85,14 @@ public class RegistrationForm {
 		this.expirationYear = expirationYear;
 	}
 
-	@NotNull
-	@Range(min = 100, max = 999)
-	public Integer getCvv() {
-		return this.cvv;
+	@NotBlank
+	@Length(min=3, max=3)
+	@Pattern(regexp = "^\\d+$")
+	public String getCvv() {
+		return cvv;
 	}
-
-	public void setCvv(final Integer cvv) {
+	
+	public void setCvv(String cvv) {
 		this.cvv = cvv;
 	}
 

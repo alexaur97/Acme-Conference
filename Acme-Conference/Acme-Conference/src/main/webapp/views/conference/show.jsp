@@ -84,4 +84,14 @@
 		</security:authorize>
 		</jstl:otherwise>
 	</jstl:choose>
+	
+	<h4><spring:message code="conference.comments"/></h4>
+	
+	<display:table name="comments" id="comment"
+	requestURI="${requestURI}" class="displaytag table">
+	<display:column titleKey="conferenceComment.author"  property="author" />
+	<display:column titleKey="conferenceComment.moment"  property="moment" />
+	<display:column titleKey="conferenceComment.title"  property="title" />
+	<display:column titleKey="conferenceComment.text"  property="text" />
+</display:table>
 </jstl:if>

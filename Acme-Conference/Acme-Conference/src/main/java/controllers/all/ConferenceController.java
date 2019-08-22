@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ConferenceCommentService;
 import services.ConferenceService;
 import services.SubmissionService;
 import controllers.AbstractController;
 import domain.Conference;
+import domain.ConferenceComment;
 import domain.Submission;
 
 @Controller
@@ -26,6 +28,8 @@ public class ConferenceController extends AbstractController {
 	private ConferenceService	conferenceService;
 	@Autowired
 	private SubmissionService	submissionService;
+	@Autowired
+	private ConferenceCommentService conferenceCommentService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -100,6 +104,10 @@ public class ConferenceController extends AbstractController {
 			result.addObject("acceptedSubmissions", acceptedSubmissions);
 			result.addObject("rejectedSubmissions", rejectedSubmissions);
 			result.addObject("bool", bool);
+			
+			final Collection<ConferenceComment> comments = this.conferenceCommentService.listCommentsByConference(conferenceId);
+			result.addObject("comments", comments);
+
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
