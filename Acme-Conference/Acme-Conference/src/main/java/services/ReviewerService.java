@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +81,10 @@ public class ReviewerService {
 		res.setKeyWords(registerForm.getKeyWords());
 
 		Assert.isTrue(registerForm.getTerms() == true, "assertCheck");
-
+		final Collection<String> emails = this.actorService.findAllEmails();
+		final String email = registerForm.getEmail();
+		final boolean bEmail = !emails.contains(email);
+		Assert.isTrue(bEmail, "register.username.error");
 		return res;
 	}
 

@@ -1,3 +1,4 @@
+
 package controllers;
 
 import javax.validation.Valid;
@@ -10,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.AuthorService;
 import services.ReviewerService;
 import services.SponsorService;
-import services.AuthorService;
+import domain.Author;
 import domain.Reviewer;
 import domain.Sponsor;
-import domain.Author;
 import forms.RegisterReviewerForm;
 import forms.RegisterSponsorAndAuthorForm;
 
@@ -24,13 +25,14 @@ import forms.RegisterSponsorAndAuthorForm;
 public class RegisterController extends AbstractController {
 
 	@Autowired
-	private SponsorService sponsorService;
-	
+	private SponsorService	sponsorService;
+
 	@Autowired
-	private AuthorService authorService;
-	
+	private AuthorService	authorService;
+
 	@Autowired
-	private ReviewerService reviewerService;
+	private ReviewerService	reviewerService;
+
 
 	@RequestMapping(value = "/registerSponsor", method = RequestMethod.GET)
 	public ModelAndView registerSponsor() {
@@ -47,16 +49,14 @@ public class RegisterController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/registerSponsor", method = RequestMethod.POST, params = "saveSponsor")
-	public ModelAndView saveSponsor(@Valid final RegisterSponsorAndAuthorForm registerSponsorAndAuthorForm,
-			final BindingResult binding) {
+	public ModelAndView saveSponsor(@Valid final RegisterSponsorAndAuthorForm registerSponsorAndAuthorForm, final BindingResult binding) {
 		ModelAndView res;
 		if (binding.hasErrors()) {
 			res = new ModelAndView("actor/registerSponsor");
 			res.addObject("registerSponsorAndAuthorForm", registerSponsorAndAuthorForm);
 		} else
 			try {
-				final Sponsor sponsor = this.sponsorService
-						.reconstruct(registerSponsorAndAuthorForm);
+				final Sponsor sponsor = this.sponsorService.reconstruct(registerSponsorAndAuthorForm);
 				this.sponsorService.save(sponsor);
 				res = new ModelAndView("redirect:/security/login.do");
 			} catch (final Throwable oops) {
@@ -65,17 +65,18 @@ public class RegisterController extends AbstractController {
 				res.addObject("registerSponsorAndAuthorForm", registerSponsorAndAuthorForm);
 				if (oops.getMessage().equals("register.password.error"))
 					res.addObject("message", "register.password.error");
-				if (oops.getClass().equals(
-						DataIntegrityViolationException.class))
+				if (oops.getClass().equals(DataIntegrityViolationException.class))
 					res.addObject("message", "register.username.error");
-				if (oops.getMessage().equalsIgnoreCase("assertCheck")) {
+				if (oops.getMessage().equalsIgnoreCase("assertCheck"))
 					res.addObject("message", "register.check.error");
-				}
+				if (oops.getMessage().equals("register.username.error"))
+					res.addObject("message", "register.username.error");
+
 			}
 
 		return res;
 	}
-	
+
 	@RequestMapping(value = "/registerAuthor", method = RequestMethod.GET)
 	public ModelAndView registerAuthor() {
 		ModelAndView res;
@@ -91,16 +92,14 @@ public class RegisterController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/registerAuthor", method = RequestMethod.POST, params = "saveAuthor")
-	public ModelAndView saveAuthor(@Valid final RegisterSponsorAndAuthorForm registerSponsorAndAuthorForm,
-			final BindingResult binding) {
+	public ModelAndView saveAuthor(@Valid final RegisterSponsorAndAuthorForm registerSponsorAndAuthorForm, final BindingResult binding) {
 		ModelAndView res;
 		if (binding.hasErrors()) {
 			res = new ModelAndView("actor/registerAuthor");
 			res.addObject("registerSponsorAndAuthorForm", registerSponsorAndAuthorForm);
 		} else
 			try {
-				final Author author = this.authorService
-						.reconstruct(registerSponsorAndAuthorForm);
+				final Author author = this.authorService.reconstruct(registerSponsorAndAuthorForm);
 				this.authorService.save(author);
 				res = new ModelAndView("redirect:/security/login.do");
 			} catch (final Throwable oops) {
@@ -109,17 +108,17 @@ public class RegisterController extends AbstractController {
 				res.addObject("registerSponsorAndAuthorForm", registerSponsorAndAuthorForm);
 				if (oops.getMessage().equals("register.password.error"))
 					res.addObject("message", "register.password.error");
-				if (oops.getClass().equals(
-						DataIntegrityViolationException.class))
+				if (oops.getClass().equals(DataIntegrityViolationException.class))
 					res.addObject("message", "register.username.error");
-				if (oops.getMessage().equalsIgnoreCase("assertCheck")) {
+				if (oops.getMessage().equalsIgnoreCase("assertCheck"))
 					res.addObject("message", "register.check.error");
-				}
+				if (oops.getMessage().equals("register.username.error"))
+					res.addObject("message", "register.username.error");
 			}
 
 		return res;
 	}
-	
+
 	@RequestMapping(value = "/registerReviewer", method = RequestMethod.GET)
 	public ModelAndView registerReviewer() {
 		ModelAndView res;
@@ -135,16 +134,14 @@ public class RegisterController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/registerReviewer", method = RequestMethod.POST, params = "saveReviewer")
-	public ModelAndView saveReviewer(@Valid final RegisterReviewerForm registerReviewerForm,
-			final BindingResult binding) {
+	public ModelAndView saveReviewer(@Valid final RegisterReviewerForm registerReviewerForm, final BindingResult binding) {
 		ModelAndView res;
 		if (binding.hasErrors()) {
 			res = new ModelAndView("actor/registerReviewer");
 			res.addObject("registerReviewerForm", registerReviewerForm);
 		} else
 			try {
-				final Reviewer reviewer = this.reviewerService
-						.reconstruct(registerReviewerForm);
+				final Reviewer reviewer = this.reviewerService.reconstruct(registerReviewerForm);
 				this.reviewerService.save(reviewer);
 				res = new ModelAndView("redirect:/security/login.do");
 			} catch (final Throwable oops) {
@@ -153,12 +150,12 @@ public class RegisterController extends AbstractController {
 				res.addObject("registerReviewerForm", registerReviewerForm);
 				if (oops.getMessage().equals("register.password.error"))
 					res.addObject("message", "register.password.error");
-				if (oops.getClass().equals(
-						DataIntegrityViolationException.class))
+				if (oops.getClass().equals(DataIntegrityViolationException.class))
 					res.addObject("message", "register.username.error");
-				if (oops.getMessage().equalsIgnoreCase("assertCheck")) {
+				if (oops.getMessage().equalsIgnoreCase("assertCheck"))
 					res.addObject("message", "register.check.error");
-				}
+				if (oops.getMessage().equals("register.username.error"))
+					res.addObject("message", "register.username.error");
 			}
 
 		return res;

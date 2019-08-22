@@ -51,7 +51,10 @@ public class AuthorService {
 		res.setSurname(registerForm.getSurname());
 
 		Assert.isTrue(registerForm.getTerms() == true, "assertCheck");
-
+		final Collection<String> emails = this.actorService.findAllEmails();
+		final String email = registerForm.getEmail();
+		final boolean bEmail = !emails.contains(email);
+		Assert.isTrue(bEmail, "register.username.error");
 		return res;
 	}
 

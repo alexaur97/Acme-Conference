@@ -97,12 +97,12 @@ public class SubmissionService {
 		String result = "";
 		String middleNameInitial;
 
-		final String nameInitial = String.valueOf(this.actorService.findByPrincipal().getName().charAt(0));
+		final String nameInitial = String.valueOf(this.actorService.findByPrincipal().getName().charAt(0)).toUpperCase();
 		if (this.actorService.findByPrincipal().getMiddleName() != null)
-			middleNameInitial = String.valueOf(this.actorService.findByPrincipal().getMiddleName().charAt(0));
+			middleNameInitial = String.valueOf(this.actorService.findByPrincipal().getMiddleName().charAt(0)).toUpperCase();
 		else
 			middleNameInitial = "X";
-		final String surnameInitial = String.valueOf(this.actorService.findByPrincipal().getSurname().charAt(0));
+		final String surnameInitial = String.valueOf(this.actorService.findByPrincipal().getSurname().charAt(0)).toUpperCase();
 
 		final String randomCode = this.generateRandomString(4);
 

@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,7 @@ public class SponsorService {
 		final Sponsor res = new Sponsor();
 
 		Assert.isTrue(registerForm.getPassword().equals(registerForm.getRepeatPassword()), "register.password.error");
+		Assert.isTrue(registerForm.getPassword().equals(registerForm.getRepeatPassword()), "register.password.error");
 		final UserAccount userAccount = new UserAccount();
 		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 		final String pass = encoder.encodePassword(registerForm.getPassword(), null);
@@ -49,6 +52,11 @@ public class SponsorService {
 		res.setSurname(registerForm.getSurname());
 
 		Assert.isTrue(registerForm.getTerms() == true, "assertCheck");
+
+		final Collection<String> emails = this.actorService.findAllEmails();
+		final String email = registerForm.getEmail();
+		final boolean bEmail = !emails.contains(email);
+		Assert.isTrue(bEmail, "register.username.error");
 
 		return res;
 	}

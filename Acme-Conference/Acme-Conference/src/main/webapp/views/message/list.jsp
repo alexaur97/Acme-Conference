@@ -24,6 +24,7 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<security:authorize access="hasRole('ADMINISTRATOR')">
 <acme:cancel url="/message/administrator/broadcastSubmitters.do" code="message.broadcast.submitter" />
 <br>
 <br>
@@ -36,6 +37,7 @@
 <acme:cancel url="/message/administrator/broadcastAll.do" code="message.broadcast.all" />
 <br>
 <br>
+</security:authorize>
 <td><acme:cancel url="/message/create.do" code="message.create" /></td>
 
 <h5>

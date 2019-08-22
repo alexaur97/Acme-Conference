@@ -90,4 +90,9 @@ public class ActorService {
 		return result;
 	}
 
+	public Collection<String> findAllEmails() {
+		final Collection<String> result = this.actorRepository.findAllEmails();
+		return result;
+	}
+
 }

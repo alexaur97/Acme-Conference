@@ -83,6 +83,11 @@
 		<security:intercept-url
 			pattern="/actor/show.do"
 			access="isAuthenticated()" />
+			
+		<security:intercept-url
+			pattern="/message/administrator/*"
+			access="hasRole('ADMINISTRATOR')" />
+			
 		<security:intercept-url
 			pattern="/configuration/administrator/setup.do"
 			access="hasRole('ADMINISTRATOR')" />
@@ -121,7 +126,7 @@
 		<security:intercept-url
 			pattern="/conference/administrator/list.do"
 			access="hasRole('ADMINISTRATOR')" />
-
+			
 		<security:intercept-url pattern="/registration/author/create.do"
 			access="hasRole('AUTHOR')" />
 			
