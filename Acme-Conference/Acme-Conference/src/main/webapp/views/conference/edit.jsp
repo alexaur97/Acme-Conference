@@ -35,6 +35,8 @@
 						<acme:textbox code="conference.title" path="title" />
 						<acme:textbox code="conference.acronym" path="acronym" />
 						<acme:textbox code="conference.venue" path="venue" />
+						<br>
+						<spring:message code="conference.dates" />
 						<acme:textbox placeholder="dd-MM-yyyy" code="conference.submission" path="submissionDeadline" />
 						<acme:textbox placeholder="dd-mm-yyyy" code="conference.notification" path="notification" />
 						<acme:textbox placeholder="dd-mm-yyyy" code="conference.cameraReady" path="cameraReady" />

@@ -34,16 +34,11 @@
 	path="${conference.notification}" />
 <acme:display code="conference.cameraReady"
 	path="${conference.cameraReady}" />
-<acme:display code="conference.submission"
-	path="${conference.submissionDeadline}" />
-<acme:display code="conference.notification"
-	path="${conference.notification}" />
-<acme:display code="conference.cameraReady"
-	path="${conference.cameraReady}" />
 <acme:display code="conference.startDate" path="${conference.startDate}" />
 <acme:display code="conference.endDate" path="${conference.endDate}" />
 <acme:display code="conference.summary" path="${conference.summary}" />
 <acme:display code="conference.fee" path="${conference.fee}" />
+<acme:display code="conference.mode" path="${conference.mode}" />
 
 <jstl:if test="${submissions eq true}">
 	<jstl:choose>

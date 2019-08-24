@@ -45,7 +45,13 @@
 <div>
 	<form:label path="${path}">
 		<spring:message code="${code}" />
-	</form:label>	
-	<form:input path="${path}" readonly="${readonly}" />	
+	</form:label>
+	<form:input path="${path}" readonly="${readonly}" type="${type }"
+		step="${step }" min="${min }" max="${max }" format="${format}"
+		value="${value}" placeholder="${placeholder}" />
+
+	<jstl:if test="${comment != null}">
+		<spring:message code="${comment}" />
+	</jstl:if>
 	<form:errors path="${path}" cssClass="error" />
-</div>	
+</div>

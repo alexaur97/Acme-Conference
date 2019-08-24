@@ -34,9 +34,10 @@
 	<display:column titleKey="conference.show">
 		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conferenceSubmission.id}" code="conference.show" />
 	</display:column>
+	<jstl:if test="${conferenceSubmission.mode == 'DRAFT'}">
 	<display:column titleKey="conference.edit">
 		<acme:cancel url="/conference/administrator/edit.do?conferenceId=${conferenceSubmission.id}" code="conference.edit" />
-	</display:column>
+	</display:column></jstl:if>
 </display:table>
 
 <br>
@@ -51,9 +52,11 @@
 	<display:column titleKey="conference.show">
 		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conferenceNotification.id}" code="conference.show" />
 	</display:column>
+	
+	<jstl:if test="${conferenceNotification.mode =='DRAFT'}">
 	<display:column titleKey="conference.edit">
 		<acme:cancel url="/conference/administrator/edit.do?conferenceId=${conferenceNotification.id}" code="conference.edit" />
-	</display:column>
+	</display:column></jstl:if>
 </display:table>
 
 
@@ -69,9 +72,11 @@
 		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conferenceCameraReady.id}" code="conference.show" />
 	</display:column>
 
+	<jstl:if test="${conferenceCameraReady.mode == 'DRAFT' }">
 	<display:column titleKey="conference.edit">
 		<acme:cancel url="/conference/administrator/edit.do?conferenceId=${conferenceCameraReady.id}" code="conference.edit" />
 	</display:column>
+	</jstl:if>
 </display:table>
 
 <br>
@@ -85,9 +90,10 @@
 	<display:column titleKey="conference.show">
 		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conferenceStartDate.id}" code="conference.show" />
 	</display:column>
+	<jstl:if test="${conferenceStartDate.mode == 'DRAFT' }">
 	<display:column titleKey="conference.edit">
 		<acme:cancel url="/conference/administrator/edit.do?conferenceId=${conferenceStartDate.id}" code="conference.edit" />
-	</display:column>
+	</display:column></jstl:if>
 </display:table>
 
 <br>

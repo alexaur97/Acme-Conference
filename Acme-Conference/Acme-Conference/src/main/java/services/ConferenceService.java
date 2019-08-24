@@ -61,8 +61,14 @@ public class ConferenceService {
 	public void save(final Conference conference) {
 		Assert.notNull(conference);
 
-		if (conference.getId() == 0)
-			Assert.isTrue(conference.getMode().equals("DRAFT"));
+		if (conference.getId() != 0) {
+			final Conference confDB = this.findOne(conference.getId());
+			Assert.isTrue(confDB.getMode().equals("DRAFT"));
+		}
+		Assert.isTrue(conference.getSubmissionDeadline().before(conference.getNotification()));
+		Assert.isTrue(conference.getNotification().before(conference.getCameraReady()));
+		Assert.isTrue(conference.getCameraReady().before(conference.getStartDate()));
+		Assert.isTrue(conference.getStartDate().before(conference.getEndDate()));
 
 		this.conferenceRepository.save(conference);
 	}
@@ -240,6 +246,11 @@ public class ConferenceService {
 
 	public Conference reconstruct(final Conference conference, final BindingResult binding) {
 		final Conference res = conference;
+
+		if (conference.getId() != 0) {
+			final Conference confDB = this.findOne(conference.getId());
+			Assert.isTrue(confDB.getMode().equals("DRAFT"));
+		}
 		final Administrator adm = this.administratorService.findByPrincipal();
 		res.setAdministrator(adm);
 

@@ -129,25 +129,49 @@ public class ConferenceAdministratorController extends AbstractController {
 
 		return result;
 	}
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam("conferenceId") final int conferenceId) {
+		ModelAndView result;
+
+		try {
+
+			final Conference conference = this.conferenceService.findOne(conferenceId);
+
+			Assert.notNull(conference);
+			result = this.createEditModelAndView(conference);
+
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/#");
+
+		}
+
+		return result;
+	}
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@ModelAttribute("conference") Conference conference, final BindingResult binding) {
 		ModelAndView res;
 		try {
-			if (conference.getId() == 0)
-				Assert.isTrue(conference.getMode().equals("DRAFT"), "conference.draftError");
+
 			conference = this.conferenceService.reconstruct(conference, binding);
 
 			if (binding.hasErrors())
 				res = this.createEditModelAndView(conference);
 			else
 				try {
-
 					this.conferenceService.save(conference);
 					res = new ModelAndView("redirect:/conference/administrator/list.do");
 
 				} catch (final Throwable oops) {
-
-					res = this.createEditModelAndView(conference, "conference.commit.error");
+					if (conference.getSubmissionDeadline().after(conference.getNotification()))
+						res = this.createEditModelAndView(conference, "conference.commit.errorDN");
+					else if (conference.getNotification().after(conference.getCameraReady()))
+						res = this.createEditModelAndView(conference, "conference.commit.errorNC");
+					else if (conference.getCameraReady().after(conference.getStartDate()))
+						res = this.createEditModelAndView(conference, "conference.commit.errorCS");
+					else if (conference.getStartDate().after(conference.getEndDate()))
+						res = this.createEditModelAndView(conference, "conference.commit.errorSE");
+					else
+						res = this.createEditModelAndView(conference, "conference.commit.error");
 
 				}
 		} catch (final Throwable oops) {
