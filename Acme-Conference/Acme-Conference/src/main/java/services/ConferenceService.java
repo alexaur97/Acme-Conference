@@ -243,6 +243,7 @@ public class ConferenceService {
 		final Collection<Conference> result = this.conferenceRepository.findOpenConferences(new Date());
 		Assert.notNull(result);
 		return result;
+	}
 	public Conference create() {
 		final Conference res = new Conference();
 		return res;
