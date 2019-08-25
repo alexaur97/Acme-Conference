@@ -40,6 +40,16 @@
 <acme:display code="conference.fee" path="${conference.fee}" />
 <acme:display code="conference.mode" path="${conference.mode}" />
 
+<jstl:choose>
+	<jstl:when test="${lang eq 'en'}">
+	<acme:display code="conference.category" path="${conference.category.name}" />
+	 </jstl:when>
+    <jstl:otherwise>
+	<acme:display code="conference.category" path="${conference.category.nameEs}" />
+	 </jstl:otherwise>
+	</jstl:choose>
+	
+
 <jstl:if test="${submissions eq true}">
 	<jstl:choose>
 		<jstl:when test="${bool eq true}">

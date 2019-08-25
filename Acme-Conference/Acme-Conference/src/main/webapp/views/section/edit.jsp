@@ -36,7 +36,7 @@
 						<acme:textbox code="section.summary" path="summary" />
 						<acme:textarea code="section.pictures" path="pictures" />					
 						<acme:submit name="save" code="msg.save" />						
-						<acme:cancel url="/tutorial/section/show.do?tutorialId=${tutorial.id}"
+						<acme:cancel url="/conference/list.do"
 							code="msg.cancel" />
 							
 						 <jstl:if test="${section.id!=0}">

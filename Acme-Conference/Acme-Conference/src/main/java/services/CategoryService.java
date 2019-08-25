@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,12 @@ public class CategoryService {
 
 	public void delete(final Category category) {
 		this.categoryRepository.delete(category);
+	}
+
+	public Collection<Category> findCategoriesByParent(final int categoryId) {
+		Collection<Category> res = new ArrayList<>();
+		res = this.categoryRepository.categoriesByParent(categoryId);
+		return res;
 	}
 
 	public Category reconstruct(final Category category, final BindingResult binding) {

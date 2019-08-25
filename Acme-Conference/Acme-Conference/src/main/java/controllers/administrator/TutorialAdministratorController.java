@@ -3,6 +3,8 @@ package controllers.administrator;
 
 import java.util.Collection;
 
+import miscellaneous.Utils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -47,7 +49,7 @@ public class TutorialAdministratorController extends AbstractController {
 			final Collection<Tutorial> tutorials = this.tutorialService.findByConference(conferenceId);
 
 			result = new ModelAndView("tutorial/list");
-			result.addObject("requestURI", "tutorial/list.do");
+			result.addObject("requestURI", "tutorial/administrator/list.do");
 			result.addObject("tutorials", tutorials);
 
 		} catch (final Exception e) {
@@ -115,20 +117,30 @@ public class TutorialAdministratorController extends AbstractController {
 		} else
 			try {
 				//Nos aseguramos que la fecha tiene que estar dentro de la fecha de la conferencia
-				Assert.isTrue(tutorialF.getConference().getStartDate().before(tutorialF.getStartMoment()));
 				Assert.isTrue(tutorialF.getStartMoment().before(tutorialF.getConference().getEndDate()));
+				Assert.isTrue(!(tutorialF.getStartMoment().before(tutorialF.getConference().getStartDate())));
+				Assert.isTrue(Utils.validateURL(tutorialF.getAttachments()));
 				this.tutorialService.save(tutorialF);
 				result = new ModelAndView("redirect:/conference/list.do");
 
 			} catch (final Throwable oops) {
 				final Collection<Conference> conferences = this.conferenceService.findConference();
-				final Boolean fechaPosterior = !(tutorialF.getConference().getStartDate().before(tutorialF.getStartMoment()));
+				final Boolean fechaPosterior = tutorialF.getStartMoment().before(tutorialF.getConference().getStartDate());
 				final Boolean fechaAnterior = !(tutorialF.getStartMoment().before(tutorialF.getConference().getEndDate()));
+				final Boolean urlInvalida = Utils.validateURL(tutorialF.getAttachments());
+
 				if (fechaPosterior || fechaAnterior) {
 					result = new ModelAndView("tutorial/edit");
 					result.addObject("tutorial", tutorial);
 					result.addObject("conferences", conferences);
 					result.addObject("message", "tutorial.date.error");
+
+				} else if (urlInvalida.equals(false)) {
+					result = new ModelAndView("tutorial/edit");
+					result.addObject("tutorial", tutorial);
+					result.addObject("conferences", conferences);
+					result.addObject("message", "tutorial.attachments.error");
+
 				} else
 					result = new ModelAndView("redirect:/#");
 			}

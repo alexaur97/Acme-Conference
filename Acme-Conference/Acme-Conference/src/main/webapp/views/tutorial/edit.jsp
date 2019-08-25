@@ -33,15 +33,20 @@
 						<form:hidden path="id"/>
 						<form:hidden path="version"/>	
 						<acme:textbox code="tutorial.title" path="title" />
-						<acme:textbox code="tutorial.speakers" path="speakers" />
-						<acme:textbox code="tutorial.duration" path="duration" />
-						<acme:textbox code="tutorial.startMoment" path="startMoment" />
+						<acme:textarea code="tutorial.speakers" path="speakers" />
+					
 						<acme:textbox code="tutorial.room" path="room" />
 						<acme:textbox code="tutorial.summary" path="summary" />
-						<acme:textbox code="tutorial.attachments" path="attachments" />
+						<acme:textarea code="tutorial.attachments" path="attachments" />
 	
 						<acme:select items="${conferences}" itemLabel="title" code="tutorial.conferences" path="conference"/>
 					
+					<br>
+						<h2><spring:message code="tutorial.schedule"/> </h2>
+						<acme:textbox code="tutorial.duration" path="duration" />
+						<acme:textbox placeholder="yyyy/MM/dd HH:mm" code="tutorial.startMoment" path="startMoment" />
+						<br>
+						
 						<acme:submit name="save" code="msg.save" />						
 						<acme:cancel url="/conference/list.do"
 							code="msg.cancel" />

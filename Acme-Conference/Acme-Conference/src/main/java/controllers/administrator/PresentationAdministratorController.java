@@ -3,6 +3,8 @@ package controllers.administrator;
 
 import java.util.Collection;
 
+import miscellaneous.Utils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -42,7 +44,7 @@ public class PresentationAdministratorController extends AbstractController {
 			final Collection<Presentation> presentations = this.presentationService.findByConference(conferenceId);
 
 			result = new ModelAndView("presentation/list");
-			result.addObject("requestURI", "presentation/list.do");
+			result.addObject("requestURI", "presentation/administrator/list.do");
 			result.addObject("presentations", presentations);
 
 		} catch (final Exception e) {
@@ -110,20 +112,29 @@ public class PresentationAdministratorController extends AbstractController {
 		} else
 			try {
 				//Nos aseguramos que la fecha tiene que estar dentro de la fecha de la conferencia
-				Assert.isTrue(presentationF.getConference().getStartDate().before(presentationF.getStartMoment()));
 				Assert.isTrue(presentationF.getStartMoment().before(presentationF.getConference().getEndDate()));
+				Assert.isTrue(!(presentationF.getStartMoment().before(presentationF.getConference().getStartDate())));
+				Assert.isTrue(Utils.validateURL(presentationF.getAttachments()));
 				this.presentationService.save(presentationF);
 				result = new ModelAndView("redirect:/conference/list.do");
 
 			} catch (final Throwable oops) {
 				final Collection<Conference> conferences = this.conferenceService.findConference();
-				final Boolean fechaPosterior = !(presentationF.getConference().getStartDate().before(presentationF.getStartMoment()));
+				final Boolean fechaPosterior = presentationF.getStartMoment().before(presentationF.getConference().getStartDate());
 				final Boolean fechaAnterior = !(presentationF.getStartMoment().before(presentationF.getConference().getEndDate()));
+				final Boolean urlInvalida = Utils.validateURL(presentationF.getAttachments());
+
 				if (fechaPosterior || fechaAnterior) {
 					result = new ModelAndView("presentation/edit");
 					result.addObject("presentation", presentation);
 					result.addObject("conferences", conferences);
 					result.addObject("message", "presentation.date.error");
+				} else if (urlInvalida.equals(false)) {
+					result = new ModelAndView("presentation/edit");
+					result.addObject("presentation", presentation);
+					result.addObject("conferences", conferences);
+					result.addObject("message", "presentation.attachments.error");
+
 				} else
 					result = new ModelAndView("redirect:/#");
 			}

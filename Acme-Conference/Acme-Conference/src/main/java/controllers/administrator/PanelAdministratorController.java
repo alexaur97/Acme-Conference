@@ -3,6 +3,8 @@ package controllers.administrator;
 
 import java.util.Collection;
 
+import miscellaneous.Utils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -42,7 +44,7 @@ public class PanelAdministratorController extends AbstractController {
 			final Collection<Panel> panels = this.panelService.findByConference(conferenceId);
 
 			result = new ModelAndView("panel/list");
-			result.addObject("requestURI", "panel/list.do");
+			result.addObject("requestURI", "/panel/administrator/list.do");
 			result.addObject("panels", panels);
 
 		} catch (final Exception e) {
@@ -110,27 +112,43 @@ public class PanelAdministratorController extends AbstractController {
 		} else
 			try {
 				//Nos aseguramos que la fecha tiene que estar dentro de la fecha de la conferencia
-				Assert.isTrue(panelF.getConference().getStartDate().before(panelF.getStartMoment()));
+				//Assert.isTrue(panelF.getConference().getStartDate().before(panelF.getStartMoment()));
 				Assert.isTrue(panelF.getStartMoment().before(panelF.getConference().getEndDate()));
+				Assert.isTrue(!(panelF.getStartMoment().before(panelF.getConference().getStartDate())));
+				Assert.isTrue(Utils.validateURL(panelF.getAttachments()));
 				this.panelService.save(panelF);
 				result = new ModelAndView("redirect:/conference/list.do");
 
 			} catch (final Throwable oops) {
 				final Collection<Conference> conferences = this.conferenceService.findConference();
-				final Boolean fechaPosterior = !(panelF.getConference().getStartDate().before(panelF.getStartMoment()));
+				final Boolean fechaPosterior = panelF.getStartMoment().before(panelF.getConference().getStartDate());
 				final Boolean fechaAnterior = !(panelF.getStartMoment().before(panelF.getConference().getEndDate()));
+				final Long durationActivity = panelF.getStartMoment().getTime() + panelF.getDuration();
+				final Long durationConference = panelF.getConference().getEndDate().getTime();
+
+				//final Boolean fechaPosterior = !(panelF.getConference().getStartDate().before(panelF.getStartMoment()));
+				final Boolean urlInvalida = Utils.validateURL(panelF.getAttachments());
 				if (fechaPosterior || fechaAnterior) {
 					result = new ModelAndView("panel/edit");
 					result.addObject("panel", panel);
 					result.addObject("conferences", conferences);
 					result.addObject("message", "panel.date.error");
+				} else if (urlInvalida.equals(false)) {
+					result = new ModelAndView("panel/edit");
+					result.addObject("panel", panel);
+					result.addObject("conferences", conferences);
+					result.addObject("message", "panel.attachments.error");
+				} else if (durationConference < durationActivity) {
+					result = new ModelAndView("panel/edit");
+					result.addObject("panel", panel);
+					result.addObject("conferences", conferences);
+					result.addObject("message", "panel.duration.error");
 				} else
 					result = new ModelAndView("redirect:/#");
 			}
 		return result;
 
 	}
-
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Panel panel, final BindingResult binding) {
 		ModelAndView result;

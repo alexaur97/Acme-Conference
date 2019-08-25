@@ -26,12 +26,30 @@
 
 
 <acme:display code="tutorial.title" path="${tutorial.title}" />
-<acme:display code="tutorial.speakers" path="${tutorial.speakers}" />
-<acme:display code="tutorial.duration" path="${tutorial.duration}" />
-<acme:display code="tutorial.startMoment" path="${tutorial.startMoment}" />
 <acme:display code="tutorial.room" path="${tutorial.room}" />
 <acme:display code="tutorial.summary" path="${tutorial.summary}" />
-<acme:display code="tutorial.attachments" path="${tutorial.attachments}" />
+
+<h2><spring:message code="tutorial.speakers"/>:</h2>
+
+<ul>
+	<jstl:forEach items="${tutorial.speakers}" var="x">
+		<li><jstl:out value="${x}"/></li>
+	</jstl:forEach>
+</ul>
+
+<h2><spring:message code="tutorial.schedule"/> </h2>
+<acme:display code="tutorial.duration" path="${tutorial.duration}" />
+<acme:display code="tutorial.startMoment" path="${tutorial.startMoment}" />
+
+
+<h2><spring:message code="tutorial.attachments"/>:</h2>
+
+<ul>
+	<jstl:forEach items="${tutorial.attachments}" var="x">
+		<li><a href="${x}"><jstl:out value="${x}"/></a></li>
+	</jstl:forEach>
+</ul>
+
 
 <br>
 

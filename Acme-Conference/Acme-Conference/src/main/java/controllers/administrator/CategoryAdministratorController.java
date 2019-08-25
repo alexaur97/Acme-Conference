@@ -159,6 +159,11 @@ public class CategoryAdministratorController extends AbstractController {
 				c.setCategory(c.getCategory().getParent());
 				this.conferenceService.save(c);
 			}
+			final Collection<Category> childCategories = this.categoryService.findCategoriesByParent(res.getId());
+			for (final Category c : childCategories) {
+				c.setParent(res.getParent());
+				this.categoryService.save(c);
+			}
 			this.categoryService.delete(res);
 			result = new ModelAndView("redirect:/category/administrator/list.do");
 		} catch (final Throwable oops) {

@@ -15,6 +15,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -44,7 +45,7 @@ public class Activity extends DomainEntity {
 		this.title = title;
 	}
 
-	//	@NotEmpty
+	@NotEmpty
 	@ElementCollection
 	// @SafeHtml(whitelistType = WhiteListType.NONE)
 	public Collection<String> getSpeakers() {
