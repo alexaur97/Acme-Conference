@@ -6,15 +6,20 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.AdministratorService;
+import services.CategoryService;
 import services.ConferenceService;
 import services.SubmissionService;
 import controllers.AbstractController;
+import domain.Category;
 import domain.Conference;
 import domain.Submission;
 
@@ -30,6 +35,10 @@ public class ConferenceAdministratorController extends AbstractController {
 
 	@Autowired
 	private SubmissionService		submissionService;
+
+	@Autowired
+	private CategoryService			categoryService;
+
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
@@ -63,25 +72,23 @@ public class ConferenceAdministratorController extends AbstractController {
 			this.administratorService.findByPrincipal();
 			final Conference conference = this.conferenceService.findOne(conferenceId);
 			result = new ModelAndView("conference/show");
-			
-			Collection<Submission> allSubmissions = this.submissionService.findSubmissionsByConference(conference);
+
+			final Collection<Submission> allSubmissions = this.submissionService.findSubmissionsByConference(conference);
 			final Date date = new Date();
-			Boolean submissions = !allSubmissions.isEmpty() && conference.getSubmissionDeadline().before(date);
+			final Boolean submissions = !allSubmissions.isEmpty() && conference.getSubmissionDeadline().before(date);
 			result.addObject("submissions", submissions);
-			
-			Collection<Submission> acceptedSubmissions = this.submissionService.findAcceptedSubmissionsByConference(conference);
-			Collection<Submission> rejectedSubmissions = this.submissionService.findRejectedSubmissionsByConference(conference);
-			
-			Boolean bool = acceptedSubmissions.size() + rejectedSubmissions.size() > 0;
-			
+
+			final Collection<Submission> acceptedSubmissions = this.submissionService.findAcceptedSubmissionsByConference(conference);
+			final Collection<Submission> rejectedSubmissions = this.submissionService.findRejectedSubmissionsByConference(conference);
+
+			final Boolean bool = acceptedSubmissions.size() + rejectedSubmissions.size() > 0;
+
 			result.addObject("requestURI", "conference/administrator/show.do");
 			result.addObject("conference", conference);
 			result.addObject("acceptedSubmissions", acceptedSubmissions);
 			result.addObject("rejectedSubmissions", rejectedSubmissions);
 			result.addObject("bool", bool);
-			
-			
-			
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -97,12 +104,97 @@ public class ConferenceAdministratorController extends AbstractController {
 			final Conference conference = this.conferenceService.findOne(conferenceId);
 			this.conferenceService.decisionProcedure(conference);
 
-			result = new ModelAndView("redirect:/conference/administrator/show.do?conferenceId="+conferenceId);
+			result = new ModelAndView("redirect:/conference/administrator/show.do?conferenceId=" + conferenceId);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
 
 		return result;
+	}
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+
+		try {
+			final Conference conference = this.conferenceService.create();
+
+			result = this.createEditModelAndView(conference);
+
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/#");
+
+		}
+
+		return result;
+	}
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam("conferenceId") final int conferenceId) {
+		ModelAndView result;
+
+		try {
+
+			final Conference conference = this.conferenceService.findOne(conferenceId);
+
+			Assert.notNull(conference);
+			result = this.createEditModelAndView(conference);
+
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/#");
+
+		}
+
+		return result;
+	}
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@ModelAttribute("conference") Conference conference, final BindingResult binding) {
+		ModelAndView res;
+		try {
+
+			conference = this.conferenceService.reconstruct(conference, binding);
+
+			if (binding.hasErrors())
+				res = this.createEditModelAndView(conference);
+			else
+				try {
+					this.conferenceService.save(conference);
+					res = new ModelAndView("redirect:/conference/administrator/list.do");
+
+				} catch (final Throwable oops) {
+					if (conference.getSubmissionDeadline().after(conference.getNotification()))
+						res = this.createEditModelAndView(conference, "conference.commit.errorDN");
+					else if (conference.getNotification().after(conference.getCameraReady()))
+						res = this.createEditModelAndView(conference, "conference.commit.errorNC");
+					else if (conference.getCameraReady().after(conference.getStartDate()))
+						res = this.createEditModelAndView(conference, "conference.commit.errorCS");
+					else if (conference.getStartDate().after(conference.getEndDate()))
+						res = this.createEditModelAndView(conference, "conference.commit.errorSE");
+					else
+						res = this.createEditModelAndView(conference, "conference.commit.error");
+
+				}
+		} catch (final Throwable oops) {
+
+			res = this.createEditModelAndView(conference, "conference.commit.error");
+
+		}
+		return res;
+	}
+
+	protected ModelAndView createEditModelAndView(final Conference conference) {
+		return this.createEditModelAndView(conference, null);
+	}
+	protected ModelAndView createEditModelAndView(final Conference conference, final String messageCode) {
+		this.administratorService.findByPrincipal();
+		final ModelAndView res;
+
+		final Collection<Category> categories = this.categoryService.findAll();
+		res = new ModelAndView("conference/edit");
+		res.addObject("conference", conference);
+		res.addObject("categories", categories);
+		res.addObject("message", messageCode);
+
+		return res;
 	}
 }

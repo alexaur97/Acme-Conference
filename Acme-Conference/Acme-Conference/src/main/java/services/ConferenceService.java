@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.ConferenceRepository;
@@ -59,6 +60,15 @@ public class ConferenceService {
 
 	public void save(final Conference conference) {
 		Assert.notNull(conference);
+
+		if (conference.getId() != 0) {
+			final Conference confDB = this.findOne(conference.getId());
+			Assert.isTrue(confDB.getMode().equals("DRAFT"));
+		}
+		Assert.isTrue(conference.getSubmissionDeadline().before(conference.getNotification()));
+		Assert.isTrue(conference.getNotification().before(conference.getCameraReady()));
+		Assert.isTrue(conference.getCameraReady().before(conference.getStartDate()));
+		Assert.isTrue(conference.getStartDate().before(conference.getEndDate()));
 
 		this.conferenceRepository.save(conference);
 	}
@@ -170,15 +180,15 @@ public class ConferenceService {
 									// requisito 14.4
 				retrieved.setStatus("ACCEPTED");
 				adm.setSubject("Accepted submission");
-				adm.setBody("Your submission to the conference " + s.getConference().getTitle() + " has been accepted.\nSu presentación a la conferencia " + s.getConference().getTitle() + " ha sido aceptada.\n\nTicker: " + s.getTicker());
+				adm.setBody("Your submission to the conference " + s.getConference().getTitle() + " has been accepted.\nSu presentaciï¿½n a la conferencia " + s.getConference().getTitle() + " ha sido aceptada.\n\nTicker: " + s.getTicker());
 				notification.setSubject("Accepted submission");
-				notification.setBody("Your submission to the conference " + s.getConference().getTitle() + " has been accepted.\nSu presentación a la conferencia " + s.getConference().getTitle() + " ha sido aceptada.\n\nTicker: " + s.getTicker());
+				notification.setBody("Your submission to the conference " + s.getConference().getTitle() + " has been accepted.\nSu presentaciï¿½n a la conferencia " + s.getConference().getTitle() + " ha sido aceptada.\n\nTicker: " + s.getTicker());
 			} else {
 				retrieved.setStatus("REJECTED");
 				adm.setSubject("Rejected submission");
-				adm.setBody("Your submission to the conference " + s.getConference().getTitle() + " has been rejected.\nSu presentación a la conferencia " + s.getConference().getTitle() + " ha sido rechazada.\n\nTicker: " + s.getTicker());
+				adm.setBody("Your submission to the conference " + s.getConference().getTitle() + " has been rejected.\nSu presentaciï¿½n a la conferencia " + s.getConference().getTitle() + " ha sido rechazada.\n\nTicker: " + s.getTicker());
 				notification.setSubject("Rejected submission");
-				notification.setBody("Your submission to the conference " + s.getConference().getTitle() + " has been rejected.\nSu presentación a la conferencia " + s.getConference().getTitle() + " ha sido rechazada.\n\nTicker: " + s.getTicker());
+				notification.setBody("Your submission to the conference " + s.getConference().getTitle() + " has been rejected.\nSu presentaciï¿½n a la conferencia " + s.getConference().getTitle() + " ha sido rechazada.\n\nTicker: " + s.getTicker());
 			}
 
 			adm.setCopy(false);
@@ -233,5 +243,23 @@ public class ConferenceService {
 		final Collection<Conference> result = this.conferenceRepository.findOpenConferences(new Date());
 		Assert.notNull(result);
 		return result;
+	public Conference create() {
+		final Conference res = new Conference();
+		return res;
+	}
+
+	public Conference reconstruct(final Conference conference, final BindingResult binding) {
+		final Conference res = conference;
+
+		if (conference.getId() != 0) {
+			final Conference confDB = this.findOne(conference.getId());
+			Assert.isTrue(confDB.getMode().equals("DRAFT"));
+		}
+		final Administrator adm = this.administratorService.findByPrincipal();
+		res.setAdministrator(adm);
+
+		this.validator.validate(res, binding);
+
+		return res;
 	}
 }

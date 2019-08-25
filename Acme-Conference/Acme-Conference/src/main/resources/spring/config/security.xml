@@ -127,6 +127,14 @@
 			pattern="/conference/administrator/list.do"
 			access="hasRole('ADMINISTRATOR')" />
 			
+		<security:intercept-url
+			pattern="/conference/administrator/edit.do"
+			access="hasRole('ADMINISTRATOR')" />
+			
+		<security:intercept-url
+			pattern="/conference/administrator/create.do"
+			access="hasRole('ADMINISTRATOR')" />
+
 		<security:intercept-url pattern="/registration/author/create.do"
 			access="hasRole('AUTHOR')" />
 			

@@ -627,6 +627,7 @@
 			value="Summary, Restary, Multiplicary y Dividiry" />
 		<property name="title" value="British Aerospace" />
 		<property name="venue" value="Oh, look at this venue" />
+		<property name="mode" value="FINAL" />
 	</bean>
 
 	<bean id="conference2" class="domain.Conference">
@@ -643,6 +644,7 @@
 			value="Summary, Restary, Multiplicary y Dividiry" />
 		<property name="title" value="Global Freightways" />
 		<property name="venue" value="Oh, look at this venue" />
+		<property name="mode" value="DRAFT" />
 	</bean>
 
 	<bean id="conference3" class="domain.Conference">
@@ -659,6 +661,7 @@
 			value="Summary, Restary, Multiplicary y Dividiry" />
 		<property name="title" value="The best conference" />
 		<property name="venue" value="Oh, look at this venue" />
+		<property name="mode" value="FINAL" />
 	</bean>
 
 	<bean id="conference4" class="domain.Conference">
@@ -675,6 +678,7 @@
 			value="Summary, Restary, Multiplicary y Dividiry" />
 		<property name="title" value="Premios Goya 2019" />
 		<property name="venue" value="Oh, look at this venue" />
+		<property name="mode" value="DRAFT" />
 	</bean>
 
 	<bean id="conference5" class="domain.Conference">
@@ -691,6 +695,7 @@
 			value="Summary, Restary, Multiplicary y Dividiry" />
 		<property name="title" value="Trabajo de fin de grado" />
 		<property name="venue" value="Oh, look at this venue" />
+		<property name="mode" value="FINAL" />
 	</bean>
 
 	<bean id="conference6" class="domain.Conference">
@@ -707,6 +712,7 @@
 			value="Summary, Restary, Multiplicary y Dividiry" />
 		<property name="title" value="Me sube la bilirrubina" />
 		<property name="venue" value="Oh, look at this venue" />
+		<property name="mode" value="FINAL" />
 	</bean>
 
 	<bean id="conference7" class="domain.Conference">
@@ -723,6 +729,7 @@
 			value="Summary, Restary, Multiplicary y Dividiry" />
 		<property name="title" value="Test Category-Conference" />
 		<property name="venue" value="Oh, look at this venue" />
+		<property name="mode" value="DRAFT" />
 	</bean>
 	
 	<!-- Categories -->
