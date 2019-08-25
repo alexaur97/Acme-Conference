@@ -13,6 +13,11 @@
 		<put-attribute name="title" value="Mis aportaciones" />
 		<put-attribute name="body" value="/views/submission/list.jsp" />
 	</definition>
+	<definition name="submission/listAdm" extends="master.page">
+		<put-attribute name="title" value="Aportaciones" />
+		<put-attribute name="body" value="/views/submission/listAdm.jsp" />
+	</definition>
+	
 
 	<definition name="submission/create" extends="master.page">
 		<put-attribute name="title" value="Realizar aportación" />
