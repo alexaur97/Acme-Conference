@@ -49,4 +49,7 @@ public interface ConferenceRepository extends JpaRepository<Conference, Integer>
 	@Query("select c from Conference c where c.startDate >= ?1 and c.mode='FINAL'")
 	Collection<Conference> findNextConferences(Date date);
 
+	@Query("select c from Conference c where  c.mode='DRAFT'")
+	Collection<Conference> conferencesDraft();
+
 }

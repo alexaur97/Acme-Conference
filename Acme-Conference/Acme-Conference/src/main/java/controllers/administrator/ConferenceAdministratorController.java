@@ -50,6 +50,7 @@ public class ConferenceAdministratorController extends AbstractController {
 			final Collection<Conference> conferencesNotification = this.conferenceService.findNotificationLessFiveDays();
 			final Collection<Conference> conferencesCameraReady = this.conferenceService.findCameraReadyLessFiveDays();
 			final Collection<Conference> conferencesStartDate = this.conferenceService.findStartDateLessFiveDays();
+			final Collection<Conference> conferencesDraft = this.conferenceService.conferencesDraft();
 
 			result = new ModelAndView("conference/listAdm");
 			result.addObject("requestURI", "/conference/administrator/list.do");
@@ -57,6 +58,7 @@ public class ConferenceAdministratorController extends AbstractController {
 			result.addObject("conferencesNotification", conferencesNotification);
 			result.addObject("conferencesCameraReady", conferencesCameraReady);
 			result.addObject("conferencesStartDate", conferencesStartDate);
+			result.addObject("conferencesDraft", conferencesDraft);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");

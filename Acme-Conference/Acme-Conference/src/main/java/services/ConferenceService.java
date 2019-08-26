@@ -265,4 +265,10 @@ public class ConferenceService {
 
 		return res;
 	}
+
+	public Collection<Conference> conferencesDraft() {
+
+		final Collection<Conference> res = this.conferenceRepository.conferencesDraft();
+		return res;
+	}
 }

@@ -100,6 +100,26 @@
 
 <br>
 <br>
+<spring:message code="conference.conferencesDraft"/>
+<br>
+<display:table pagesize="5" name="conferencesDraft" id="conferenceDraft"
+	requestURI="${requestURI}" class="displaytag table">
+	<display:column titleKey="conference.title"  property="title" />
+	<display:column titleKey="conference.category"  property="category.name" />
+	<display:column titleKey="conference.submission"  property="submissionDeadline" />
+	<display:column titleKey="conference.notification"  property="notification" />
+	<display:column titleKey="conference.cameraReady"  property="cameraReady" />
+	<display:column titleKey="conference.startDate"  property="startDate" />
+	<display:column titleKey="conference.show">
+		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conferenceDraft.id}" code="conference.show" />
+	</display:column>
+	<display:column titleKey="conference.edit">
+		<acme:cancel url="/conference/administrator/edit.do?conferenceId=${conferenceDraft.id}" code="conference.edit" />
+	</display:column>
+</display:table>
+
+<br>
+<br>
 
 <security:authorize access="hasRole('ADMINISTRATOR')">
 	<acme:cancel url="/conference/administrator/create.do"
