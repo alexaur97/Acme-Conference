@@ -33,76 +33,39 @@
 	<display:column titleKey="submission.conference"  property="conference.title" />
 	<display:column titleKey="submission.moment"  property="moment" />
 	<display:column titleKey="submission.assign">
-		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conferenceSubmission.id}" code="conference.show" />
-	</display:column>
-	
-	<display:column titleKey="conference.edit">
-		<jstl:if test="${conferenceSubmission.mode=='DRAFT'}">
-		<acme:cancel url="/conference/administrator/edit.do?conferenceId=${conferenceSubmission.id}" code="conference.edit" />
-	</jstl:if>
+		<acme:cancel url="/submission/administrator/assign.do?submissionId=${submissionUnderReview.id}" code="submission.assign" />
 	</display:column>
 </display:table>
 
 <br>
 <br>
 
-<spring:message code="conference.titleNotification"/>
+<spring:message code="submission.submissionsAccepted"/>
 <br>
-<display:table pagesize="5" name="conferencesNotification" id="conferenceNotification"
+<display:table pagesize="5" name="submissionsAccepted" id="submissionAccepted"
 	requestURI="${requestURI}" class="displaytag table">
-	<display:column titleKey="conference.title"  property="title" />
-	<display:column titleKey="conference.notification"  property="notification" />
-	<display:column titleKey="conference.show">
-		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conferenceNotification.id}" code="conference.show" />
+	<display:column titleKey="submission.author"  property="author.name" />
+	<display:column titleKey="submission.conference"  property="conference.title" />
+	<display:column titleKey="submission.moment"  property="moment" />
+	<display:column titleKey="submission.assign">
+		<acme:cancel url="/submission/administrator/assign.do?submissionId=${submissionAccepted.id}" code="submission.assign" />
 	</display:column>
 	
-	<display:column titleKey="conference.edit">
-		<jstl:if test="${conferenceNotification.mode =='DRAFT'}">
-		<acme:cancel url="/conference/administrator/edit.do?conferenceId=${conferenceNotification.id}" code="conference.edit" />
-	</jstl:if></display:column>
 	</display:table>
 
 
 <br>
 <br>
-<spring:message code="conference.titleCameraReady"/>
+<spring:message code="submission.submissionsRejected"/>
 <br>
-<display:table pagesize="5" name="conferencesCameraReady" id="conferenceCameraReady"
+<display:table pagesize="5" name="submissionsRejected" id="submissionRejected"
 	requestURI="${requestURI}" class="displaytag table">
-	<display:column titleKey="conference.title"  property="title" />
-	<display:column titleKey="conference.cameraReady"  property="cameraReady" />
-	<display:column titleKey="conference.show">
-		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conferenceCameraReady.id}" code="conference.show" />
+	<display:column titleKey="submission.author"  property="author.name" />
+	<display:column titleKey="submission.conference"  property="conference.title" />
+	<display:column titleKey="submission.moment"  property="moment" />
+	<display:column titleKey="submission.assign">
+		<acme:cancel url="/submission/administrator/assign.do?submissionId=${submissionRejected.id}" code="submission.assign" />
 	</display:column>
-
-	<display:column titleKey="conference.edit">
-			<jstl:if test="${conferenceCameraReady.mode == 'DRAFT' }">
-		<acme:cancel url="/conference/administrator/edit.do?conferenceId=${conferenceCameraReady.id}" code="conference.edit" />
-	</jstl:if></display:column>
 
 </display:table>
 
-<br>
-<br>
-<spring:message code="conference.titleStartDate"/>
-<br>
-<display:table pagesize="5" name="conferencesStartDate" id="conferenceStartDate"
-	requestURI="${requestURI}" class="displaytag table">
-	<display:column titleKey="conference.title"  property="title" />
-	<display:column titleKey="conference.startDate"  property="startDate" />
-	<display:column titleKey="conference.show">
-		<acme:cancel url="/conference/administrator/show.do?conferenceId=${conferenceStartDate.id}" code="conference.show" />
-	</display:column>
-	<display:column titleKey="conference.edit">
-		<jstl:if test="${conferenceStartDate.mode == 'DRAFT' }">
-		<acme:cancel url="/conference/administrator/edit.do?conferenceId=${conferenceStartDate.id}" code="conference.edit" />
-	</jstl:if></display:column>
-</display:table>
-
-<br>
-<br>
-
-<security:authorize access="hasRole('ADMINISTRATOR')">
-	<acme:cancel url="/conference/administrator/create.do"
-		code="conference.create" />
-</security:authorize>
