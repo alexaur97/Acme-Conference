@@ -37,13 +37,16 @@ public interface ConferenceRepository extends JpaRepository<Conference, Integer>
 	@Query("select avg(1.0*(c.fee)),min(1.0*(c.fee)),max(1.0*(c.fee)),stddev(c.fee) from Conference c ")
 	Collection<Double> statsConferencesFee();
 
-	@Query("select c from Conference c where c.endDate < ?1 ")
+	@Query("select c from Conference c where c.endDate < ?1 and c.mode='FINAL' ")
 	Collection<Conference> findPastConference(Date actualDate);
 
-	@Query("select c from Conference c where c.startDate < ?1 and c.endDate > ?1")
+	@Query("select c from Conference c where c.startDate < ?1 and c.endDate > ?1 and c.mode='FINAL'")
 	Collection<Conference> findRunningConference(Date actualDate);
 
 	@Query("select c from Conference c where c.submissionDeadline >= ?1 ")
 	Collection<Conference> findOpenConferences(Date actualDate);
+
+	@Query("select c from Conference c where c.startDate >= ?1 and c.mode='FINAL'")
+	Collection<Conference> findNextConferences(Date date);
 
 }

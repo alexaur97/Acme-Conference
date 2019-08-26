@@ -27,7 +27,7 @@
 
 <spring:message code="conference.futureConference" />
 <br />
-<display:table pagesize="5" name="conferences" id="conference"
+<display:table pagesize="5" name="nextconferences" id="conference"
 	requestURI="${requestURI}" class="displaytag table">
 	<display:column titleKey="conference.title" property="title" />
 	<display:column titleKey="conference.submission"
@@ -137,3 +137,10 @@
 			code="conference.activities" />
 	</display:column>
 </display:table>
+<br>
+<br>
+
+<security:authorize access="hasRole('ADMINISTRATOR')">
+	<acme:cancel url="/conference/administrator/create.do"
+		code="conference.create" />
+</security:authorize>

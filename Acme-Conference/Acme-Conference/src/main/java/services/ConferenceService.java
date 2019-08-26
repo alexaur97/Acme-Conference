@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,11 +59,13 @@ public class ConferenceService {
 
 	public void save(final Conference conference) {
 		Assert.notNull(conference);
+		this.administratorService.findByPrincipal();
 
 		if (conference.getId() != 0) {
 			final Conference confDB = this.findOne(conference.getId());
 			Assert.isTrue(confDB.getMode().equals("DRAFT"));
 		}
+		Assert.isTrue(conference.getSubmissionDeadline().after(new Date()));
 		Assert.isTrue(conference.getSubmissionDeadline().before(conference.getNotification()));
 		Assert.isTrue(conference.getNotification().before(conference.getCameraReady()));
 		Assert.isTrue(conference.getCameraReady().before(conference.getStartDate()));
@@ -94,14 +95,15 @@ public class ConferenceService {
 		return this.conferenceRepository.searchConferencesKeyWord(keyword);
 	}
 
-	public Collection<Conference> findConference() {
-		final Collection<Conference> res = new ArrayList<>();
-		final Collection<Conference> conferencias = this.conferenceRepository.findAll();
-		final List<Conference> c = new ArrayList<>(conferencias);
-		final Date actual = new Date();
-		for (int i = 0; i < c.size(); i++)
-			if (c.get(i).getStartDate().after(actual))
-				res.add(c.get(i));
+	public Collection<Conference> findNextConferences() {
+		final Collection<Conference> res = this.conferenceRepository.findNextConferences(new Date());
+		//		final Collection<Conference> res = new ArrayList<>();
+		//		final Collection<Conference> conferencias = this.conferenceRepository.findAll();
+		//		final List<Conference> c = new ArrayList<>(conferencias);
+		//		final Date actual = new Date();
+		//		for (int i = 0; i < c.size(); i++)
+		//			if (c.get(i).getStartDate().after(actual))
+		//				res.add(c.get(i));
 		return res;
 
 	}

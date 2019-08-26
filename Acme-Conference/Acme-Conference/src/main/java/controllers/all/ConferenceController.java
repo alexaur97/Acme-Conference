@@ -25,11 +25,11 @@ import domain.Submission;
 public class ConferenceController extends AbstractController {
 
 	@Autowired
-	private ConferenceService	conferenceService;
+	private ConferenceService			conferenceService;
 	@Autowired
-	private SubmissionService	submissionService;
+	private SubmissionService			submissionService;
 	@Autowired
-	private ConferenceCommentService conferenceCommentService;
+	private ConferenceCommentService	conferenceCommentService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -38,14 +38,13 @@ public class ConferenceController extends AbstractController {
 		try {
 
 			//Solo aparecen las conferencias que no han pasado
-			final Collection<Conference> conferences = this.conferenceService.findConference();
-
+			final Collection<Conference> nextconferences = this.conferenceService.findNextConferences();
 			final Collection<Conference> pastConferences = this.conferenceService.findPastConference();
 			final Collection<Conference> runningConferences = this.conferenceService.findRunningConference();
 
 			result = new ModelAndView("conference/list");
 			result.addObject("requestURI", "conference/list.do");
-			result.addObject("conferences", conferences);
+			result.addObject("nextconferences", nextconferences);
 			result.addObject("pastConferences", pastConferences);
 			result.addObject("runningConferences", runningConferences);
 
@@ -104,10 +103,9 @@ public class ConferenceController extends AbstractController {
 			result.addObject("acceptedSubmissions", acceptedSubmissions);
 			result.addObject("rejectedSubmissions", rejectedSubmissions);
 			result.addObject("bool", bool);
-			
+
 			final Collection<ConferenceComment> comments = this.conferenceCommentService.listCommentsByConference(conferenceId);
 			result.addObject("comments", comments);
-
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
