@@ -34,7 +34,11 @@
 	<display:column titleKey="submission.details">
 		<acme:cancel url="/submission/author/show.do?submissionId=${submission.id}" code="submission.details" />
 	</display:column>
-	
+	<display:column titleKey="msg.upload">
+<jstl:if test="${submission.status==a}">
+		<acme:cancel url="/submission/author/upload.do?submissionId=${submission.id}" code="msg.upload" />
+</jstl:if>	
+</display:column>
 </display:table>
 
 <acme:cancel url="/submission/author/create.do" code="submission.submit" />

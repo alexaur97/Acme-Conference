@@ -12,6 +12,7 @@ import org.springframework.validation.Validator;
 
 import repositories.PaperRepository;
 import domain.Paper;
+import forms.PaperForm;
 
 @Service
 @Transactional
@@ -19,6 +20,8 @@ public class PaperService {
 
 	@Autowired
 	private PaperRepository	paperRepository;
+	@Autowired
+	private AuthorService	authorService;
 
 	@Autowired
 	private Validator		validator;
@@ -68,5 +71,15 @@ public class PaperService {
 		final Paper res = paper;
 		this.validator.validate(res, binding);
 		return res;
+	}
+	public Paper reconstructionSub(final PaperForm paperForm, final BindingResult binding) {
+		final Paper paper = new Paper();
+		paper.setAuthor(this.authorService.findByPrincipal());
+		paper.setAuthorAlias(paperForm.getAuthorAlias());
+		paper.setDocument(paperForm.getDocument());
+		paper.setSummary(paperForm.getSummary());
+		paper.setTitle(paperForm.getTitle());
+
+		return paper;
 	}
 }

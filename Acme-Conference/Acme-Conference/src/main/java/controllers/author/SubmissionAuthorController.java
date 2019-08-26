@@ -21,6 +21,7 @@ import services.PaperService;
 import services.SubmissionService;
 import controllers.AbstractController;
 import domain.Conference;
+import domain.Paper;
 import domain.Submission;
 import forms.MakeSubmissionForm;
 import forms.PaperForm;
@@ -49,6 +50,8 @@ public class SubmissionAuthorController extends AbstractController {
 			result = new ModelAndView("submission/list");
 			result.addObject("requestURI", "submission/author/list.do");
 			result.addObject("submissions", submissions);
+			final String a = "ACCEPTED";
+			result.addObject("a", a);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -56,7 +59,6 @@ public class SubmissionAuthorController extends AbstractController {
 
 		return result;
 	}
-
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	public ModelAndView show(@RequestParam final int submissionId) {
 		ModelAndView result;
@@ -144,7 +146,8 @@ public class SubmissionAuthorController extends AbstractController {
 	public ModelAndView accept(@Valid final PaperForm paperForm, final BindingResult binding) {
 
 		ModelAndView result;
-		final Submission submission = this.submissionService.reconstruction(paperForm);
+		final Paper paper = this.paperService.reconstructionSub(paperForm, binding);
+		final Submission submission = this.submissionService.reconstruction(paperForm.getSubmissionId(), this.paperService.save(paper));
 
 		if (binding.hasErrors()) {
 			result = new ModelAndView("paper/edit");

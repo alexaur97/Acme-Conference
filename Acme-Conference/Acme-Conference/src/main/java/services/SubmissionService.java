@@ -15,7 +15,6 @@ import domain.Conference;
 import domain.Paper;
 import domain.Submission;
 import forms.MakeSubmissionForm;
-import forms.PaperForm;
 
 @Service
 @Transactional
@@ -57,17 +56,21 @@ public class SubmissionService {
 	public Submission findOne(final int id) {
 		return this.submissionRepository.findOne(id);
 	}
-	public Submission reconstruction(final PaperForm paperForm) {
-		final Paper paper = new Paper();
-		paper.setAuthor(this.authorService.findByPrincipal());
-		paper.setAuthorAlias(paperForm.getAuthorAlias());
-		paper.setDocument(paperForm.getDocument());
-		paper.setSummary(paperForm.getSummary());
-		paper.setTitle(paperForm.getTitle());
-		final Paper paperF = this.paperService.save(paper);
-		final Submission submission = this.findOne(paperForm.getSubmissionId());
-		submission.setCameraReady(paperF);
+	public Submission reconstruction(final Integer id, final Paper paperForm) {
+		final Submission submissionF = this.findOne(id);
+		final Submission submission = new Submission();
+		submission.setAuthor(submissionF.getAuthor());
+		submission.setConference(submissionF.getConference());
+		submission.setId(submissionF.getId());
+		submission.setMoment(submissionF.getMoment());
+		submission.setCameraReady(paperForm);
+		submission.setPaper(submissionF.getPaper());
+		submission.setStatus(submissionF.getStatus());
+		submission.setTicker(submissionF.getTicker());
+		submission.setVersion(submissionF.getVersion());
 		return submission;
+		
+		
 	}
 
 	public Collection<Submission> findMySubmissions() {
