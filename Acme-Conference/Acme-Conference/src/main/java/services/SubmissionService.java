@@ -139,4 +139,18 @@ public class SubmissionService {
 
 	}
 
+	public Collection<Submission> findSubmissionUnderReview() {
+		final Collection<Submission> res = this.submissionRepository.findSubmissionUnderReview();
+		return res;
+	}
+	public Collection<Submission> findSubmissionAccepted() {
+		final Collection<Submission> res = this.submissionRepository.findSubmissionAccepted();
+		return res;
+	}
+
+	public Collection<Submission> findSubmissionRejected() {
+		final Collection<Submission> res = this.submissionRepository.findSubmissionRejected();
+		return res;
+	}
+
 }
