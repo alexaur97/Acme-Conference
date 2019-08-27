@@ -56,11 +56,7 @@
 				code="conference.tutorial" />
 		</display:column>
 	</security:authorize>
-	<display:column titleKey="conference.comments">
-		<acme:cancel
-			url="/conference/comment/listByConference.do?conferenceId=${conference.id}"
-			code="conference.comments" />
-	</display:column>
+	
 	<display:column titleKey="conference.activities">
 		<acme:cancel
 			url="/conference/activity/listByConference.do?conferenceId=${conference.id}"
@@ -71,6 +67,8 @@
 <security:authorize access="hasRole('AUTHOR')">
 	<acme:cancel url="/registration/author/create.do"
 		code="conference.registration" />
+	<br/>
+	<br/>
 </security:authorize>
 
 <security:authorize access="hasRole('ADMINISTRATOR')">

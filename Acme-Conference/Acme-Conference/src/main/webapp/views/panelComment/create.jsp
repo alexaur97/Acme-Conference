@@ -31,5 +31,5 @@
 
 	<acme:submit name="save" code="panelComment.save" />
 	<acme:cancel code="panelComment.cancel"
-		url="/panel/show.do?panelId=${panelId}" />
+		url="conference/activity/listCommentPanel.do?panelId=${panelId}" />
 </form:form>

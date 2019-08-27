@@ -28,5 +28,5 @@
 <acme:display code="presentationComment.text"
 	path="${presentationComment.text}" />
 <br />
-<acme:button code="presentationComment.presentation"
-	url="presentation/show.do?presentationId=${presentationComment.presentation.id}" />
+<acme:button code="comment.back"
+	url="conference/activity/listCommentPresentation.do?presentationId=${presentationComment.presentation.id}" />

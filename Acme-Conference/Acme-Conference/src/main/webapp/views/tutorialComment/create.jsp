@@ -31,5 +31,5 @@
 
 	<acme:submit name="save" code="tutorialComment.save" />
 	<acme:cancel code="tutorialComment.cancel"
-		url="/tutorial/show.do?tutorialId=${tutorialId}" />
+		url="conference/activity/listCommentTutorial.do?tutorialId=${tutorialId}" />
 </form:form>

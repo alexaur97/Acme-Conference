@@ -15,7 +15,7 @@ public interface ConferenceCommentRepository extends JpaRepository<ConferenceCom
 	@Query("select avg(1.0*(select count(c) from ConferenceComment c where c.conference.id = a.id)),min(1.0*(select count(c) from ConferenceComment c where c.conference.id = a.id)),max(1.0*(select count(c) from ConferenceComment c where c.conference.id = a.id)),stddev(1.0*(select count(c) from ConferenceComment c where c.conference.id = a.id)) from Conference a ")
 	Collection<Double> statsCommentsPerConference();
 
-	@Query("select c from ConferenceComment c where c.conference.id =?1")
+	@Query("select c from ConferenceComment c where c.conference.id =?1 order by moment desc")
 	Collection<ConferenceComment> listCommentsByConference(int conferenceId);
 
 }

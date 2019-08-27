@@ -23,11 +23,10 @@ import forms.ReviewerEditForm;
 public class ReviewerService {
 
 	@Autowired
-	private ReviewerRepository	reviewerRepository;
+	private ReviewerRepository reviewerRepository;
 
 	@Autowired
-	private ActorService		actorService;
-
+	private ActorService actorService;
 
 	public ReviewerEditForm toForm(final Reviewer reviewer) {
 		final ReviewerEditForm result = new ReviewerEditForm();
@@ -91,6 +90,9 @@ public class ReviewerService {
 	public Reviewer reconstructEdit(final ReviewerEditForm reviewerEditForm) {
 		final Reviewer result;
 		result = this.findByPrincipal();
+		String lastEmail = result.getEmail();
+		final Collection<String> emails = this.actorService.findAllEmails();
+		
 		result.setName(reviewerEditForm.getName());
 		result.setMiddleName(reviewerEditForm.getMiddleName());
 		result.setSurname(reviewerEditForm.getSurname());
@@ -100,6 +102,12 @@ public class ReviewerService {
 		result.setAddress(reviewerEditForm.getAddress());
 		result.setKeyWords(reviewerEditForm.getKeyWords());
 		Assert.notNull(result);
+
+		emails.remove(lastEmail);
+		final String email = reviewerEditForm.getEmail();
+		final boolean bEmail = !emails.contains(email);
+		Assert.isTrue(bEmail, "edition.email.error");
+
 		return result;
 	}
 

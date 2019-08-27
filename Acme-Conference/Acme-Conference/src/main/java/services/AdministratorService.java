@@ -1,5 +1,7 @@
 package services;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,6 +56,9 @@ public class AdministratorService {
 	public Administrator reconstructEdit(AdministratorEditForm administratorEditForm) {
 		final Administrator result;
 		result = this.findByPrincipal();
+		String lastEmail = result.getEmail();
+		final Collection<String> emails = this.actorService.findAllEmails();
+		
 		result.setName(administratorEditForm.getName());
 		result.setMiddleName(administratorEditForm.getMiddleName());
 		result.setSurname(administratorEditForm.getSurname());
@@ -62,6 +67,13 @@ public class AdministratorService {
 		result.setPhone(this.actorService.addCountryCode(administratorEditForm.getPhone()));
 		result.setAddress(administratorEditForm.getAddress());
 		Assert.notNull(result);
+		
+		
+		emails.remove(lastEmail);
+		final String email = administratorEditForm.getEmail();
+		final boolean bEmail = !emails.contains(email);
+		Assert.isTrue(bEmail, "edition.email.error");
+		
 		return result;
 	}
 

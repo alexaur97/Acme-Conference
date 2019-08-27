@@ -96,8 +96,9 @@ public class ConferenceCommentController extends AbstractController {
 		try {
 			final Collection<ConferenceComment> comments = this.conferenceCommentService.listCommentsByConference(conferenceId);
 			result = new ModelAndView("conferenceComment/list");
-			result.addObject("requestURI", "conferenceComment/listByConference.do");
+			result.addObject("requestURI", "conference/comment/listByConference.do");
 			result.addObject("comments", comments);
+			result.addObject("conferenceId",conferenceId);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");

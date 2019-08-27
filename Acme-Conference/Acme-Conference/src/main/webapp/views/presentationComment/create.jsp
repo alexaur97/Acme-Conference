@@ -31,5 +31,5 @@
 
 	<acme:submit name="save" code="presentationComment.save" />
 	<acme:cancel code="presentationComment.cancel"
-		url="/presentation/show.do?presentationId=${presentationId}" />
+		url="conference/activity/listCommentPresentation.do?presentationId=${presentationId}" />
 </form:form>
