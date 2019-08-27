@@ -35,19 +35,19 @@ public class ActorController extends AbstractController {
 
 	@Autowired
 	private ActorService actorService;
-	
+
 	@Autowired
 	private AdministratorService administratorService;
 
 	@Autowired
 	private ReviewerService reviewerService;
-	
+
 	@Autowired
 	private AuthorService authorService;
 
 	@Autowired
 	private SponsorService sponsorService;
-	
+
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	public ModelAndView show() {
 		ModelAndView result;
@@ -55,12 +55,12 @@ public class ActorController extends AbstractController {
 			Actor actor = this.actorService.findByPrincipal();
 			result = new ModelAndView("actor/show");
 			result.addObject("actor", actor);
-		}catch(Throwable oops){
+		} catch (Throwable oops) {
 			result = new ModelAndView("redirect:/#");
 		}
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit() {
 		ModelAndView result;
@@ -71,7 +71,7 @@ public class ActorController extends AbstractController {
 			if (this.actorService.authEdit(actor, "ADMINISTRATOR")) {
 				final AdministratorEditForm administratorEditForm = this.administratorService.toForm(actor);
 				result.addObject("administratorEditForm", administratorEditForm);
-			} else if(this.actorService.authEdit(actor, "REVIEWER")){
+			} else if (this.actorService.authEdit(actor, "REVIEWER")) {
 				Reviewer principal = this.reviewerService.findByPrincipal();
 				final ReviewerEditForm reviewerEditForm = this.reviewerService.toForm(principal);
 				result.addObject("reviewerEditForm", reviewerEditForm);
@@ -89,7 +89,7 @@ public class ActorController extends AbstractController {
 
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final ActorEditForm actorEditForm, final BindingResult binding) {
 		ModelAndView result;
@@ -119,12 +119,15 @@ public class ActorController extends AbstractController {
 
 				result.addObject("requestURI", "actor/edit.do");
 				result.addObject("message", "actor.commit.error");
+				if (oops.getMessage().equals("edition.email.error"))
+					result.addObject("message", "edition.email.error");
 			}
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveAdmin")
-	public ModelAndView saveAdmin(@Valid final AdministratorEditForm administratorEditForm, final BindingResult binding) {
+	public ModelAndView saveAdmin(@Valid final AdministratorEditForm administratorEditForm,
+			final BindingResult binding) {
 		ModelAndView result;
 		if (binding.hasErrors()) {
 			result = new ModelAndView("actor/edit");
@@ -147,10 +150,12 @@ public class ActorController extends AbstractController {
 
 				result.addObject("requestURI", "actor/edit.do");
 				result.addObject("message", "actor.commit.error");
+				if (oops.getMessage().equals("edition.email.error"))
+					result.addObject("message", "edition.email.error");
 			}
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveReviewer")
 	public ModelAndView saveReviewer(@Valid final ReviewerEditForm reviewerEditForm, final BindingResult binding) {
 		ModelAndView result;
@@ -175,8 +180,10 @@ public class ActorController extends AbstractController {
 
 				result.addObject("requestURI", "actor/edit.do");
 				result.addObject("message", "actor.commit.error");
+				if (oops.getMessage().equals("edition.email.error"))
+					result.addObject("message", "edition.email.error");
 			}
 		return result;
 	}
-	
+
 }

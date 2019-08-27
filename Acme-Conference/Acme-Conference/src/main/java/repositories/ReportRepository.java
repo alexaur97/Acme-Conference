@@ -19,4 +19,7 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
 
 	@Query("select r from Report r where r.submission.id = ?1 and r.decision='REJECT'")
 	Collection<Report> findRejectReportsBySubmission(int id);
+
+	@Query("select r from Report r where r.submission.id = ?1 and r.submission.status<>'UNDER-REVIEW' and r.submission.author.id=?2")
+	Collection<Report> findReportsInAcceptedSubmission(int id, int authorId);
 }

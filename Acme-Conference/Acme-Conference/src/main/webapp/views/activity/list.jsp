@@ -25,15 +25,22 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<spring:message code="presentation.list"/> 
+<spring:message code="presentation.list" />
 <br>
 <display:table pagesize="5" name="presentations" id="presentation"
 	requestURI="${requestURI}" class="displaytag table">
-	<display:column titleKey="presentation.title"  property="title" />
-	<display:column titleKey="presentation.startMoment"  property="startMoment" />
-	<display:column titleKey="presentation.summary"  property="summary" />
-	<display:column titleKey="presentation.duration"  property="duration" />
-	<display:column titleKey="presentation.cameraReadyVersion"  property="cameraReadyVersion" />
+	<display:column titleKey="presentation.title" property="title" />
+	<display:column titleKey="presentation.startMoment"
+		property="startMoment" />
+	<display:column titleKey="presentation.summary" property="summary" />
+	<display:column titleKey="presentation.duration" property="duration" />
+	<display:column titleKey="presentation.cameraReadyVersion"
+		property="cameraReadyVersion" />
+	<display:column titleKey="activity.show">
+		<acme:cancel
+			url="/conference/activity/presentation/show.do?presentationId=${presentation.id}"
+			code="activity.show" />
+	</display:column>
 	<display:column titleKey="conference.comments">
 		<acme:cancel
 			url="/conference/activity/listCommentPresentation.do?presentationId=${presentation.id}"
@@ -43,38 +50,48 @@
 <br>
 <br>
 
-<spring:message code="panel.list"/> 
+<spring:message code="panel.list" />
 <br>
 <display:table pagesize="5" name="panels" id="panel"
 	requestURI="${requestURI}" class="displaytag table">
-	<display:column titleKey="panel.title"  property="title" />
-	<display:column titleKey="panel.startMoment"  property="startMoment" />
-	<display:column titleKey="panel.summary"  property="summary" />
-	<display:column titleKey="panel.duration"  property="duration" />
+	<display:column titleKey="panel.title" property="title" />
+	<display:column titleKey="panel.startMoment" property="startMoment" />
+	<display:column titleKey="panel.summary" property="summary" />
+	<display:column titleKey="panel.duration" property="duration" />
+	<display:column titleKey="activity.show">
+		<acme:cancel
+			url="/conference/activity/panel/show.do?panelId=${panel.id}"
+			code="activity.show" />
+	</display:column>
 	<display:column titleKey="conference.comments">
 		<acme:cancel
-			url="/conference/activity/listCommentPanel.do?panelId=${panel.id}"
+			url="/conference/activity/listCommentPanel.do?panelId=${panel.id}" 
 			code="conference.comments" />
 	</display:column>
-	
+
 </display:table>
 <br>
 <br>
 
-<spring:message code="tutorial.list"/> 
+<spring:message code="tutorial.list" />
 <br>
 <display:table pagesize="5" name="tutorials" id="tutorial"
 	requestURI="${requestURI}" class="displaytag table">
-	<display:column titleKey="tutorial.title"  property="title" />
-	<display:column titleKey="tutorial.startMoment"  property="startMoment" />
-	<display:column titleKey="tutorial.summary"  property="summary" />
-	<display:column titleKey="tutorial.duration"  property="duration" />
+	<display:column titleKey="tutorial.title" property="title" />
+	<display:column titleKey="tutorial.startMoment" property="startMoment" />
+	<display:column titleKey="tutorial.summary" property="summary" />
+	<display:column titleKey="tutorial.duration" property="duration" />
+	<display:column titleKey="activity.show">
+		<acme:cancel
+			url="/conference/activity/tutorial/show.do?tutorialId=${tutorial.id}"
+			code="activity.show" />
+	</display:column>
 	<display:column titleKey="conference.comments">
 		<acme:cancel
 			url="/conference/activity/listCommentTutorial.do?tutorialId=${tutorial.id}"
 			code="conference.comments" />
 	</display:column>
-	
+
 </display:table>
 <br>
 

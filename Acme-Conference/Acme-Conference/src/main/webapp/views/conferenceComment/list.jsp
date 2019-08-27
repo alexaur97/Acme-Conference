@@ -26,12 +26,14 @@
 
 <br>
 <display:table name="comments" id="comment"
-	requestURI="${requestURI}" class="displaytag table">
+	requestURI="${requestURI}" class="displaytag table" pagesize="5">
 	<display:column titleKey="conferenceComment.author"  property="author" />
 	<display:column titleKey="conferenceComment.moment"  property="moment" />
 	<display:column titleKey="conferenceComment.title"  property="title" />
 	<display:column titleKey="conferenceComment.text"  property="text" />
 </display:table>
+
+<acme:button url="conference/comment/create.do?conferenceId=${conferenceId}" code="comment.write"/>
 
 
 

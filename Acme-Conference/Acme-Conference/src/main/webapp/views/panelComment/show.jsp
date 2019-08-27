@@ -28,5 +28,5 @@
 <acme:display code="panelComment.text"
 	path="${panelComment.text}" />
 <br />
-<acme:button code="panelComment.panel"
-	url="panel/show.do?panelId=${panelComment.panel.id}" />
+<acme:button code="comment.back"
+	url="conference/activity/listCommentPanel.do?panelId=${panelComment.panel.id}" />

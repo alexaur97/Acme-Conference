@@ -29,31 +29,48 @@
 <acme:display code="submission.moment" path="${submission.moment}" />
 <acme:display code="submission.status" path="${submission.status}" />
 <acme:display code="submission.author" path="${submission.author.name}" />
-<acme:display code="submission.conference" path="${submission.conference.title}" />
+<acme:display code="submission.conference"
+	path="${submission.conference.title}" />
 
 <br>
 
-<spring:message code="submission.paper"/> 
+<spring:message code="submission.paper" />
 
 <br>
 <br>
 
 <acme:display code="submission.title" path="${submission.paper.title}" />
-<acme:display code="submission.authorAlias" path="${submission.paper.authorAlias}" />
-<acme:display code="submission.summary" path="${submission.paper.summary}" />
-<acme:display code="submission.document" path="${submission.paper.document}" />
+<acme:display code="submission.authorAlias"
+	path="${submission.paper.authorAlias}" />
+<acme:display code="submission.summary"
+	path="${submission.paper.summary}" />
+<acme:display code="submission.document"
+	path="${submission.paper.document}" />
 
 <br>
 
-<spring:message code="submission.cameraReady"/> 
+<spring:message code="submission.cameraReady" />
 
 <br>
 <br>
 
-<acme:display code="submission.title" path="${submission.cameraReady.title}" />
-<acme:display code="submission.authorAlias" path="${submission.cameraReady.authorAlias}" />
-<acme:display code="submission.summary" path="${submission.cameraReady.summary}" />
-<acme:display code="submission.document" path="${submission.cameraReady.document}" />
+<acme:display code="submission.title"
+	path="${submission.cameraReady.title}" />
+<acme:display code="submission.authorAlias"
+	path="${submission.cameraReady.authorAlias}" />
+<acme:display code="submission.summary"
+	path="${submission.cameraReady.summary}" />
+<acme:display code="submission.document"
+	path="${submission.cameraReady.document}" />
 
-
-
+<h4>
+	<spring:message code="submission.reports" />
+</h4>
+<display:table pagesize="5" name="reports" id="report"
+	requestURI="${requestURI}" class="displaytag table">
+	<display:column titleKey="report.decision" property="decision" />
+	<display:column titleKey="report.originality" property="originality" />
+	<display:column titleKey="report.quality" property="quality" />
+	<display:column titleKey="report.readability" property="readability" />
+	<display:column titleKey="report.show"><acme:button url="report/author/show.do?reportId=${report.id}" code="report.show"/></display:column>
+</display:table>

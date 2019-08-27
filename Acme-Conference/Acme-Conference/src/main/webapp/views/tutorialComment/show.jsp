@@ -28,5 +28,5 @@
 <acme:display code="tutorialComment.text"
 	path="${tutorialComment.text}" />
 <br />
-<acme:button code="tutorialComment.tutorial"
-	url="tutorial/show.do?tutorialId=${tutorialComment.tutorial.id}" />
+<acme:button code="comment.back"
+	url="conference/activity/listCommentTutorial.do?tutorialId=${tutorialComment.tutorial.id}" />

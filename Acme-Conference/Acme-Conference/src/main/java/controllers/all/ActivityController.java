@@ -65,7 +65,7 @@ public class ActivityController extends AbstractController {
 			final Collection<Tutorial> tutorials = this.tutorialService.findByConference(conferenceId);
 			final Collection<Panel> panels = this.panelService.findByConference(conferenceId);
 			result = new ModelAndView("activity/list");
-			result.addObject("requestURI", "conferenceComment/listByConference.do");
+			result.addObject("requestURI", "conference/activity/listByConference.do");
 			result.addObject("presentations", presentations);
 			result.addObject("tutorials", tutorials);
 			result.addObject("panels", panels);
@@ -83,8 +83,9 @@ public class ActivityController extends AbstractController {
 		try {
 			final Collection<PresentationComment> comments = this.presentationCommentService.listCommentByPresentation(presentationId);
 			result = new ModelAndView("presentationComment/list");
-			result.addObject("requestURI", "presentationComment/listCommentPresentation.do");
+			result.addObject("requestURI", "conference/activity/listCommentPresentation.do");
 			result.addObject("comments", comments);
+			result.addObject("presentationId",presentationId);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -98,8 +99,9 @@ public class ActivityController extends AbstractController {
 		try {
 			final Collection<TutorialComment> comments = this.tutorialCommentService.listCommentByTutorial(tutorialId);
 			result = new ModelAndView("tutorialComment/list");
-			result.addObject("requestURI", "tutorialComment/listCommentTutorial.do");
+			result.addObject("requestURI", "conference/activity/listCommentTutorial.do");
 			result.addObject("comments", comments);
+			result.addObject("tutorialId", tutorialId);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -113,8 +115,23 @@ public class ActivityController extends AbstractController {
 		try {
 			final Collection<PanelComment> comments = this.panelCommentService.listCommentByPanel(panelId);
 			result = new ModelAndView("panelComment/list");
-			result.addObject("requestURI", "panelComment/listCommentPanel.do");
+			result.addObject("requestURI", "conference/activity/listCommentPanel.do");
 			result.addObject("comments", comments);
+			result.addObject("panelId", panelId);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
+	}
+	
+	@RequestMapping(value = "/panel/show", method = RequestMethod.GET)
+	public ModelAndView showPanel(@RequestParam final int panelId) {
+		ModelAndView result;
+		try {
+			Panel panel = this.panelService.findOne(panelId);
+			result = new ModelAndView("panel/show");
+			result.addObject("panel", panel);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -122,4 +139,33 @@ public class ActivityController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/presentation/show", method = RequestMethod.GET)
+	public ModelAndView showPresentation(@RequestParam final int presentationId) {
+		ModelAndView result;
+		try {
+			Presentation presentation = this.presentationService.findOne(presentationId);
+			result = new ModelAndView("presentation/show");
+			result.addObject("presentation", presentation);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/tutorial/show", method = RequestMethod.GET)
+	public ModelAndView showTutorial(@RequestParam final int tutorialId) {
+		ModelAndView result;
+		try {
+			Tutorial tutorial = this.tutorialService.findOne(tutorialId);
+			result = new ModelAndView("tutorial/show");
+			result.addObject("tutorial", tutorial);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
+	}
+
+	
 }

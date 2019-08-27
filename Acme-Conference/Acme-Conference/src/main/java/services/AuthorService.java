@@ -61,6 +61,9 @@ public class AuthorService {
 	public Author reconstructEdit(final ActorEditForm actorEditForm) {
 		final Author result;
 		result = this.findByPrincipal();
+		String lastEmail = result.getEmail();
+		final Collection<String> emails = this.actorService.findAllEmails();
+		
 		result.setName(actorEditForm.getName());
 		result.setMiddleName(actorEditForm.getMiddleName());
 		result.setSurname(actorEditForm.getSurname());
@@ -69,6 +72,12 @@ public class AuthorService {
 		result.setPhone(this.actorService.addCountryCode(actorEditForm.getPhone()));
 		result.setAddress(actorEditForm.getAddress());
 		Assert.notNull(result);
+		
+		emails.remove(lastEmail);
+		final String email = actorEditForm.getEmail();
+		final boolean bEmail = !emails.contains(email);
+		Assert.isTrue(bEmail, "edition.email.error");
+		
 		return result;
 	}
 

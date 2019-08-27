@@ -18,9 +18,11 @@ import services.ActorService;
 import services.AuthorService;
 import services.ConferenceService;
 import services.PaperService;
+import services.ReportService;
 import services.SubmissionService;
 import controllers.AbstractController;
 import domain.Conference;
+import domain.Report;
 import domain.Submission;
 import forms.MakeSubmissionForm;
 import forms.PaperForm;
@@ -31,15 +33,18 @@ public class SubmissionAuthorController extends AbstractController {
 
 	@Autowired
 	private SubmissionService	submissionService;
+	
 	@Autowired
 	private AuthorService		authorService;
+	
 	@Autowired
 	private ActorService		actorService;
+	
 	@Autowired
 	private ConferenceService	conferenceService;
-	@Autowired
-	private PaperService		paperService;
 
+	@Autowired
+	private ReportService		reportService;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
@@ -67,6 +72,9 @@ public class SubmissionAuthorController extends AbstractController {
 			result = new ModelAndView("submission/show");
 			result.addObject("requestURI", "submission/show.do");
 			result.addObject("submission", submission);
+			
+			Collection<Report> reports = this.reportService.findReportsInAcceptedSubmission(submission);
+			result.addObject("reports", reports);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");

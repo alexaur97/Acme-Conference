@@ -25,12 +25,14 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <br>
-<display:table pagesize="10" name="comments" id="comment"
+<display:table pagesize="5" name="comments" id="comment"
 	requestURI="${requestURI}" class="displaytag table">
 	<display:column titleKey="conferenceComment.author"  property="author" />
 	<display:column titleKey="conferenceComment.title"  property="title" />
 	<display:column titleKey="conferenceComment.text"  property="text" />
+	<display:column titleKey="comment.show" ><acme:button url="panel/comment/show.do?commentId=${comment.id}" code="comment.show"/></display:column>
 </display:table>
 
+<acme:button url="panel/comment/create.do?panelId=${panelId}" code="comment.write"/>
 
 
