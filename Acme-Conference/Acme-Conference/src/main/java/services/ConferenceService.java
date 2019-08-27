@@ -239,6 +239,12 @@ public class ConferenceService {
 		return result;
 	}
 
+	public Collection<Double> statsConferencesDays() {
+		final Collection<Double> result = this.conferenceRepository.statsConferencesDays();
+		Assert.notNull(result);
+		return result;
+	}
+
 	public Collection<Conference> findOpenConferences() {
 		final Collection<Conference> result = this.conferenceRepository.findOpenConferences(new Date());
 		Assert.notNull(result);

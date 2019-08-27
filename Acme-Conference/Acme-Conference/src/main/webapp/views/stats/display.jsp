@@ -184,3 +184,23 @@
 :
 <jstl:out value="${conferencesFee[0][3]}" />
 <br />
+
+<h3>
+<spring:message code="stats.conference.days" /> :
+</h3>
+<spring:message code="stats.conference.days.average" />
+:
+<jstl:out value="${conferencesPerDays[0][0]}" />
+<br />
+<spring:message code="stats.conference.days.min" />
+:
+<jstl:out value="${conferencesPerDays[0][1]}" />
+<br />
+<spring:message code="stats.conference.days.max" />
+:
+<jstl:out value="${conferencesPerDays[0][2]}" />
+<br />
+<spring:message code="stats.conference.days.stddev" />
+:
+<jstl:out value="${conferencesPerDays[0][3]}" />
+<br />

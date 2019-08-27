@@ -46,4 +46,7 @@ public interface ConferenceRepository extends JpaRepository<Conference, Integer>
 	@Query("select c from Conference c where c.submissionDeadline >= ?1 ")
 	Collection<Conference> findOpenConferences(Date actualDate);
 
+	@Query("select avg(1.0*(DATEDIFF(c.endDate,c.startDate))),min(1.0*(DATEDIFF(c.endDate,c.startDate))),max(1.0*(DATEDIFF(c.endDate,c.startDate))),stddev(DATEDIFF(c.endDate,c.startDate)) from Conference c ")
+	Collection<Double> statsConferencesDays();
+
 }

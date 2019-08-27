@@ -50,6 +50,7 @@ public class StatsAdministratorController extends AbstractController {
 		result = new ModelAndView("stats/display");
 
 		try {
+			final Collection<Double> conferencesPerDays = this.conferenceService.statsConferencesDays();
 			final Collection<Double> conferencesPerCategory = this.conferenceService.statsConferencePerCategory();
 			final Collection<Double> conferenceCommentsPerConference = this.conferenceCommentService.statsCommentsPerConference();
 			final Collection<Double> commentsPerPresentation = this.presentationCommentService.statsCommentsPerPresentation();
@@ -59,6 +60,7 @@ public class StatsAdministratorController extends AbstractController {
 			final Collection<Double> registrationsPerConference = this.registrationService.statsRegistrationsPerConference();
 			final Collection<Double> conferencesFee = this.conferenceService.statsConferencesFee();
 
+			result.addObject("conferencesPerDays", conferencesPerDays);
 			result.addObject("conferencesPerCategory", conferencesPerCategory);
 			result.addObject("conferenceCommentsPerConference", conferenceCommentsPerConference);
 			result.addObject("commentsPerPresentation", commentsPerPresentation);
