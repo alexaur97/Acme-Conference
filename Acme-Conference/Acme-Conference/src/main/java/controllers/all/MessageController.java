@@ -56,11 +56,11 @@ public class MessageController extends AbstractController {
 			result.addObject("messagesSend", messagesSend);
 			result.addObject("messagesSpam", messagesSpam);
 			result.addObject("messagesDeleted", messagesDeleted);
-			
+
 			final Locale l = LocaleContextHolder.getLocale();
 			final String lang = l.getLanguage();
-			
-			result.addObject("lang",lang);
+
+			result.addObject("lang", lang);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -85,9 +85,9 @@ public class MessageController extends AbstractController {
 
 			final Locale l = LocaleContextHolder.getLocale();
 			final String lang = l.getLanguage();
-			
-			result.addObject("lang",lang);
-			
+
+			result.addObject("lang", lang);
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -108,11 +108,11 @@ public class MessageController extends AbstractController {
 			result.addObject("messagesSend", messagesSend);
 			result.addObject("messagesSpam", messagesSpam);
 			result.addObject("messagesDeleted", messagesDeleted);
-			
+
 			final Locale l = LocaleContextHolder.getLocale();
 			final String lang = l.getLanguage();
-			
-			result.addObject("lang",lang);
+
+			result.addObject("lang", lang);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -134,11 +134,11 @@ public class MessageController extends AbstractController {
 			result.addObject("messagesSend", messagesSend);
 			result.addObject("messagesSpam", messagesSpam);
 			result.addObject("messagesDeleted", messagesDeleted);
-			
+
 			final Locale l = LocaleContextHolder.getLocale();
 			final String lang = l.getLanguage();
-			
-			result.addObject("lang",lang);
+
+			result.addObject("lang", lang);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -171,11 +171,11 @@ public class MessageController extends AbstractController {
 			result = new ModelAndView("message/show");
 			result.addObject("msg", msg);
 			result.addObject("b", b);
-			
+
 			final Locale l = LocaleContextHolder.getLocale();
 			final String lang = l.getLanguage();
-			
-			result.addObject("lang",lang);
+
+			result.addObject("lang", lang);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -211,11 +211,11 @@ public class MessageController extends AbstractController {
 			result.addObject("messagesSend", messagesSend);
 			result.addObject("messagesSpam", messagesSpam);
 			result.addObject("messagesDeleted", messagesDeleted);
-			
+
 			final Locale l = LocaleContextHolder.getLocale();
 			final String lang = l.getLanguage();
-			
-			result.addObject("lang",lang);
+
+			result.addObject("lang", lang);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -233,14 +233,14 @@ public class MessageController extends AbstractController {
 		try {
 			this.actorService.findByPrincipal();
 			msg.setId(0);
-			result = new ModelAndView("message/list");
+			result = new ModelAndView("message/edit");
 			result.addObject("msg", msg);
 			result = this.createEditModelAndView(msg);
-			
+
 			final Locale l = LocaleContextHolder.getLocale();
 			final String lang = l.getLanguage();
-			
-			result.addObject("lang",lang);
+
+			result.addObject("lang", lang);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
 
@@ -260,6 +260,10 @@ public class MessageController extends AbstractController {
 		res.addObject("msg", msg);
 		res.addObject("actors", actors);
 		res.addObject("topics", topics);
+		final Locale l = LocaleContextHolder.getLocale();
+		final String lang = l.getLanguage();
+
+		res.addObject("lang", lang);
 		return res;
 	}
 
@@ -290,11 +294,11 @@ public class MessageController extends AbstractController {
 				copy.setTags(msg.getTags());
 				this.messageService.save(copy);
 				res = new ModelAndView("redirect:/message/list.do");
-				
+
 				final Locale l = LocaleContextHolder.getLocale();
 				final String lang = l.getLanguage();
-				
-				res.addObject("lang",lang);
+
+				res.addObject("lang", lang);
 
 			} catch (final Throwable oops) {
 				res = this.createEditModelAndView(msg, "msg.commit.error");

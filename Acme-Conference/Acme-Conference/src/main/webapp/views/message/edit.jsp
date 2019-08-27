@@ -34,8 +34,14 @@
 					<div class="form-group ">
 
 						<form:hidden path="id"/>
-						<form:hidden path="version"/>	
+						<form:hidden path="version"/>
+						<jstl:if test="${lang eq 'en'}">	
 						<acme:select items="${topics}" itemLabel="name" code="message.topic" path="topic"/>
+						</jstl:if>
+						<jstl:if test="${lang eq 'es'}">
+						<acme:select items="${topics}" itemLabel="nameEs" code="message.topic" path="topic"/>
+						</jstl:if>
+						<acme:textbox code="message.subject" path="subject" />
 						<acme:textarea code="message.body" path="body" />
 						<acme:textbox code="message.tags" path="tags" />
 						<acme:select items="${actors}" itemLabel="email" code="message.recipient" path="recipient"/>

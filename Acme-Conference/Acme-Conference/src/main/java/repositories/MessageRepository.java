@@ -24,7 +24,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
 	@Query("select m from Message m where m.recipient.id=?1 and m.spam=false and m.deleted=false and m.owner.id=?1 and m.copy=true order by sender")
 	Collection<Message> findRecivesBySender(int id);
 
-	@Query("select m from Message m where m.recipient.id=?1 and m.spam=false and m.deleted=false and m.owner.id=?1 and m.copy=true order by recipient")
+	@Query("select m from Message m where m.recipient.id=?1 and m.spam=false and m.deleted=false and m.owner.id=?1 and m.copy=true order by recipient desc")
 	Collection<Message> findRecivesByRecipient(int id);
 
 	@Query("select m from Message m where m.sender.id=?1 and m.spam=false and m.deleted=false and m.owner.id=?1 and m.copy=false")
@@ -36,7 +36,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
 	@Query("select m from Message m where m.sender.id=?1 and m.spam=false and m.deleted=false and m.owner.id=?1 and m.copy=false order by sender")
 	Collection<Message> findSendBySender(int id);
 
-	@Query("select m from Message m where m.sender.id=?1 and m.spam=false and m.deleted=false and m.owner.id=?1 and m.copy=false order by recipient")
+	@Query("select m from Message m where m.sender.id=?1 and m.spam=false and m.deleted=false and m.owner.id=?1 and m.copy=false order by recipient desc")
 	Collection<Message> findSendByRecipient(int id);
 
 	@Query("select m from Message m where m.recipient.id=?1 and m.spam=true and m.deleted=false and m.owner.id=?1")
@@ -48,7 +48,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
 	@Query("select m from Message m where m.recipient.id=?1 and m.spam=true and m.deleted=false and m.owner.id=?1 order by sender")
 	Collection<Message> findSpamBySender(int id);
 
-	@Query("select m from Message m where m.recipient.id=?1 and m.spam=true and m.deleted=false and m.owner.id=?1 order by recipient")
+	@Query("select m from Message m where m.recipient.id=?1 and m.spam=true and m.deleted=false and m.owner.id=?1 order by recipient desc")
 	Collection<Message> findSpamByRecipient(int id);
 
 	@Query("select m from Message m where m.deleted=true and m.owner.id=?1")
@@ -60,7 +60,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
 	@Query("select m from Message m where m.deleted=true and m.owner.id=?1 order by sender")
 	Collection<Message> findDeletedBySender(int id);
 
-	@Query("select m from Message m where m.deleted=true and m.owner.id=?1 order by recipient")
+	@Query("select m from Message m where m.deleted=true and m.owner.id=?1 order by recipient desc")
 	Collection<Message> findDeletedByRecipient(int id);
 
 	@Query("select m from Message m where m.sender.id=?1")
