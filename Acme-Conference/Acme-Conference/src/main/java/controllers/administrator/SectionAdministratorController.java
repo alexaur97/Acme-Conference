@@ -44,7 +44,7 @@ public class SectionAdministratorController extends AbstractController {
 			result = new ModelAndView("section/edit");
 			result.addObject("section", section);
 			result.addObject("tutorial", tutorial);
-
+			result.addObject("tutorialId", tutorialId);
 		} catch (final Throwable oops) {
 
 			result = new ModelAndView("redirect:/#");
@@ -62,6 +62,8 @@ public class SectionAdministratorController extends AbstractController {
 			Assert.notNull(section);
 			result = new ModelAndView("section/edit");
 			result.addObject("section", section);
+			int tutorialId = section.getTutorial().getId();
+			result.addObject("tutorialId", tutorialId);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
@@ -83,7 +85,7 @@ public class SectionAdministratorController extends AbstractController {
 			if (binding.hasErrors()) {
 				result = new ModelAndView("section/edit");
 				result.addObject("section", section);
-
+				result.addObject("tutorialId", tutorialId);
 			} else
 				try {
 					Assert.isTrue(a);
@@ -95,6 +97,7 @@ public class SectionAdministratorController extends AbstractController {
 						result = new ModelAndView("section/edit");
 						result.addObject("section", section);
 						result.addObject("message", "section.picture.error");
+						result.addObject("tutorialId", tutorialId);
 					} else
 						result = new ModelAndView("redirect:/#");
 				}

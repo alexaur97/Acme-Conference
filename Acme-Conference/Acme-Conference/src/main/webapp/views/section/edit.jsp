@@ -26,25 +26,25 @@
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<fieldset class="col-md-6 col-md-offset-3">
 
-				<form:form action="section/administrator/edit.do?tutorialId=${tutorial.id}"
+				<form:form
+					action="section/administrator/edit.do?tutorialId=${tutorialId}"
 					modelAttribute="section" class="form-horizontal" method="post">
 					<div class="form-group ">
 
-						<form:hidden path="id"/>
-						<form:hidden path="version"/>
+						<form:hidden path="id" />
+						<form:hidden path="version" />
 						<acme:textbox code="section.title" path="title" />
 						<acme:textbox code="section.summary" path="summary" />
-						<acme:textarea code="section.pictures" path="pictures" />					
-						<acme:submit name="save" code="msg.save" />						
-						<acme:cancel url="/conference/list.do"
-							code="msg.cancel" />
-							
-						 <jstl:if test="${section.id!=0}">
+						<acme:textarea code="section.pictures" path="pictures" />
+						<acme:submit name="save" code="msg.save" />
+						<acme:cancel url="/conference/list.do" code="msg.cancel" />
+
+						<jstl:if test="${section.id!=0}">
 							<acme:submit name="delete" code="msg.delete" />
-						</jstl:if> 
-						
-						
-				
+						</jstl:if>
+
+
+
 					</div>
 				</form:form>
 			</fieldset>
