@@ -84,7 +84,7 @@ public class RegistrationAuthorController extends AbstractController {
 		try {
 			this.authorService.findByPrincipal();
 			final RegistrationForm registrationForm = new RegistrationForm();
-			final Collection<Conference> conferencias = this.conferenceService.findConference();
+			final Collection<Conference> conferencias = this.conferenceService.findNextConferences();
 			result = new ModelAndView("registration/create");
 			result.addObject("registrationForm", registrationForm);
 			result.addObject("conferencias", conferencias);

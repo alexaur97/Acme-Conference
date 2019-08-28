@@ -59,7 +59,7 @@ public class PanelAdministratorController extends AbstractController {
 		ModelAndView result;
 		try {
 			this.administratorService.findByPrincipal();
-			final Collection<Conference> conferences = this.conferenceService.findConference();
+			final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 			Assert.notEmpty(conferences);
 			final Panel panel = this.panelService.create();
 			result = new ModelAndView("panel/edit");
@@ -67,7 +67,7 @@ public class PanelAdministratorController extends AbstractController {
 			result.addObject("conferences", conferences);
 
 		} catch (final Throwable oops) {
-			final Collection<Conference> conferences = this.conferenceService.findConference();
+			final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 			if (conferences.isEmpty()) {
 				result = new ModelAndView("panel/edit");
 				result.addObject("message", "panel.conferences.error");
@@ -83,7 +83,7 @@ public class PanelAdministratorController extends AbstractController {
 
 		try {
 			this.administratorService.findByPrincipal();
-			final Collection<Conference> conferences = this.conferenceService.findConference();
+			final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 			final Panel panel = this.panelService.findOne(panelId);
 			Assert.notNull(panel);
 			result = new ModelAndView("panel/edit");
@@ -105,7 +105,7 @@ public class PanelAdministratorController extends AbstractController {
 		final Panel panelF = this.panelService.reconstruct(panel, binding);
 		if (binding.hasErrors()) {
 			result = new ModelAndView("panel/edit");
-			final Collection<Conference> conferences = this.conferenceService.findConference();
+			final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 			result.addObject("panel", panel);
 			result.addObject("conferences", conferences);
 
@@ -120,7 +120,7 @@ public class PanelAdministratorController extends AbstractController {
 				result = new ModelAndView("redirect:/conference/list.do");
 
 			} catch (final Throwable oops) {
-				final Collection<Conference> conferences = this.conferenceService.findConference();
+				final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 				final Boolean fechaPosterior = panelF.getStartMoment().before(panelF.getConference().getStartDate());
 				final Boolean fechaAnterior = !(panelF.getStartMoment().before(panelF.getConference().getEndDate()));
 				final Long durationActivity = panelF.getStartMoment().getTime() + panelF.getDuration();
@@ -159,7 +159,7 @@ public class PanelAdministratorController extends AbstractController {
 			this.panelService.delete(res);
 			result = new ModelAndView("redirect:/conference/list.do");
 		} catch (final Throwable oops) {
-			final Collection<Conference> conferences = this.conferenceService.findConference();
+			final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 			result = new ModelAndView("panel/edit");
 			result.addObject("panel", panel);
 			result.addObject("conferences", conferences);

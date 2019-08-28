@@ -59,7 +59,7 @@ public class PresentationAdministratorController extends AbstractController {
 		ModelAndView result;
 		try {
 			this.administratorService.findByPrincipal();
-			final Collection<Conference> conferences = this.conferenceService.findConference();
+			final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 			Assert.notEmpty(conferences);
 			final Presentation presentation = this.presentationService.create();
 			result = new ModelAndView("presentation/edit");
@@ -67,7 +67,7 @@ public class PresentationAdministratorController extends AbstractController {
 			result.addObject("conferences", conferences);
 
 		} catch (final Throwable oops) {
-			final Collection<Conference> conferences = this.conferenceService.findConference();
+			final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 			if (conferences.isEmpty()) {
 				result = new ModelAndView("presentation/edit");
 				result.addObject("message", "presentation.conferences.error");
@@ -83,7 +83,7 @@ public class PresentationAdministratorController extends AbstractController {
 
 		try {
 			this.administratorService.findByPrincipal();
-			final Collection<Conference> conferences = this.conferenceService.findConference();
+			final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 			final Presentation presentation = this.presentationService.findOne(presentationId);
 			Assert.notNull(presentation);
 			result = new ModelAndView("presentation/edit");
@@ -105,7 +105,7 @@ public class PresentationAdministratorController extends AbstractController {
 		final Presentation presentationF = this.presentationService.reconstruct(presentation, binding);
 		if (binding.hasErrors()) {
 			result = new ModelAndView("presentation/edit");
-			final Collection<Conference> conferences = this.conferenceService.findConference();
+			final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 			result.addObject("presentation", presentation);
 			result.addObject("conferences", conferences);
 
@@ -119,7 +119,7 @@ public class PresentationAdministratorController extends AbstractController {
 				result = new ModelAndView("redirect:/conference/list.do");
 
 			} catch (final Throwable oops) {
-				final Collection<Conference> conferences = this.conferenceService.findConference();
+				final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 				final Boolean fechaPosterior = presentationF.getStartMoment().before(presentationF.getConference().getStartDate());
 				final Boolean fechaAnterior = !(presentationF.getStartMoment().before(presentationF.getConference().getEndDate()));
 				final Boolean urlInvalida = Utils.validateURL(presentationF.getAttachments());
@@ -152,7 +152,7 @@ public class PresentationAdministratorController extends AbstractController {
 			this.presentationService.delete(res);
 			result = new ModelAndView("redirect:/conference/list.do");
 		} catch (final Throwable oops) {
-			final Collection<Conference> conferences = this.conferenceService.findConference();
+			final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 			result = new ModelAndView("presentation/edit");
 			result.addObject("presentation", presentation);
 			result.addObject("conferences", conferences);

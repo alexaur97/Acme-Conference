@@ -64,7 +64,7 @@ public class TutorialAdministratorController extends AbstractController {
 		ModelAndView result;
 		try {
 			this.administratorService.findByPrincipal();
-			final Collection<Conference> conferences = this.conferenceService.findConference();
+			final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 			Assert.notEmpty(conferences);
 			final Tutorial tutorial = this.tutorialService.create();
 			result = new ModelAndView("tutorial/edit");
@@ -72,7 +72,7 @@ public class TutorialAdministratorController extends AbstractController {
 			result.addObject("conferences", conferences);
 
 		} catch (final Throwable oops) {
-			final Collection<Conference> conferences = this.conferenceService.findConference();
+			final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 			if (conferences.isEmpty()) {
 				result = new ModelAndView("tutorial/edit");
 				result.addObject("message", "tutorial.conferences.error");
@@ -88,7 +88,7 @@ public class TutorialAdministratorController extends AbstractController {
 
 		try {
 			this.administratorService.findByPrincipal();
-			final Collection<Conference> conferences = this.conferenceService.findConference();
+			final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 			final Tutorial tutorial = this.tutorialService.findOne(tutorialId);
 			Assert.notNull(tutorial);
 			result = new ModelAndView("tutorial/edit");
@@ -110,7 +110,7 @@ public class TutorialAdministratorController extends AbstractController {
 		final Tutorial tutorialF = this.tutorialService.reconstruct(tutorial, binding);
 		if (binding.hasErrors()) {
 			result = new ModelAndView("tutorial/edit");
-			final Collection<Conference> conferences = this.conferenceService.findConference();
+			final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 			result.addObject("tutorial", tutorial);
 			result.addObject("conferences", conferences);
 
@@ -124,7 +124,7 @@ public class TutorialAdministratorController extends AbstractController {
 				result = new ModelAndView("redirect:/conference/list.do");
 
 			} catch (final Throwable oops) {
-				final Collection<Conference> conferences = this.conferenceService.findConference();
+				final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 				final Boolean fechaPosterior = tutorialF.getStartMoment().before(tutorialF.getConference().getStartDate());
 				final Boolean fechaAnterior = !(tutorialF.getStartMoment().before(tutorialF.getConference().getEndDate()));
 				final Boolean urlInvalida = Utils.validateURL(tutorialF.getAttachments());
@@ -161,7 +161,7 @@ public class TutorialAdministratorController extends AbstractController {
 			this.tutorialService.delete(res);
 			result = new ModelAndView("redirect:/conference/list.do");
 		} catch (final Throwable oops) {
-			final Collection<Conference> conferences = this.conferenceService.findConference();
+			final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 			result = new ModelAndView("tutorial/edit");
 			result.addObject("tutorial", tutorial);
 			result.addObject("conferences", conferences);
