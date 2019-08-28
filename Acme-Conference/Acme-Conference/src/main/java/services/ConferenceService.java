@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import org.springframework.validation.Validator;
 import repositories.ConferenceRepository;
 import domain.Administrator;
 import domain.Author;
+import domain.Category;
 import domain.Conference;
 import domain.Message;
 import domain.Report;
@@ -276,5 +278,51 @@ public class ConferenceService {
 
 		final Collection<Conference> res = this.conferenceRepository.conferencesDraft();
 		return res;
+	}
+
+	public Collection<Conference> findConferencesFinal() {
+
+		final Collection<Conference> res = this.conferenceRepository.findConferencesFinal();
+		return res;
+	}
+
+	public Collection<Conference> searchConferences(final String keyword, final Category category, final Date minDate, final Date maxDate, final Double maxFee) {
+		Collection<Conference> conferencesByKeyWord = new ArrayList<>();
+		Collection<Conference> conferencesByCategory = new ArrayList<>();
+		Collection<Conference> conferencesByMinDate = new ArrayList<>();
+		Collection<Conference> conferencesByMaxDate = new ArrayList<>();
+		Collection<Conference> conferencesByMaxFee = new ArrayList<>();
+		Collection<Conference> result = new ArrayList<>();
+		if (keyword.isEmpty())
+			conferencesByKeyWord = this.findConferencesFinal();
+		else
+			conferencesByKeyWord = this.searchConference(keyword);
+		if (Objects.equals(null, minDate))
+			conferencesByMinDate = this.findConferencesFinal();
+		else
+			conferencesByMinDate = this.conferenceRepository.findNextConferences(minDate);
+
+		if (Objects.equals(null, maxDate))
+			conferencesByMaxDate = this.findConferencesFinal();
+		else
+			conferencesByMaxDate = this.conferenceRepository.findPastConference(maxDate);
+
+		if (Objects.equals(null, maxFee))
+			conferencesByMaxFee = this.findConferencesFinal();
+		else
+			conferencesByMaxFee = this.conferenceRepository.findConferencesByMaxFee(maxFee);
+
+		if (Objects.equals(null, category))
+			conferencesByCategory = this.findConferencesFinal();
+		else
+			conferencesByCategory = this.findByCategory(category.getId());
+
+		conferencesByKeyWord.retainAll(conferencesByMinDate);
+		conferencesByKeyWord.retainAll(conferencesByMaxDate);
+		conferencesByKeyWord.retainAll(conferencesByMaxFee);
+		conferencesByKeyWord.retainAll(conferencesByCategory);
+		result = conferencesByKeyWord;
+		return result;
+
 	}
 }

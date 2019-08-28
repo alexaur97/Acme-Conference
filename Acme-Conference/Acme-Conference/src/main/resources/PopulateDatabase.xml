@@ -1587,5 +1587,25 @@
 		</property>
 	</bean>
 	
+	<bean id="finder2" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="author" ref="author2" />
+		<property name="maxFee" value="" />
+		<property name="conferences">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="finder3" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="author" ref="author3" />
+		<property name="maxFee" value="" />
+		<property name="conferences">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
 
 </beans>

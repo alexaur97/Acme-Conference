@@ -55,4 +55,10 @@ public interface ConferenceRepository extends JpaRepository<Conference, Integer>
 	@Query("select c from Conference c where  c.mode='DRAFT'")
 	Collection<Conference> conferencesDraft();
 
+	@Query("select c from Conference c where  c.mode='FINAL'")
+	Collection<Conference> findConferencesFinal();
+
+	@Query("select c from Conference c where c.fee <= ?1")
+	Collection<Conference> findConferencesByMaxFee(Double maxFee);
+
 }
