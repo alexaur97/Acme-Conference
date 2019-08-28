@@ -25,6 +25,7 @@
 		<bean class="converters.ActorToStringConverter" />
 		<bean class="converters.AdministratorToStringConverter" />
 		<bean class="converters.AuthorToStringConverter" />
+		<bean class="converters.CategoryToStringConverter" />
 		<bean class="converters.ReviewerToStringConverter" />
 		<bean class="converters.SponsorToStringConverter" />
 		<bean class="converters.ConferenceToStringConverter" />
@@ -39,6 +40,7 @@
 		<bean class="converters.StringToAdministratorConverter" />
 		<bean class="converters.StringToAuthorConverter" />
 		<bean class="converters.StringToActorConverter" />
+		<bean class="converters.StringToCategoryConverter" />
 		<bean class="converters.StringToSponsorConverter" />
 		<bean class="converters.StringToConferenceConverter" />
 		<bean class="converters.StringToRegistrationConverter" />

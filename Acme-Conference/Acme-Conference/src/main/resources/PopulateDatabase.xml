@@ -1575,5 +1575,17 @@
 	
 	<!-- ConferenceComments -->
 	
+	<!-- Finders -->
+
+	<bean id="finder1" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="author" ref="author1" />
+		<property name="maxFee" value="" />
+		<property name="conferences">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
 
 </beans>
