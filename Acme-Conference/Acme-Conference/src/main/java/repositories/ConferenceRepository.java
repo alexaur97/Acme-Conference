@@ -49,7 +49,7 @@ public interface ConferenceRepository extends JpaRepository<Conference, Integer>
 	@Query("select avg(1.0*(DATEDIFF(c.endDate,c.startDate))),min(1.0*(DATEDIFF(c.endDate,c.startDate))),max(1.0*(DATEDIFF(c.endDate,c.startDate))),stddev(DATEDIFF(c.endDate,c.startDate)) from Conference c ")
 	Collection<Double> statsConferencesDays();
 
-	@Query("select c from Conference c   where c.startDate >= ?1 and c.mode='FINAL'order by c.category.name")
+	@Query("select c from Conference c where c.startDate >= ?1 and c.mode='FINAL' order by c.category.name")
 	Collection<Conference> findNextConferences(Date date);
 
 	@Query("select c from Conference c where  c.mode='DRAFT'")

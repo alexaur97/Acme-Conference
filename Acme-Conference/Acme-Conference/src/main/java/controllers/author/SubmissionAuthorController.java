@@ -1,4 +1,3 @@
-
 package controllers.author;
 
 import java.util.Collection;
@@ -35,19 +34,22 @@ import forms.PaperForm;
 public class SubmissionAuthorController extends AbstractController {
 
 	@Autowired
-	private SubmissionService	submissionService;
-	
-	@Autowired
-	private AuthorService		authorService;
-	
-	@Autowired
-	private ActorService		actorService;
-	
-	@Autowired
-	private ConferenceService	conferenceService;
+	private SubmissionService submissionService;
 
 	@Autowired
-	private ReportService		reportService;
+	private AuthorService authorService;
+
+	@Autowired
+	private ActorService actorService;
+
+	@Autowired
+	private ConferenceService conferenceService;
+
+	@Autowired
+	private ReportService reportService;
+	@Autowired
+	
+	private PaperService paperService;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
@@ -66,6 +68,7 @@ public class SubmissionAuthorController extends AbstractController {
 
 		return result;
 	}
+
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	public ModelAndView show(@RequestParam final int submissionId) {
 		ModelAndView result;
@@ -76,7 +79,7 @@ public class SubmissionAuthorController extends AbstractController {
 			result = new ModelAndView("submission/show");
 			result.addObject("requestURI", "submission/show.do");
 			result.addObject("submission", submission);
-			
+
 			Collection<Report> reports = this.reportService.findReportsInAcceptedSubmission(submission);
 			result.addObject("reports", reports);
 
@@ -152,12 +155,14 @@ public class SubmissionAuthorController extends AbstractController {
 
 		return result;
 	}
+
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public ModelAndView accept(@Valid final PaperForm paperForm, final BindingResult binding) {
 
 		ModelAndView result;
 		final Paper paper = this.paperService.reconstructionSub(paperForm, binding);
-		final Submission submission = this.submissionService.reconstruction(paperForm.getSubmissionId(), this.paperService.save(paper));
+		final Submission submission = this.submissionService.reconstruction(paperForm.getSubmissionId(),
+				this.paperService.save(paper));
 
 		if (binding.hasErrors()) {
 			result = new ModelAndView("paper/edit");
