@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 import repositories.SubmissionRepository;
 import domain.Conference;
 import domain.Paper;
+import domain.Reviewer;
 import domain.Submission;
 import forms.MakeSubmissionForm;
 
@@ -28,6 +29,12 @@ public class SubmissionService {
 	private PaperService			paperService;
 	@Autowired
 	private ActorService			actorService;
+
+	@Autowired
+	private AdministratorService	administratorService;
+
+	@Autowired
+	private ReviewerService			reviewService;
 
 
 	public Collection<Submission> findSubmissionsByConference(final Conference conference) {
@@ -69,8 +76,7 @@ public class SubmissionService {
 		submission.setTicker(submissionF.getTicker());
 		submission.setVersion(submissionF.getVersion());
 		return submission;
-		
-		
+
 	}
 
 	public Collection<Submission> findMySubmissions() {
@@ -153,4 +159,16 @@ public class SubmissionService {
 		return res;
 	}
 
+	public void assign(final Submission submission) {
+		this.administratorService.findByPrincipal();
+		final String title =submission.getConference().getTitle();
+		final String summary = submission.getConference().getSummary();
+		final Collection<Reviewer> reviewers = this.reviewService.findAll();
+		for(final Reviewer reviewer: reviewers ){
+			for(final String keyword: reviewer.getKeyWords()){
+				if()
+			}
+		}
+		
+	}
 }

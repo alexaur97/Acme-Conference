@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.AdministratorService;
@@ -40,6 +41,23 @@ public class SubmissionAdministratorController extends AbstractController {
 			result.addObject("submissionsUnderReview", submissionsUnderReview);
 			result.addObject("submissionsAccepted", submissionsAccepted);
 			result.addObject("submissionsRejected", submissionsRejected);
+
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/assign", method = RequestMethod.GET)
+	public ModelAndView assign(@RequestParam final int submissionId) {
+		ModelAndView result;
+		try {
+			this.administratorService.findByPrincipal();
+			final Submission submission = this.submissionService.findOne(submissionId);
+			this.submissionService.assign(submission);
+
+			result = new ModelAndView("redirect:/submission/administrator/list.do");
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
