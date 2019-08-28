@@ -62,6 +62,9 @@
 	<display:column titleKey="tutorial.section.title"  property="title" />
 	<display:column titleKey="tutorial.section.summary"  property="summary" />
 	<display:column titleKey="tutorial.section.pictures"  property="pictures" />
+	<display:column titleKey="tutorial.section.edit">
+		<acme:cancel url="/section/administrator/edit.do?sectionId=${section.id}" code="tutorial.section.edit" />
+	</display:column>
 
 	
 	

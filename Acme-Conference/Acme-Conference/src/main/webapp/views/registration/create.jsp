@@ -46,6 +46,7 @@
 							<acme:select items="${conferencias}" itemLabel="title" code="registration.conferencia" path="conference"/>
 							<acme:submit name="save" code="registration.save" />
 
+							<acme:cancel url="/registration/author/list.do" code="msg.cancel" />
 					
 				</form:form>
 			</fieldset>

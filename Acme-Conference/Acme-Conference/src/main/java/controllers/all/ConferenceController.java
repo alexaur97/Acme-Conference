@@ -3,8 +3,10 @@ package controllers.all;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -93,6 +95,9 @@ public class ConferenceController extends AbstractController {
 			final Boolean submissions = !allSubmissions.isEmpty() && conference.getSubmissionDeadline().before(date);
 			result.addObject("submissions", submissions);
 
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
+
 			final Collection<Submission> acceptedSubmissions = this.submissionService.findAcceptedSubmissionsByConference(conference);
 			final Collection<Submission> rejectedSubmissions = this.submissionService.findRejectedSubmissionsByConference(conference);
 
@@ -103,6 +108,7 @@ public class ConferenceController extends AbstractController {
 			result.addObject("acceptedSubmissions", acceptedSubmissions);
 			result.addObject("rejectedSubmissions", rejectedSubmissions);
 			result.addObject("bool", bool);
+			result.addObject("lang", lang);
 
 			final Collection<ConferenceComment> comments = this.conferenceCommentService.listCommentsByConference(conferenceId);
 			result.addObject("comments", comments);

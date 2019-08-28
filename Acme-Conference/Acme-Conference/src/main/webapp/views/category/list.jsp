@@ -47,6 +47,7 @@
      </jstl:otherwise>
 	</jstl:choose>
 	
+	
 	<display:column titleKey="category.edit">
 		<acme:cancel url="/category/administrator/edit.do?categoryId=${category.id}" code="category.edit" />
 	</display:column>

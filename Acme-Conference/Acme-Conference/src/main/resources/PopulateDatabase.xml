@@ -766,8 +766,7 @@
 
 	<bean id="category5" class="domain.Category">
 		<property name="name" value="Instance-Based learning" />
-		<property name="nameEs"
-			value="Aprendizaje basado en instancia" />
+		<property name="nameEs" value='Aprendizaje basado en instancia' />
 		<property name="parent" ref="category3" />
 		<property name="root" value="false" />
 

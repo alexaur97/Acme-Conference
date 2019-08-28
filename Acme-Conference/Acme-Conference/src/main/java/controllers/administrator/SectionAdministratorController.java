@@ -62,7 +62,7 @@ public class SectionAdministratorController extends AbstractController {
 			Assert.notNull(section);
 			result = new ModelAndView("section/edit");
 			result.addObject("section", section);
-			int tutorialId = section.getTutorial().getId();
+			final int tutorialId = section.getTutorial().getId();
 			result.addObject("tutorialId", tutorialId);
 
 		} catch (final Throwable oops) {

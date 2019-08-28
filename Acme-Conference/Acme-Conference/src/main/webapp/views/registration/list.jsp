@@ -28,12 +28,19 @@
 
 <display:table pagesize="5" name="registrations" id="registration"
 	requestURI="${requestURI}" class="displaytag table">
-	<display:column titleKey="registration.conference"  property="conference" />
+	<display:column titleKey="registration.conference"  property="conference.title" />
 	<display:column titleKey="registration.show">
 		<acme:cancel url="/registration/author/show.do?registrationId=${registration.id}" code="registration.show" />
 	</display:column>
 	
 </display:table>
+
+<security:authorize access="hasRole('AUTHOR')">
+	<acme:cancel url="/registration/author/create.do"
+		code="conference.registration" />
+	<br/>
+	<br/>
+</security:authorize>
 
 <%-- <security:authorize access="hasRole('AUTHOR')">
 <acme:cancel url="/registration/author/create.do"

@@ -3,8 +3,10 @@ package controllers.administrator;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -80,6 +82,9 @@ public class ConferenceAdministratorController extends AbstractController {
 			final Boolean submissions = !allSubmissions.isEmpty() && conference.getSubmissionDeadline().before(date);
 			result.addObject("submissions", submissions);
 
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
+
 			final Collection<Submission> acceptedSubmissions = this.submissionService.findAcceptedSubmissionsByConference(conference);
 			final Collection<Submission> rejectedSubmissions = this.submissionService.findRejectedSubmissionsByConference(conference);
 
@@ -90,6 +95,7 @@ public class ConferenceAdministratorController extends AbstractController {
 			result.addObject("acceptedSubmissions", acceptedSubmissions);
 			result.addObject("rejectedSubmissions", rejectedSubmissions);
 			result.addObject("bool", bool);
+			result.addObject("lang", lang);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");

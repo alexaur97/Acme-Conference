@@ -62,12 +62,15 @@ public class CategoryAdministratorController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 		try {
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
 			final Collection<Category> categories = this.categoryService.findAll();
 			this.administratorService.findByPrincipal();
 			final Category category = this.categoryService.create();
 			result = new ModelAndView("category/edit");
 			result.addObject("category", category);
 			result.addObject("categories", categories);
+			result.addObject("lang", lang);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
@@ -157,12 +160,18 @@ public class CategoryAdministratorController extends AbstractController {
 			final Collection<Conference> conferences = this.conferenceService.findByCategory(res.getId());
 			for (final Conference c : conferences) {
 				c.setCategory(c.getCategory().getParent());
+				c.setMode("DRAFT");
 				this.conferenceService.save(c);
 			}
 			final Collection<Category> childCategories = this.categoryService.findCategoriesByParent(res.getId());
 			for (final Category c : childCategories) {
-				c.setParent(res.getParent());
-				this.categoryService.save(c);
+				final Collection<Conference> childConferences = this.conferenceService.findByCategory(c.getId());
+				for (final Conference cc : childConferences) {
+					cc.setCategory(cc.getCategory().getParent().getParent());
+					cc.setMode("DRAFT");
+					this.conferenceService.save(cc);
+				}
+				this.categoryService.delete(c);
 			}
 			this.categoryService.delete(res);
 			result = new ModelAndView("redirect:/category/administrator/list.do");
@@ -184,5 +193,4 @@ public class CategoryAdministratorController extends AbstractController {
 		}
 		return result;
 	}
-
 }

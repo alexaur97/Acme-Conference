@@ -28,6 +28,9 @@ public class RegistrationService {
 	@Autowired
 	private AuthorService			authorService;
 
+	@Autowired
+	private CreditCardService		creditCardService;
+
 
 	//COnstructors -------------------------
 	public RegistrationService() {
@@ -89,7 +92,9 @@ public class RegistrationService {
 		creditCard.setNumber(registrationForm.getNumber());
 		final Boolean b = Utils.creditCardIsExpired(creditCard);
 		Assert.isTrue(!b);
-		result.setCreditCard(creditCard);
+
+		final CreditCard saved = this.creditCardService.save(creditCard);
+		result.setCreditCard(saved);
 
 		return result;
 

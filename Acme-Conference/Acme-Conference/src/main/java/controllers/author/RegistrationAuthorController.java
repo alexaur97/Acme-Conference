@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -65,6 +66,7 @@ public class RegistrationAuthorController extends AbstractController {
 		try {
 			this.authorService.findByPrincipal();
 			final Registration registration = this.registrationService.findOne(registrationId);
+			Assert.notNull(registration);
 			result = new ModelAndView("registration/show");
 			result.addObject("requestURI", "registration/author/show.do");
 			result.addObject("registration", registration);
@@ -84,16 +86,17 @@ public class RegistrationAuthorController extends AbstractController {
 		try {
 			this.authorService.findByPrincipal();
 			final RegistrationForm registrationForm = new RegistrationForm();
+			//final Collection<String> brands = this.configurationParametersService.getCreditCardMakes();
 			final Collection<Conference> conferencias = this.conferenceService.findNextConferences();
 			result = new ModelAndView("registration/create");
 			result.addObject("registrationForm", registrationForm);
 			result.addObject("conferencias", conferencias);
+			//result.addObject("brands", brands);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
 		}
 		return result;
 	}
-
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final RegistrationForm registrationForm, final BindingResult binding) {
 		ModelAndView result;
@@ -106,11 +109,14 @@ public class RegistrationAuthorController extends AbstractController {
 		} else
 			try {
 				final Registration regis = this.registrationService.constructByForm(registrationForm);
-				this.creditCardService.save(regis.getCreditCard());
 				this.registrationService.save(regis);
 				result = new ModelAndView("redirect:/registration/author/list.do");
 			} catch (final Throwable oops) {
-				result = new ModelAndView("redirect:/#");
+				final Collection<Conference> conferencias = this.conferenceService.findAll();
+				result = new ModelAndView("registration/create");
+				result.addObject("registrationForm", registrationForm);
+				result.addObject("conferencias", conferencias);
+				result.addObject("message", "registration.creditCard.error");
 
 			}
 		return result;

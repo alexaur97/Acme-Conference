@@ -29,6 +29,6 @@
 <acme:display code="registration.conference.startDate" path="${registration.conference.startDate}" />
 <acme:display code="registration.conference.endDate" path="${registration.conference.endDate}" />
 
-<acme:display code="registration.creditCard.holderName" path="${conference.creditCard.holderName}" />
+<acme:display code="registration.holderName" path="${registration.creditCard.holderName}" />
 
 

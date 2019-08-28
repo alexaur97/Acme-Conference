@@ -40,7 +40,7 @@
 <acme:display code="conference.fee" path="${conference.fee}" />
 <acme:display code="conference.mode" path="${conference.mode}" />
 
-<jstl:choose>
+	<jstl:choose>
 	<jstl:when test="${lang eq 'en'}">
 	<acme:display code="conference.category" path="${conference.category.name}" />
 	 </jstl:when>
