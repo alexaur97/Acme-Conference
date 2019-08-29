@@ -97,6 +97,7 @@
 			</security:authorize>
 		</jstl:otherwise>
 	</jstl:choose>
+</jstl:if>
 
 	<h4>
 		<spring:message code="conference.comments" />
@@ -114,4 +115,3 @@
 		</display:column>
 	</display:table>
 	<acme:button url="conference/comment/create.do?conferenceId=${conference.id}" code="comment.write"/>
-</jstl:if>
