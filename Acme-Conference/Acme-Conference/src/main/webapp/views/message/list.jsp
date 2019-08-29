@@ -42,7 +42,7 @@
 
 <h5>
 	<spring:message code="message.listThem" />
-	<td><acme:cancel url="/message/list.do" code="message.Date" /></td>
+	<td><acme:cancel url="/message/list.do" code="message.normal" /></td>
 	<td><acme:cancel url="/message/listByTopic.do"
 			code="message.byTopic" /></td>
 	<td><acme:cancel url="/message/listBySender.do"
