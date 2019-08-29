@@ -9,11 +9,11 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -47,7 +47,7 @@ public class Finder extends DomainEntity {
 		this.category = category;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	public Date getMinDate() {
 		return this.minDate;
 	}
@@ -56,7 +56,7 @@ public class Finder extends DomainEntity {
 		this.minDate = minDate;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	public Date getMaxDate() {
 		return this.maxDate;
 	}
