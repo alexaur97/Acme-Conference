@@ -161,14 +161,19 @@ public class SubmissionService {
 
 	public void assign(final Submission submission) {
 		this.administratorService.findByPrincipal();
-		final String title =submission.getConference().getTitle();
+		final String title = submission.getConference().getTitle();
 		final String summary = submission.getConference().getSummary();
 		final Collection<Reviewer> reviewers = this.reviewService.findAll();
-		for(final Reviewer reviewer: reviewers ){
-			for(final String keyword: reviewer.getKeyWords()){
-				if()
-			}
+		int i = 0;
+		for (final Reviewer reviewer : reviewers) {
+			for (final String keyword : reviewer.getKeyWords())
+				if ((title.contentEquals(keyword) || summary.contentEquals(keyword)) && reviewer.getSubmission().equals(null)) {
+					reviewer.setSubmission(submission);
+					i++;
+					break;
+				}
+			if (i >= 3)
+				break;
 		}
-		
 	}
 }

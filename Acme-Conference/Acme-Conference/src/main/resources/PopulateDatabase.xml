@@ -301,6 +301,9 @@
 				<value>key2</value>
 			</list>
 		</property>
+			<property name="submission" ref="submission1" />
+		
+		
 	</bean>
 
 	<bean id="reviewer2" class="domain.Reviewer">
@@ -318,6 +321,8 @@
 				<value>key2</value>
 			</list>
 		</property>
+		<property name="submission" ref="submission2" />
+		
 	</bean>
 
 	<bean id="reviewer3" class="domain.Reviewer">
@@ -334,6 +339,8 @@
 				<value>key2</value>
 			</list>
 		</property>
+		<property name="submission" ref="submission3" />
+
 	</bean>
 
 	<bean id="sponsor1" class="domain.Sponsor">
