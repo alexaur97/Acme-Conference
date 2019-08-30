@@ -29,8 +29,7 @@
 		<li><jstl:out value="${x}" /></li>
 	</jstl:forEach>
 </ul>
-<acme:display code="panel.duration" path="${panel.duration}" />
-<acme:display code="panel.startMoment" path="${panel.startMoment}" />
+
 <acme:display code="panel.room" path="${panel.room}" />
 <acme:display code="panel.summary" path="${panel.summary}" />
 <spring:message code="panel.attachments" />
@@ -39,3 +38,14 @@
 		<li><a href="${x}"><jstl:out value="${x}" /></a></li>
 	</jstl:forEach>
 </ul>
+
+
+<h2><spring:message code="panel.schedule"/></h2>	
+						
+<acme:display code="panel.startMoment" path="${panel.startMoment}" />
+<acme:display code="panel.duration" path="${duration}" />
+
+<br>
+<acme:cancel url="/conference/list.do"
+							code="msg.cancel" />
+

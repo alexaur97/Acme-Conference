@@ -32,9 +32,11 @@
 	<display:column titleKey="panel.title"  property="title" />
 	<display:column titleKey="panel.startMoment"  property="startMoment" />
 	<display:column titleKey="panel.summary"  property="summary" />
-	<display:column titleKey="panel.duration"  property="duration" />
 	<display:column titleKey="panel.edit">
 		<acme:cancel url="/panel/administrator/edit.do?panelId=${panel.id}" code="panel.edit" />
+	</display:column>
+	<display:column titleKey="panel.show">
+		<acme:cancel url="/panel/administrator/show.do?panelId=${panel.id}" code="panel.show" />
 	</display:column>
 	
 </display:table>

@@ -35,7 +35,10 @@
 					
 							<spring:message code="registration.creditCard" />
 							<acme:textbox code="registration.holderName" path="holderName" />
-							<acme:textbox code="registration.brandName" path="brandName" />
+							<spring:message code="sponsorship.brandName" />
+							<form:select path="brandName">
+    						<form:options items="${brandNames}" />
+							</form:select>
 							<acme:textbox code="registration.number" path="number" />
 							<acme:textbox code="registration.expirationMonth" path="expirationMonth" />
 							<acme:textbox code="registration.expirationYear" path="expirationYear" />

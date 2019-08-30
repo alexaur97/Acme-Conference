@@ -41,9 +41,10 @@
 						<acme:select items="${conferences}" itemLabel="title" code="panel.conferences" path="conference"/>
 					
 						<br>
-						<h2><spring:message code="panel.schedule"/></h2>					
-						<acme:textbox code="panel.duration" path="duration" />
-						<acme:textbox placeholder="yyyy/MM/dd HH:mm" code="panel.startMoment" path="startMoment" />
+						<h2><spring:message code="panel.schedule"/></h2>	
+						
+						<acme:textbox placeholder="yyyy/MM/dd HH:mm" code="panel.startMoment" path="startMoment" />			
+						<acme:textbox placeholder="yyyy/MM/dd/HH:mm" code="panel.duration" path="duration" />
 						<br>
 						
 						<acme:submit name="save" code="msg.save" />						

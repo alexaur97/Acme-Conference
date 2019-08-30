@@ -116,6 +116,10 @@ public class PanelAdministratorController extends AbstractController {
 				Assert.isTrue(panelF.getStartMoment().before(panelF.getConference().getEndDate()));
 				Assert.isTrue(!(panelF.getStartMoment().before(panelF.getConference().getStartDate())));
 				Assert.isTrue(Utils.validateURL(panelF.getAttachments()));
+				Assert.isTrue(panelF.getDuration().before(panelF.getConference().getEndDate()));
+
+				if (panelF.getId() != 0)
+					Assert.isTrue(panelF.getDuration().after(panelF.getStartMoment()));
 				this.panelService.save(panelF);
 				result = new ModelAndView("redirect:/conference/list.do");
 
@@ -123,10 +127,9 @@ public class PanelAdministratorController extends AbstractController {
 				final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 				final Boolean fechaPosterior = panelF.getStartMoment().before(panelF.getConference().getStartDate());
 				final Boolean fechaAnterior = !(panelF.getStartMoment().before(panelF.getConference().getEndDate()));
-				final Long durationActivity = panelF.getStartMoment().getTime() + panelF.getDuration();
-				final Long durationConference = panelF.getConference().getEndDate().getTime();
+				final Boolean fechaFinAnterior = panelF.getDuration().before(panelF.getStartMoment());
+				final Boolean fechaFinPosterior = panelF.getDuration().after(panelF.getConference().getEndDate());
 
-				//final Boolean fechaPosterior = !(panelF.getConference().getStartDate().before(panelF.getStartMoment()));
 				final Boolean urlInvalida = Utils.validateURL(panelF.getAttachments());
 				if (fechaPosterior || fechaAnterior) {
 					result = new ModelAndView("panel/edit");
@@ -138,11 +141,16 @@ public class PanelAdministratorController extends AbstractController {
 					result.addObject("panel", panel);
 					result.addObject("conferences", conferences);
 					result.addObject("message", "panel.attachments.error");
-				} else if (durationConference < durationActivity) {
+				} else if (fechaFinPosterior) {
 					result = new ModelAndView("panel/edit");
 					result.addObject("panel", panel);
 					result.addObject("conferences", conferences);
 					result.addObject("message", "panel.duration.error");
+				} else if (fechaFinAnterior) {
+					result = new ModelAndView("panel/edit");
+					result.addObject("panel", panel);
+					result.addObject("conferences", conferences);
+					result.addObject("message", "panel.durationBefore.error");
 				} else
 					result = new ModelAndView("redirect:/#");
 			}
@@ -165,6 +173,30 @@ public class PanelAdministratorController extends AbstractController {
 			result.addObject("conferences", conferences);
 			result.addObject("message", oops.getMessage());
 		}
+		return result;
+	}
+
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int panelId) {
+		ModelAndView result;
+		try {
+			this.administratorService.findByPrincipal();
+			final Panel panel = this.panelService.findOne(panelId);
+			Assert.notNull(panel);
+
+			result = new ModelAndView("panel/show");
+
+			final Integer duracionSegundos = (int) ((panel.getDuration().getTime() - panel.getStartMoment().getTime()) / 1000);
+			final Integer duration = duracionSegundos / 60;
+
+			result.addObject("requestURI", "panel/administrator/show.do");
+			result.addObject("panel", panel);
+			result.addObject("duration", duration);
+
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
 		return result;
 	}
 

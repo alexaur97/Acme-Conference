@@ -894,7 +894,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="15" />
+		<property name="duration" value="2020/12/30 19:00" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -915,7 +915,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="15" />
+		<property name="duration" value="2020/12/30 18:40" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -936,7 +936,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="15" />
+		<property name="duration" value="2020/12/30 18:45" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -957,7 +957,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="15" />
+		<property name="duration" value="2020/12/30 18:50" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -978,7 +978,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="15" />
+		<property name="duration" value="2020/12/30 19:05" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -999,7 +999,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="15" />
+		<property name="duration" value="2020/12/30 18:38" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1020,7 +1020,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="15" />
+		<property name="duration" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1041,7 +1041,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="15" />
+		<property name="duration" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1062,7 +1062,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="15" />
+		<property name="duration" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1084,7 +1084,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="15" />
+		<property name="duration" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1106,7 +1106,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="15" />
+		<property name="duration" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1127,7 +1127,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="15" />
+		<property name="duration" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1148,7 +1148,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="15" />
+		<property name="duration" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1170,8 +1170,8 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="15" />
-		<property name="startMoment" value="2020/12/30 18:30" />
+		<property name="duration" value="2020/12/30 18:55" />
+		<property name="startMoment" value="2020/12/30 18:35" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
 		<property name="attachments">
@@ -1192,7 +1192,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="15" />
+		<property name="duration" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1214,7 +1214,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="15" />
+		<property name="duration" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1236,7 +1236,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="15" />
+		<property name="duration" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1258,7 +1258,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="15" />
+		<property name="duration" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
