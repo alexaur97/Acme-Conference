@@ -25,27 +25,18 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<a href="${sponsorship.targetPage}"><img src="${ sponsorship.banner}"
+<a href="${sponsorship.targetUrl}"><img src="${ sponsorship.banner}"
 		alt="Acme Rookies Co., Inc."style="width: 150px; height: 50px;"/></a>
 	
-	<legend>
-			</br><spring:message code="sponsorship.position" />
-		</legend>
-	<br/><spring:message code="application.position"/>: <jstl:out value="${sponsorship.position.title}"></jstl:out>
-		<br/><spring:message code="sponsorship.description"/>: <jstl:out value="${sponsorship.position.description}"></jstl:out>
-			<br/><spring:message code="sponsorship.salary"/>: <jstl:out value="${sponsorship.position.salaryOffered}"></jstl:out>
-			<br/><spring:message code="sponsorship.profile"/>: <jstl:out value="${sponsorship.position.profileRequired}"></jstl:out>
-	
-<br/><spring:message code="application.company"/>: <jstl:out value="${sponsorship.position.company.commercialName}"></jstl:out>
 
-	
-<legend>
-			</br><spring:message code="company.creditCard" />
-		</legend>
-<br/><spring:message code="company.holderName"/>: <jstl:out value="${sponsorship.creditCard.holderName}"></jstl:out>
-<br/><spring:message code="company.brandName"/>: <jstl:out value="${sponsorship.creditCard.brandName}"></jstl:out>
-<br/><spring:message code="company.number"/>: <jstl:out value="${sponsorship.creditCard.number}"></jstl:out>
-<br/><spring:message code="company.expirationMonth"/>: <jstl:out value="${sponsorship.creditCard.expirationMonth}"></jstl:out>
-<br/><spring:message code="company.expirationYear"/>: <jstl:out value="${sponsorship.creditCard.expirationYear}"></jstl:out>
-	<br/><spring:message code="company.cvv"/>: <jstl:out value="${sponsorship.creditCard.cvv}"></jstl:out>
+</br><spring:message code="sponsorship.conferences" />: <jstl:out value="${sponsorship.conference.title}"></jstl:out>
+<br/><spring:message code="sponsorship.sponsor"/>: <jstl:out value="${sponsorship.sponsor.name} ${sponsorship.sponsor.surname}"></jstl:out>
+<br/>
+<h3><spring:message code="sponsorship.creditCard" /></h3>
+<spring:message code="sponsorship.holderName"/>: <jstl:out value="${sponsorship.creditCard.holderName}"></jstl:out>
+<br/><spring:message code="sponsorship.brandName"/>: <jstl:out value="${sponsorship.creditCard.brandName}"></jstl:out>
+<br/><spring:message code="sponsorship.number"/>: <jstl:out value="${sponsorship.creditCard.number}"></jstl:out>
+<br/><spring:message code="sponsorship.expirationMonth"/>: <jstl:out value="${sponsorship.creditCard.expirationMonth}"></jstl:out>
+<br/><spring:message code="sponsorship.expirationYear"/>: <jstl:out value="${sponsorship.creditCard.expirationYear}"></jstl:out>
+	<br/><spring:message code="sponsorship.cvv"/>: <jstl:out value="${sponsorship.creditCard.cvv}"></jstl:out>
 			

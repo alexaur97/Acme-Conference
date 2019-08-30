@@ -52,7 +52,7 @@ public class FinderAuthorController extends AbstractController {
 			result.addObject("finder", finder);
 			final Locale l = LocaleContextHolder.getLocale();
 			final String lang = l.getLanguage();
-
+			result.addObject("requestURI", "finder/author/view.do");
 			result.addObject("lang", lang);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -71,7 +71,7 @@ public class FinderAuthorController extends AbstractController {
 			res.addObject("categories", categories);
 			final Locale l = LocaleContextHolder.getLocale();
 			final String lang = l.getLanguage();
-
+			res.addObject("requestURI", "finder/author/view.do");
 			res.addObject("lang", lang);
 		} else
 			try {
@@ -85,7 +85,7 @@ public class FinderAuthorController extends AbstractController {
 				res.addObject("categories", categories);
 				final Locale l = LocaleContextHolder.getLocale();
 				final String lang = l.getLanguage();
-
+				res.addObject("requestURI", "finder/author/view.do");
 				res.addObject("lang", lang);
 			}
 
@@ -103,7 +103,7 @@ public class FinderAuthorController extends AbstractController {
 			res.addObject("categories", categories);
 			final Locale l = LocaleContextHolder.getLocale();
 			final String lang = l.getLanguage();
-
+			res.addObject("requestURI", "finder/author/view.do");
 			res.addObject("lang", lang);
 		} else
 			try {
@@ -117,7 +117,7 @@ public class FinderAuthorController extends AbstractController {
 				res.addObject("categories", categories);
 				final Locale l = LocaleContextHolder.getLocale();
 				final String lang = l.getLanguage();
-
+				res.addObject("requestURI", "finder/author/view.do");
 				res.addObject("lang", lang);
 			}
 

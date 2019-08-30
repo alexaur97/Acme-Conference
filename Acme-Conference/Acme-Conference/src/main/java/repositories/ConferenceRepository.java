@@ -13,7 +13,7 @@ import domain.Conference;
 @Repository
 public interface ConferenceRepository extends JpaRepository<Conference, Integer> {
 
-	@Query("select c from Conference c where ((c.title like %?1%)or (c.summary like %?1%)or (c.venue like %?1%))")
+	@Query("select c from Conference c where c.mode='FINAL' and ((c.title like %?1%)or (c.summary like %?1%)or (c.venue like %?1%))")
 	Collection<Conference> searchConferencesKeyWord(String keyword);
 
 	@Query("select c from Conference c where ((c.submissionDeadline >= ?1) and (c.submissionDeadline <= ?2)) ")

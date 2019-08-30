@@ -1,6 +1,7 @@
 
 package controllers.sponsor;
 
+import java.util.Calendar;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ConferenceService;
+import services.ConfigurationParametersService;
 import services.CreditCardService;
 import services.SponsorService;
 import services.SponsorshipService;
@@ -30,16 +32,19 @@ public class SponsorshipSponsorController extends AbstractController {
 
 	//Repository
 	@Autowired
-	private SponsorshipService	sponsorshipService;
+	private SponsorshipService				sponsorshipService;
 
 	@Autowired
-	private SponsorService		sponsorService;
+	private SponsorService					sponsorService;
 
 	@Autowired
-	private CreditCardService	creditCardService;
+	private CreditCardService				creditCardService;
 
 	@Autowired
-	private ConferenceService	conferenceService;
+	private ConferenceService				conferenceService;
+
+	@Autowired
+	private ConfigurationParametersService	configurationParametersService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -82,11 +87,12 @@ public class SponsorshipSponsorController extends AbstractController {
 
 		try {
 			this.sponsorService.findByPrincipal();
+			final Collection<String> brandNames = this.configurationParametersService.find().getCreditCardMakes();
 			final Collection<Conference> conferences = this.conferenceService.findAll();
 			result = new ModelAndView("sponsorship/create");
 			result.addObject("sponsorshipForm", sponsorshipForm);
 			result.addObject("conferences", conferences);
-
+			result.addObject("brandNames", brandNames);
 		} catch (final Throwable oops) {
 
 			result = new ModelAndView("redirect:/#");
@@ -98,14 +104,26 @@ public class SponsorshipSponsorController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final SponsorshipForm sponsorshipForm, final BindingResult binding) {
 		ModelAndView res;
+		final Calendar now = Calendar.getInstance();
+		Boolean b = false;
+		final Integer y = now.get(Calendar.YEAR);
+		final Integer m = now.get(Calendar.MONTH);
 		if (binding.hasErrors()) {
 			final Collection<Conference> conferences = this.conferenceService.findAll();
 			res = new ModelAndView("sponsorship/create");
 			res.addObject("conferences", conferences);
-			;
-		}
-
-		else
+			final Collection<String> brandNames = this.configurationParametersService.find().getCreditCardMakes();
+			res.addObject("brandNames", brandNames);
+			res.addObject("b", b);
+		} else if (sponsorshipForm.getExpirationYear() <= y % 100 && sponsorshipForm.getExpirationMonth() < m) {
+			final Collection<Conference> conferences = this.conferenceService.findAll();
+			res = new ModelAndView("sponsorship/create");
+			res.addObject("conferences", conferences);
+			final Collection<String> brandNames = this.configurationParametersService.find().getCreditCardMakes();
+			res.addObject("brandNames", brandNames);
+			b = true;
+			res.addObject("b", b);
+		} else
 			try {
 				Sponsorship sponsorship;
 				this.sponsorService.findByPrincipal();
@@ -117,6 +135,7 @@ public class SponsorshipSponsorController extends AbstractController {
 
 				res = new ModelAndView("redirect:/#");
 			}
+
 		return res;
 	}
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)

@@ -37,7 +37,10 @@
 			</br><spring:message code="sponsorship.creditCard" />
 		</legend>
 		<acme:textbox code="sponsorship.holderName" path="holderName" />
-		<acme:textbox code="sponsorship.brandName" path="brandName" />
+		<spring:message code="sponsorship.brandName" />
+		<form:select path="brandName">
+    		<form:options items="${brandNames}" />
+		</form:select>
 		<acme:textbox code="sponsorship.number" path="number" />
 		<acme:textbox code="sponsorship.expirationMonth" path="expirationMonth" />
 		<acme:textbox code="sponsorship.expirationYear" path="expirationYear" />
@@ -45,6 +48,9 @@
 	</fieldset>
 	<acme:submit name="save" code="sponsorship.save"/>
 	<acme:cancel url="#" code="sponsorship.cancel"/>
+	<jstl:if test="${b}">
+	<h2><spring:message code="sponsorship.dateError"/></h2>
+	</jstl:if>
 
 </div>	
 </form:form>

@@ -58,11 +58,10 @@ public class ConferenceController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public ModelAndView searchForm() {
-		ModelAndView result;
+	public ModelAndView search() {
+		ModelAndView result = new ModelAndView("conference/search");
 		final Conference conference = new Conference();
 		try {
-			result = new ModelAndView("conference/search");
 			result.addObject("conference", conference);
 			result.addObject("requestURI", "conference/search.do");
 		} catch (final Throwable oops) {
@@ -70,12 +69,12 @@ public class ConferenceController extends AbstractController {
 		}
 		return result;
 	}
-	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public ModelAndView searchList(final Conference conference, final BindingResult binding) {
+	@RequestMapping(value = "/search", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(final Conference conference, final BindingResult binding) {
 		ModelAndView result;
+		final Collection<Conference> conferences = this.conferenceService.searchConference(conference.getTitle());
 		try {
 			result = new ModelAndView("conference/search");
-			final Collection<Conference> conferences = this.conferenceService.searchConference(conference.getTitle());
 			result.addObject("conferences", conferences);
 			result.addObject("requestURI", "conference/search.do");
 		} catch (final Throwable oops) {

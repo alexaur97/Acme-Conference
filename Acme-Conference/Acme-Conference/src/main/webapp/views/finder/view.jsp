@@ -40,23 +40,23 @@
 	</jstl:if>
 	<acme:textbox placeholder = "dd-MM-yyyy"  code="finder.minDate" path="minDate"/>
 	<acme:textbox placeholder = "dd-MM-yyyy"  code="finder.maxDate" path="maxDate"/>
-	<acme:textbox type="number" code="finder.maxFee" path="maxFee"/>
+	<acme:textbox type="number" step="0.01" code="finder.maxFee" path="maxFee"/>
 	<acme:submit name="save" code="finder.search"/>
 	<acme:submit name="clean" code="finder.clean"/>
 
 </div>	
 </form:form>
 </fieldset>
-<div class="table-responsive">	
 
-<display:table name="conferences" id="conference"
-	requestURI="${requestURI}" class="displaytag">
+<display:table pagesize="5" name="conferences" id="conference"
+	requestURI="${requestURI}" class="displaytag table">
 	<display:column titleKey="conference.title" property="title" />
 	<display:column titleKey="conference.submission"
 		property="submissionDeadline" />
 	<display:column titleKey="conference.startDate" property="startDate" />
 	<display:column titleKey="conference.endDate" property="endDate" />
 	<display:column titleKey="conference.fee" property="fee" />
+	<display:column titleKey="conference.category" property="category" />
 	<display:column titleKey="conference.show">
 			<acme:cancel
 				url="/conference/show.do?conferenceId=${conference.id}"
