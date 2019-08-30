@@ -47,6 +47,7 @@
 		<value>/views/activity/messages</value>
 		<value>/views/submission/messages</value>
 		<value>/views/paper/messages</value>
+		<value>/views/report/messages</value>
 		
 	</util:list>
 

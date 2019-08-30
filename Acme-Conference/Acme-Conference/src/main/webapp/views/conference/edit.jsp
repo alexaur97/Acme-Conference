@@ -37,11 +37,11 @@
 						<acme:textbox code="conference.venue" path="venue" />
 						<br>
 						<spring:message code="conference.dates" />
-						<acme:textbox placeholder="dd-MM-yyyy" code="conference.submission" path="submissionDeadline" />
-						<acme:textbox placeholder="dd-mm-yyyy" code="conference.notification" path="notification" />
-						<acme:textbox placeholder="dd-mm-yyyy" code="conference.cameraReady" path="cameraReady" />
-						<acme:textbox placeholder="dd-mm-yyyy" code="conference.startDate" path="startDate" />
-						<acme:textbox placeholder="dd-mm-yyyy" code="conference.endDate" path="endDate" />
+						<acme:textbox placeholder="dd-MM-yyyy hh:mm" code="conference.submission" path="submissionDeadline" />
+						<acme:textbox placeholder="dd-mm-yyyy hh:mm" code="conference.notification" path="notification" />
+						<acme:textbox placeholder="dd-mm-yyyy hh:mm" code="conference.cameraReady" path="cameraReady" />
+						<acme:textbox placeholder="dd-mm-yyyy hh:mm" code="conference.startDate" path="startDate" />
+						<acme:textbox placeholder="dd-mm-yyyy hh:mm" code="conference.endDate" path="endDate" />
 						<acme:textarea code="conference.summary" path="summary" />
 						<acme:textbox code="conference.fee" path="fee" />
 						
