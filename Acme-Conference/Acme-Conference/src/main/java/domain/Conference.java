@@ -7,6 +7,8 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -75,7 +77,8 @@ public class Conference extends DomainEntity {
 		this.venue = venue;
 	}
 
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy hh:mm")
 	@NotNull
 	public Date getSubmissionDeadline() {
 		return this.submissionDeadline;
@@ -85,7 +88,8 @@ public class Conference extends DomainEntity {
 		this.submissionDeadline = submissionDeadline;
 	}
 
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy hh:mm")
 	@NotNull
 	public Date getNotification() {
 		return this.notification;
@@ -95,7 +99,8 @@ public class Conference extends DomainEntity {
 		this.notification = notification;
 	}
 
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy hh:mm")
 	@NotNull
 	public Date getCameraReady() {
 		return this.cameraReady;
@@ -105,7 +110,8 @@ public class Conference extends DomainEntity {
 		this.cameraReady = cameraReady;
 	}
 
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy hh:mm")
 	@NotNull
 	public Date getStartDate() {
 		return this.startDate;
@@ -115,7 +121,8 @@ public class Conference extends DomainEntity {
 		this.startDate = startDate;
 	}
 
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy hh:mm")
 	@NotNull
 	@Future
 	public Date getEndDate() {

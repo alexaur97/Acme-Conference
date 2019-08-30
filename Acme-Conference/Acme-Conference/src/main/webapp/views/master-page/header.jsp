@@ -56,7 +56,11 @@
 
 		<li><a class="fNiv" href="conference/search.do"><spring:message
 					code="master.page.searchConference" /></a></li>
-
+		
+		<security:authorize access="hasRole('AUTHOR')">
+			<li><a href="finder/author/view.do"><spring:message
+						code="master.page.finder" /></a></li>
+		</security:authorize>
 		<security:authorize access="hasRole('CUSTOMER')">
 			<li><a class="fNiv"><spring:message	code="master.page.customer" /></a>
 				<ul>

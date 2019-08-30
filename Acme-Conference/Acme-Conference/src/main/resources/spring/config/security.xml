@@ -134,7 +134,10 @@
 		<security:intercept-url
 			pattern="/conference/administrator/create.do"
 			access="hasRole('ADMINISTRATOR')" />
-
+		
+		<security:intercept-url pattern="/finder/author/**"
+			access="hasRole('AUTHOR')" />
+			
 		<security:intercept-url pattern="/registration/author/create.do"
 			access="hasRole('AUTHOR')" />
 			
@@ -154,6 +157,9 @@
 			access="hasRole('AUTHOR')" />
 			
 		<security:intercept-url pattern="/submission/author/upload.do"
+			access="hasRole('AUTHOR')" />
+			
+		<security:intercept-url pattern="/report/author/**"
 			access="hasRole('AUTHOR')" />
 			
 		<security:intercept-url pattern="/panel/administrator/list.do"

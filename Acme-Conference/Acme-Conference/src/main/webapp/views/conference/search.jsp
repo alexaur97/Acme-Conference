@@ -39,12 +39,6 @@
 	<display:column titleKey="conference.startDate" property="startDate" />
 	<display:column titleKey="conference.endDate" property="endDate" />
 	<display:column titleKey="conference.summary" property="summary" />
-	<display:column titleKey="conference.fee" property="fee" />
-	
-	
-	
-	
-		
-	
+	<display:column titleKey="conference.fee" property="fee" />	
 </display:table>
 

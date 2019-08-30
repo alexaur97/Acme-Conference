@@ -77,7 +77,7 @@ public class SubmissionAuthorController extends AbstractController {
 			Assert.isTrue(this.actorService.findByPrincipal().getId() == submission.getAuthor().getId());
 			Assert.notNull(submission);
 			result = new ModelAndView("submission/show");
-			result.addObject("requestURI", "submission/show.do");
+			result.addObject("requestURI", "submission/author/show.do");
 			result.addObject("submission", submission);
 
 			final Collection<Report> reports = this.reportService.findReportsInAcceptedSubmission(submission);

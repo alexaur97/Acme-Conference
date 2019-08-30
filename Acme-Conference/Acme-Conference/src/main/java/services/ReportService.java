@@ -39,4 +39,8 @@ public class ReportService {
 		return this.reportRepository.findReportsInAcceptedSubmission(s.getId(), principal.getId());
 	}
 
+	public Report findOne(int reportId) {
+		return this.reportRepository.findOne(reportId);
+	}
+
 }
