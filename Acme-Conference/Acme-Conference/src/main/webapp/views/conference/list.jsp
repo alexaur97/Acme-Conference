@@ -34,6 +34,8 @@
 		property="submissionDeadline" />
 	<display:column titleKey="conference.startDate" property="startDate" />
 	<display:column titleKey="conference.endDate" property="endDate" />
+		<display:column titleKey="conference.category" property="category.name" sortable="true"/>
+	
 	<display:column titleKey="conference.show">
 			<acme:cancel
 				url="/conference/show.do?conferenceId=${conference.id}"

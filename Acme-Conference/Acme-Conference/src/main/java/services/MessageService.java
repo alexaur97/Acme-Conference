@@ -336,7 +336,7 @@ public class MessageService {
 		result.setCopy(false);
 		result.setDeleted(false);
 		result.setMoment(new Date());
-		result.setOwner(actor);
+		result.setOwner(this.actorService.findByPrincipal());
 		result.setRecipient(actor);
 		result.setSender(this.actorService.findByPrincipal());
 		result.setSpam(false);

@@ -1,6 +1,8 @@
+
 package controllers.author;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.validation.Valid;
 
@@ -21,9 +23,7 @@ import services.ReportService;
 import services.SubmissionService;
 import controllers.AbstractController;
 import domain.Conference;
-
 import domain.Paper;
-
 import domain.Report;
 import domain.Submission;
 import forms.MakeSubmissionForm;
@@ -34,22 +34,22 @@ import forms.PaperForm;
 public class SubmissionAuthorController extends AbstractController {
 
 	@Autowired
-	private SubmissionService submissionService;
+	private SubmissionService	submissionService;
 
 	@Autowired
-	private AuthorService authorService;
+	private AuthorService		authorService;
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService		actorService;
 
 	@Autowired
-	private ConferenceService conferenceService;
+	private ConferenceService	conferenceService;
 
 	@Autowired
-	private ReportService reportService;
+	private ReportService		reportService;
 	@Autowired
-	
-	private PaperService paperService;
+	private PaperService		paperService;
+
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
@@ -80,7 +80,7 @@ public class SubmissionAuthorController extends AbstractController {
 			result.addObject("requestURI", "submission/show.do");
 			result.addObject("submission", submission);
 
-			Collection<Report> reports = this.reportService.findReportsInAcceptedSubmission(submission);
+			final Collection<Report> reports = this.reportService.findReportsInAcceptedSubmission(submission);
 			result.addObject("reports", reports);
 
 		} catch (final Exception e) {
@@ -161,20 +161,30 @@ public class SubmissionAuthorController extends AbstractController {
 
 		ModelAndView result;
 		final Paper paper = this.paperService.reconstructionSub(paperForm, binding);
-		final Submission submission = this.submissionService.reconstruction(paperForm.getSubmissionId(),
-				this.paperService.save(paper));
 
 		if (binding.hasErrors()) {
 			result = new ModelAndView("paper/edit");
 			result.addObject("paperForm", paperForm);
 		} else
 			try {
+				final Paper paperF = this.paperService.save(paper);
+				final Submission submission = this.submissionService.reconstruction(paperForm.getSubmissionId(), paperF);
+				final Date limite = submission.getConference().getSubmissionDeadline();
+				final Date date = new Date();
+				Assert.isTrue(limite.after(date));
 				this.submissionService.save(submission);
 				result = new ModelAndView("redirect:/submission/author/list.do");
 
 			} catch (final Throwable oops) {
-				result = new ModelAndView("redirect:/#");
-
+				final Submission a = this.submissionService.findOne(paperForm.getSubmissionId());
+				final Date limite = a.getConference().getSubmissionDeadline();
+				final Date date = new Date();
+				if (!limite.after(date)) {
+					result = new ModelAndView("paper/edit");
+					result.addObject("paperForm", paperForm);
+					result.addObject("errorLimite", true);
+				} else
+					result = new ModelAndView("redirect:/#");
 			}
 		return result;
 	}

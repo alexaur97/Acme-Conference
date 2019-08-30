@@ -41,14 +41,16 @@
 						
 						
 						<acme:submit name="save" code="msg.save" />						
-						<acme:cancel url="/submission/list.do"
+						<acme:cancel url="/submission/author/list.do"
 							code="msg.cancel" />
 							
 					</div>
 				</form:form>
 			</fieldset>
 		
-
+<jstl:if test="${errorLimite}">
+<spring:message code="paper.error"/>
+</jstl:if>	
 		</div>
 	</div>
 </div>

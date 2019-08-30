@@ -68,6 +68,10 @@ public class FinderService {
 		this.finderRepository.save(finder);
 	}
 
+	public void saveForRegister(final Finder finder) {
+		Assert.notNull(finder);
+		this.finderRepository.save(finder);
+	}
 	public Finder reconstruct(final Finder finder) {
 		Assert.notNull(finder);
 		final Finder result = this.finderRepository.findOne(finder.getId());

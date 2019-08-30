@@ -100,7 +100,8 @@ public class RegisterController extends AbstractController {
 		} else
 			try {
 				final Author author = this.authorService.reconstruct(registerSponsorAndAuthorForm);
-				this.authorService.save(author);
+				;
+				this.authorService.assignFinderToAuthor(this.authorService.save(author).getId());
 				res = new ModelAndView("redirect:/security/login.do");
 			} catch (final Throwable oops) {
 

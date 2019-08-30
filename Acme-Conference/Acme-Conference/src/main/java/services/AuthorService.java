@@ -14,6 +14,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Author;
+import domain.Finder;
 import forms.ActorEditForm;
 import forms.RegisterSponsorAndAuthorForm;
 
@@ -26,6 +27,9 @@ public class AuthorService {
 
 	@Autowired
 	private ActorService		actorService;
+
+	@Autowired
+	private FinderService		finderService;
 
 
 	public Author reconstruct(final RegisterSponsorAndAuthorForm registerForm) {
@@ -58,12 +62,18 @@ public class AuthorService {
 		return res;
 	}
 
+	public void assignFinderToAuthor(final int authorId) {
+		final Finder f = new Finder();
+		f.setAuthor(this.findOne(authorId));
+		this.finderService.saveForRegister(f);
+	}
+
 	public Author reconstructEdit(final ActorEditForm actorEditForm) {
 		final Author result;
 		result = this.findByPrincipal();
-		String lastEmail = result.getEmail();
+		final String lastEmail = result.getEmail();
 		final Collection<String> emails = this.actorService.findAllEmails();
-		
+
 		result.setName(actorEditForm.getName());
 		result.setMiddleName(actorEditForm.getMiddleName());
 		result.setSurname(actorEditForm.getSurname());
@@ -72,12 +82,12 @@ public class AuthorService {
 		result.setPhone(this.actorService.addCountryCode(actorEditForm.getPhone()));
 		result.setAddress(actorEditForm.getAddress());
 		Assert.notNull(result);
-		
+
 		emails.remove(lastEmail);
 		final String email = actorEditForm.getEmail();
 		final boolean bEmail = !emails.contains(email);
 		Assert.isTrue(bEmail, "edition.email.error");
-		
+
 		return result;
 	}
 
