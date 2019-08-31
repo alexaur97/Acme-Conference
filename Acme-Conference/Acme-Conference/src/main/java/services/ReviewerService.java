@@ -128,4 +128,9 @@ public class ReviewerService {
 		return res;
 	}
 
+	public Collection<Reviewer> findWithoutSubmission() {
+		final Collection<Reviewer> res = this.reviewerRepository.findWithoutSubmission();
+		return res;
+	}
+
 }

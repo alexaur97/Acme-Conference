@@ -2,6 +2,7 @@
 package services;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -34,7 +35,7 @@ public class SubmissionService {
 	private AdministratorService	administratorService;
 
 	@Autowired
-	private ReviewerService			reviewService;
+	private ReviewerService			reviewerService;
 
 
 	public Collection<Submission> findSubmissionsByConference(final Conference conference) {
@@ -159,21 +160,42 @@ public class SubmissionService {
 		return res;
 	}
 
-	public void assign(final Submission submission) {
+	public String assign(final Submission submission) {
 		this.administratorService.findByPrincipal();
 		final String title = submission.getConference().getTitle();
 		final String summary = submission.getConference().getSummary();
-		final Collection<Reviewer> reviewers = this.reviewService.findAll();
+		final Collection<Reviewer> reviewers = this.reviewerService.findWithoutSubmission();
 		int i = 0;
-		for (final Reviewer reviewer : reviewers) {
-			for (final String keyword : reviewer.getKeyWords())
-				if ((title.contentEquals(keyword) || summary.contentEquals(keyword)) && reviewer.getSubmission().equals(null)) {
+		for (final Reviewer reviewer : reviewers)
+			for (final String keyword : reviewer.getKeyWords()) {
+				final int a = title.indexOf(keyword);
+				final int b = summary.indexOf(keyword);
+				if ((a != -1 || b != -1)) {
 					reviewer.setSubmission(submission);
 					i++;
 					break;
 				}
-			if (i >= 3)
-				break;
-		}
+				if (i >= 3)
+					break;
+			}
+		if (i == 2)
+			return "se ha podido asignar con exito a 3 Revisadores";
+		else
+			return "se ha asignado a un total de " + i + " revisadores";
+	}
+	public Collection<Submission> findAll() {
+		final Collection<Submission> res = this.submissionRepository.findAll();
+		return res;
+
+	}
+
+	public Collection<Submission> findUnassigned() {
+		final Collection<Submission> assigned = this.submissionRepository.findAssigned();
+		final Collection<Submission> all = this.findAll();
+		final Collection<Submission> res = new ArrayList<>();
+		for (final Submission subm : all)
+			if (!assigned.contains(subm))
+				res.add(subm);
+		return res;
 	}
 }

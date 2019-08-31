@@ -36,11 +36,14 @@ public class SubmissionAdministratorController extends AbstractController {
 			final Collection<Submission> submissionsAccepted = this.submissionService.findSubmissionAccepted();
 			final Collection<Submission> submissionsRejected = this.submissionService.findSubmissionRejected();
 
+			final Collection<Submission> unassignedSubmissions = this.submissionService.findUnassigned();
+
 			result = new ModelAndView("submission/listAdm");
 			result.addObject("requestURI", "/submission/administrator/list.do");
 			result.addObject("submissionsUnderReview", submissionsUnderReview);
 			result.addObject("submissionsAccepted", submissionsAccepted);
 			result.addObject("submissionsRejected", submissionsRejected);
+			result.addObject("unassignedSubmissions", unassignedSubmissions);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -55,9 +58,10 @@ public class SubmissionAdministratorController extends AbstractController {
 		try {
 			this.administratorService.findByPrincipal();
 			final Submission submission = this.submissionService.findOne(submissionId);
-			this.submissionService.assign(submission);
+			final String message = this.submissionService.assign(submission);
 
 			result = new ModelAndView("redirect:/submission/administrator/list.do");
+			result.addObject("message", message);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
