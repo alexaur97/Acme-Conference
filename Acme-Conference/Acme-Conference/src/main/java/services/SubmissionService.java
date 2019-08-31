@@ -57,13 +57,14 @@ public class SubmissionService {
 		return this.submissionRepository.findOne(id);
 	}
 	public Submission reconstruction(final Integer id, final Paper paperForm) {
+		final Paper paperF = this.paperService.save(paperForm);
 		final Submission submissionF = this.findOne(id);
 		final Submission submission = new Submission();
 		submission.setAuthor(submissionF.getAuthor());
 		submission.setConference(submissionF.getConference());
 		submission.setId(submissionF.getId());
 		submission.setMoment(submissionF.getMoment());
-		submission.setCameraReady(paperForm);
+		submission.setCameraReady(paperF);
 		submission.setPaper(submissionF.getPaper());
 		submission.setStatus(submissionF.getStatus());
 		submission.setTicker(submissionF.getTicker());
