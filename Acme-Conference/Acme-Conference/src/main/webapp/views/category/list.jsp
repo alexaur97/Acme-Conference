@@ -48,12 +48,10 @@
 	</jstl:choose>
 	
 	<display:column titleKey="category.edit">
+		<jstl:if test="${category.root ne true}">
 		<acme:cancel url="/category/administrator/edit.do?categoryId=${category.id}" code="category.edit" />
+		</jstl:if>
 	</display:column>
-	
-	
-
-
 	
 </display:table>
 

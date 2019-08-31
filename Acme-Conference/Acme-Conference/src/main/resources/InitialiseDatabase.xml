@@ -115,7 +115,7 @@
 	
 	<bean id="category6" class="domain.Category">
 		<property name="name" value="Regression " />
-		<property name="nameEs" value="Regression" />
+		<property name="nameEs" value="Regresion" />
 			<property name="parent" ref="category3" />
 			<property name="root" value="false" />
 		

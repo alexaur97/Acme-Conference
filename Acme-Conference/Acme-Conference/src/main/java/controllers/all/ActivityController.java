@@ -22,6 +22,7 @@ import domain.Panel;
 import domain.PanelComment;
 import domain.Presentation;
 import domain.PresentationComment;
+import domain.Section;
 import domain.Sponsor;
 import domain.Sponsorship;
 import domain.Tutorial;
@@ -32,6 +33,7 @@ import services.PanelCommentService;
 import services.PanelService;
 import services.PresentationCommentService;
 import services.PresentationService;
+import services.SectionService;
 import services.TutorialCommentService;
 import services.TutorialService;
 
@@ -56,6 +58,9 @@ public class ActivityController extends AbstractController {
 	
 	@Autowired
 	private PanelCommentService panelCommentService;
+	
+	@Autowired
+	private SectionService sectionService;
 	
 	@RequestMapping(value = "/listByConference", method = RequestMethod.GET)
 	public ModelAndView listByConference(@RequestParam final int conferenceId) {
@@ -157,9 +162,11 @@ public class ActivityController extends AbstractController {
 	public ModelAndView showTutorial(@RequestParam final int tutorialId) {
 		ModelAndView result;
 		try {
+			final Collection<Section> sections = this.sectionService.findByTutorial(tutorialId);
 			Tutorial tutorial = this.tutorialService.findOne(tutorialId);
 			result = new ModelAndView("tutorial/show");
 			result.addObject("tutorial", tutorial);
+			result.addObject("sections", sections);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}

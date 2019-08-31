@@ -54,7 +54,7 @@ public class RegistrationAuthorController extends AbstractController {
 			final Collection<Registration> registrations = this.registrationService.findRegistrationByAuthor(id);
 
 			result = new ModelAndView("registration/list");
-			result.addObject("requestURI", "registration/list.do");
+			result.addObject("requestURI", "registration/author/list.do");
 			result.addObject("registrations", registrations);
 
 		} catch (final Exception e) {
