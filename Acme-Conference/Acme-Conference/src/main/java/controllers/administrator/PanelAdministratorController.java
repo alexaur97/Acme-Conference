@@ -117,7 +117,7 @@ public class PanelAdministratorController extends AbstractController {
 				Assert.isTrue(!(panelF.getStartMoment().before(panelF.getConference().getStartDate())));
 				Assert.isTrue(Utils.validateURL(panelF.getAttachments()));
 				Assert.isTrue(panelF.getDuration().before(panelF.getConference().getEndDate()));
-
+				Assert.isTrue(panelF.getConference().getMode().equals("DRAFT"));
 				if (panelF.getId() != 0)
 					Assert.isTrue(panelF.getDuration().after(panelF.getStartMoment()));
 				this.panelService.save(panelF);

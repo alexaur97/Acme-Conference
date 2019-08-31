@@ -98,7 +98,8 @@ public class ConferenceService {
 	}
 
 	public Collection<Conference> findNextConferences() {
-		final Collection<Conference> res = this.conferenceRepository.findNextConferences(new Date());
+		final Date date = new Date();
+		final Collection<Conference> res = this.conferenceRepository.findNextConferences(date);
 		//		final Collection<Conference> res = new ArrayList<>();
 		//		final Collection<Conference> conferencias = this.conferenceRepository.findAll();
 		//		final List<Conference> c = new ArrayList<>(conferencias);

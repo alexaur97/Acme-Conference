@@ -29,8 +29,7 @@
 		<li><jstl:out value="${x}" /></li>
 	</jstl:forEach>
 </ul>
-<acme:display code="presentation.duration" path="${presentation.duration}" />
-<acme:display code="presentation.startMoment" path="${presentation.startMoment}" />
+
 <acme:display code="presentation.room" path="${presentation.room}" />
 <acme:display code="presentation.summary" path="${presentation.summary}" />
 <spring:message code="presentation.attachments" />
@@ -40,3 +39,14 @@
 	</jstl:forEach>
 </ul>
 <acme:display code="presentation.cameraReadyVersion" path="${presentation.cameraReadyVersion}" />
+
+<h2><spring:message code="presentation.schedule"/></h2>	
+						
+<acme:display code="presentation.startMoment" path="${presentation.startMoment}" />
+<acme:display code="presentation.duration" path="${duration}" />
+
+<br>
+<acme:cancel url="/conference/list.do"
+							code="msg.cancel" />
+
+

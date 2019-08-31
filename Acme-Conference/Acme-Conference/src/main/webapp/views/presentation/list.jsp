@@ -32,10 +32,12 @@
 	<display:column titleKey="presentation.title"  property="title" />
 	<display:column titleKey="presentation.startMoment"  property="startMoment" />
 	<display:column titleKey="presentation.summary"  property="summary" />
-	<display:column titleKey="presentation.duration"  property="duration" />
 	<display:column titleKey="presentation.cameraReadyVersion"  property="cameraReadyVersion" />
 	<display:column titleKey="presentation.edit">
 		<acme:cancel url="/presentation/administrator/edit.do?presentationId=${presentation.id}" code="presentation.edit" />
+	</display:column>
+		<display:column titleKey="presentation.show">
+		<acme:cancel url="/presentation/administrator/show.do?presentationId=${presentation.id}" code="presentation.show" />
 	</display:column>
 	
 </display:table>

@@ -43,7 +43,7 @@
 					
 						<br>
 						<h2><spring:message code="presentation.schedule"/></h2>
-						<acme:textbox code="presentation.duration" path="duration" />
+						<acme:textbox placeholder="yyyy/MM/dd HH:mm" code="presentation.duration" path="duration" />
 						<acme:textbox placeholder="yyyy/MM/dd HH:mm" code="presentation.startMoment" path="startMoment" />
 						<br>
 						<acme:submit name="save" code="msg.save" />						

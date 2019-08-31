@@ -116,7 +116,9 @@ public class RegistrationAuthorController extends AbstractController {
 			result.addObject("brandNames", brandNames);
 		} else
 			try {
+
 				final Registration regis = this.registrationService.constructByForm(registrationForm);
+				Assert.isTrue(regis.getConference().getMode().equals("FINAL"));
 				this.registrationService.save(regis);
 				result = new ModelAndView("redirect:/registration/author/list.do");
 			} catch (final Throwable oops) {

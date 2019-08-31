@@ -115,6 +115,10 @@ public class PresentationAdministratorController extends AbstractController {
 				Assert.isTrue(presentationF.getStartMoment().before(presentationF.getConference().getEndDate()));
 				Assert.isTrue(!(presentationF.getStartMoment().before(presentationF.getConference().getStartDate())));
 				Assert.isTrue(Utils.validateURL(presentationF.getAttachments()));
+				Assert.isTrue(presentationF.getDuration().before(presentationF.getConference().getEndDate()));
+				Assert.isTrue(presentationF.getConference().getMode().equals("DRAFT"));
+				if (presentationF.getId() != 0)
+					Assert.isTrue(presentationF.getDuration().after(presentationF.getStartMoment()));
 				this.presentationService.save(presentationF);
 				result = new ModelAndView("redirect:/conference/list.do");
 
@@ -123,6 +127,9 @@ public class PresentationAdministratorController extends AbstractController {
 				final Boolean fechaPosterior = presentationF.getStartMoment().before(presentationF.getConference().getStartDate());
 				final Boolean fechaAnterior = !(presentationF.getStartMoment().before(presentationF.getConference().getEndDate()));
 				final Boolean urlInvalida = Utils.validateURL(presentationF.getAttachments());
+
+				final Boolean fechaFinAnterior = presentationF.getDuration().before(presentationF.getStartMoment());
+				final Boolean fechaFinPosterior = presentationF.getDuration().after(presentationF.getConference().getEndDate());
 
 				if (fechaPosterior || fechaAnterior) {
 					result = new ModelAndView("presentation/edit");
@@ -134,6 +141,17 @@ public class PresentationAdministratorController extends AbstractController {
 					result.addObject("presentation", presentation);
 					result.addObject("conferences", conferences);
 					result.addObject("message", "presentation.attachments.error");
+
+				} else if (fechaFinPosterior) {
+					result = new ModelAndView("presentation/edit");
+					result.addObject("presentation", presentation);
+					result.addObject("conferences", conferences);
+					result.addObject("message", "presentation.duration.error");
+				} else if (fechaFinAnterior) {
+					result = new ModelAndView("presentation/edit");
+					result.addObject("presentation", presentation);
+					result.addObject("conferences", conferences);
+					result.addObject("message", "presentation.durationBefore.error");
 
 				} else
 					result = new ModelAndView("redirect:/#");
@@ -158,6 +176,30 @@ public class PresentationAdministratorController extends AbstractController {
 			result.addObject("conferences", conferences);
 			result.addObject("message", oops.getMessage());
 		}
+		return result;
+	}
+
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int presentationId) {
+		ModelAndView result;
+		try {
+			this.administratorService.findByPrincipal();
+			final Presentation presentation = this.presentationService.findOne(presentationId);
+			Assert.notNull(presentation);
+
+			result = new ModelAndView("presentation/show");
+
+			final Integer duracionSegundos = (int) ((presentation.getDuration().getTime() - presentation.getStartMoment().getTime()) / 1000);
+			final Integer duration = duracionSegundos / 60;
+
+			result.addObject("requestURI", "presentation/administrator/show.do");
+			result.addObject("presentation", presentation);
+			result.addObject("duration", duration);
+
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
 		return result;
 	}
 

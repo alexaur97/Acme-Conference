@@ -38,8 +38,8 @@
 </ul>
 
 <h2><spring:message code="tutorial.schedule"/> </h2>
-<acme:display code="tutorial.duration" path="${tutorial.duration}" />
 <acme:display code="tutorial.startMoment" path="${tutorial.startMoment}" />
+<acme:display code="tutorial.duration" path="${duration}" />
 
 
 <h2><spring:message code="tutorial.attachments"/>:</h2>
