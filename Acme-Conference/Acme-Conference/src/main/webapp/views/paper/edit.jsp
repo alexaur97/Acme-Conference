@@ -49,7 +49,7 @@
 			</fieldset>
 		
 <jstl:if test="${errorLimite}">
-<spring:message code="paper.error"/>
+<p style="color: red;"><spring:message code="paper.error"/></p>
 </jstl:if>	
 		</div>
 	</div>

@@ -25,38 +25,46 @@
 	<div class="row">
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<fieldset class="col-md-6 col-md-offset-3">
-				
-					<form:form action="sponsorship/sponsor/create.do" modelAttribute="sponsorshipForm"  class="form-horizontal" method="post">
-	<div class="form-group ">
-	
-								<acme:textbox code="sponsorship.banner" path="banner" />
-								<acme:textbox code="sponsorship.targetUrl" path="targetUrl" />
-						
-		<acme:select items="${conferences}" itemLabel="title" code="sponsorship.conferences" path="conference"/>
-			<legend>
-			</br><spring:message code="sponsorship.creditCard" />
-		</legend>
-		<acme:textbox code="sponsorship.holderName" path="holderName" />
-		<spring:message code="sponsorship.brandName" />
-		<form:select path="brandName">
-    		<form:options items="${brandNames}" />
-		</form:select>
-		<acme:textbox code="sponsorship.number" path="number" />
-		<acme:textbox code="sponsorship.expirationMonth" path="expirationMonth" />
-		<acme:textbox code="sponsorship.expirationYear" path="expirationYear" />
-		<acme:textbox code="sponsorship.cvv" path="cvv" />
-	</fieldset>
-	<acme:submit name="save" code="sponsorship.save"/>
-	<acme:cancel url="#" code="sponsorship.cancel"/>
-	<jstl:if test="${b}">
-	<h2><spring:message code="sponsorship.dateError"/></h2>
-	</jstl:if>
 
-</div>	
-</form:form>
+				<form:form action="sponsorship/sponsor/create.do"
+					modelAttribute="sponsorshipForm" class="form-horizontal"
+					method="post">
+					<div class="form-group ">
+
+						<acme:textbox code="sponsorship.banner" path="banner" />
+						<acme:textbox code="sponsorship.targetUrl" path="targetUrl" />
+
+						<acme:select items="${conferences}" itemLabel="title"
+							code="sponsorship.conferences" path="conference" />
+						<legend>
+							</br>
+							<spring:message code="sponsorship.creditCard" />
+						</legend>
+						<acme:textbox code="sponsorship.holderName" path="holderName" />
+						<spring:message code="sponsorship.brandName" />
+						<form:select path="brandName">
+							<form:options items="${brandNames}" />
+						</form:select>
+						<acme:textbox code="sponsorship.number" path="number" />
+						<acme:textbox code="sponsorship.expirationMonth"
+							path="expirationMonth" />
+						<acme:textbox code="sponsorship.expirationYear"
+							path="expirationYear" />
+						<acme:textbox code="sponsorship.cvv" path="cvv" />
 			</fieldset>
-		
+			<acme:submit name="save" code="sponsorship.save" />
+			<acme:cancel url="#" code="sponsorship.cancel" />
+			<jstl:if test="${b}">
+				<h2 style="color: red;">
+					<spring:message code="sponsorship.dateError" />
+				</h2>
+			</jstl:if>
 
 		</div>
+		</form:form>
+		</fieldset>
+
+
 	</div>
+</div>
 </div>

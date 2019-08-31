@@ -167,8 +167,8 @@ public class SubmissionAuthorController extends AbstractController {
 			result.addObject("paperForm", paperForm);
 		} else
 			try {
-				final Paper paperF = this.paperService.save(paper);
-				final Submission submission = this.submissionService.reconstruction(paperForm.getSubmissionId(), paperF);
+				
+				final Submission submission = this.submissionService.reconstruction(paperForm.getSubmissionId(), paper);
 				final Date limite = submission.getConference().getSubmissionDeadline();
 				final Date date = new Date();
 				Assert.isTrue(limite.after(date));
