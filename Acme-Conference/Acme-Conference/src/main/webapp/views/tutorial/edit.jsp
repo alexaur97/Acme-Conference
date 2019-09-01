@@ -43,7 +43,7 @@
 					
 					<br>
 						<h2><spring:message code="tutorial.schedule"/> </h2>
-						<acme:textbox code="tutorial.duration" path="duration" />
+						<acme:textbox code="tutorial.endMoment" path="endMoment" />
 						<acme:textbox placeholder="yyyy/MM/dd HH:mm" code="tutorial.startMoment" path="startMoment" />
 						<br>
 						

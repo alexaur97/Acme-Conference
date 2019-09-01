@@ -32,7 +32,7 @@
 	<display:column titleKey="tutorial.title"  property="title" />
 	<display:column titleKey="tutorial.startMoment"  property="startMoment" />
 	<display:column titleKey="tutorial.summary"  property="summary" />
-	<display:column titleKey="tutorial.duration"  property="duration" />
+	<display:column titleKey="tutorial.endMoment"  property="endMoment" />
 	<display:column titleKey="tutorial.edit">
 		<acme:cancel url="/tutorial/administrator/edit.do?tutorialId=${tutorial.id}" code="tutorial.edit" />
 	</display:column>

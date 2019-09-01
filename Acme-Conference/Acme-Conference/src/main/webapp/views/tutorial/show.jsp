@@ -44,7 +44,7 @@
 	<spring:message code="tutorial.schedule" />
 </h2>
 <acme:display code="tutorial.startMoment" path="${tutorial.startMoment}" />
-<acme:display code="tutorial.duration" path="${duration}" />
+<acme:display code="tutorial.duration" path="${endMoment}" />
 
 
 <h2>
@@ -86,4 +86,7 @@
 		url="/section/administrator/create.do?tutorialId=${tutorial.id}"
 		code="tutorial.create.section" />
 </security:authorize>
+
+<acme:cancel url="conference/list.do" code="msg.cancel" />
+
 

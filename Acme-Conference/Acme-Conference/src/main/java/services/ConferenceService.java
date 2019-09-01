@@ -76,6 +76,12 @@ public class ConferenceService {
 		this.conferenceRepository.save(conference);
 	}
 
+	public void saveDeleteCategory(final Conference conference) {
+		Assert.notNull(conference);
+		this.administratorService.findByPrincipal();
+		this.conferenceRepository.save(conference);
+	}
+
 	public Collection<Conference> findAll() {
 		Collection<Conference> result;
 

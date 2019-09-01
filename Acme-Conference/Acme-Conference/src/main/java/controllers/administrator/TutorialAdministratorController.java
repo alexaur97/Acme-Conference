@@ -120,10 +120,10 @@ public class TutorialAdministratorController extends AbstractController {
 				Assert.isTrue(tutorialF.getStartMoment().before(tutorialF.getConference().getEndDate()));
 				Assert.isTrue(!(tutorialF.getStartMoment().before(tutorialF.getConference().getStartDate())));
 				Assert.isTrue(Utils.validateURL(tutorialF.getAttachments()));
-				Assert.isTrue(tutorialF.getDuration().before(tutorialF.getConference().getEndDate()));
-				Assert.isTrue(tutorialF.getConference().getMode().equals("DRAFT"));
+				Assert.isTrue(tutorialF.getendMoment().before(tutorialF.getConference().getEndDate()));
+				Assert.isTrue(tutorialF.getConference().getMode().equals("FINAL"));
 				if (tutorialF.getId() != 0)
-					Assert.isTrue(tutorialF.getDuration().after(tutorialF.getStartMoment()));
+					Assert.isTrue(tutorialF.getendMoment().after(tutorialF.getStartMoment()));
 				this.tutorialService.save(tutorialF);
 				result = new ModelAndView("redirect:/conference/list.do");
 
@@ -131,8 +131,8 @@ public class TutorialAdministratorController extends AbstractController {
 				final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 				final Boolean fechaPosterior = tutorialF.getStartMoment().before(tutorialF.getConference().getStartDate());
 				final Boolean fechaAnterior = !(tutorialF.getStartMoment().before(tutorialF.getConference().getEndDate()));
-				final Boolean fechaFinAnterior = tutorialF.getDuration().before(tutorialF.getStartMoment());
-				final Boolean fechaFinPosterior = tutorialF.getDuration().after(tutorialF.getConference().getEndDate());
+				final Boolean fechaFinAnterior = tutorialF.getendMoment().before(tutorialF.getStartMoment());
+				final Boolean fechaFinPosterior = tutorialF.getendMoment().after(tutorialF.getConference().getEndDate());
 				final Boolean urlInvalida = Utils.validateURL(tutorialF.getAttachments());
 
 				if (fechaPosterior || fechaAnterior) {
@@ -151,12 +151,12 @@ public class TutorialAdministratorController extends AbstractController {
 					result = new ModelAndView("tutorial/edit");
 					result.addObject("tutorial", tutorial);
 					result.addObject("conferences", conferences);
-					result.addObject("message", "tutorial.duration.error");
+					result.addObject("message", "tutorial.endMoment.error");
 				} else if (fechaFinAnterior) {
 					result = new ModelAndView("tutorial/edit");
 					result.addObject("tutorial", tutorial);
 					result.addObject("conferences", conferences);
-					result.addObject("message", "tutorial.durationBefore.error");
+					result.addObject("message", "tutorial.endMomentBefore.error");
 
 				} else
 					result = new ModelAndView("redirect:/#");
@@ -195,14 +195,14 @@ public class TutorialAdministratorController extends AbstractController {
 			this.administratorService.findByPrincipal();
 			final Tutorial tutorial = this.tutorialService.findOne(tutorialId);
 			Assert.notNull(tutorial);
-			final Integer duracionSegundos = (int) ((tutorial.getDuration().getTime() - tutorial.getStartMoment().getTime()) / 1000);
-			final Integer duration = duracionSegundos / 60;
+			final Integer duracionSegundos = (int) ((tutorial.getendMoment().getTime() - tutorial.getStartMoment().getTime()) / 1000);
+			final Integer endMoment = duracionSegundos / 60;
 
 			result = new ModelAndView("tutorial/show");
 			result.addObject("requestURI", "tutorial/administrator/show.do");
 			result.addObject("tutorial", tutorial);
 			result.addObject("sections", sections);
-			result.addObject("duration", duration);
+			result.addObject("endMoment", endMoment);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");

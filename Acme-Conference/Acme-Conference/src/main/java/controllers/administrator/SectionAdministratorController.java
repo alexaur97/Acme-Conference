@@ -90,7 +90,7 @@ public class SectionAdministratorController extends AbstractController {
 				try {
 					Assert.isTrue(a);
 					this.sectionService.save(sectionF);
-					result = new ModelAndView("redirect:/conference/list.do");
+					result = new ModelAndView("redirect:/tutorial/administrator/show.do?tutorialId=" + tutorialId);
 
 				} catch (final Throwable oops) {
 					if (a.equals(false)) {
