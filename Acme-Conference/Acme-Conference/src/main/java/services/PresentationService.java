@@ -54,10 +54,10 @@ public class PresentationService {
 		return result;
 	}
 
-	public void save(final Presentation presentation) {
+	public Presentation save(final Presentation presentation) {
 		Assert.notNull(presentation);
 
-		this.presentationRepository.save(presentation);
+		return this.presentationRepository.save(presentation);
 	}
 
 	public void delete(final Presentation presentation) {

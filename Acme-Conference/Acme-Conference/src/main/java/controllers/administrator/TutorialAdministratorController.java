@@ -124,9 +124,9 @@ public class TutorialAdministratorController extends AbstractController {
 				Assert.isTrue(tutorialF.getConference().getMode().equals("FINAL"));
 				if (tutorialF.getId() != 0)
 					Assert.isTrue(tutorialF.getendMoment().after(tutorialF.getStartMoment()));
-				this.tutorialService.save(tutorialF);
-				result = new ModelAndView("redirect:/conference/list.do");
-
+				Tutorial saved = this.tutorialService.save(tutorialF);
+				result = new ModelAndView("redirect:/conference/activity/tutorial/show.do?tutorialId="+saved.getId());
+				
 			} catch (final Throwable oops) {
 				final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 				final Boolean fechaPosterior = tutorialF.getStartMoment().before(tutorialF.getConference().getStartDate());

@@ -111,7 +111,7 @@ public class RegistrationAuthorController extends AbstractController {
 
 		if (binding.hasErrors()) {
 			final Collection<String> brandNames = this.configurationParametersService.find().getCreditCardMakes();
-			final Collection<Conference> conferencias = this.conferenceService.findAll();
+			final Collection<Conference> conferencias = this.conferenceService.findNextConferences();
 			result = new ModelAndView("registration/create");
 			result.addObject("registrationForm", registrationForm);
 			result.addObject("conferencias", conferencias);
@@ -126,7 +126,7 @@ public class RegistrationAuthorController extends AbstractController {
 				result = new ModelAndView("redirect:/registration/author/list.do");
 			} catch (final Throwable oops) {
 				final Collection<String> brandNames = this.configurationParametersService.find().getCreditCardMakes();
-				final Collection<Conference> conferencias = this.conferenceService.findAll();
+				final Collection<Conference> conferencias = this.conferenceService.findNextConferences();
 				result = new ModelAndView("registration/create");
 				result.addObject("registrationForm", registrationForm);
 				result.addObject("conferencias", conferencias);

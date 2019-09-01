@@ -54,10 +54,10 @@ public class TutorialService {
 		return result;
 	}
 
-	public void save(final Tutorial tutorial) {
+	public Tutorial save(final Tutorial tutorial) {
 		Assert.notNull(tutorial);
 
-		this.tutorialRepository.save(tutorial);
+		return this.tutorialRepository.save(tutorial);
 	}
 
 	public void delete(final Tutorial tutorial) {

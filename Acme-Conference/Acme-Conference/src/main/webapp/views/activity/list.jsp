@@ -33,7 +33,6 @@
 	<display:column titleKey="presentation.startMoment"
 		property="startMoment" />
 	<display:column titleKey="presentation.summary" property="summary" />
-	<display:column titleKey="presentation.duration" property="duration" />
 	<display:column titleKey="presentation.cameraReadyVersion"
 		property="cameraReadyVersion" />
 	<display:column titleKey="activity.show">
@@ -57,7 +56,6 @@
 	<display:column titleKey="panel.title" property="title" />
 	<display:column titleKey="panel.startMoment" property="startMoment" />
 	<display:column titleKey="panel.summary" property="summary" />
-	<display:column titleKey="panel.duration" property="duration" />
 	<display:column titleKey="activity.show">
 		<acme:cancel
 			url="/conference/activity/panel/show.do?panelId=${panel.id}"
@@ -80,7 +78,6 @@
 	<display:column titleKey="tutorial.title" property="title" />
 	<display:column titleKey="tutorial.startMoment" property="startMoment" />
 	<display:column titleKey="tutorial.summary" property="summary" />
-	<display:column titleKey="tutorial.duration" property="duration" />
 	<display:column titleKey="activity.show">
 		<acme:cancel
 			url="/conference/activity/tutorial/show.do?tutorialId=${tutorial.id}"

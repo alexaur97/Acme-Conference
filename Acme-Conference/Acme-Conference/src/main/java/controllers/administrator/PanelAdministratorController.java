@@ -121,8 +121,8 @@ public class PanelAdministratorController extends AbstractController {
 				Assert.isTrue(panelF.getConference().getMode().equals("FINAL"));
 				if (panelF.getId() != 0)
 					Assert.isTrue(panelF.getendMoment().after(panelF.getStartMoment()));
-				this.panelService.save(panelF);
-				result = new ModelAndView("redirect:/conference/list.do");
+				Panel saved = this.panelService.save(panelF);
+				result = new ModelAndView("redirect:/conference/activity/panel/show.do?panelId="+saved.getId());
 
 			} catch (final Throwable oops) {
 				final Collection<Conference> conferences = this.conferenceService.findNextConferences();
@@ -192,6 +192,7 @@ public class PanelAdministratorController extends AbstractController {
 
 			result.addObject("requestURI", "panel/administrator/show.do");
 			result.addObject("panel", panel);
+			
 			result.addObject("endMoment", endMoment);
 
 		} catch (final Exception e) {

@@ -142,6 +142,33 @@
 		</property>
 	</bean>
 
+<bean id="userAccount11" class="security.UserAccount">
+		<property name="username" value="reviewer4" />
+		<property name="password"
+			value="5293e8663cbb7c157ff83eeae25177d3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="REVIEWER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount12" class="security.UserAccount">
+		<property name="username" value="reviewer5" />
+		<property name="password"
+			value="86045e9e3b2e615d8d2484dc64b3f408" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="REVIEWER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+
 	<bean id="configurationParameters"
 		class="domain.ConfigurationParameters">
 		<property name="banner"
@@ -332,11 +359,44 @@
 		<property name="userAccount" ref="userAccount7" />
 		<property name="keyWords">
 			<list>
-				<value>key1</value>
+				<value>Dividiry</value>
 				<value>key2</value>
 			</list>
 		</property>
-		<property name="submission" ref="submission3" />
+
+	</bean>
+	
+	<bean id="reviewer4" class="domain.Reviewer">
+		<property name="email" value="reviewer4@gmail.com" />
+		<property name="name" value="Rev" />
+		<property name="phone" value="654321098" />
+		<property name="surname" value="Roviv" />
+		<property name="photo"
+			value="https://cdn-media.festival-cannes.com/media_image/0001/51/thumb_50800_media_image_926x584.jpg" />
+		<property name="userAccount" ref="userAccount11" />
+		<property name="keyWords">
+			<list>
+				<value>Restary</value>
+				<value>key2</value>
+			</list>
+		</property>
+
+	</bean>
+	
+	<bean id="reviewer5" class="domain.Reviewer">
+		<property name="email" value="reviewer5@gmail.com" />
+		<property name="name" value="Rev2" />
+		<property name="phone" value="654321098" />
+		<property name="surname" value="Roviv2" />
+		<property name="photo"
+			value="https://cdn-media.festival-cannes.com/media_image/0001/51/thumb_50800_media_image_926x584.jpg" />
+		<property name="userAccount" ref="userAccount12" />
+		<property name="keyWords">
+			<list>
+				<value>Restary</value>
+				<value>key2</value>
+			</list>
+		</property>
 
 	</bean>
 
@@ -1419,7 +1479,7 @@
 
 	<bean id="submission2" class="domain.Submission">
 		<property name="author" ref="author2" />
-		<property name="conference" ref="conference3" />
+		<property name="conference" ref="conference1" />
 		<property name="ticker" value="AXK-KL1P" />
 		<property name="moment" value="12/30/2020 17:00" />
 		<property name="paper" ref="paper3" />
@@ -1454,6 +1514,15 @@
 		<property name="status" value="UNDER-REVIEW" />
 	</bean>
 
+	<bean id="submission6" class="domain.Submission">
+		<property name="author" ref="author3" />
+		<property name="conference" ref="conference3" />
+		<property name="ticker" value="MXM-RI90" />
+		<property name="moment" value="12/30/2020 17:00" />
+		<property name="paper" ref="paper5" />
+		<property name="status" value="UNDER-REVIEW" />
+	</bean>
+	
 	<!-- Reports -->
 
 	<bean id="report1" class="domain.Report">

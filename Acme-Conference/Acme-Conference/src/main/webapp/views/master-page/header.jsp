@@ -30,8 +30,7 @@
 					<li><a href="configuration/administrator/setup.do"><spring:message code="master.page.administrator.config" /></a></li>
 					<li><a href="stats/administrator/display.do"><spring:message
 								code="master.page.administrator.stats" /></a></li>
-					<li><a href="stats/administrator/score.do"><spring:message
-								code="master.page.administrator.score" /></a></li>
+					
 				</ul>
 			</li>
 		</security:authorize>
@@ -54,6 +53,8 @@
 		<security:authorize access="hasRole('ADMINISTRATOR')">
 			<li><a class="fNiv" href="submission/administrator/list.do"><spring:message
 					code="master.page.submissions" /></a></li>
+			<li><a href="stats/administrator/score.do"><spring:message
+								code="master.page.administrator.score" /></a></li>
 		</security:authorize>
 
 		<li><a class="fNiv" href="conference/search.do"><spring:message

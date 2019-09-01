@@ -137,6 +137,9 @@ public class ActivityController extends AbstractController {
 			Panel panel = this.panelService.findOne(panelId);
 			result = new ModelAndView("panel/show");
 			result.addObject("panel", panel);
+			final Integer duracionSegundos = (int) ((panel.getendMoment().getTime() - panel.getStartMoment().getTime()) / 1000);
+			final Integer endMoment = duracionSegundos / 60;
+			result.addObject("endMoment", endMoment);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -151,6 +154,9 @@ public class ActivityController extends AbstractController {
 			Presentation presentation = this.presentationService.findOne(presentationId);
 			result = new ModelAndView("presentation/show");
 			result.addObject("presentation", presentation);
+			final Integer duracionSegundos = (int) ((presentation.getendMoment().getTime() - presentation.getStartMoment().getTime()) / 1000);
+			final Integer endMoment = duracionSegundos / 60;
+			result.addObject("endMoment", endMoment);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -167,6 +173,9 @@ public class ActivityController extends AbstractController {
 			result = new ModelAndView("tutorial/show");
 			result.addObject("tutorial", tutorial);
 			result.addObject("sections", sections);
+			final Integer duracionSegundos = (int) ((tutorial.getendMoment().getTime() - tutorial.getStartMoment().getTime()) / 1000);
+			final Integer endMoment = duracionSegundos / 60;
+			result.addObject("endMoment", endMoment);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}

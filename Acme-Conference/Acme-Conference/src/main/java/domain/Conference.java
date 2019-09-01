@@ -78,7 +78,7 @@ public class Conference extends DomainEntity {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd-MM-yyyy hh:mm")
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
 	@NotNull
 	public Date getSubmissionDeadline() {
 		return this.submissionDeadline;
@@ -89,7 +89,7 @@ public class Conference extends DomainEntity {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd-MM-yyyy hh:mm")
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
 	@NotNull
 	public Date getNotification() {
 		return this.notification;
@@ -100,7 +100,7 @@ public class Conference extends DomainEntity {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd-MM-yyyy hh:mm")
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
 	@NotNull
 	public Date getCameraReady() {
 		return this.cameraReady;
@@ -111,7 +111,7 @@ public class Conference extends DomainEntity {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd-MM-yyyy hh:mm")
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
 	@NotNull
 	public Date getStartDate() {
 		return this.startDate;
@@ -122,7 +122,7 @@ public class Conference extends DomainEntity {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd-MM-yyyy hh:mm")
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
 	@NotNull
 	@Future
 	public Date getEndDate() {

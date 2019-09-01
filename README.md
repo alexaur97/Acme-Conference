@@ -18,3 +18,11 @@ conferencia, si desea notificar a X posibles usuarios de algo en concreto, pueda
 seleccionar cualquier conferencia con estado FINAL que haya en la base de datos sin
 ningún tipo de restricción. En el caso de que dicha conferencia no tuviera ninguna 
 registration o submission, no pasaría nada y no se crearía ningún mensaje.
+
+4. Las mejores Submissions para asignar son:
+- La del autor Robin, conferencia British Aerospace, ya que es la que se asigna a 3 
+reviewers. 
+- La del autor Andrei, conferencia British Aerospace, ya que, después de asignar
+la anterior, con esta aparecería que sólo se ha podido asignar a menos de 3 revisores.
+- La del autor Marco, conferencia The Best Conference, con esta aparecería que sólo se
+ha podido asignar a menos de 3 revisores.

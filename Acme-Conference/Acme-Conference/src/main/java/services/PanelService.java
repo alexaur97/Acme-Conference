@@ -54,10 +54,10 @@ public class PanelService {
 		return result;
 	}
 
-	public void save(final Panel panel) {
+	public Panel save(final Panel panel) {
 		Assert.notNull(panel);
 
-		this.panelRepository.save(panel);
+		return this.panelRepository.save(panel);
 	}
 
 	public void delete(final Panel panel) {
