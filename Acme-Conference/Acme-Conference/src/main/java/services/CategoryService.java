@@ -20,16 +20,15 @@ import domain.Conference;
 public class CategoryService {
 
 	@Autowired
-	private CategoryRepository	categoryRepository;
+	private CategoryRepository categoryRepository;
 
 	@Autowired
-	private ConferenceService	conferenceService;
+	private ConferenceService conferenceService;
 
 	@Autowired
-	private Validator			validator;
+	private Validator validator;
 
-
-	//COnstructors -------------------------
+	// COnstructors -------------------------
 	public CategoryService() {
 		super();
 	}
@@ -65,25 +64,28 @@ public class CategoryService {
 	}
 
 	public void delete(final Category category) {
+		Collection<Category> children = this.findCategoriesByParent(category.getId());
 
-		final Collection<Conference> conferences = this.conferenceService.findByCategory(category.getId());
-		for (final Conference c : conferences) {
-			c.setCategory(c.getCategory().getParent());
-			this.conferenceService.saveDeleteCategory(c);
-
-		}
-		final Collection<Category> childCategories = this.findCategoriesByParent(category.getId());
-		for (final Category c : childCategories) {
-			final Collection<Conference> childConferences = this.conferenceService.findByCategory(c.getId());
-			for (final Conference cc : childConferences) {
-				cc.setCategory(cc.getCategory().getParent().getParent());
-				this.conferenceService.saveDeleteCategory(cc);
+		if (children.isEmpty()) {
+			Collection<Conference> conferences = this.conferenceService.findByCategory(category.getId());
+			for (Conference conf : conferences) {
+				conf.setCategory(category.getParent());
+				this.conferenceService.saveDeleteCategory(conf);
 			}
-			this.categoryRepository.delete(c);
+			this.categoryRepository.delete(category);
+		} else {
+			for (Category c : children) {
+				this.delete(c);
+			}
+			Collection<Conference> conferences = this.conferenceService.findByCategory(category.getId());
+			for (Conference conf : conferences) {
+				conf.setCategory(category.getParent());
+				this.conferenceService.saveDeleteCategory(conf);
+			}
+			this.categoryRepository.delete(category);
 		}
-
-		this.categoryRepository.delete(category);
 	}
+
 	public Collection<Category> findCategoriesByParent(final int categoryId) {
 		Collection<Category> res = new ArrayList<>();
 		res = this.categoryRepository.categoriesByParent(categoryId);
