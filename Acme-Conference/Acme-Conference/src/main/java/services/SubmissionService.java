@@ -175,13 +175,16 @@ public class SubmissionService {
 					i++;
 					break;
 				}
-				if (i >= 3)
+				if (i > 3)
 					break;
 			}
 		if (i == 2)
-			return "se ha podido asignar con exito a 3 Revisadores";
+			return "submission.allReviewer";
+		else if (i > 0)
+			return "submission.notAllReviewer";
 		else
-			return "se ha asignado a un total de " + i + " revisadores";
+			return "submission.unassigned";
+
 	}
 	public Collection<Submission> findAll() {
 		final Collection<Submission> res = this.submissionRepository.findAll();

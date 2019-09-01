@@ -60,7 +60,8 @@ public class SubmissionAdministratorController extends AbstractController {
 			final Submission submission = this.submissionService.findOne(submissionId);
 			final String message = this.submissionService.assign(submission);
 
-			result = new ModelAndView("redirect:/submission/administrator/list.do");
+			//result = new ModelAndView("redirect:/submission/administrator/list.do");
+			result = new ModelAndView("submission/assign");
 			result.addObject("message", message);
 
 		} catch (final Exception e) {
