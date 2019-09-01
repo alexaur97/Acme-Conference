@@ -315,7 +315,7 @@
 		<property name="userAccount" ref="userAccount6" />
 		<property name="keyWords">
 			<list>
-				<value>key1</value>
+				<value>Dividiry</value>
 				<value>key2</value>
 			</list>
 		</property>

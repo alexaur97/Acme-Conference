@@ -18,4 +18,7 @@ public interface ReviewerRepository extends JpaRepository<Reviewer, Integer> {
 	@Query("select r from Reviewer r where r.submission is empty")
 	Collection<Reviewer> findWithoutSubmission();
 
+	@Query("select r from Reviewer r where r.submission.id=?1")
+	Collection<Reviewer> findBySubmissionID(int s);
+
 }

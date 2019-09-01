@@ -21,6 +21,7 @@ import domain.Category;
 import domain.Conference;
 import domain.Message;
 import domain.Report;
+import domain.Reviewer;
 import domain.Submission;
 import domain.Topic;
 
@@ -50,6 +51,9 @@ public class ConferenceService {
 
 	@Autowired
 	private Validator				validator;
+
+	@Autowired
+	private ReviewerService			reviewerService;
 
 
 	// COnstructors -------------------------
@@ -200,6 +204,11 @@ public class ConferenceService {
 				adm.setBody("Your submission to the conference " + s.getConference().getTitle() + " has been rejected.\nSu presentaci�n a la conferencia " + s.getConference().getTitle() + " ha sido rechazada.\n\nTicker: " + s.getTicker());
 				notification.setSubject("Rejected submission");
 				notification.setBody("Your submission to the conference " + s.getConference().getTitle() + " has been rejected.\nSu presentaci�n a la conferencia " + s.getConference().getTitle() + " ha sido rechazada.\n\nTicker: " + s.getTicker());
+			}
+			final Collection<Reviewer> reviewers = this.reviewerService.findBySubmission(s);
+			for (final Reviewer r : reviewers) {
+				r.setSubmission(null);
+				this.reviewerService.save(r);
 			}
 
 			adm.setCopy(false);
