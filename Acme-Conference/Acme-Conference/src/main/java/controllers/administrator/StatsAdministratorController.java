@@ -2,6 +2,7 @@
 package controllers.administrator;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ConferenceCommentService;
 import services.ConferenceService;
 import services.PanelCommentService;
+import services.PaperService;
 import services.PresentationCommentService;
 import services.RegistrationService;
 import services.SubmissionService;
@@ -43,6 +45,9 @@ public class StatsAdministratorController extends AbstractController {
 	@Autowired
 	RegistrationService			registrationService;
 
+	@Autowired
+	PaperService				paperService;
+
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display() {
@@ -71,6 +76,22 @@ public class StatsAdministratorController extends AbstractController {
 			result.addObject("conferencesFee", conferencesFee);
 
 			result.addObject("requestURI", "/stats/administrator/display.do");
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+
+		}
+		return result;
+	}
+	@RequestMapping(value = "/score", method = RequestMethod.GET)
+	public ModelAndView score() {
+		ModelAndView result;
+		result = new ModelAndView("stats/score");
+		final List<String> score = this.paperService.statsAuthors();
+		result.addObject("score", score);
+
+		try {
+
+			result.addObject("requestURI", "/stats/administrator/score.do");
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 

@@ -30,6 +30,8 @@
 					<li><a href="configuration/administrator/setup.do"><spring:message code="master.page.administrator.config" /></a></li>
 					<li><a href="stats/administrator/display.do"><spring:message
 								code="master.page.administrator.stats" /></a></li>
+					<li><a href="stats/administrator/score.do"><spring:message
+								code="master.page.administrator.score" /></a></li>
 				</ul>
 			</li>
 		</security:authorize>

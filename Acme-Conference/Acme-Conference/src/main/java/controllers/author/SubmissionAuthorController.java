@@ -167,11 +167,13 @@ public class SubmissionAuthorController extends AbstractController {
 			result.addObject("paperForm", paperForm);
 		} else
 			try {
-				
-				final Submission submission = this.submissionService.reconstruction(paperForm.getSubmissionId(), paper);
-				final Date limite = submission.getConference().getSubmissionDeadline();
+				final Submission asse = this.submissionService.findOne(paperForm.getSubmissionId());
+				final Date limite = asse.getConference().getCameraReady();
 				final Date date = new Date();
+
 				Assert.isTrue(limite.after(date));
+
+				final Submission submission = this.submissionService.reconstruction(paperForm.getSubmissionId(), paper);
 				this.submissionService.save(submission);
 				result = new ModelAndView("redirect:/submission/author/list.do");
 
