@@ -32,8 +32,22 @@
 	<display:column titleKey="submission.author"  property="author.name" />
 	<display:column titleKey="submission.conference"  property="conference.title" />
 	<display:column titleKey="submission.moment"  property="moment" />
+	
+</display:table>
+<br>
+<jstl:if test="${message != null}">
+	<spring:message code="${message}"/>
+</jstl:if>
+<br>
+<br><spring:message code="submission.unassignedSubmissions"/> 
+<br>
+<display:table pagesize="5" name="unassignedSubmissions" id="unassignedSubmission"
+	requestURI="${requestURI}" class="displaytag table">
+	<display:column titleKey="submission.author"  property="author.name" />
+	<display:column titleKey="submission.conference"  property="conference.title" />
+	<display:column titleKey="submission.moment"  property="moment" />
 	<display:column titleKey="submission.assign">
-		<acme:cancel url="/submission/administrator/assign.do?submissionId=${submissionUnderReview.id}" code="submission.assign" />
+		<acme:cancel url="/submission/administrator/assign.do?submissionId=${unassignedSubmission.id}" code="submission.assign" />
 	</display:column>
 </display:table>
 
@@ -47,9 +61,11 @@
 	<display:column titleKey="submission.author"  property="author.name" />
 	<display:column titleKey="submission.conference"  property="conference.title" />
 	<display:column titleKey="submission.moment"  property="moment" />
+	<security:authorize access="hasRole('ADMINISTRATOR')">
 	<display:column titleKey="submission.assign">
 		<acme:cancel url="/submission/administrator/assign.do?submissionId=${submissionAccepted.id}" code="submission.assign" />
 	</display:column>
+	</security:authorize>
 	
 	</display:table>
 

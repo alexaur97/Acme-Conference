@@ -29,5 +29,10 @@
 		<put-attribute name="title" value="Submit details" />
 		<put-attribute name="body" value="/views/submission/show.jsp" />
 	</definition>
+	
+	<definition name="submission/assign" extends="master.page">
+		<put-attribute name="title" value="Assignment" />
+		<put-attribute name="body" value="/views/submission/assign.jsp" />
+	</definition>
 
 </tiles-definitions>
