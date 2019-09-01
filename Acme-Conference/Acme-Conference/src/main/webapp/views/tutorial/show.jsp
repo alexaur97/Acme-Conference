@@ -29,47 +29,61 @@
 <acme:display code="tutorial.room" path="${tutorial.room}" />
 <acme:display code="tutorial.summary" path="${tutorial.summary}" />
 
-<h2><spring:message code="tutorial.speakers"/>:</h2>
+<h2>
+	<spring:message code="tutorial.speakers" />
+	:
+</h2>
 
 <ul>
 	<jstl:forEach items="${tutorial.speakers}" var="x">
-		<li><jstl:out value="${x}"/></li>
+		<li><jstl:out value="${x}" /></li>
 	</jstl:forEach>
 </ul>
 
-<h2><spring:message code="tutorial.schedule"/> </h2>
+<h2>
+	<spring:message code="tutorial.schedule" />
+</h2>
 <acme:display code="tutorial.startMoment" path="${tutorial.startMoment}" />
 <acme:display code="tutorial.duration" path="${duration}" />
 
 
-<h2><spring:message code="tutorial.attachments"/>:</h2>
+<h2>
+	<spring:message code="tutorial.attachments" />
+	:
+</h2>
 
 <ul>
 	<jstl:forEach items="${tutorial.attachments}" var="x">
-		<li><a href="${x}"><jstl:out value="${x}"/></a></li>
+		<li><a href="${x}"><jstl:out value="${x}" /></a></li>
 	</jstl:forEach>
 </ul>
 
 
 <br>
 
-<spring:message code="tutorial.sections"/> 
+<spring:message code="tutorial.sections" />
 
 <br>
 
 <display:table pagesize="5" name="sections" id="section"
 	requestURI="${requestURI}" class="displaytag table">
-	<display:column titleKey="tutorial.section.title"  property="title" />
-	<display:column titleKey="tutorial.section.summary"  property="summary" />
-	<display:column titleKey="tutorial.section.pictures"  property="pictures" />
+	<display:column titleKey="tutorial.section.title" property="title" />
+	<display:column titleKey="tutorial.section.summary" property="summary" />
+	<display:column titleKey="tutorial.section.pictures"
+		property="pictures" />
 	<display:column titleKey="tutorial.section.edit">
-		<acme:cancel url="/section/administrator/edit.do?sectionId=${section.id}" code="tutorial.section.edit" />
+		<acme:cancel
+			url="/section/administrator/edit.do?sectionId=${section.id}"
+			code="tutorial.section.edit" />
 	</display:column>
 
-	
-	
+
+
 </display:table>
 
-<acme:cancel url="/section/administrator/create.do?tutorialId=${tutorial.id}" code="tutorial.create.section" />
-
+<security:authorize access="hasRole('ADMINISTRATOR')">
+	<acme:cancel
+		url="/section/administrator/create.do?tutorialId=${tutorial.id}"
+		code="tutorial.create.section" />
+</security:authorize>
 
