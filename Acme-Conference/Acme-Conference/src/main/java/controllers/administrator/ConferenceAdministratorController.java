@@ -144,7 +144,7 @@ public class ConferenceAdministratorController extends AbstractController {
 		try {
 
 			final Conference conference = this.conferenceService.findOne(conferenceId);
-
+			Assert.isTrue(conference.getMode().equals("DRAFT"));
 			Assert.notNull(conference);
 			result = this.createEditModelAndView(conference);
 

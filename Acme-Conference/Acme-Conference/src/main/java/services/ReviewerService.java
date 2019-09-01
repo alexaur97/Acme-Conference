@@ -15,6 +15,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Reviewer;
+import domain.Submission;
 import forms.RegisterReviewerForm;
 import forms.ReviewerEditForm;
 
@@ -130,6 +131,11 @@ public class ReviewerService {
 
 	public Collection<Reviewer> findWithoutSubmission() {
 		final Collection<Reviewer> res = this.reviewerRepository.findWithoutSubmission();
+		return res;
+	}
+
+	public Collection<Reviewer> findBySubmission(final Submission s) {
+		final Collection<Reviewer> res = this.reviewerRepository.findBySubmissionID(s.getId());
 		return res;
 	}
 
