@@ -179,6 +179,9 @@
 			
 		<security:intercept-url pattern="/stats/administrator/**"
 			access="hasRole('ADMINISTRATOR')" />
+			
+		<security:intercept-url pattern="/report/reviewer/**"
+			access="hasRole('REVIEWER')" />
 
 		<security:form-login
 			login-page="/security/login.do" password-parameter="password"
