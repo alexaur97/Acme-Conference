@@ -98,11 +98,17 @@ public class PaperService {
 			for (final String wordTitle : wordsTitle)
 				if (map.containsKey(wordTitle))
 					map.put(wordTitle, map.get(wordTitle) + 1);
+				else
+					map.put(wordTitle, 1);
+
 			final String[] arraySummary = paper.getSummary().split(" ");
 			final List<String> wordsSummary = Arrays.asList(arraySummary);
 			for (final String wordSummary : wordsSummary)
 				if (map.containsKey(wordSummary))
 					map.put(wordSummary, map.get(wordSummary) + 1);
+				else
+					map.put(wordSummary, 1);
+
 		}
 		final Collection<Integer> maxC = map.values();
 		Double max = 0.0;
