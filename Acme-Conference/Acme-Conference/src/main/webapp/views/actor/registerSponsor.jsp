@@ -26,21 +26,18 @@
 	<br />
 	<acme:checkbox code="actor.terms" path="terms"/>
 	
-	<acme:submit name="saveSponsor" code="actor.save" />
-	<acme:cancel url="/#" code="actor.cancel"/>
-	
-	<jstl:choose>
+		<jstl:choose>
 		<jstl:when test="${lang eq 'en'}">
-			<button type="submit" onclick="return validatePhoneNumber()" name="save">
+			<button type="submit" onclick="return validatePhoneNumber()" name="saveSponsor">
 				<spring:message code="actor.save" />
 			</button>
 		</jstl:when>
 		<jstl:otherwise>
-			<button type="submit" onclick="return validatePhoneNumberEs()" name="save">
+			<button type="submit" onclick="return validatePhoneNumberEs()" name="saveSponsor">
 				<spring:message code="actor.save" />
 			</button>
 		</jstl:otherwise>
-	</jstl:choose>
+	</jstl:choose>	
 	<acme:cancel url="/#" code="actor.cancel" />
 <script type="text/javascript">
 		function validatePhoneNumber() {

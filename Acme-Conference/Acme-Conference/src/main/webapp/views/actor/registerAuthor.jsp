@@ -27,18 +27,15 @@
 	<acme:password code="actor.repeatPassword" path="repeatPassword" />
 	<br />
 	<acme:checkbox code="actor.terms" path="terms"/>
-	
-	<acme:submit name="saveAuthor" code="actor.save" />
-	<acme:cancel url="/#" code="actor.cancel"/>
-	
+
 	<jstl:choose>
 		<jstl:when test="${lang eq 'en'}">
-			<button type="submit" onclick="return validatePhoneNumber()" name="save">
+			<button type="submit" onclick="return validatePhoneNumber()" name="saveAuthor">
 				<spring:message code="actor.save" />
 			</button>
 		</jstl:when>
 		<jstl:otherwise>
-			<button type="submit" onclick="return validatePhoneNumberEs()" name="save">
+			<button type="submit" onclick="return validatePhoneNumberEs()" name="saveAuthor">
 				<spring:message code="actor.save" />
 			</button>
 		</jstl:otherwise>

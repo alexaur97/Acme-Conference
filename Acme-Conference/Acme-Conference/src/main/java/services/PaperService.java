@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.PaperRepository;
+import domain.Actor;
 import domain.Author;
 import domain.Paper;
 import forms.PaperForm;
@@ -149,7 +150,7 @@ public class PaperService {
 		}
 		return res;
 	}
-	public int statsAuthor(final Author author) {
+	public int statsAuthor(final Actor author) {
 		final Collection<String> buzz = this.buzzWords();
 		int puntuacion = 0;
 		final Collection<Paper> papers = this.findByAuthor(author.getId());
