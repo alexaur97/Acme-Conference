@@ -29,7 +29,7 @@
 						<acme:submit name="save" code="conference.search" />
 					</form:form>
 
-<display:table pagesize="5" name="conferences" id="conference"
+<display:table name="conferences" id="conference"
 	requestURI="${requestURI}" class="displaytag table">
 	<display:column titleKey="conference.title"  property="title" />
 	<display:column titleKey="conference.acronym" property="acronym" />

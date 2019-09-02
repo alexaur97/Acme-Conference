@@ -40,7 +40,7 @@ public class ReviewerService {
 		result.setMiddleName(reviewer.getMiddleName());
 		result.setPhoto(reviewer.getPhoto());
 		result.setEmail(reviewer.getEmail());
-		result.setPhone(reviewer.getPhone());
+		result.setPhone(this.actorService.addCountryCode(reviewer.getPhone()));
 		result.setAddress(reviewer.getAddress());
 		result.setKeyWords(reviewer.getKeyWords());
 		return result;
@@ -79,7 +79,7 @@ public class ReviewerService {
 		res.setPhoto(registerForm.getPhoto());
 		res.setEmail(registerForm.getEmail());
 		res.setName(registerForm.getName());
-		res.setPhone(registerForm.getPhone());
+		res.setPhone(this.actorService.addCountryCode(registerForm.getPhone()));
 		res.setMiddleName(registerForm.getMiddleName());
 		res.setSurname(registerForm.getSurname());
 		res.setKeyWords(registerForm.getKeyWords());

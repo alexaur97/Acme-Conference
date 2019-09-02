@@ -132,8 +132,13 @@ public class SponsorshipSponsorController extends AbstractController {
 				res = new ModelAndView("redirect:/sponsorship/sponsor/list.do");
 
 			} catch (final Throwable oops) {
-
-				res = new ModelAndView("redirect:/#");
+				res = new ModelAndView("sponsorship/create");
+				final Collection<Conference> conferences = this.conferenceService.findAll();
+				res.addObject("conferences", conferences);
+				final Collection<String> brandNames = this.configurationParametersService.find().getCreditCardMakes();
+				res.addObject("brandNames", brandNames);
+				res.addObject("b", b);
+				res.addObject("message", "sponsorship.commit.error");
 			}
 
 		return res;

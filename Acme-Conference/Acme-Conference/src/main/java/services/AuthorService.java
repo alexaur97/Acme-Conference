@@ -50,7 +50,7 @@ public class AuthorService {
 		res.setPhoto(registerForm.getPhoto());
 		res.setEmail(registerForm.getEmail());
 		res.setName(registerForm.getName());
-		res.setPhone(registerForm.getPhone());
+		res.setPhone(this.actorService.addCountryCode(registerForm.getPhone()));
 		res.setMiddleName(registerForm.getMiddleName());
 		res.setSurname(registerForm.getSurname());
 

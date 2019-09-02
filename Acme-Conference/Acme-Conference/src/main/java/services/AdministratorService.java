@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -7,24 +8,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import domain.Actor;
-import domain.Administrator;
-import domain.Author;
-import forms.AdministratorEditForm;
 import repositories.AdministratorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Actor;
+import domain.Administrator;
+import forms.AdministratorEditForm;
 
 @Service
 @Transactional
 public class AdministratorService {
 
 	@Autowired
-	private AdministratorRepository administratorRepository;
+	private AdministratorRepository	administratorRepository;
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService			actorService;
+
 
 	public Administrator findByPrincipal() {
 		final UserAccount user = LoginService.getPrincipal();
@@ -48,17 +49,17 @@ public class AdministratorService {
 		res.setMiddleName(actor.getMiddleName());
 		res.setPhoto(actor.getPhoto());
 		res.setEmail(actor.getEmail());
-		res.setPhone(actor.getPhone());
+		res.setPhone(this.actorService.addCountryCode(actor.getPhone()));
 		res.setAddress(actor.getAddress());
 		return res;
 	}
 
-	public Administrator reconstructEdit(AdministratorEditForm administratorEditForm) {
+	public Administrator reconstructEdit(final AdministratorEditForm administratorEditForm) {
 		final Administrator result;
 		result = this.findByPrincipal();
-		String lastEmail = result.getEmail();
+		final String lastEmail = result.getEmail();
 		final Collection<String> emails = this.actorService.findAllEmails();
-		
+
 		result.setName(administratorEditForm.getName());
 		result.setMiddleName(administratorEditForm.getMiddleName());
 		result.setSurname(administratorEditForm.getSurname());
@@ -67,21 +68,20 @@ public class AdministratorService {
 		result.setPhone(this.actorService.addCountryCode(administratorEditForm.getPhone()));
 		result.setAddress(administratorEditForm.getAddress());
 		Assert.notNull(result);
-		
-		
+
 		emails.remove(lastEmail);
 		final String email = administratorEditForm.getEmail();
 		final boolean bEmail = !emails.contains(email);
 		Assert.isTrue(bEmail, "edition.email.error");
-		
+
 		return result;
 	}
 
-	public Administrator save(Administrator administrator) {
+	public Administrator save(final Administrator administrator) {
 		Assert.notNull(administrator);
 
 		final Administrator result = this.administratorRepository.save(administrator);
 		return result;
-		
+
 	}
 }

@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.PaperRepository;
+import domain.Actor;
 import domain.Author;
 import domain.Paper;
 import forms.PaperForm;
@@ -125,27 +126,47 @@ public class PaperService {
 	}
 	public List<String> statsAuthors() {
 		final List<String> res = new ArrayList<String>();
-		final Collection<String> buzz = this.buzzWords();
+		//	final Collection<String> buzz = this.buzzWords();
 		final Collection<Author> autores = this.authorService.findAll();
+
 		for (final Author author : autores) {
-			int puntuacion = 0;
-			final Collection<Paper> papers = this.findByAuthor(author.getId());
-			for (final Paper paper : papers) {
-				final String[] arrayTitle = paper.getTitle().split(" ");
-				final List<String> wordsTitle = Arrays.asList(arrayTitle);
-				for (final String wordTitle : wordsTitle)
-					if (buzz.contains(wordTitle))
-						puntuacion++;
-				final String[] arraySummary = paper.getSummary().split(" ");
-				final List<String> wordsSummary = Arrays.asList(arraySummary);
-				for (final String wordSummary : wordsSummary)
-					if (buzz.contains(wordSummary))
-						puntuacion++;
-			}
+			final int puntuacion = this.statsAuthor(author);
+			//			int puntuacion = 0;
+			//			final Collection<Paper> papers = this.findByAuthor(author.getId());
+			//			for (final Paper paper : papers) {
+			//				final String[] arrayTitle = paper.getTitle().split(" ");
+			//				final List<String> wordsTitle = Arrays.asList(arrayTitle);
+			//				for (final String wordTitle : wordsTitle)
+			//					if (buzz.contains(wordTitle))
+			//						puntuacion++;
+			//				final String[] arraySummary = paper.getSummary().split(" ");
+			//				final List<String> wordsSummary = Arrays.asList(arraySummary);
+			//				for (final String wordSummary : wordsSummary)
+			//					if (buzz.contains(wordSummary))
+			//						puntuacion++;
+			//		}
 			final String authorPuntuacion = author.getName() + ":" + puntuacion;
 			res.add(authorPuntuacion);
 		}
 		return res;
+	}
+	public int statsAuthor(final Actor author) {
+		final Collection<String> buzz = this.buzzWords();
+		int puntuacion = 0;
+		final Collection<Paper> papers = this.findByAuthor(author.getId());
+		for (final Paper paper : papers) {
+			final String[] arrayTitle = paper.getTitle().split(" ");
+			final List<String> wordsTitle = Arrays.asList(arrayTitle);
+			for (final String wordTitle : wordsTitle)
+				if (buzz.contains(wordTitle))
+					puntuacion++;
+			final String[] arraySummary = paper.getSummary().split(" ");
+			final List<String> wordsSummary = Arrays.asList(arraySummary);
+			for (final String wordSummary : wordsSummary)
+				if (buzz.contains(wordSummary))
+					puntuacion++;
+		}
+		return puntuacion;
 	}
 	public Collection<Paper> findByAuthor(final int id) {
 		return this.paperRepository.findByAuthor(id);
