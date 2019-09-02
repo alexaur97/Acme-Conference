@@ -99,10 +99,18 @@ public class SectionAdministratorController extends AbstractController {
 						result.addObject("message", "section.picture.error");
 						result.addObject("tutorialId", tutorialId);
 					} else
-						result = new ModelAndView("redirect:/#");
+						result = new ModelAndView("section/edit");
+					result.addObject("section", section);
+					result.addObject("message", "section.picture.error");
+					result.addObject("tutorialId", tutorialId);
+					result.addObject("message", "section.commit.error");
+
 				}
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:/#");
+			result = new ModelAndView("section/edit");
+			result.addObject("section", section);
+			result.addObject("tutorialId", tutorialId);
+			result.addObject("message", "section.commit.error");
 		}
 		return result;
 
@@ -114,7 +122,7 @@ public class SectionAdministratorController extends AbstractController {
 
 		try {
 			this.administratorService.findByPrincipal();
-			int tutorialId = res.getTutorial().getId();
+			final int tutorialId = res.getTutorial().getId();
 			this.sectionService.delete(res);
 			result = new ModelAndView("redirect:/tutorial/administrator/show.do?tutorialId=" + tutorialId);
 		} catch (final Throwable oops) {

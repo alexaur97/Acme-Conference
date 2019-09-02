@@ -153,7 +153,10 @@ public class PresentationAdministratorController extends AbstractController {
 					result.addObject("message", "presentation.endMomentBefore.error");
 
 				} else
-					result = new ModelAndView("redirect:/#");
+					result = new ModelAndView("presentation/edit");
+				result.addObject("presentation", presentation);
+				result.addObject("conferences", conferences);
+				result.addObject("message", "presentation.commit.error");
 			}
 		return result;
 

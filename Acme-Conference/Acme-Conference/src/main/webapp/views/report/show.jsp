@@ -36,7 +36,11 @@
 </jstl:forEach>
 </ul>
 
-<acme:button url="submission/author/show.do?submissionId=${report.submission.id}" code="report.submission"/>
+	<acme:button url="submission/reviewer/show.do?submissionId=${report.submission.id}" code="report.submission"/>
+
+	<acme:cancel url="/report/reviewer/list.do" code="msg.cancel" />
+
+
 
 
 

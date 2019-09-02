@@ -97,10 +97,10 @@ public class ReportReviewerController extends AbstractController {
 	public ModelAndView show(@RequestParam final int reportId) {
 		ModelAndView result;
 		try {
-			this.reviewerService.findByPrincipal();
+			final Reviewer reviewer = this.reviewerService.findByPrincipal();
 			final Report report = this.reportService.findOne(reportId);
 			Assert.notNull(report);
-
+			Assert.isTrue(report.getReviewer().equals(reviewer));
 			result = new ModelAndView("report/show");
 			result.addObject("requestURI", "report/reviewer/show.do");
 			result.addObject("report", report);
@@ -111,7 +111,6 @@ public class ReportReviewerController extends AbstractController {
 
 		return result;
 	}
-
 	protected ModelAndView createModelAndView(final Report report) {
 		return this.createModelAndView(report, null);
 	}

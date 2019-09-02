@@ -129,6 +129,10 @@
 			access="hasRole('ADMINISTRATOR')" />
 			
 		<security:intercept-url
+			pattern="/submission/reviewer/showReviewer.do"
+			access="hasRole('REVIEWER')" />
+			
+		<security:intercept-url
 			pattern="/conference/administrator/list.do"
 			access="hasRole('ADMINISTRATOR')" />
 			

@@ -159,7 +159,10 @@ public class TutorialAdministratorController extends AbstractController {
 					result.addObject("message", "tutorial.endMomentBefore.error");
 
 				} else
-					result = new ModelAndView("redirect:/#");
+					result = new ModelAndView("tutorial/edit");
+				result.addObject("tutorial", tutorial);
+				result.addObject("conferences", conferences);
+				result.addObject("message", "tutorial.commit.error");
 			}
 		return result;
 
