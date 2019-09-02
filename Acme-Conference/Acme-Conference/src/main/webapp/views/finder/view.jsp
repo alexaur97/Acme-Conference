@@ -56,7 +56,12 @@
 	<display:column titleKey="conference.startDate" property="startDate" />
 	<display:column titleKey="conference.endDate" property="endDate" />
 	<display:column titleKey="conference.fee" property="fee" />
-	<display:column titleKey="conference.category" property="category" />
+	<jstl:if test="${lang eq 'en'}">
+		<display:column titleKey="conference.category" property="category.name" />	
+	</jstl:if>
+	<jstl:if test="${lang eq 'es'}">
+		<display:column titleKey="conference.category" property="category.nameEs" />	
+	</jstl:if>
 	<display:column titleKey="conference.show">
 			<acme:cancel
 				url="/conference/show.do?conferenceId=${conference.id}"

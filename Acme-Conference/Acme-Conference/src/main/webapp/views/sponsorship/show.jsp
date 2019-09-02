@@ -28,7 +28,7 @@
 <a href="${sponsorship.targetUrl}"><img src="${ sponsorship.banner}"
 		alt="Acme Rookies Co., Inc."style="width: 150px; height: 50px;"/></a>
 	
-
+</br><spring:message code="sponsorship.targetUrl" />: <jstl:out value="${sponsorship.targetUrl}"></jstl:out>
 </br><spring:message code="sponsorship.conferences" />: <jstl:out value="${sponsorship.conference.title}"></jstl:out>
 <br/><spring:message code="sponsorship.sponsor"/>: <jstl:out value="${sponsorship.sponsor.name} ${sponsorship.sponsor.surname}"></jstl:out>
 <br/>
