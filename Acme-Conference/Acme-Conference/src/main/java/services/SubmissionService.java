@@ -205,4 +205,9 @@ public class SubmissionService {
 				res.add(subm);
 		return res;
 	}
+
+	public Collection<Submission> findFromReportReviewer(final int id) {
+		final Collection<Submission> res = this.submissionRepository.findSubmissionsFromReport(id);
+		return res;
+	}
 }
