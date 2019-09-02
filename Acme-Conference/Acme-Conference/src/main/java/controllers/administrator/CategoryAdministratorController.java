@@ -136,9 +136,12 @@ public class CategoryAdministratorController extends AbstractController {
 					result.addObject("category", category);
 					result.addObject("categories", categories);
 					result.addObject("message", "category.parent.error");
-				} else
-					result = new ModelAndView("redirect:/#");
-			}
+				} else{
+					result = new ModelAndView("category/edit");
+				result.addObject("category", category);
+				result.addObject("categories", categories);
+				result.addObject("message", "category.commit.error");
+			}}
 		return result;
 
 	}
@@ -168,7 +171,7 @@ public class CategoryAdministratorController extends AbstractController {
 				result = new ModelAndView("category/edit");
 				result.addObject("category", category);
 				result.addObject("categories", categories);
-				result.addObject("message", oops.getMessage());
+				result.addObject("message", "category.commit.error");
 			}
 		}
 		return result;
