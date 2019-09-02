@@ -19,7 +19,12 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
-
+<security:authorize access="hasRole('AUTHOR')">
+	<jstl:if test="${not empty score}">
+		<acme:display code="registration.score" path="${score}" />
+	</jstl:if>
+</security:authorize>
+<br>
 <jstl:if test="${not empty actor.photo}" >
 <img width="250px" src="${actor.photo}" alt="${actor.photo}" />
 </jstl:if>

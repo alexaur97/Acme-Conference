@@ -26,7 +26,28 @@
 	<br />
 	<acme:checkbox code="actor.terms" path="terms"/>
 	
-	<acme:submit name="saveSponsor" code="actor.save" />
-	<acme:cancel url="/#" code="actor.cancel"/>
-	
+		<jstl:choose>
+		<jstl:when test="${lang eq 'en'}">
+			<button type="submit" onclick="return validatePhoneNumber()" name="saveSponsor">
+				<spring:message code="actor.save" />
+			</button>
+		</jstl:when>
+		<jstl:otherwise>
+			<button type="submit" onclick="return validatePhoneNumberEs()" name="saveSponsor">
+				<spring:message code="actor.save" />
+			</button>
+		</jstl:otherwise>
+	</jstl:choose>	
+	<acme:cancel url="/#" code="actor.cancel" />
+<script type="text/javascript">
+		function validatePhoneNumber() {
+			var phoneNumber = document.getElementById("phone");
+			if (!(phoneNumber.value).match("\\+\\d{2}([ ]{1}[(]{1}\\d{1,3}[)]{1})? \\d{4,}|\\+\\d{2} \\d{4,}|\\d{4,}|Null")) { return confirm("Phone number doesn't adhere to the correct pattern. Do you want to continue?"); }
+		}
+
+		function validatePhoneNumberEs() {
+			var phoneNumber = document.getElementById("phone");
+			if (!(phoneNumber.value).match("\\+\\d{2}([ ]{1}[(]{1}\\d{1,3}[)]{1})? \\d{4,}|\\+\\d{2} \\d{4,}|\\d{4,}|Null")) { return confirm("El teléfono no se ajusta al patrón correcto. ¿Desea continuar?"); }
+		}
+	</script>
 </form:form>

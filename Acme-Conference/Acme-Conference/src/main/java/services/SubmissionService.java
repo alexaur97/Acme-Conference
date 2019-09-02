@@ -167,7 +167,7 @@ public class SubmissionService {
 		final String summary = submission.getConference().getSummary();
 		final Collection<Reviewer> reviewers = this.reviewerService.findWithoutSubmission();
 		int i = 0;
-		for (final Reviewer reviewer : reviewers)
+		for (final Reviewer reviewer : reviewers) {
 			for (final String keyword : reviewer.getKeyWords()) {
 				final int a = title.indexOf(keyword);
 				final int b = summary.indexOf(keyword);
@@ -176,10 +176,13 @@ public class SubmissionService {
 					i++;
 					break;
 				}
-				if (i > 3)
-					break;
+
 			}
-		if (i == 2)
+			if (i == 3)
+				break;
+		}
+
+		if (i == 3)
 			return "submission.allReviewer";
 		else if (i > 0)
 			return "submission.notAllReviewer";
@@ -195,7 +198,7 @@ public class SubmissionService {
 
 	public Collection<Submission> findUnassigned() {
 		final Collection<Submission> assigned = this.submissionRepository.findAssigned();
-		final Collection<Submission> all = this.findAll();
+		final Collection<Submission> all = this.findSubmissionUnderReview();
 		final Collection<Submission> res = new ArrayList<>();
 		for (final Submission subm : all)
 			if (!assigned.contains(subm))

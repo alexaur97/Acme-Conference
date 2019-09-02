@@ -1,3 +1,4 @@
+
 package controllers.all;
 
 import java.util.Locale;
@@ -12,6 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.Authority;
+import services.ActorService;
+import services.AdministratorService;
+import services.AuthorService;
+import services.PaperService;
+import services.ReviewerService;
+import services.SponsorService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Administrator;
@@ -21,46 +29,49 @@ import domain.Sponsor;
 import forms.ActorEditForm;
 import forms.AdministratorEditForm;
 import forms.ReviewerEditForm;
-import repositories.SponsorRepository;
-import security.UserAccount;
-import services.ActorService;
-import services.AdministratorService;
-import services.AuthorService;
-import services.ReviewerService;
-import services.SponsorService;
 
 @Controller
 @RequestMapping("/actor")
 public class ActorController extends AbstractController {
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private AdministratorService administratorService;
+	private AdministratorService	administratorService;
 
 	@Autowired
-	private ReviewerService reviewerService;
+	private ReviewerService			reviewerService;
 
 	@Autowired
-	private AuthorService authorService;
+	private AuthorService			authorService;
 
 	@Autowired
-	private SponsorService sponsorService;
+	private SponsorService			sponsorService;
+
+	@Autowired
+	private PaperService			paperService;
+
 
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	public ModelAndView show() {
 		ModelAndView result;
 		try {
-			Actor actor = this.actorService.findByPrincipal();
+			final Actor actor = this.actorService.findByPrincipal();
+
 			result = new ModelAndView("actor/show");
 			result.addObject("actor", actor);
-		} catch (Throwable oops) {
+			if (this.actorService.auth(actor, Authority.AUTHOR)) {
+				final int score = this.paperService.statsAuthor(actor);
+				if (score > 0)
+					result.addObject("score", score);
+			}
+
+		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
 		}
 		return result;
 	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit() {
 		ModelAndView result;
@@ -72,7 +83,7 @@ public class ActorController extends AbstractController {
 				final AdministratorEditForm administratorEditForm = this.administratorService.toForm(actor);
 				result.addObject("administratorEditForm", administratorEditForm);
 			} else if (this.actorService.authEdit(actor, "REVIEWER")) {
-				Reviewer principal = this.reviewerService.findByPrincipal();
+				final Reviewer principal = this.reviewerService.findByPrincipal();
 				final ReviewerEditForm reviewerEditForm = this.reviewerService.toForm(principal);
 				result.addObject("reviewerEditForm", reviewerEditForm);
 			} else {
@@ -126,8 +137,7 @@ public class ActorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveAdmin")
-	public ModelAndView saveAdmin(@Valid final AdministratorEditForm administratorEditForm,
-			final BindingResult binding) {
+	public ModelAndView saveAdmin(@Valid final AdministratorEditForm administratorEditForm, final BindingResult binding) {
 		ModelAndView result;
 		if (binding.hasErrors()) {
 			result = new ModelAndView("actor/edit");
