@@ -139,4 +139,10 @@ public class ReviewerService {
 		return res;
 	}
 
+	public void refuseSubmission() {
+		final Reviewer reviewer = this.findByPrincipal();
+		reviewer.setSubmission(null);
+		this.save(reviewer);
+	}
+
 }

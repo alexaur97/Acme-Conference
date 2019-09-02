@@ -66,9 +66,6 @@ public class ReportService {
 		res.setReviewer(reviewer);
 		res.setSubmission(submission);
 
-		reviewer.setSubmission(null);
-		this.reviewerService.save(reviewer);
-
 		this.validator.validate(res, binding);
 		return res;
 	}

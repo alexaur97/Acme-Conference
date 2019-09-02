@@ -77,6 +77,7 @@ public class ReportReviewerController extends AbstractController {
 				try {
 					Assert.notNull(reportF.getReviewer().getSubmission());
 
+					this.reviewerService.refuseSubmission();
 					this.reportService.save(reportF);
 					result = new ModelAndView("redirect:/report/reviewer/list.do");
 
