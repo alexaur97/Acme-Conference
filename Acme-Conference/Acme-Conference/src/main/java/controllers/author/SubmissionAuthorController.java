@@ -140,22 +140,38 @@ public class SubmissionAuthorController extends AbstractController {
 		try {
 
 			final Submission submission = this.submissionService.findOne(submissionId);
+			final Date limite = submission.getConference().getCameraReady();
+			final Date date = new Date();
+			Assert.isNull(submission.getCameraReady());
+			Assert.isTrue(limite.after(date));
 			Assert.isTrue(submission.getStatus().equals("ACCEPTED"));
 			Assert.isTrue(submission.getAuthor().equals(this.authorService.findByPrincipal()));
+
 			final PaperForm paperForm = new PaperForm();
 			paperForm.setSubmissionId(submissionId);
 			result = new ModelAndView("paper/edit");
 			result.addObject("paperForm", paperForm);
+			result.addObject("date", date);
 
 		} catch (final Throwable oops) {
-
-			result = new ModelAndView("redirect:/submission/author/list.do");
+			final Submission s = this.submissionService.findOne(submissionId);
+			final Date limite = s.getConference().getSubmissionDeadline();
+			final Date date = new Date();
+			if (!limite.after(date)) {
+				final Collection<Submission> submissions = this.submissionService.findMySubmissions();
+				result = new ModelAndView("submission/list");
+				result.addObject("requestURI", "submission/author/list.do");
+				result.addObject("submissions", submissions);
+				final String a = "ACCEPTED";
+				result.addObject("a", a);
+				result.addObject("errorLimite", true);
+			} else
+				result = new ModelAndView("redirect:/submission/author/list.do");
 
 		}
 
 		return result;
 	}
-
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public ModelAndView accept(@Valid final PaperForm paperForm, final BindingResult binding) {
 
@@ -167,26 +183,14 @@ public class SubmissionAuthorController extends AbstractController {
 			result.addObject("paperForm", paperForm);
 		} else
 			try {
-				final Submission asse = this.submissionService.findOne(paperForm.getSubmissionId());
-				final Date limite = asse.getConference().getCameraReady();
-				final Date date = new Date();
-
-				Assert.isTrue(limite.after(date));
 
 				final Submission submission = this.submissionService.reconstruction(paperForm.getSubmissionId(), paper);
 				this.submissionService.save(submission);
 				result = new ModelAndView("redirect:/submission/author/list.do");
 
 			} catch (final Throwable oops) {
-				final Submission a = this.submissionService.findOne(paperForm.getSubmissionId());
-				final Date limite = a.getConference().getSubmissionDeadline();
-				final Date date = new Date();
-				if (!limite.after(date)) {
-					result = new ModelAndView("paper/edit");
-					result.addObject("paperForm", paperForm);
-					result.addObject("errorLimite", true);
-				} else
-					result = new ModelAndView("redirect:/#");
+
+				result = new ModelAndView("redirect:/#");
 			}
 		return result;
 	}

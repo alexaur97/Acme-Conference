@@ -35,12 +35,14 @@
 		<acme:cancel url="/submission/author/show.do?submissionId=${submission.id}" code="submission.details" />
 	</display:column>
 	<display:column titleKey="msg.upload">
-<jstl:if test="${submission.status==a}">
+<jstl:if test="${submission.status==a and submission.cameraReady == null}">
 		<acme:cancel url="/submission/author/upload.do?submissionId=${submission.id}" code="msg.upload" />
 </jstl:if>	
 </display:column>
 </display:table>
-
+<jstl:if test="${errorLimite}">
+<p style="color: red;"><spring:message code="paper.error"/></p>
+</jstl:if>	
 <acme:cancel url="/submission/author/create.do" code="submission.submit" />
 
 
