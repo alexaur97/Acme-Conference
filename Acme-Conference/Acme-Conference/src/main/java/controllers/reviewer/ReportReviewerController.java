@@ -1,54 +1,43 @@
+
 package controllers.reviewer;
 
 import java.util.Collection;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.ActorService;
-import services.AuthorService;
-import services.ConferenceService;
-import services.PaperService;
 import services.ReportService;
-import services.SubmissionService;
+import services.ReviewerService;
 import controllers.AbstractController;
-import domain.Conference;
-import domain.Panel;
-import domain.Paper;
-
 import domain.Report;
-import domain.Submission;
-import forms.MakeSubmissionForm;
-import forms.PaperForm;
-import miscellaneous.Utils;
+import domain.Reviewer;
 
 @Controller
 @RequestMapping("/report/reviewer")
 public class ReportReviewerController extends AbstractController {
 
 	@Autowired
-	private SubmissionService submissionService;
+	private ReportService	reportService;
 
 	@Autowired
-	private ReportService reportService;
+	private ReviewerService	reviewerService;
+
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
 		try {
-			Collection<Report> reports = this.reportService.findReportsByPrincipal();
+			this.reviewerService.findByPrincipal();
+			final Collection<Report> reports = this.reportService.findReportsByPrincipal();
 			result = new ModelAndView("report/list");
 			result.addObject("reports", reports);
-			
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -60,43 +49,79 @@ public class ReportReviewerController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 		try {
+			this.reviewerService.findByPrincipal();
 			final Report report = this.reportService.create();
 			result = this.createModelAndView(report);
-			
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
 
 		return result;
 	}
-	
-	@RequestMapping(value = "/create", method = RequestMethod.POST, params="save")
-	public ModelAndView create(@ModelAttribute("report") Report report, BindingResult binding) {
+
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	public ModelAndView save(final Report report, final BindingResult binding) {
+
 		ModelAndView result;
-		report = this.reportService.reconstruct(report, binding);
-		if (binding.hasErrors()) {
-			result = this.createModelAndView(report);
-		} else
-			try {
-				this.reportService.save(report);
-				result = new ModelAndView("redirect: /report/referee/list.do");
-			} catch (final Throwable oops) {
-				this.createModelAndView(report, "report.commit.error");
-				result = new ModelAndView("redirect:/#");
-			}
+
+		try {
+
+			final Reviewer reviewer = this.reviewerService.findByPrincipal();
+			Assert.notNull(reviewer.getSubmission());
+
+			final Report reportF = this.reportService.reconstruct(report, binding);
+			if (binding.hasErrors())
+				result = this.createModelAndView(reportF);
+			else
+				try {
+					Assert.notNull(reportF.getReviewer().getSubmission());
+
+					this.reportService.save(reportF);
+					result = new ModelAndView("redirect:/report/reviewer/list.do");
+
+				} catch (final Throwable oops) {
+
+					result = this.createModelAndView(report, "report.commit.error");
+				}
+		} catch (final Throwable oops) {
+
+			result = this.createModelAndView(report, "report.submission.error");
+
+		}
+		return result;
+
+	}
+
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int reportId) {
+		ModelAndView result;
+		try {
+			this.reviewerService.findByPrincipal();
+			final Report report = this.reportService.findOne(reportId);
+			Assert.notNull(report);
+
+			result = new ModelAndView("report/show");
+			result.addObject("requestURI", "report/reviewer/show.do");
+			result.addObject("report", report);
+
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
 		return result;
 	}
 
-	protected ModelAndView createModelAndView(Report report) {
-		return createModelAndView(report, null);
+	protected ModelAndView createModelAndView(final Report report) {
+		return this.createModelAndView(report, null);
 	}
 
-	protected ModelAndView createModelAndView(Report report, String messageCode) {
+	protected ModelAndView createModelAndView(final Report report, final String messageCode) {
 		ModelAndView result;
 		result = new ModelAndView("report/create");
 		result.addObject("report", report);
 		result.addObject("message", messageCode);
 		return result;
 	}
-	
+
 }

@@ -86,6 +86,12 @@
 					code="master.page.listCategory" /></a></li>
 		</security:authorize>
 
+	<security:authorize access="hasRole('REVIEWER')">
+
+			<li><a class="fNiv" href="report/reviewer/list.do"><spring:message
+					code="master.page.listReports" /></a></li>
+		</security:authorize>
+		
 
 			<security:authorize access="hasRole('AUTHOR')">
 

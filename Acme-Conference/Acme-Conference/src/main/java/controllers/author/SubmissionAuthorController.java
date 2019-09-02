@@ -20,6 +20,7 @@ import services.AuthorService;
 import services.ConferenceService;
 import services.PaperService;
 import services.ReportService;
+import services.ReviewerService;
 import services.SubmissionService;
 import controllers.AbstractController;
 import domain.Conference;
@@ -49,6 +50,9 @@ public class SubmissionAuthorController extends AbstractController {
 	private ReportService		reportService;
 	@Autowired
 	private PaperService		paperService;
+
+	@Autowired
+	private ReviewerService		reviewerService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)

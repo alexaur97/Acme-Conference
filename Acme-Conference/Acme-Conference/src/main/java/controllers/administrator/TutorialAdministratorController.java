@@ -120,13 +120,13 @@ public class TutorialAdministratorController extends AbstractController {
 				Assert.isTrue(tutorialF.getStartMoment().before(tutorialF.getConference().getEndDate()));
 				Assert.isTrue(!(tutorialF.getStartMoment().before(tutorialF.getConference().getStartDate())));
 				Assert.isTrue(Utils.validateURL(tutorialF.getAttachments()));
+				//Assert.isTrue(tutorialF.getStartMoment().before(tutorialF.getendMoment()));
 				Assert.isTrue(tutorialF.getendMoment().before(tutorialF.getConference().getEndDate()));
 				Assert.isTrue(tutorialF.getConference().getMode().equals("FINAL"));
-				if (tutorialF.getId() != 0)
-					Assert.isTrue(tutorialF.getendMoment().after(tutorialF.getStartMoment()));
-				Tutorial saved = this.tutorialService.save(tutorialF);
-				result = new ModelAndView("redirect:/conference/activity/tutorial/show.do?tutorialId="+saved.getId());
-				
+				Assert.isTrue(tutorialF.getendMoment().after(tutorialF.getStartMoment()));
+				final Tutorial saved = this.tutorialService.save(tutorialF);
+				result = new ModelAndView("redirect:/conference/activity/tutorial/show.do?tutorialId=" + saved.getId());
+
 			} catch (final Throwable oops) {
 				final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 				final Boolean fechaPosterior = tutorialF.getStartMoment().before(tutorialF.getConference().getStartDate());
@@ -134,7 +134,7 @@ public class TutorialAdministratorController extends AbstractController {
 				final Boolean fechaFinAnterior = tutorialF.getendMoment().before(tutorialF.getStartMoment());
 				final Boolean fechaFinPosterior = tutorialF.getendMoment().after(tutorialF.getConference().getEndDate());
 				final Boolean urlInvalida = Utils.validateURL(tutorialF.getAttachments());
-
+				//final Boolean fechaEndMoment = tutorialF.getendMoment().before(tutorialF.getStartMoment());
 				if (fechaPosterior || fechaAnterior) {
 					result = new ModelAndView("tutorial/edit");
 					result.addObject("tutorial", tutorial);

@@ -92,6 +92,7 @@
 			pattern="/submission/administrator/assign.do"
 			access="hasRole('ADMINISTRATOR')" />
 			
+			
 		<security:intercept-url
 			pattern="/configuration/administrator/setup.do"
 			access="hasRole('ADMINISTRATOR')" />

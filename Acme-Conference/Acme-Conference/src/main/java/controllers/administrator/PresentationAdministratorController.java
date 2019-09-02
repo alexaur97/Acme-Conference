@@ -117,11 +117,10 @@ public class PresentationAdministratorController extends AbstractController {
 				Assert.isTrue(Utils.validateURL(presentationF.getAttachments()));
 				Assert.isTrue(presentationF.getendMoment().before(presentationF.getConference().getEndDate()));
 				Assert.isTrue(presentationF.getConference().getMode().equals("FINAL"));
-				if (presentationF.getId() != 0)
-					Assert.isTrue(presentationF.getendMoment().after(presentationF.getStartMoment()));
-				Presentation saved = this.presentationService.save(presentationF);
+				Assert.isTrue(presentationF.getendMoment().after(presentationF.getStartMoment()));
+				final Presentation saved = this.presentationService.save(presentationF);
 				result = new ModelAndView("redirect:/conference/activity/presentation/show.do?presentationId=" + saved.getId());
-				
+
 			} catch (final Throwable oops) {
 				final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 				final Boolean fechaPosterior = presentationF.getStartMoment().before(presentationF.getConference().getStartDate());

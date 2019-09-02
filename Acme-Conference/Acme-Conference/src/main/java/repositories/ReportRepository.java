@@ -1,3 +1,4 @@
+
 package repositories;
 
 import java.util.Collection;
@@ -7,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Report;
-import domain.Reviewer;
 
 @Repository
 public interface ReportRepository extends JpaRepository<Report, Integer> {
@@ -25,5 +25,5 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
 	Collection<Report> findReportsInAcceptedSubmission(int id, int authorId);
 
 	@Query("select r from Report r where r.reviewer.id = ?1")
-	Collection<Report> findReportsByPrincipal(Reviewer principal);
+	Collection<Report> findReportsByPrincipal(int id);
 }

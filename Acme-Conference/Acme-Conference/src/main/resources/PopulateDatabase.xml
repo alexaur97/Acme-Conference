@@ -337,6 +337,7 @@
 		<property name="phone" value="654321098" />
 		<property name="middleName" value="Ilyich" />
 		<property name="surname" value="Tchaikovsky" />
+		<property name="submission" ref="submission1" />
 		<property name="photo"
 			value="https://assets.classicfm.com/2012/24/tchaikovsky-1339754299-list-handheld-0.jpg" />
 		<property name="userAccount" ref="userAccount6" />
