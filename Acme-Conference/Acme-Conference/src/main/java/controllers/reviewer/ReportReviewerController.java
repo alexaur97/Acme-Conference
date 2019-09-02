@@ -36,6 +36,7 @@ public class ReportReviewerController extends AbstractController {
 			this.reviewerService.findByPrincipal();
 			final Collection<Report> reports = this.reportService.findReportsByPrincipal();
 			result = new ModelAndView("report/list");
+			result.addObject("requestURI", "/report/reviewer/list.do");
 			result.addObject("reports", reports);
 
 		} catch (final Exception e) {
