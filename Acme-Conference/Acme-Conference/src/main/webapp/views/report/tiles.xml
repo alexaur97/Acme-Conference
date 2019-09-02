@@ -16,4 +16,13 @@
 		<put-attribute name="body" value="/views/report/show.jsp" />
 	</definition>
 	
-</tiles-definitions>
+	<definition name="report/list" extends="master.page">
+		<put-attribute name="title" value="List reports" />
+		<put-attribute name="body" value="/views/report/list.jsp" />
+	</definition>
+
+	<definition name="report/create" extends="master.page">
+		<put-attribute name="title" value="Create report" />
+		<put-attribute name="body" value="/views/report/create.jsp" />
+	</definition>
+	</tiles-definitions>

@@ -142,6 +142,33 @@
 		</property>
 	</bean>
 
+<bean id="userAccount11" class="security.UserAccount">
+		<property name="username" value="reviewer4" />
+		<property name="password"
+			value="5293e8663cbb7c157ff83eeae25177d3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="REVIEWER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount12" class="security.UserAccount">
+		<property name="username" value="reviewer5" />
+		<property name="password"
+			value="86045e9e3b2e615d8d2484dc64b3f408" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="REVIEWER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+
 	<bean id="configurationParameters"
 		class="domain.ConfigurationParameters">
 		<property name="banner"
@@ -297,10 +324,11 @@
 		<property name="userAccount" ref="userAccount5" />
 		<property name="keyWords">
 			<list>
-				<value>key1</value>
+				<value>coche</value>
 				<value>key2</value>
 			</list>
 		</property>
+		
 	</bean>
 
 	<bean id="reviewer2" class="domain.Reviewer">
@@ -309,15 +337,17 @@
 		<property name="phone" value="654321098" />
 		<property name="middleName" value="Ilyich" />
 		<property name="surname" value="Tchaikovsky" />
+		<property name="submission" ref="submission1" />
 		<property name="photo"
 			value="https://assets.classicfm.com/2012/24/tchaikovsky-1339754299-list-handheld-0.jpg" />
 		<property name="userAccount" ref="userAccount6" />
 		<property name="keyWords">
 			<list>
-				<value>key1</value>
+				<value>Dividiry</value>
 				<value>key2</value>
 			</list>
 		</property>
+		
 	</bean>
 
 	<bean id="reviewer3" class="domain.Reviewer">
@@ -330,10 +360,45 @@
 		<property name="userAccount" ref="userAccount7" />
 		<property name="keyWords">
 			<list>
-				<value>key1</value>
+				<value>Dividiry</value>
 				<value>key2</value>
 			</list>
 		</property>
+
+	</bean>
+	
+	<bean id="reviewer4" class="domain.Reviewer">
+		<property name="email" value="reviewer4@gmail.com" />
+		<property name="name" value="Rev" />
+		<property name="phone" value="654321098" />
+		<property name="surname" value="Roviv" />
+		<property name="photo"
+			value="https://cdn-media.festival-cannes.com/media_image/0001/51/thumb_50800_media_image_926x584.jpg" />
+		<property name="userAccount" ref="userAccount11" />
+		<property name="keyWords">
+			<list>
+				<value>Restary</value>
+				<value>key2</value>
+			</list>
+		</property>
+
+	</bean>
+	
+	<bean id="reviewer5" class="domain.Reviewer">
+		<property name="email" value="reviewer5@gmail.com" />
+		<property name="name" value="Rev2" />
+		<property name="phone" value="654321098" />
+		<property name="surname" value="Roviv2" />
+		<property name="photo"
+			value="https://cdn-media.festival-cannes.com/media_image/0001/51/thumb_50800_media_image_926x584.jpg" />
+		<property name="userAccount" ref="userAccount12" />
+		<property name="keyWords">
+			<list>
+				<value>Restary</value>
+				<value>key2</value>
+			</list>
+		</property>
+
 	</bean>
 
 	<bean id="sponsor1" class="domain.Sponsor">
@@ -641,7 +706,7 @@
 		<property name="startDate" value="12/30/2020 18:30" />
 		<property name="submissionDeadline" value="07/30/2019 17:30" />
 		<property name="summary"
-			value="Summary, Restary, Multiplicary y Dividiry" />
+					value="Summary, Restary, Multiplicary y Dividiry" />
 		<property name="title" value="Global Freightways" />
 		<property name="venue" value="Oh, look at this venue" />
 		<property name="mode" value="DRAFT" />
@@ -658,7 +723,7 @@
 		<property name="startDate" value="12/31/2020 18:30" />
 		<property name="submissionDeadline" value="11/30/2019 17:30" />
 		<property name="summary"
-			value="Summary, Restary, Multiplicary y Dividiry" />
+			value=" El coche es muy bonito" />
 		<property name="title" value="The best conference" />
 		<property name="venue" value="Oh, look at this venue" />
 		<property name="mode" value="FINAL" />
@@ -894,7 +959,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="2020/12/30 19:00" />
+		<property name="endMoment" value="2020/12/30 19:00" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -915,7 +980,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="2020/12/30 18:40" />
+		<property name="endMoment" value="2020/12/30 18:40" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -936,7 +1001,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="2020/12/30 18:45" />
+		<property name="endMoment" value="2020/12/30 18:45" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -957,7 +1022,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="2020/12/30 18:50" />
+		<property name="endMoment" value="2020/12/30 18:50" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -978,7 +1043,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="2020/12/30 19:05" />
+		<property name="endMoment" value="2020/12/30 19:05" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -999,7 +1064,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="2020/12/30 18:38" />
+		<property name="endMoment" value="2020/12/30 18:38" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1020,7 +1085,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="2020/12/30 18:55" />
+		<property name="endMoment" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1041,7 +1106,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="2020/12/30 18:55" />
+		<property name="endMoment" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1062,7 +1127,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="2020/12/30 18:55" />
+		<property name="endMoment" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1084,7 +1149,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="2020/12/30 18:55" />
+		<property name="endMoment" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1106,7 +1171,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="2020/12/30 18:55" />
+		<property name="endMoment" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1127,7 +1192,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="2020/12/30 18:55" />
+		<property name="endMoment" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1148,7 +1213,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="2020/12/30 18:55" />
+		<property name="endMoment" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1170,7 +1235,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="2020/12/30 18:55" />
+		<property name="endMoment" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:35" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1192,7 +1257,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="2020/12/30 18:55" />
+		<property name="endMoment" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1214,7 +1279,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="2020/12/30 18:55" />
+		<property name="endMoment" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1236,7 +1301,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="2020/12/30 18:55" />
+		<property name="endMoment" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1258,7 +1323,7 @@
 				<value>speaker2</value>
 			</list>
 		</property>
-		<property name="duration" value="2020/12/30 18:55" />
+		<property name="endMoment" value="2020/12/30 18:55" />
 		<property name="startMoment" value="2020/12/30 18:30" />
 		<property name="room" value="23" />
 		<property name="summary" value="big data" />
@@ -1450,6 +1515,15 @@
 		<property name="status" value="UNDER-REVIEW" />
 	</bean>
 
+	<bean id="submission6" class="domain.Submission">
+		<property name="author" ref="author3" />
+		<property name="conference" ref="conference3" />
+		<property name="ticker" value="MXM-RI90" />
+		<property name="moment" value="12/30/2020 17:00" />
+		<property name="paper" ref="paper5" />
+		<property name="status" value="UNDER-REVIEW" />
+	</bean>
+	
 	<!-- Reports -->
 
 	<bean id="report1" class="domain.Report">

@@ -44,7 +44,7 @@
 	<spring:message code="tutorial.schedule" />
 </h2>
 <acme:display code="tutorial.startMoment" path="${tutorial.startMoment}" />
-<acme:display code="tutorial.duration" path="${duration}" />
+<acme:display code="tutorial.duration" path="${endMoment}" />
 
 
 <h2>
@@ -71,11 +71,14 @@
 	<display:column titleKey="tutorial.section.summary" property="summary" />
 	<display:column titleKey="tutorial.section.pictures"
 		property="pictures" />
-	<display:column titleKey="tutorial.section.edit">
-		<acme:cancel
-			url="/section/administrator/edit.do?sectionId=${section.id}"
-			code="tutorial.section.edit" />
-	</display:column>
+	<security:authorize access="hasRole('ADMINISTRATOR')">
+		<display:column titleKey="tutorial.section.edit">
+			<acme:cancel
+				url="/section/administrator/edit.do?sectionId=${section.id}"
+				code="tutorial.section.edit" />
+
+		</display:column>
+	</security:authorize>
 
 
 
@@ -86,4 +89,7 @@
 		url="/section/administrator/create.do?tutorialId=${tutorial.id}"
 		code="tutorial.create.section" />
 </security:authorize>
+
+<acme:cancel url="conference/list.do" code="msg.cancel" />
+
 

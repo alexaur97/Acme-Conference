@@ -13,19 +13,22 @@ import org.springframework.validation.Validator;
 
 import repositories.CategoryRepository;
 import domain.Category;
+import domain.Conference;
 
 @Service
 @Transactional
 public class CategoryService {
 
 	@Autowired
-	private CategoryRepository	categoryRepository;
+	private CategoryRepository categoryRepository;
 
 	@Autowired
-	private Validator			validator;
+	private ConferenceService conferenceService;
 
+	@Autowired
+	private Validator validator;
 
-	//COnstructors -------------------------
+	// COnstructors -------------------------
 	public CategoryService() {
 		super();
 	}
@@ -61,7 +64,26 @@ public class CategoryService {
 	}
 
 	public void delete(final Category category) {
-		this.categoryRepository.delete(category);
+		Collection<Category> children = this.findCategoriesByParent(category.getId());
+
+		if (children.isEmpty()) {
+			Collection<Conference> conferences = this.conferenceService.findByCategory(category.getId());
+			for (Conference conf : conferences) {
+				conf.setCategory(category.getParent());
+				this.conferenceService.saveDeleteCategory(conf);
+			}
+			this.categoryRepository.delete(category);
+		} else {
+			for (Category c : children) {
+				this.delete(c);
+			}
+			Collection<Conference> conferences = this.conferenceService.findByCategory(category.getId());
+			for (Conference conf : conferences) {
+				conf.setCategory(category.getParent());
+				this.conferenceService.saveDeleteCategory(conf);
+			}
+			this.categoryRepository.delete(category);
+		}
 	}
 
 	public Collection<Category> findCategoriesByParent(final int categoryId) {

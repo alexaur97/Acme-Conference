@@ -147,7 +147,7 @@ public class BroadcastAdministratorController extends AbstractController {
 		try {
 			final BroadcastConferenceForm broadcastConferenceForm = new BroadcastConferenceForm();
 			final Collection<Topic> topics = this.topicService.findAll();
-			final Collection<Conference> conferences = this.conferenceService.findAll();
+			final Collection<Conference> conferences = this.conferenceService.findConferencesFinal();
 			res = new ModelAndView("message/broadcastAttendee");
 			res.addObject("broadcastConferenceForm", broadcastConferenceForm);
 			res.addObject("topics", topics);
@@ -167,7 +167,7 @@ public class BroadcastAdministratorController extends AbstractController {
 		ModelAndView res;
 		if (binding.hasErrors()) {
 			final Collection<Topic> topics = this.topicService.findAll();
-			final Collection<Conference> conferences = this.conferenceService.findAll();
+			final Collection<Conference> conferences = this.conferenceService.findConferencesFinal();
 			res = new ModelAndView("message/broadcastAttendee");
 			res.addObject("topics", topics);
 			res.addObject("conferences", conferences);
@@ -187,6 +187,8 @@ public class BroadcastAdministratorController extends AbstractController {
 			} catch (final Throwable oops) {
 				res = new ModelAndView("message/broadcastAttendee");
 				res.addObject("broadcastConferenceForm", broadcastConferenceForm);
+				final Collection<Conference> conferences = this.conferenceService.findConferencesFinal();
+				res.addObject("conferences", conferences);
 			}
 
 		return res;
@@ -198,7 +200,7 @@ public class BroadcastAdministratorController extends AbstractController {
 		try {
 			final BroadcastConferenceForm broadcastConferenceForm = new BroadcastConferenceForm();
 			final Collection<Topic> topics = this.topicService.findAll();
-			final Collection<Conference> conferences = this.conferenceService.findAll();
+			final Collection<Conference> conferences = this.conferenceService.findConferencesFinal();
 			res = new ModelAndView("message/broadcastSubmitters");
 			res.addObject("broadcastConferenceForm", broadcastConferenceForm);
 			res.addObject("topics", topics);
@@ -218,7 +220,7 @@ public class BroadcastAdministratorController extends AbstractController {
 		ModelAndView res;
 		if (binding.hasErrors()) {
 			final Collection<Topic> topics = this.topicService.findAll();
-			final Collection<Conference> conferences = this.conferenceService.findAll();
+			final Collection<Conference> conferences = this.conferenceService.findConferencesFinal();
 			res = new ModelAndView("message/broadcastSubmitters");
 			res.addObject("topics", topics);
 			res.addObject("conferences", conferences);
@@ -241,6 +243,8 @@ public class BroadcastAdministratorController extends AbstractController {
 			} catch (final Throwable oops) {
 				res = new ModelAndView("message/broadcastSubmitters");
 				res.addObject("broadcastConferenceForm", broadcastConferenceForm);
+				final Collection<Conference> conferences = this.conferenceService.findConferencesFinal();
+				res.addObject("conferences", conferences);
 			}
 
 		return res;

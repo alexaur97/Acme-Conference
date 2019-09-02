@@ -25,22 +25,6 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<spring:message code="tutorial.list"/> 
-<br>
-<display:table pagesize="5" name="tutorials" id="tutorial"
-	requestURI="${requestURI}" class="displaytag table">
-	<display:column titleKey="tutorial.title"  property="title" />
-	<display:column titleKey="tutorial.startMoment"  property="startMoment" />
-	<display:column titleKey="tutorial.summary"  property="summary" />
-	<display:column titleKey="tutorial.endMoment"  property="endMoment" />
-	<display:column titleKey="tutorial.edit">
-		<acme:cancel url="/tutorial/administrator/edit.do?tutorialId=${tutorial.id}" code="tutorial.edit" />
-	</display:column>
-	<display:column titleKey="tutorial.show">
-		<acme:cancel url="/tutorial/administrator/show.do?tutorialId=${tutorial.id}" code="tutorial.show" />
-	</display:column>
+
+<acme:cancel url="/submission/administrator/list.do" code="submission.back" />
 	
-</display:table>
-
-
-

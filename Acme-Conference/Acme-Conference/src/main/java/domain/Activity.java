@@ -27,7 +27,7 @@ public class Activity extends DomainEntity {
 
 	private String				title;
 	private Collection<String>	speakers;
-	private Date				duration;
+	private Date				endMoment;
 	private Date				startMoment;
 	private String				room;
 	private String				summary;
@@ -58,12 +58,12 @@ public class Activity extends DomainEntity {
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
-	public Date getDuration() {
-		return this.duration;
+	public Date getendMoment() {
+		return this.endMoment;
 	}
 
-	public void setDuration(final Date duration) {
-		this.duration = duration;
+	public void setendMoment(final Date endMoment) {
+		this.endMoment = endMoment;
 	}
 
 	@NotNull

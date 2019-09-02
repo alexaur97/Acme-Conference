@@ -89,6 +89,11 @@
 			access="hasRole('ADMINISTRATOR')" />
 			
 		<security:intercept-url
+			pattern="/submission/administrator/assign.do"
+			access="hasRole('ADMINISTRATOR')" />
+			
+			
+		<security:intercept-url
 			pattern="/configuration/administrator/setup.do"
 			access="hasRole('ADMINISTRATOR')" />
 		
@@ -179,6 +184,9 @@
 			
 		<security:intercept-url pattern="/stats/administrator/**"
 			access="hasRole('ADMINISTRATOR')" />
+			
+		<security:intercept-url pattern="/report/reviewer/**"
+			access="hasRole('REVIEWER')" />
 
 		<security:form-login
 			login-page="/security/login.do" password-parameter="password"

@@ -2,6 +2,7 @@
 package services;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -13,6 +14,7 @@ import org.springframework.util.Assert;
 import repositories.SubmissionRepository;
 import domain.Conference;
 import domain.Paper;
+import domain.Reviewer;
 import domain.Submission;
 import forms.MakeSubmissionForm;
 
@@ -28,6 +30,12 @@ public class SubmissionService {
 	private PaperService			paperService;
 	@Autowired
 	private ActorService			actorService;
+
+	@Autowired
+	private AdministratorService	administratorService;
+
+	@Autowired
+	private ReviewerService			reviewerService;
 
 
 	public Collection<Submission> findSubmissionsByConference(final Conference conference) {
@@ -70,8 +78,7 @@ public class SubmissionService {
 		submission.setTicker(submissionF.getTicker());
 		submission.setVersion(submissionF.getVersion());
 		return submission;
-		
-		
+
 	}
 
 	public Collection<Submission> findMySubmissions() {
@@ -154,4 +161,45 @@ public class SubmissionService {
 		return res;
 	}
 
+	public String assign(final Submission submission) {
+		this.administratorService.findByPrincipal();
+		final String title = submission.getConference().getTitle();
+		final String summary = submission.getConference().getSummary();
+		final Collection<Reviewer> reviewers = this.reviewerService.findWithoutSubmission();
+		int i = 0;
+		for (final Reviewer reviewer : reviewers)
+			for (final String keyword : reviewer.getKeyWords()) {
+				final int a = title.indexOf(keyword);
+				final int b = summary.indexOf(keyword);
+				if ((a != -1 || b != -1)) {
+					reviewer.setSubmission(submission);
+					i++;
+					break;
+				}
+				if (i > 3)
+					break;
+			}
+		if (i == 2)
+			return "submission.allReviewer";
+		else if (i > 0)
+			return "submission.notAllReviewer";
+		else
+			return "submission.unassigned";
+
+	}
+	public Collection<Submission> findAll() {
+		final Collection<Submission> res = this.submissionRepository.findAll();
+		return res;
+
+	}
+
+	public Collection<Submission> findUnassigned() {
+		final Collection<Submission> assigned = this.submissionRepository.findAssigned();
+		final Collection<Submission> all = this.findAll();
+		final Collection<Submission> res = new ArrayList<>();
+		for (final Submission subm : all)
+			if (!assigned.contains(subm))
+				res.add(subm);
+		return res;
+	}
 }

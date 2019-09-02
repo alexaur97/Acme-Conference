@@ -15,6 +15,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Reviewer;
+import domain.Submission;
 import forms.RegisterReviewerForm;
 import forms.ReviewerEditForm;
 
@@ -23,10 +24,14 @@ import forms.ReviewerEditForm;
 public class ReviewerService {
 
 	@Autowired
-	private ReviewerRepository reviewerRepository;
+	private ReviewerRepository		reviewerRepository;
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService			actorService;
+
+	@Autowired
+	private AdministratorService	administratorService;
+
 
 	public ReviewerEditForm toForm(final Reviewer reviewer) {
 		final ReviewerEditForm result = new ReviewerEditForm();
@@ -90,9 +95,9 @@ public class ReviewerService {
 	public Reviewer reconstructEdit(final ReviewerEditForm reviewerEditForm) {
 		final Reviewer result;
 		result = this.findByPrincipal();
-		String lastEmail = result.getEmail();
+		final String lastEmail = result.getEmail();
 		final Collection<String> emails = this.actorService.findAllEmails();
-		
+
 		result.setName(reviewerEditForm.getName());
 		result.setMiddleName(reviewerEditForm.getMiddleName());
 		result.setSurname(reviewerEditForm.getSurname());
@@ -117,6 +122,21 @@ public class ReviewerService {
 		final Reviewer result = this.reviewerRepository.save(reviewer);
 		return result;
 
+	}
+	public Collection<Reviewer> findAll() {
+		this.administratorService.findByPrincipal();
+		final Collection<Reviewer> res = this.reviewerRepository.findAll();
+		return res;
+	}
+
+	public Collection<Reviewer> findWithoutSubmission() {
+		final Collection<Reviewer> res = this.reviewerRepository.findWithoutSubmission();
+		return res;
+	}
+
+	public Collection<Reviewer> findBySubmission(final Submission s) {
+		final Collection<Reviewer> res = this.reviewerRepository.findBySubmissionID(s.getId());
+		return res;
 	}
 
 }

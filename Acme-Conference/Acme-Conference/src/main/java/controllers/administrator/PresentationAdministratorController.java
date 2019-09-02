@@ -115,12 +115,11 @@ public class PresentationAdministratorController extends AbstractController {
 				Assert.isTrue(presentationF.getStartMoment().before(presentationF.getConference().getEndDate()));
 				Assert.isTrue(!(presentationF.getStartMoment().before(presentationF.getConference().getStartDate())));
 				Assert.isTrue(Utils.validateURL(presentationF.getAttachments()));
-				Assert.isTrue(presentationF.getDuration().before(presentationF.getConference().getEndDate()));
-				Assert.isTrue(presentationF.getConference().getMode().equals("DRAFT"));
-				if (presentationF.getId() != 0)
-					Assert.isTrue(presentationF.getDuration().after(presentationF.getStartMoment()));
-				this.presentationService.save(presentationF);
-				result = new ModelAndView("redirect:/conference/list.do");
+				Assert.isTrue(presentationF.getendMoment().before(presentationF.getConference().getEndDate()));
+				Assert.isTrue(presentationF.getConference().getMode().equals("FINAL"));
+				Assert.isTrue(presentationF.getendMoment().after(presentationF.getStartMoment()));
+				final Presentation saved = this.presentationService.save(presentationF);
+				result = new ModelAndView("redirect:/conference/activity/presentation/show.do?presentationId=" + saved.getId());
 
 			} catch (final Throwable oops) {
 				final Collection<Conference> conferences = this.conferenceService.findNextConferences();
@@ -128,8 +127,8 @@ public class PresentationAdministratorController extends AbstractController {
 				final Boolean fechaAnterior = !(presentationF.getStartMoment().before(presentationF.getConference().getEndDate()));
 				final Boolean urlInvalida = Utils.validateURL(presentationF.getAttachments());
 
-				final Boolean fechaFinAnterior = presentationF.getDuration().before(presentationF.getStartMoment());
-				final Boolean fechaFinPosterior = presentationF.getDuration().after(presentationF.getConference().getEndDate());
+				final Boolean fechaFinAnterior = presentationF.getendMoment().before(presentationF.getStartMoment());
+				final Boolean fechaFinPosterior = presentationF.getendMoment().after(presentationF.getConference().getEndDate());
 
 				if (fechaPosterior || fechaAnterior) {
 					result = new ModelAndView("presentation/edit");
@@ -146,12 +145,12 @@ public class PresentationAdministratorController extends AbstractController {
 					result = new ModelAndView("presentation/edit");
 					result.addObject("presentation", presentation);
 					result.addObject("conferences", conferences);
-					result.addObject("message", "presentation.duration.error");
+					result.addObject("message", "presentation.endMoment.error");
 				} else if (fechaFinAnterior) {
 					result = new ModelAndView("presentation/edit");
 					result.addObject("presentation", presentation);
 					result.addObject("conferences", conferences);
-					result.addObject("message", "presentation.durationBefore.error");
+					result.addObject("message", "presentation.endMomentBefore.error");
 
 				} else
 					result = new ModelAndView("redirect:/#");
@@ -189,12 +188,12 @@ public class PresentationAdministratorController extends AbstractController {
 
 			result = new ModelAndView("presentation/show");
 
-			final Integer duracionSegundos = (int) ((presentation.getDuration().getTime() - presentation.getStartMoment().getTime()) / 1000);
-			final Integer duration = duracionSegundos / 60;
+			final Integer duracionSegundos = (int) ((presentation.getendMoment().getTime() - presentation.getStartMoment().getTime()) / 1000);
+			final Integer endMoment = duracionSegundos / 60;
 
 			result.addObject("requestURI", "presentation/administrator/show.do");
 			result.addObject("presentation", presentation);
-			result.addObject("duration", duration);
+			result.addObject("endMoment", endMoment);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");

@@ -24,23 +24,38 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-
-<spring:message code="tutorial.list"/> 
-<br>
-<display:table pagesize="5" name="tutorials" id="tutorial"
-	requestURI="${requestURI}" class="displaytag table">
-	<display:column titleKey="tutorial.title"  property="title" />
-	<display:column titleKey="tutorial.startMoment"  property="startMoment" />
-	<display:column titleKey="tutorial.summary"  property="summary" />
-	<display:column titleKey="tutorial.endMoment"  property="endMoment" />
-	<display:column titleKey="tutorial.edit">
-		<acme:cancel url="/tutorial/administrator/edit.do?tutorialId=${tutorial.id}" code="tutorial.edit" />
-	</display:column>
-	<display:column titleKey="tutorial.show">
-		<acme:cancel url="/tutorial/administrator/show.do?tutorialId=${tutorial.id}" code="tutorial.show" />
-	</display:column>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<fieldset class="col-md-6 col-md-offset-3">
+			
+			<form:form action="report/reviewer/create.do" 
+			modelAttribute="report" class="form-horizontal" method="post">
+									
+					
+							<acme:textbox code="report.originality" path="originality" />
+							<acme:textbox code="report.quality" path="quality" />
+							<acme:textbox code="report.readability" path="readability" />
+							<spring:message code="report.decision"/>
+							<form:select path="decision">
+							<form:option value="ACCEPT"/>
+							<form:option value="REJECT" />
+							<form:option value="BORDER-LINE" />
+							</form:select>
+							<acme:textarea code="report.comments" path="comments" />
+							<br />
 	
-</display:table>
 
+							<acme:submit name="save" code="report.save" />
+
+							<acme:cancel url="/report/reviewer/list.do" code="msg.cancel" />
+					
+				</form:form>
+			</fieldset>
+
+
+		</div>
+	</div>
+</div>
 
 

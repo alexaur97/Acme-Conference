@@ -43,7 +43,7 @@
 <h2><spring:message code="panel.schedule"/></h2>	
 						
 <acme:display code="panel.startMoment" path="${panel.startMoment}" />
-<acme:display code="panel.duration" path="${duration}" />
+<acme:display code="panel.duration" path="${endMoment}" />
 
 <br>
 <acme:cancel url="/conference/list.do"

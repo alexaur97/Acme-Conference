@@ -16,10 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.AdministratorService;
 import services.CategoryService;
-import services.ConferenceService;
 import controllers.AbstractController;
 import domain.Category;
-import domain.Conference;
 
 @Controller
 @RequestMapping("/category/administrator")
@@ -30,9 +28,6 @@ public class CategoryAdministratorController extends AbstractController {
 
 	@Autowired
 	private AdministratorService	administratorService;
-
-	@Autowired
-	private ConferenceService		conferenceService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -141,9 +136,12 @@ public class CategoryAdministratorController extends AbstractController {
 					result.addObject("category", category);
 					result.addObject("categories", categories);
 					result.addObject("message", "category.parent.error");
-				} else
-					result = new ModelAndView("redirect:/#");
-			}
+				} else{
+					result = new ModelAndView("category/edit");
+				result.addObject("category", category);
+				result.addObject("categories", categories);
+				result.addObject("message", "category.commit.error");
+			}}
 		return result;
 
 	}
@@ -157,22 +155,7 @@ public class CategoryAdministratorController extends AbstractController {
 		try {
 			Assert.isTrue(!res.getRoot());
 			this.administratorService.findByPrincipal();
-			final Collection<Conference> conferences = this.conferenceService.findByCategory(res.getId());
-			for (final Conference c : conferences) {
-				c.setCategory(c.getCategory().getParent());
-				c.setMode("DRAFT");
-				this.conferenceService.save(c);
-			}
-			final Collection<Category> childCategories = this.categoryService.findCategoriesByParent(res.getId());
-			for (final Category c : childCategories) {
-				final Collection<Conference> childConferences = this.conferenceService.findByCategory(c.getId());
-				for (final Conference cc : childConferences) {
-					cc.setCategory(cc.getCategory().getParent().getParent());
-					cc.setMode("DRAFT");
-					this.conferenceService.save(cc);
-				}
-				this.categoryService.delete(c);
-			}
+
 			this.categoryService.delete(res);
 			result = new ModelAndView("redirect:/category/administrator/list.do");
 		} catch (final Throwable oops) {
@@ -188,7 +171,7 @@ public class CategoryAdministratorController extends AbstractController {
 				result = new ModelAndView("category/edit");
 				result.addObject("category", category);
 				result.addObject("categories", categories);
-				result.addObject("message", oops.getMessage());
+				result.addObject("message", "category.commit.error");
 			}
 		}
 		return result;

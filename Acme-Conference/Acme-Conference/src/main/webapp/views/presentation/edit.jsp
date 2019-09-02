@@ -43,8 +43,9 @@
 					
 						<br>
 						<h2><spring:message code="presentation.schedule"/></h2>
-						<acme:textbox placeholder="yyyy/MM/dd HH:mm" code="presentation.duration" path="duration" />
 						<acme:textbox placeholder="yyyy/MM/dd HH:mm" code="presentation.startMoment" path="startMoment" />
+						<acme:textbox placeholder="yyyy/MM/dd HH:mm" code="presentation.endMoment" path="endMoment" />
+						
 						<br>
 						<acme:submit name="save" code="msg.save" />						
 						<acme:cancel url="/conference/list.do"

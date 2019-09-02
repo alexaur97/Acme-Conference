@@ -20,6 +20,7 @@ import services.ConfigurationParametersService;
 import services.CreditCardService;
 import services.RegistrationService;
 import controllers.AbstractController;
+import domain.Author;
 import domain.Conference;
 import domain.Registration;
 import forms.RegistrationForm;
@@ -68,9 +69,10 @@ public class RegistrationAuthorController extends AbstractController {
 	public ModelAndView show(@RequestParam final int registrationId) {
 		ModelAndView result;
 		try {
-			this.authorService.findByPrincipal();
+			final Author author = this.authorService.findByPrincipal();
 			final Registration registration = this.registrationService.findOne(registrationId);
 			Assert.notNull(registration);
+			Assert.isTrue(registration.getAuthor().equals(author));
 			result = new ModelAndView("registration/show");
 			result.addObject("requestURI", "registration/author/show.do");
 			result.addObject("registration", registration);
@@ -109,21 +111,22 @@ public class RegistrationAuthorController extends AbstractController {
 
 		if (binding.hasErrors()) {
 			final Collection<String> brandNames = this.configurationParametersService.find().getCreditCardMakes();
-			final Collection<Conference> conferencias = this.conferenceService.findAll();
+			final Collection<Conference> conferencias = this.conferenceService.findNextConferences();
 			result = new ModelAndView("registration/create");
 			result.addObject("registrationForm", registrationForm);
 			result.addObject("conferencias", conferencias);
 			result.addObject("brandNames", brandNames);
 		} else
 			try {
-
+				final Author author = this.authorService.findByPrincipal();
 				final Registration regis = this.registrationService.constructByForm(registrationForm);
 				Assert.isTrue(regis.getConference().getMode().equals("FINAL"));
+				Assert.isTrue(regis.getAuthor().equals(author));
 				this.registrationService.save(regis);
 				result = new ModelAndView("redirect:/registration/author/list.do");
 			} catch (final Throwable oops) {
 				final Collection<String> brandNames = this.configurationParametersService.find().getCreditCardMakes();
-				final Collection<Conference> conferencias = this.conferenceService.findAll();
+				final Collection<Conference> conferencias = this.conferenceService.findNextConferences();
 				result = new ModelAndView("registration/create");
 				result.addObject("registrationForm", registrationForm);
 				result.addObject("conferencias", conferencias);
