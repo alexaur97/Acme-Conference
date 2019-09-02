@@ -1,9 +1,12 @@
 
 package controllers;
 
+import java.util.Locale;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -41,8 +44,14 @@ public class RegisterController extends AbstractController {
 			final RegisterSponsorAndAuthorForm registerSponsorAndAuthorForm = new RegisterSponsorAndAuthorForm();
 			res = new ModelAndView("actor/registerSponsor");
 			res.addObject("registerSponsorAndAuthorForm", registerSponsorAndAuthorForm);
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
+			res.addObject("lang", lang);
 		} catch (final Throwable oops) {
 			res = new ModelAndView("redirect:/#");
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
+			res.addObject("lang", lang);
 		}
 
 		return res;
@@ -54,15 +63,22 @@ public class RegisterController extends AbstractController {
 		if (binding.hasErrors()) {
 			res = new ModelAndView("actor/registerSponsor");
 			res.addObject("registerSponsorAndAuthorForm", registerSponsorAndAuthorForm);
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
+			res.addObject("lang", lang);
 		} else
 			try {
 				final Sponsor sponsor = this.sponsorService.reconstruct(registerSponsorAndAuthorForm);
 				this.sponsorService.save(sponsor);
 				res = new ModelAndView("redirect:/security/login.do");
+
 			} catch (final Throwable oops) {
 
 				res = new ModelAndView("actor/registerSponsor");
 				res.addObject("registerSponsorAndAuthorForm", registerSponsorAndAuthorForm);
+				final Locale l = LocaleContextHolder.getLocale();
+				final String lang = l.getLanguage();
+				res.addObject("lang", lang);
 				if (oops.getMessage().equals("register.password.error"))
 					res.addObject("message", "register.password.error");
 				if (oops.getClass().equals(DataIntegrityViolationException.class))
@@ -84,8 +100,14 @@ public class RegisterController extends AbstractController {
 			final RegisterSponsorAndAuthorForm registerSponsorAndAuthorForm = new RegisterSponsorAndAuthorForm();
 			res = new ModelAndView("actor/registerAuthor");
 			res.addObject("registerSponsorAndAuthorForm", registerSponsorAndAuthorForm);
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
+			res.addObject("lang", lang);
 		} catch (final Throwable oops) {
 			res = new ModelAndView("redirect:/#");
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
+			res.addObject("lang", lang);
 		}
 
 		return res;
@@ -103,10 +125,14 @@ public class RegisterController extends AbstractController {
 				;
 				this.authorService.assignFinderToAuthor(this.authorService.save(author).getId());
 				res = new ModelAndView("redirect:/security/login.do");
+
 			} catch (final Throwable oops) {
 
 				res = new ModelAndView("actor/registerAuthor");
 				res.addObject("registerSponsorAndAuthorForm", registerSponsorAndAuthorForm);
+				final Locale l = LocaleContextHolder.getLocale();
+				final String lang = l.getLanguage();
+				res.addObject("lang", lang);
 				if (oops.getMessage().equals("register.password.error"))
 					res.addObject("message", "register.password.error");
 				if (oops.getClass().equals(DataIntegrityViolationException.class))
@@ -127,8 +153,14 @@ public class RegisterController extends AbstractController {
 			final RegisterReviewerForm registerReviewerForm = new RegisterReviewerForm();
 			res = new ModelAndView("actor/registerReviewer");
 			res.addObject("registerReviewerForm", registerReviewerForm);
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
+			res.addObject("lang", lang);
 		} catch (final Throwable oops) {
 			res = new ModelAndView("redirect:/#");
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
+			res.addObject("lang", lang);
 		}
 
 		return res;
@@ -140,15 +172,22 @@ public class RegisterController extends AbstractController {
 		if (binding.hasErrors()) {
 			res = new ModelAndView("actor/registerReviewer");
 			res.addObject("registerReviewerForm", registerReviewerForm);
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
+			res.addObject("lang", lang);
 		} else
 			try {
 				final Reviewer reviewer = this.reviewerService.reconstruct(registerReviewerForm);
 				this.reviewerService.save(reviewer);
 				res = new ModelAndView("redirect:/security/login.do");
+
 			} catch (final Throwable oops) {
 
 				res = new ModelAndView("actor/registerReviewer");
 				res.addObject("registerReviewerForm", registerReviewerForm);
+				final Locale l = LocaleContextHolder.getLocale();
+				final String lang = l.getLanguage();
+				res.addObject("lang", lang);
 				if (oops.getMessage().equals("register.password.error"))
 					res.addObject("message", "register.password.error");
 				if (oops.getClass().equals(DataIntegrityViolationException.class))
