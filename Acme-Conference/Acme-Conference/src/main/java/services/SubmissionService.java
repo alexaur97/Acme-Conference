@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 import repositories.SubmissionRepository;
 import domain.Conference;
 import domain.Paper;
+import domain.Report;
 import domain.Reviewer;
 import domain.Submission;
 import forms.MakeSubmissionForm;
@@ -36,6 +37,9 @@ public class SubmissionService {
 
 	@Autowired
 	private ReviewerService			reviewerService;
+
+	@Autowired
+	private ReportService			reportService;
 
 
 	public Collection<Submission> findSubmissionsByConference(final Conference conference) {
@@ -167,17 +171,19 @@ public class SubmissionService {
 		final String summary = submission.getConference().getSummary();
 		final Collection<Reviewer> reviewers = this.reviewerService.findWithoutSubmission();
 		int i = 0;
-		for (final Reviewer reviewer : reviewers) {
-			for (final String keyword : reviewer.getKeyWords()) {
-				final int a = title.indexOf(keyword);
-				final int b = summary.indexOf(keyword);
-				if ((a != -1 || b != -1)) {
-					reviewer.setSubmission(submission);
-					i++;
-					break;
-				}
 
-			}
+		for (final Reviewer reviewer : reviewers) {
+			if (!this.hasAssigned(reviewer, submission))
+				for (final String keyword : reviewer.getKeyWords()) {
+					final int a = title.indexOf(keyword);
+					final int b = summary.indexOf(keyword);
+					if ((a != -1 || b != -1)) {
+						reviewer.setSubmission(submission);
+						i++;
+						break;
+					}
+
+				}
 			if (i == 3)
 				break;
 		}
@@ -188,6 +194,18 @@ public class SubmissionService {
 			return "submission.notAllReviewer";
 		else
 			return "submission.unassigned";
+
+	}
+
+	private Boolean hasAssigned(final Reviewer reviewer, final Submission submission) {
+		final Collection<Report> reports = this.reportService.findReportsBySubmission(submission);
+		Boolean res = false;
+		for (final Report rep : reports)
+			if (rep.getReviewer().equals(reviewer)) {
+				res = true;
+				break;
+			}
+		return res;
 
 	}
 	public Collection<Submission> findAll() {
