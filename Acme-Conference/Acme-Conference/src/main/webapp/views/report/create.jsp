@@ -32,7 +32,7 @@
 			<form:form action="report/reviewer/create.do" 
 			modelAttribute="report" class="form-horizontal" method="post">
 									
-									
+							<acme:display code="report.submission.paper" path="${reviewer.submission.ticker}"/>
 	
 							<acme:textbox code="report.originality" path="originality" />
 							<acme:textbox code="report.quality" path="quality" />

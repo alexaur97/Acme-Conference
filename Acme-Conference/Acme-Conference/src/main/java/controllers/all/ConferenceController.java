@@ -16,10 +16,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ConferenceCommentService;
 import services.ConferenceService;
+import services.SponsorshipService;
 import services.SubmissionService;
 import controllers.AbstractController;
 import domain.Conference;
 import domain.ConferenceComment;
+import domain.Sponsorship;
 import domain.Submission;
 
 @Controller
@@ -32,6 +34,8 @@ public class ConferenceController extends AbstractController {
 	private SubmissionService			submissionService;
 	@Autowired
 	private ConferenceCommentService	conferenceCommentService;
+	@Autowired
+	private SponsorshipService	sponsorshipService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -101,6 +105,8 @@ public class ConferenceController extends AbstractController {
 			final Collection<Submission> rejectedSubmissions = this.submissionService.findRejectedSubmissionsByConference(conference);
 
 			final Boolean bool = acceptedSubmissions.size() + rejectedSubmissions.size() > 0;
+			
+			Sponsorship sponsorship = this.sponsorshipService.findRandomByConference(conferenceId);
 
 			result.addObject("requestURI", "conference/show.do");
 			result.addObject("conference", conference);
@@ -108,6 +114,7 @@ public class ConferenceController extends AbstractController {
 			result.addObject("rejectedSubmissions", rejectedSubmissions);
 			result.addObject("bool", bool);
 			result.addObject("lang", lang);
+			result.addObject("sponsorship", sponsorship);
 
 			final Collection<ConferenceComment> comments = this.conferenceCommentService.listCommentsByConference(conferenceId);
 			result.addObject("comments", comments);

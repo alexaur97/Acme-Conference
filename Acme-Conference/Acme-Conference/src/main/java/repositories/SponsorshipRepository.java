@@ -17,4 +17,7 @@ public interface SponsorshipRepository extends JpaRepository<Sponsorship, Intege
 	@Query("select s from Sponsorship s where s.sponsor.id = ?1")
 	Collection<Sponsorship> findSponshorshipsBySponsor(int providerId);
 
+	@Query("select s from Sponsorship s where s.conference.id = ?1")
+	Collection<Sponsorship> findSponshorshipsByConference(int conferenceId);
+
 }
