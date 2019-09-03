@@ -13,7 +13,9 @@ import repositories.SponsorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Conference;
 import domain.Sponsor;
+import domain.Sponsorship;
 import forms.ActorEditForm;
 import forms.RegisterSponsorAndAuthorForm;
 
@@ -106,5 +108,7 @@ public class SponsorService {
 		return result;
 
 	}
+
+
 
 }

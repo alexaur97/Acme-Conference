@@ -40,15 +40,38 @@
 <acme:display code="conference.fee" path="${conference.fee}" />
 <acme:display code="conference.mode" path="${conference.mode}" />
 
-	<jstl:choose>
+<jstl:choose>
 	<jstl:when test="${lang eq 'en'}">
-	<acme:display code="conference.category" path="${conference.category.name}" />
-	 </jstl:when>
-    <jstl:otherwise>
-	<acme:display code="conference.category" path="${conference.category.nameEs}" />
-	 </jstl:otherwise>
-	</jstl:choose>
-	
+		<acme:display code="conference.category"
+			path="${conference.category.name}" />
+	</jstl:when>
+	<jstl:otherwise>
+		<acme:display code="conference.category"
+			path="${conference.category.nameEs}" />
+	</jstl:otherwise>
+</jstl:choose>
+
+<jstl:choose>
+	<jstl:when test="${empty sponsorship}">
+		<h4>
+			<spring:message code="conference.noSponsorships" />
+		</h4>
+	</jstl:when>
+	<jstl:otherwise>
+		<h4>
+			<spring:message code="conference.sponsorship" />
+		</h4>
+		<a  href="${sponsorship.targetUrl}"><img width="200"
+			src="${sponsorship.banner}"></a>
+		<p>
+			<spring:message code="conference.sponsor" />
+			:
+			<jstl:out value="${sponsorship.sponsor.name}" />
+			<jstl:out value="${sponsorship.sponsor.surname}" />
+		</p>
+
+	</jstl:otherwise>
+</jstl:choose>
 
 <jstl:if test="${submissions eq true}">
 	<jstl:choose>
@@ -99,19 +122,21 @@
 	</jstl:choose>
 </jstl:if>
 
-	<h4>
-		<spring:message code="conference.comments" />
-	</h4>
+<h4>
+	<spring:message code="conference.comments" />
+</h4>
 
-	<display:table name="comments" id="comment" requestURI="${requestURI}"
-		class="displaytag table" pagesize="5">
-		<display:column titleKey="conferenceComment.author" property="author" />
-		<display:column titleKey="conferenceComment.moment" property="moment" />
-		<display:column titleKey="conferenceComment.title" property="title" />
-		<display:column titleKey="conferenceComment.text" property="text" />
-		<display:column titleKey="conferenceComment.show">
-			<acme:button url="conference/comment/show.do?commentId=${comment.id}"
-				code="conferenceComment.show" />
-		</display:column>
-	</display:table>
-	<acme:button url="conference/comment/create.do?conferenceId=${conference.id}" code="comment.write"/>
+<display:table name="comments" id="comment" requestURI="${requestURI}"
+	class="displaytag table" pagesize="5">
+	<display:column titleKey="conferenceComment.author" property="author" />
+	<display:column titleKey="conferenceComment.moment" property="moment" />
+	<display:column titleKey="conferenceComment.title" property="title" />
+	<display:column titleKey="conferenceComment.text" property="text" />
+	<display:column titleKey="conferenceComment.show">
+		<acme:button url="conference/comment/show.do?commentId=${comment.id}"
+			code="conferenceComment.show" />
+	</display:column>
+</display:table>
+<acme:button
+	url="conference/comment/create.do?conferenceId=${conference.id}"
+	code="comment.write" />

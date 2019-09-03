@@ -23,11 +23,10 @@ import domain.Reviewer;
 public class ReportReviewerController extends AbstractController {
 
 	@Autowired
-	private ReportService	reportService;
+	private ReportService reportService;
 
 	@Autowired
-	private ReviewerService	reviewerService;
-
+	private ReviewerService reviewerService;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
@@ -54,9 +53,10 @@ public class ReportReviewerController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 		try {
-			this.reviewerService.findByPrincipal();
+			Reviewer reviewer = this.reviewerService.findByPrincipal();
 			final Report report = this.reportService.create();
 			result = this.createModelAndView(report);
+			result.addObject("reviewer", reviewer);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -76,9 +76,10 @@ public class ReportReviewerController extends AbstractController {
 			Assert.notNull(reviewer.getSubmission());
 
 			final Report reportF = this.reportService.reconstruct(report, binding);
-			if (binding.hasErrors())
+			if (binding.hasErrors()) {
 				result = this.createModelAndView(reportF);
-			else
+				result.addObject("reviewer",reviewer);
+				}	else
 				try {
 					Assert.notNull(reportF.getReviewer().getSubmission());
 
@@ -89,10 +90,12 @@ public class ReportReviewerController extends AbstractController {
 				} catch (final Throwable oops) {
 
 					result = this.createModelAndView(report, "report.commit.error");
+					result.addObject("reviewer",reviewer);
 				}
 		} catch (final Throwable oops) {
-
+			final Reviewer reviewer = this.reviewerService.findByPrincipal();
 			result = this.createModelAndView(report, "report.submission.error");
+			result.addObject("reviewer",reviewer);
 
 		}
 		return result;
@@ -117,6 +120,7 @@ public class ReportReviewerController extends AbstractController {
 
 		return result;
 	}
+
 	protected ModelAndView createModelAndView(final Report report) {
 		return this.createModelAndView(report, null);
 	}

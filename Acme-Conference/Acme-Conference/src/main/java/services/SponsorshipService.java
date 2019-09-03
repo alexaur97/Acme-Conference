@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.SponsorshipRepository;
+import domain.Conference;
 import domain.CreditCard;
 import domain.Sponsor;
 import domain.Sponsorship;
@@ -105,5 +106,17 @@ public class SponsorshipService {
 		sponsorshipFinal.setSponsor(sponsorship.getSponsor());
 		this.validator.validate(sponsorshipFinal, binding);
 		return sponsorshipFinal;
+	}
+
+		public Sponsorship findRandomByConference(int conferenceId) {
+		Collection<Sponsorship> sponsorships = this.sponsorshipRepository.findSponshorshipsByConference(conferenceId);
+		Sponsorship result;
+		if(sponsorships.isEmpty()) {
+			result = null;
+		}else {
+		int i = (int) (Math.random() * sponsorships.size());
+		result = (Sponsorship) sponsorships.toArray()[i];
+		}
+		return result;
 	}
 }
