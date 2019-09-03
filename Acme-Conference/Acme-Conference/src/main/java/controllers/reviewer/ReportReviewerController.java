@@ -33,11 +33,15 @@ public class ReportReviewerController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		try {
-			this.reviewerService.findByPrincipal();
+			final Reviewer reviewer = this.reviewerService.findByPrincipal();
+			Boolean hasSubmission = false;
+			if (reviewer.getSubmission() != null)
+				hasSubmission = true;
 			final Collection<Report> reports = this.reportService.findReportsByPrincipal();
 			result = new ModelAndView("report/list");
 			result.addObject("requestURI", "/report/reviewer/list.do");
 			result.addObject("reports", reports);
+			result.addObject("hasSubmission", hasSubmission);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");

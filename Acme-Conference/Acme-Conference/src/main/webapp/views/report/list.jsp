@@ -39,5 +39,8 @@
 	
 </display:table>
 
+<jstl:if test="${hasSubmission eq true}">
 		<acme:cancel url="/report/reviewer/create.do" code="report.create" />
+</jstl:if> 
+
 
