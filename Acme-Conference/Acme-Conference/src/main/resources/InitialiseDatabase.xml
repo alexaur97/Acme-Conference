@@ -44,11 +44,6 @@
 		<property name="userAccount" ref="userAccount1" />
 	</bean>
 	
-	<!-- Categories -->
-	
-	<bean id="category1" class="domain.Category">
-		<property name="title" value="CONFERENCE" />
-	</bean>
 	
 	<!-- Topics -->
 	<bean id="topic1" class="domain.Topic">
