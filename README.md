@@ -20,9 +20,14 @@ ningún tipo de restricción. En el caso de que dicha conferencia no tuviera ningu
 registration o submission, no pasaría nada y no se crearía ningún mensaje.
 
 4. Las mejores Submissions para asignar son:
-- La del autor Robin, conferencia British Aerospace, ya que es la que se asigna a 3 
+- La del autor Andrei, conferencia British Aerospace, ya que es la que se asigna a 3 
 reviewers. 
-- La del autor Andrei, conferencia British Aerospace, ya que, después de asignar
+- La del autor Robin, conferencia British Aerospace, ya que, después de asignar
 la anterior, con esta aparecería que sólo se ha podido asignar a menos de 3 revisores.
 - La del autor Marco, conferencia The Best Conference, con esta aparecería que sólo se
 ha podido asignar a menos de 3 revisores.
+
+5. Hemos considerado que el atributo targetUrl de la entidad Sponsorship es la URL
+hacia donde el navegador debe dirigirse al clicar en el banner del Sponsorship. Aun así,
+también mostramos como String el atributo targetUrl en la vista show.jsp de Sponsorship,
+por si acaso.

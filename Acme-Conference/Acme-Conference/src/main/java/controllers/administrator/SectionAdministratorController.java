@@ -98,13 +98,12 @@ public class SectionAdministratorController extends AbstractController {
 						result.addObject("section", section);
 						result.addObject("message", "section.picture.error");
 						result.addObject("tutorialId", tutorialId);
-					} else
+					} else {
 						result = new ModelAndView("section/edit");
-					result.addObject("section", section);
-					result.addObject("message", "section.picture.error");
-					result.addObject("tutorialId", tutorialId);
-					result.addObject("message", "section.commit.error");
-
+						result.addObject("section", section);
+						result.addObject("tutorialId", tutorialId);
+						result.addObject("message", "section.commit.error");
+					}
 				}
 		} catch (final Throwable oops) {
 			result = new ModelAndView("section/edit");

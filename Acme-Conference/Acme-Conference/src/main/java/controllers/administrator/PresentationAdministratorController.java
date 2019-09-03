@@ -152,11 +152,12 @@ public class PresentationAdministratorController extends AbstractController {
 					result.addObject("conferences", conferences);
 					result.addObject("message", "presentation.endMomentBefore.error");
 
-				} else
+				} else {
 					result = new ModelAndView("presentation/edit");
-				result.addObject("presentation", presentation);
-				result.addObject("conferences", conferences);
-				result.addObject("message", "presentation.commit.error");
+					result.addObject("presentation", presentation);
+					result.addObject("conferences", conferences);
+					result.addObject("message", "presentation.commit.error");
+				}
 			}
 		return result;
 

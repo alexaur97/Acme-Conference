@@ -35,7 +35,7 @@
 		<acme:cancel url="/submission/author/show.do?submissionId=${submission.id}" code="submission.details" />
 	</display:column>
 	<display:column titleKey="msg.upload">
-<jstl:if test="${submission.status==a and submission.cameraReady == null}">
+<jstl:if test="${submission.status==a and empty submission.cameraReady and submission.conference.cameraReady > date}">
 		<acme:cancel url="/submission/author/upload.do?submissionId=${submission.id}" code="msg.upload" />
 </jstl:if>	
 </display:column>

@@ -61,10 +61,13 @@ public class ActorController extends AbstractController {
 
 			result = new ModelAndView("actor/show");
 			result.addObject("actor", actor);
-			if (this.actorService.auth(actor, Authority.AUTHOR)) {
+			try {
+				this.actorService.auth(actor, Authority.AUTHOR);
 				final int score = this.paperService.statsAuthor(actor);
 				if (score > 0)
 					result.addObject("score", score);
+			}catch(Throwable oops) {
+				System.out.println(oops);
 			}
 
 		} catch (final Throwable oops) {

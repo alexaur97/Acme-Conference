@@ -151,11 +151,12 @@ public class PanelAdministratorController extends AbstractController {
 					result.addObject("panel", panel);
 					result.addObject("conferences", conferences);
 					result.addObject("message", "panel.endMomentBefore.error");
-				} else
+				} else {
 					result = new ModelAndView("panel/edit");
-				result.addObject("panel", panel);
-				result.addObject("conferences", conferences);
-				result.addObject("message", "panel.commit.error");
+					result.addObject("panel", panel);
+					result.addObject("conferences", conferences);
+					result.addObject("message", "panel.commit.error");
+				}
 			}
 		return result;
 

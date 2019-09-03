@@ -44,7 +44,7 @@
 						<h2><spring:message code="panel.schedule"/></h2>	
 						
 						<acme:textbox placeholder="yyyy/MM/dd HH:mm" code="panel.startMoment" path="startMoment" />			
-						<acme:textbox placeholder="yyyy/MM/dd/HH:mm" code="panel.endMoment" path="endMoment" />
+						<acme:textbox placeholder="yyyy/MM/dd HH:mm" code="panel.endMoment" path="endMoment" />
 						<br>
 						
 						<acme:submit name="save" code="msg.save" />						

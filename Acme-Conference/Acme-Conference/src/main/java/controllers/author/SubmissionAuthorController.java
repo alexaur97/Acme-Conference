@@ -65,7 +65,11 @@ public class SubmissionAuthorController extends AbstractController {
 			result.addObject("submissions", submissions);
 			final String a = "ACCEPTED";
 			result.addObject("a", a);
+			
+			final Date date = new Date();
+			result.addObject("date", date);
 
+			
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}

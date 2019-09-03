@@ -337,7 +337,6 @@
 		<property name="phone" value="654321098" />
 		<property name="middleName" value="Ilyich" />
 		<property name="surname" value="Tchaikovsky" />
-		<property name="submission" ref="submission1" />
 		<property name="photo"
 			value="https://assets.classicfm.com/2012/24/tchaikovsky-1339754299-list-handheld-0.jpg" />
 		<property name="userAccount" ref="userAccount6" />
@@ -1474,7 +1473,6 @@
 		<property name="ticker" value="RXV-6Y7U" />
 		<property name="moment" value="12/30/2020 17:00" />
 		<property name="paper" ref="paper1" />
-		<property name="cameraReady" ref="paper2" />
 		<property name="status" value="UNDER-REVIEW" />
 	</bean>
 
@@ -1484,7 +1482,6 @@
 		<property name="ticker" value="AXK-KL1P" />
 		<property name="moment" value="12/30/2020 17:00" />
 		<property name="paper" ref="paper3" />
-		<property name="cameraReady" ref="paper4" />
 		<property name="status" value="UNDER-REVIEW" />
 	</bean>
 

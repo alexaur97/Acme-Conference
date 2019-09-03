@@ -28,17 +28,16 @@ import domain.Tutorial;
 public class TutorialAdministratorController extends AbstractController {
 
 	@Autowired
-	private TutorialService			tutorialService;
+	private TutorialService tutorialService;
 
 	@Autowired
-	private AdministratorService	administratorService;
+	private AdministratorService administratorService;
 
 	@Autowired
-	private ConferenceService		conferenceService;
+	private ConferenceService conferenceService;
 
 	@Autowired
-	private SectionService			sectionService;
-
+	private SectionService sectionService;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(final int conferenceId) {
@@ -81,6 +80,7 @@ public class TutorialAdministratorController extends AbstractController {
 		}
 		return result;
 	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int tutorialId) {
 
@@ -102,6 +102,7 @@ public class TutorialAdministratorController extends AbstractController {
 
 		return result;
 	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public ModelAndView save(final Tutorial tutorial, final BindingResult binding) {
 
@@ -116,11 +117,12 @@ public class TutorialAdministratorController extends AbstractController {
 
 		} else
 			try {
-				//Nos aseguramos que la fecha tiene que estar dentro de la fecha de la conferencia
+				// Nos aseguramos que la fecha tiene que estar dentro de la fecha de la
+				// conferencia
 				Assert.isTrue(tutorialF.getStartMoment().before(tutorialF.getConference().getEndDate()));
 				Assert.isTrue(!(tutorialF.getStartMoment().before(tutorialF.getConference().getStartDate())));
 				Assert.isTrue(Utils.validateURL(tutorialF.getAttachments()));
-				//Assert.isTrue(tutorialF.getStartMoment().before(tutorialF.getendMoment()));
+				// Assert.isTrue(tutorialF.getStartMoment().before(tutorialF.getendMoment()));
 				Assert.isTrue(tutorialF.getendMoment().before(tutorialF.getConference().getEndDate()));
 				Assert.isTrue(tutorialF.getConference().getMode().equals("FINAL"));
 				Assert.isTrue(tutorialF.getendMoment().after(tutorialF.getStartMoment()));
@@ -129,12 +131,16 @@ public class TutorialAdministratorController extends AbstractController {
 
 			} catch (final Throwable oops) {
 				final Collection<Conference> conferences = this.conferenceService.findNextConferences();
-				final Boolean fechaPosterior = tutorialF.getStartMoment().before(tutorialF.getConference().getStartDate());
-				final Boolean fechaAnterior = !(tutorialF.getStartMoment().before(tutorialF.getConference().getEndDate()));
+				final Boolean fechaPosterior = tutorialF.getStartMoment()
+						.before(tutorialF.getConference().getStartDate());
+				final Boolean fechaAnterior = !(tutorialF.getStartMoment()
+						.before(tutorialF.getConference().getEndDate()));
 				final Boolean fechaFinAnterior = tutorialF.getendMoment().before(tutorialF.getStartMoment());
-				final Boolean fechaFinPosterior = tutorialF.getendMoment().after(tutorialF.getConference().getEndDate());
+				final Boolean fechaFinPosterior = tutorialF.getendMoment()
+						.after(tutorialF.getConference().getEndDate());
 				final Boolean urlInvalida = Utils.validateURL(tutorialF.getAttachments());
-				//final Boolean fechaEndMoment = tutorialF.getendMoment().before(tutorialF.getStartMoment());
+				// final Boolean fechaEndMoment =
+				// tutorialF.getendMoment().before(tutorialF.getStartMoment());
 				if (fechaPosterior || fechaAnterior) {
 					result = new ModelAndView("tutorial/edit");
 					result.addObject("tutorial", tutorial);
@@ -158,11 +164,12 @@ public class TutorialAdministratorController extends AbstractController {
 					result.addObject("conferences", conferences);
 					result.addObject("message", "tutorial.endMomentBefore.error");
 
-				} else
+				} else {
 					result = new ModelAndView("tutorial/edit");
-				result.addObject("tutorial", tutorial);
-				result.addObject("conferences", conferences);
-				result.addObject("message", "tutorial.commit.error");
+					result.addObject("tutorial", tutorial);
+					result.addObject("conferences", conferences);
+					result.addObject("message", "tutorial.commit.error");
+				}
 			}
 		return result;
 
@@ -198,7 +205,8 @@ public class TutorialAdministratorController extends AbstractController {
 			this.administratorService.findByPrincipal();
 			final Tutorial tutorial = this.tutorialService.findOne(tutorialId);
 			Assert.notNull(tutorial);
-			final Integer duracionSegundos = (int) ((tutorial.getendMoment().getTime() - tutorial.getStartMoment().getTime()) / 1000);
+			final Integer duracionSegundos = (int) ((tutorial.getendMoment().getTime()
+					- tutorial.getStartMoment().getTime()) / 1000);
 			final Integer endMoment = duracionSegundos / 60;
 
 			result = new ModelAndView("tutorial/show");

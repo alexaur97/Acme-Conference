@@ -88,7 +88,7 @@ public class SponsorshipSponsorController extends AbstractController {
 		try {
 			this.sponsorService.findByPrincipal();
 			final Collection<String> brandNames = this.configurationParametersService.find().getCreditCardMakes();
-			final Collection<Conference> conferences = this.conferenceService.findAll();
+			final Collection<Conference> conferences = this.conferenceService.findConferencesFinal();
 			result = new ModelAndView("sponsorship/create");
 			result.addObject("sponsorshipForm", sponsorshipForm);
 			result.addObject("conferences", conferences);
@@ -109,14 +109,14 @@ public class SponsorshipSponsorController extends AbstractController {
 		final Integer y = now.get(Calendar.YEAR);
 		final Integer m = now.get(Calendar.MONTH);
 		if (binding.hasErrors()) {
-			final Collection<Conference> conferences = this.conferenceService.findAll();
+			final Collection<Conference> conferences = this.conferenceService.findConferencesFinal();
 			res = new ModelAndView("sponsorship/create");
 			res.addObject("conferences", conferences);
 			final Collection<String> brandNames = this.configurationParametersService.find().getCreditCardMakes();
 			res.addObject("brandNames", brandNames);
 			res.addObject("b", b);
 		} else if (sponsorshipForm.getExpirationYear() <= y % 100 && sponsorshipForm.getExpirationMonth() < m) {
-			final Collection<Conference> conferences = this.conferenceService.findAll();
+			final Collection<Conference> conferences = this.conferenceService.findConferencesFinal();
 			res = new ModelAndView("sponsorship/create");
 			res.addObject("conferences", conferences);
 			final Collection<String> brandNames = this.configurationParametersService.find().getCreditCardMakes();
@@ -133,7 +133,7 @@ public class SponsorshipSponsorController extends AbstractController {
 
 			} catch (final Throwable oops) {
 				res = new ModelAndView("sponsorship/create");
-				final Collection<Conference> conferences = this.conferenceService.findAll();
+				final Collection<Conference> conferences = this.conferenceService.findConferencesFinal();
 				res.addObject("conferences", conferences);
 				final Collection<String> brandNames = this.configurationParametersService.find().getCreditCardMakes();
 				res.addObject("brandNames", brandNames);
@@ -169,7 +169,7 @@ public class SponsorshipSponsorController extends AbstractController {
 			final Sponsorship sponsorship = this.sponsorshipService.findOne(sponsorshipId);
 			final Sponsor sponsor = this.sponsorService.findByPrincipal();
 			Assert.isTrue(sponsorship.getSponsor().equals(sponsor));
-			final Collection<Conference> conferences = this.conferenceService.findAll();
+			final Collection<Conference> conferences = this.conferenceService.findConferencesFinal();
 			result = new ModelAndView("sponsorship/edit");
 			result.addObject("sponsorship", sponsorship);
 			result.addObject("conferences", conferences);
@@ -188,7 +188,7 @@ public class SponsorshipSponsorController extends AbstractController {
 		final Sponsorship sponsorshipFinal = this.sponsorshipService.recostructionEdit(sponsorship, binding);
 
 		if (binding.hasErrors()) {
-			final Collection<Conference> conferences = this.conferenceService.findAll();
+			final Collection<Conference> conferences = this.conferenceService.findConferencesFinal();
 			res = new ModelAndView("sponsorship/edit");
 			res.addObject("conferences", conferences);
 		}
@@ -201,8 +201,10 @@ public class SponsorshipSponsorController extends AbstractController {
 				res = new ModelAndView("redirect:/sponsorship/sponsor/list.do");
 
 			} catch (final Throwable oops) {
-
-				res = new ModelAndView("redirect:/#");
+				final Collection<Conference> conferences = this.conferenceService.findConferencesFinal();
+				res = new ModelAndView("sponsorship/edit");
+				res.addObject("conferences", conferences);
+				res.addObject("message", "sponsorship.commit.error");
 			}
 		return res;
 	}
