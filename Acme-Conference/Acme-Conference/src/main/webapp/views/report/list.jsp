@@ -43,4 +43,8 @@
 		<acme:cancel url="/report/reviewer/create.do" code="report.create" />
 </jstl:if> 
 
+<jstl:if test="${hasSubmission eq false}">
+		<spring:message code="report.noSubmission"/>
+</jstl:if> 
+
 
