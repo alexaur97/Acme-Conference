@@ -6,6 +6,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -38,6 +39,8 @@ public class ConferenceCommentController extends AbstractController {
 	public ModelAndView create(@RequestParam final int conferenceId) {
 		ModelAndView result;
 		try {
+			final Conference conference = this.conferenceService.findOne(conferenceId);
+			Assert.notNull(conference);
 			final ConferenceComment conferenceComment = this.conferenceCommentService.create();
 			result = new ModelAndView("conferenceComment/create");
 			result.addObject("conferenceComment", conferenceComment);
@@ -98,7 +101,7 @@ public class ConferenceCommentController extends AbstractController {
 			result = new ModelAndView("conferenceComment/list");
 			result.addObject("requestURI", "conference/comment/listByConference.do");
 			result.addObject("comments", comments);
-			result.addObject("conferenceId",conferenceId);
+			result.addObject("conferenceId", conferenceId);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");

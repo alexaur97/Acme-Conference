@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -16,87 +17,86 @@ import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Report extends DomainEntity{
-	
-	private Reviewer reviewer;
-	private Submission submission;
-	
-	private Integer originality;
-	private Integer quality;
-	private Integer readability;
-	private String decision;
-	private Collection<String> comments;
-	
+public class Report extends DomainEntity {
+
+	private Reviewer			reviewer;
+	private Submission			submission;
+
+	private Integer				originality;
+	private Integer				quality;
+	private Integer				readability;
+	private String				decision;
+	private Collection<String>	comments;
+
+
 	@NotNull
-	@ManyToOne(optional=false)
+	@ManyToOne(optional = false)
 	public Reviewer getReviewer() {
-		return reviewer;
+		return this.reviewer;
 	}
-	
-	public void setReviewer(Reviewer reviewer) {
+
+	public void setReviewer(final Reviewer reviewer) {
 		this.reviewer = reviewer;
 	}
-	
+
 	@NotNull
-	@ManyToOne(optional=false)
+	@ManyToOne(optional = false)
 	public Submission getSubmission() {
-		return submission;
+		return this.submission;
 	}
-	
-	public void setSubmission(Submission submission) {
+
+	public void setSubmission(final Submission submission) {
 		this.submission = submission;
 	}
-	
+
 	@NotNull
-	@Range(min=0, max=10)
+	@Range(min = 0, max = 10)
 	public Integer getOriginality() {
-		return originality;
+		return this.originality;
 	}
-	
-	public void setOriginality(Integer originality) {
+
+	public void setOriginality(final Integer originality) {
 		this.originality = originality;
 	}
-	
+
 	@NotNull
-	@Range(min=0, max=10)
+	@Range(min = 0, max = 10)
 	public Integer getQuality() {
-		return quality;
+		return this.quality;
 	}
-	
-	public void setQuality(Integer quality) {
+
+	public void setQuality(final Integer quality) {
 		this.quality = quality;
 	}
-	
+
 	@NotNull
-	@Range(min=0, max=10)
+	@Range(min = 0, max = 10)
 	public Integer getReadability() {
-		return readability;
+		return this.readability;
 	}
-	
-	public void setReadability(Integer readability) {
+
+	public void setReadability(final Integer readability) {
 		this.readability = readability;
 	}
-	
+
 	@NotBlank
-	@Pattern(regexp="^(REJECT|BORDER-LINE|ACCEPT)$")
+	@Pattern(regexp = "^(REJECT|BORDER-LINE|ACCEPT)$")
 	public String getDecision() {
-		return decision;
+		return this.decision;
 	}
-	
-	public void setDecision(String decision) {
+
+	public void setDecision(final String decision) {
 		this.decision = decision;
 	}
-	
+
 	@ElementCollection
 	@NotEmpty
 	public Collection<String> getComments() {
-		return comments;
+		return this.comments;
 	}
-	
-	public void setComments(Collection<String> comments) {
+
+	public void setComments(final Collection<String> comments) {
 		this.comments = comments;
 	}
-	
-	
-	
+
 }

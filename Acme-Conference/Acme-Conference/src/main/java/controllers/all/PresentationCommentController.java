@@ -1,84 +1,88 @@
+
 package controllers.all;
 
 import java.util.Date;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.validation.Validator;
 
+import services.PresentationCommentService;
+import services.PresentationService;
 import controllers.AbstractController;
 import domain.Presentation;
 import domain.PresentationComment;
-import services.PresentationCommentService;
-import services.PresentationService;
 
 @Controller
 @RequestMapping("/presentation/comment")
 public class PresentationCommentController extends AbstractController {
 
 	@Autowired
-	private PresentationCommentService presentationCommentService;
+	private PresentationCommentService	presentationCommentService;
 
 	@Autowired
-	private PresentationService presentationService;
-	
+	private PresentationService			presentationService;
+
 	@Autowired
-	private Validator validator;
+	private Validator					validator;
+
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam int presentationId) {
+	public ModelAndView create(@RequestParam final int presentationId) {
 		ModelAndView result;
 		try {
-			PresentationComment presentationComment = this.presentationCommentService.create();
+			final Presentation presentation = this.presentationService.findOne(presentationId);
+			Assert.notNull(presentation);
+			final PresentationComment presentationComment = this.presentationCommentService.create();
 			result = new ModelAndView("presentationComment/create");
 			result.addObject("presentationComment", presentationComment);
 			result.addObject("presentationId", presentationId);
-		} catch (Throwable oops) {
+		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
 		}
 		return result;
 	}
 
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView show(@RequestParam int commentId) {
+	public ModelAndView show(@RequestParam final int commentId) {
 		ModelAndView result;
 		try {
-			PresentationComment presentationComment = this.presentationCommentService.findOne(commentId);
+			final PresentationComment presentationComment = this.presentationCommentService.findOne(commentId);
 			result = new ModelAndView("presentationComment/show");
 			result.addObject("presentationComment", presentationComment);
-		} catch (Throwable oops) {
+		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
 		}
 		return result;
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView create(@RequestParam int presentationId,@ModelAttribute("presentationComment") PresentationComment presentationComment, BindingResult binding) {
+	public ModelAndView create(@RequestParam final int presentationId, @ModelAttribute("presentationComment") final PresentationComment presentationComment, final BindingResult binding) {
 		ModelAndView result;
-		
-		Presentation presentation = this.presentationService.findOne(presentationId);
+
+		final Presentation presentation = this.presentationService.findOne(presentationId);
 		presentationComment.setPresentation(presentation);
-		Date date = new Date();
+		final Date date = new Date();
 		presentationComment.setMoment(date);
-		
+
 		this.validator.validate(presentationComment, binding);
-		
+
 		if (binding.hasErrors()) {
 			result = new ModelAndView("presentationComment/create");
 			result.addObject("presentationComment", presentationComment);
 			result.addObject("presentationId", presentationId);
 		} else
 			try {
-				PresentationComment saved = this.presentationCommentService.save(presentationComment);
+				final PresentationComment saved = this.presentationCommentService.save(presentationComment);
 				result = new ModelAndView("redirect:/presentation/comment/show.do?commentId=" + saved.getId());
-			} catch (Throwable oops) {
+			} catch (final Throwable oops) {
 				result = new ModelAndView("presentationComment/create");
 				result.addObject("presentationComment", presentationComment);
 				result.addObject("message", "presentationComment.commit.error");
