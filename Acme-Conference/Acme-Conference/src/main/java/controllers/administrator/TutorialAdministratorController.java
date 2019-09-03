@@ -76,10 +76,10 @@ public class TutorialAdministratorController extends AbstractController {
 		} catch (final Throwable oops) {
 			final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 			if (conferences.isEmpty()) {
-				result = new ModelAndView("tutorial/edit");
+				result = new ModelAndView("conference/list");
 				result.addObject("message", "tutorial.conferences.error");
-			}
-			result = new ModelAndView("redirect:/#");
+			} else
+				result = new ModelAndView("redirect:/#");
 		}
 		return result;
 	}

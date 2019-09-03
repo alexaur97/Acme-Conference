@@ -71,10 +71,10 @@ public class PresentationAdministratorController extends AbstractController {
 		} catch (final Throwable oops) {
 			final Collection<Conference> conferences = this.conferenceService.findNextConferences();
 			if (conferences.isEmpty()) {
-				result = new ModelAndView("presentation/edit");
+				result = new ModelAndView("conference/list");
 				result.addObject("message", "presentation.conferences.error");
-			}
-			result = new ModelAndView("redirect:/#");
+			} else
+				result = new ModelAndView("redirect:/#");
 		}
 		return result;
 	}
