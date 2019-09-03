@@ -41,6 +41,8 @@ public class PresentationAdministratorController extends AbstractController {
 		try {
 
 			this.administratorService.findByPrincipal();
+			final Conference conference = this.conferenceService.findOne(conferenceId);
+			Assert.notNull(conference);
 			final Collection<Presentation> presentations = this.presentationService.findByConference(conferenceId);
 
 			result = new ModelAndView("presentation/list");

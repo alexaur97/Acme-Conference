@@ -28,16 +28,17 @@ import domain.Tutorial;
 public class TutorialAdministratorController extends AbstractController {
 
 	@Autowired
-	private TutorialService tutorialService;
+	private TutorialService			tutorialService;
 
 	@Autowired
-	private AdministratorService administratorService;
+	private AdministratorService	administratorService;
 
 	@Autowired
-	private ConferenceService conferenceService;
+	private ConferenceService		conferenceService;
 
 	@Autowired
-	private SectionService sectionService;
+	private SectionService			sectionService;
+
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(final int conferenceId) {
@@ -45,6 +46,8 @@ public class TutorialAdministratorController extends AbstractController {
 		try {
 
 			this.administratorService.findByPrincipal();
+			final Conference conference = this.conferenceService.findOne(conferenceId);
+			Assert.notNull(conference);
 			final Collection<Tutorial> tutorials = this.tutorialService.findByConference(conferenceId);
 
 			result = new ModelAndView("tutorial/list");
@@ -131,13 +134,10 @@ public class TutorialAdministratorController extends AbstractController {
 
 			} catch (final Throwable oops) {
 				final Collection<Conference> conferences = this.conferenceService.findNextConferences();
-				final Boolean fechaPosterior = tutorialF.getStartMoment()
-						.before(tutorialF.getConference().getStartDate());
-				final Boolean fechaAnterior = !(tutorialF.getStartMoment()
-						.before(tutorialF.getConference().getEndDate()));
+				final Boolean fechaPosterior = tutorialF.getStartMoment().before(tutorialF.getConference().getStartDate());
+				final Boolean fechaAnterior = !(tutorialF.getStartMoment().before(tutorialF.getConference().getEndDate()));
 				final Boolean fechaFinAnterior = tutorialF.getendMoment().before(tutorialF.getStartMoment());
-				final Boolean fechaFinPosterior = tutorialF.getendMoment()
-						.after(tutorialF.getConference().getEndDate());
+				final Boolean fechaFinPosterior = tutorialF.getendMoment().after(tutorialF.getConference().getEndDate());
 				final Boolean urlInvalida = Utils.validateURL(tutorialF.getAttachments());
 				// final Boolean fechaEndMoment =
 				// tutorialF.getendMoment().before(tutorialF.getStartMoment());
@@ -205,8 +205,7 @@ public class TutorialAdministratorController extends AbstractController {
 			this.administratorService.findByPrincipal();
 			final Tutorial tutorial = this.tutorialService.findOne(tutorialId);
 			Assert.notNull(tutorial);
-			final Integer duracionSegundos = (int) ((tutorial.getendMoment().getTime()
-					- tutorial.getStartMoment().getTime()) / 1000);
+			final Integer duracionSegundos = (int) ((tutorial.getendMoment().getTime() - tutorial.getStartMoment().getTime()) / 1000);
 			final Integer endMoment = duracionSegundos / 60;
 
 			result = new ModelAndView("tutorial/show");

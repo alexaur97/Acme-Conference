@@ -796,6 +796,23 @@
 		<property name="mode" value="DRAFT" />
 	</bean>
 	
+	<bean id="conference8" class="domain.Conference">
+		<property name="acronym" value="DP" />
+		<property name="administrator" ref="admin" />
+		<property name="cameraReady" value="09/10/2019 15:30" />
+		<property name="category" ref="category9" />
+		<property name="endDate" value="09/21/2019 20:00" />
+		<property name="fee" value="3.50" />
+		<property name="notification" value="09/10/2019 20:00" />
+		<property name="startDate" value="09/20/2019 18:30" />
+		<property name="submissionDeadline" value="09/01/2019 17:30" />
+		<property name="summary"
+			value="Summary, Restary, Multiplicary y Dividiry" />
+		<property name="title" value="prueba" />
+		<property name="venue" value="prueba" />
+		<property name="mode" value="FINAL" />
+	</bean>
+	
 	<!-- Categories -->
 
 	<bean id="category1" class="domain.Category">
