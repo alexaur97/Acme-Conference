@@ -11,11 +11,15 @@
 
 <tiles-definitions>
 
-	
 	<definition name="section/edit" extends="master.page">
-		<put-attribute name="title" value="Editar Section" />
-		<put-attribute name="body" value="/views/section/edit.jsp" />
+		<put-attribute name="title" value="Edit Section" />
+		<put-attribute name="body"
+			value="/views/section/edit.jsp" />
 	</definition>
-	
 
+	<definition name="section/show" extends="master.page">
+		<put-attribute name="title" value="Section" />
+		<put-attribute name="body"
+			value="/views/section/show.jsp" />
+	</definition>
 </tiles-definitions>

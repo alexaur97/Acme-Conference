@@ -27,7 +27,8 @@
 		
 		<security:intercept-url pattern="/conference/search.do"
 			access="permitAll" />
-
+		<security:intercept-url pattern="/section/show.do"
+			access="permitAll" />
 		<security:intercept-url pattern="/favicon.ico"
 			access="permitAll" />
 		<security:intercept-url pattern="/images/**"
