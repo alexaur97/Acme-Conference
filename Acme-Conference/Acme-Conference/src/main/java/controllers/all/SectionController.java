@@ -35,6 +35,7 @@ public class SectionController extends AbstractController {
 		ModelAndView result;
 		try {
 			final Section section = this.sectionService.findOne(sectionId);
+			Assert.notNull(section);
 			result = new ModelAndView("section/show");
 			result.addObject("section", section);
 		} catch (final Throwable oops) {
