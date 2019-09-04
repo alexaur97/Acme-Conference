@@ -25,28 +25,28 @@ import controllers.AbstractController;
 public class StatsAdministratorController extends AbstractController {
 
 	@Autowired
-	ConferenceService			conferenceService;
+	private ConferenceService			conferenceService;
 
 	@Autowired
-	ConferenceCommentService	conferenceCommentService;
+	private ConferenceCommentService	conferenceCommentService;
 
 	@Autowired
-	PresentationCommentService	presentationCommentService;
+	private PresentationCommentService	presentationCommentService;
 
 	@Autowired
-	PanelCommentService			panelCommentService;
+	private PanelCommentService			panelCommentService;
 
 	@Autowired
-	TutorialCommentService		tutorialCommentService;
+	private TutorialCommentService		tutorialCommentService;
 
 	@Autowired
-	SubmissionService			submissionService;
+	private SubmissionService			submissionService;
 
 	@Autowired
-	RegistrationService			registrationService;
+	private RegistrationService			registrationService;
 
 	@Autowired
-	PaperService				paperService;
+	private PaperService				paperService;
 
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)

@@ -22,10 +22,10 @@ import domain.Submission;
 public class SubmissionReviewerController extends AbstractController {
 
 	@Autowired
-	SubmissionService	submissionService;
+	private SubmissionService	submissionService;
 
 	@Autowired
-	ReviewerService		reviewerService;
+	private ReviewerService		reviewerService;
 
 
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
